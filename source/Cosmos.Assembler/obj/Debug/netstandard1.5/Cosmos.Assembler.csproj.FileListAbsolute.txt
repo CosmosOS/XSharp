@@ -23,3 +23,4 @@ C:\source\Cosmos\XSharp\source\Cosmos.Assembler\bin\Debug\netstandard1.5\Cosmos.
 C:\source\Cosmos\XSharp\source\Cosmos.Assembler\obj\Debug\netstandard1.5\Cosmos.Assembler.AssemblyInfo.cs
 C:\source\Cosmos\XSharp\source\Cosmos.Assembler\obj\Debug\netstandard1.5\Cosmos.Assembler.dll
 C:\source\Cosmos\XSharp\source\Cosmos.Assembler\obj\Debug\netstandard1.5\Cosmos.Assembler.pdb
+C:\source\Cosmos\XSharp\source\Cosmos.Assembler\obj\Debug\netstandard1.5\Cosmos.Assembler.csprojResolveAssemblyReference.cache
