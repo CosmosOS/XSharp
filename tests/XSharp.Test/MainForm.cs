@@ -4,10 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-
 using Microsoft.Win32;
-
-using Cosmos.Build.Common;
 
 namespace XSharp.Test {
   public partial class MainForm : Form {
@@ -186,15 +183,16 @@ namespace XSharp.Test {
     }
 
     private void MainForm_Load(object sender, EventArgs e) {
-      if (null == RootDirectory) { RootDirectory = new DirectoryInfo(CosmosPaths.DebugStubSrc); }
-      // For testing
-      // Test(Path.Combine(RootDirectory.FullName, "Serial.xs"));
+            throw new Exception("Fix cosmos paths now that we are independent,...see below"); 
+      //if (null == RootDirectory) { RootDirectory = new DirectoryInfo(CosmosPaths.DebugStubSrc); }
+      //// For testing
+      //// Test(Path.Combine(RootDirectory.FullName, "Serial.xs"));
 
-      if (Compile) { _nasmPath = GetNasmPath(); }
-      var xFiles = Directory.GetFiles(RootDirectory.FullName, "*.xs");
-      foreach (var xFile in xFiles) {
-        Test(xFile);
-      }
+      //if (Compile) { _nasmPath = GetNasmPath(); }
+      //var xFiles = Directory.GetFiles(RootDirectory.FullName, "*.xs");
+      //foreach (var xFile in xFiles) {
+      //  Test(xFile);
+      //}
     }
 
     private FileInfo _nasmPath;

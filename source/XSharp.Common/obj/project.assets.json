@@ -3772,10 +3772,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\source\\Cosmos\\Cosmos\\source\\XSharp.Common\\XSharp.Common.csproj",
+      "projectUniqueName": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\XSharp.Common.csproj",
       "projectName": "XSharp.Common",
-      "projectPath": "C:\\source\\Cosmos\\Cosmos\\source\\XSharp.Common\\XSharp.Common.csproj",
-      "outputPath": "C:\\source\\Cosmos\\Cosmos\\source\\XSharp.Common\\obj\\",
+      "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\XSharp.Common.csproj",
+      "outputPath": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netstandard1.5"
@@ -3783,8 +3783,8 @@
       "frameworks": {
         "netstandard1.5": {
           "projectReferences": {
-            "C:\\source\\Cosmos\\Cosmos\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj": {
-              "projectPath": "C:\\source\\Cosmos\\Cosmos\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj"
+            "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj": {
+              "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj"
             }
           }
         }

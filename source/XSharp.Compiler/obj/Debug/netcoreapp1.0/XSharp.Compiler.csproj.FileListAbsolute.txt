@@ -35,3 +35,10 @@ C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSharp.Co
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSharp.Compiler.AssemblyInfo.cs
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSC.dll
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSC.pdb
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.dll.config
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.dll
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.pdb
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\Cosmos.Assembler.dll
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Common.dll
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\Cosmos.Assembler.pdb
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Common.pdb

@@ -206,7 +206,7 @@
       <Name>Cosmos.Assembler</Name>
     </ProjectReference>
     <ProjectReference Include="..\XSharp.Common\XSharp.Common.csproj">
-      <Project>{73428975-9677-48a6-8481-6d5c39c64e4a}</Project>
+      <Project>{36415fe7-2bc3-4c79-b1e3-5ccdb7b7098b}</Project>
       <Name>XSharp.Common</Name>
     </ProjectReference>
   </ItemGroup>

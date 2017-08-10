@@ -2257,6 +2257,14 @@
           "NETStandard.Library": "1.6.1",
           "System.Threading.Thread": "4.3.0"
         }
+      },
+      "XSharp.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.5",
+        "dependencies": {
+          "Cosmos.Assembler": "1.0.0",
+          "NETStandard.Library": "1.6.1"
+        }
       }
     },
     ".NETCoreApp,Version=v1.0/win7-x86": {
@@ -4788,6 +4796,14 @@
         "dependencies": {
           "NETStandard.Library": "1.6.1",
           "System.Threading.Thread": "4.3.0"
+        }
+      },
+      "XSharp.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.5",
+        "dependencies": {
+          "Cosmos.Assembler": "1.0.0",
+          "NETStandard.Library": "1.6.1"
         }
       }
     }
@@ -10548,13 +10564,18 @@
       "type": "project",
       "path": "../Cosmos.Assembler/Cosmos.Assembler.csproj",
       "msbuildProject": "../Cosmos.Assembler/Cosmos.Assembler.csproj"
+    },
+    "XSharp.Common/1.0.0": {
+      "type": "project",
+      "path": "../XSharp.Common/XSharp.Common.csproj",
+      "msbuildProject": "../XSharp.Common/XSharp.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.0": [
-      "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\XSharp.Common.csproj",
       "Cosmos.Assembler >= 1.0.0",
-      "Microsoft.NETCore.App >= 1.0.4"
+      "Microsoft.NETCore.App >= 1.0.4",
+      "XSharp.Common >= 1.0.0"
     ]
   },
   "packageFolders": {
