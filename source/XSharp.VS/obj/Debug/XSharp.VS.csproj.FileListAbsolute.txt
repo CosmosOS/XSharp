@@ -113,11 +113,6 @@ C:\source\Cosmos\Cosmos\source\XSharp.VS\obj\Debug\XSharp.VS.pdb
 C:\source\Cosmos\Cosmos\source\XSharp.VS\obj\Debug\XSharp.VS.pkgdef
 C:\source\Cosmos\Cosmos\source\XSharp.VS\obj\Debug\XSharp.VS.latest.pkgdef
 C:\source\Cosmos\Cosmos\source\XSharp.VS\obj\Debug\extension.vsixmanifest
-C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.dll
-C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.pdb
-C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.csprojResolveAssemblyReference.cache
-C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\VSPackage.resources
-C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.csproj.GenerateResource.Cache
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.dll.config
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.pkgdef
@@ -207,6 +202,11 @@ C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\ru\Microsoft.VisualStudio.Val
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\tr\Microsoft.VisualStudio.Validation.resources.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\zh-Hans\Microsoft.VisualStudio.Validation.resources.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\zh-Hant\Microsoft.VisualStudio.Validation.resources.dll
+C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.csprojResolveAssemblyReference.cache
+C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\VSPackage.resources
+C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.csproj.GenerateResource.Cache
+C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.dll
+C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.pdb
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.pkgdef
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.latest.pkgdef
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\extension.vsixmanifest
