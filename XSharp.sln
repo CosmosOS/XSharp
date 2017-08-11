@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -9,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.XSC", "source\XSharp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Assembler", "source\XSharp.Assembler\XSharp.Assembler.csproj", "{20D2CE7B-FDCC-4BA5-B160-62581D90B4F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Common", "source\XSharp.Common\XSharp.Common.csproj", "{36415FE7-2BC3-4C79-B1E3-5CCDB7B7098B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp", "source\XSharp\XSharp.csproj", "{36415FE7-2BC3-4C79-B1E3-5CCDB7B7098B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

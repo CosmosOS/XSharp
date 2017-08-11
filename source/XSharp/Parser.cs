@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace XSharp.Common {
+namespace XSharp {
   /// <summary>
   /// Parser recognizes the following tokens:
   /// - _123      -> Number

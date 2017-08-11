@@ -205,9 +205,9 @@
       <Project>{20D2CE7B-FDCC-4BA5-B160-62581D90B4F4}</Project>
       <Name>XSharp.Assembler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XSharp.Common\XSharp.Common.csproj">
+    <ProjectReference Include="..\XSharp\XSharp.csproj">
       <Project>{36415fe7-2bc3-4c79-b1e3-5ccdb7b7098b}</Project>
-      <Name>XSharp.Common</Name>
+      <Name>XSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

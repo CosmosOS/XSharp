@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using XSharp.Assembler;
-using XSharp.Common;
+using XSharp;
 
 namespace XSharp.Compiler {
   class Program {

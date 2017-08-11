@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XSharp.Common
+namespace XSharp
 {
   public enum TokenType
   {

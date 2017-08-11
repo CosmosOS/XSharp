@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XSharp.Common {
+namespace XSharp {
   public class TokenList : List<Token> {
 
     public new Token this[int aIdx] {

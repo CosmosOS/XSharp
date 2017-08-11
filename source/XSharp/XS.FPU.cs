@@ -1,7 +1,7 @@
 ﻿using System;
 using XSharp.Assembler.x86.x87;
 
-namespace XSharp.Common
+namespace XSharp
 {
   public partial class XS
   {

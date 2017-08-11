@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
-      <ProjectReference Include="..\XSharp.Common\XSharp.Common.csproj" />
+      <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
 
 </Project>

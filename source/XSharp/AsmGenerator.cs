@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace XSharp.Common
+namespace XSharp
 {
   // This class performs the translation from X# source code into a target
   // assembly language. At current time the only supported assembler syntax is NASM.

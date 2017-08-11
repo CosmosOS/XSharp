@@ -7,7 +7,7 @@ using Microsoft.VisualStudio;
 using System.Runtime.InteropServices;
 using System.IO;
 using XSharp.Assembler;
-using XSharp.Common;
+using XSharp;
 
 namespace XSharp.VS
 {

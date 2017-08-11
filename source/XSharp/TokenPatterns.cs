@@ -5,7 +5,7 @@ using System.Text;
 using XSharp.Assembler;
 using XSharp.Assembler.x86;
 
-namespace XSharp.Common {
+namespace XSharp {
   /// <summary>This class is able to translate a single X# source code line into one or more
   /// target assembler source code and data lines. The class is a group of pattern each of
   /// which defines a transformation function from the X# syntax to the target assembler

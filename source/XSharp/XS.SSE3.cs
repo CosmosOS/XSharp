@@ -1,6 +1,6 @@
 ﻿using XSharp.Assembler.x86.SSE;
 
-namespace XSharp.Common
+namespace XSharp
 {
   partial class XS
   {

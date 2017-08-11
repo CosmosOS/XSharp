@@ -3,11 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using XSharp.Assembler;
 using XSharp.Assembler.x86;
 using Label = XSharp.Assembler.Label;
-using static XSharp.Common.XSRegisters;
+using static XSharp.XSRegisters;
 
 //TODO: Fix indentaion and formatting in this file: ideal would be 4space-indent
 
-namespace XSharp.Common
+namespace XSharp
 {
   [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
   public static partial class XS

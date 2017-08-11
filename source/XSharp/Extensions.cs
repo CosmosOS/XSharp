@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XSharp.Common
+namespace XSharp
 {
   public static class Extensions
   {

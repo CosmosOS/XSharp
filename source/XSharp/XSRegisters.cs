@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using XSharp.Assembler.x86;
 
-namespace XSharp.Common
+namespace XSharp
 {
     public static class XSRegisters
     {

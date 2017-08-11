@@ -3,7 +3,7 @@
 using XSharp.Assembler.x86.SSE;
 using XSharp.Assembler.x86.x87;
 
-namespace XSharp.Common
+namespace XSharp
 {
   using static XSRegisters;
 
