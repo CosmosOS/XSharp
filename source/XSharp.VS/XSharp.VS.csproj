@@ -202,7 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj">
-      <Project>{20D2CE7B-FDCC-4BA5-B160-62581D90B4F4}</Project>
+      <Project>{20d2ce7b-fdcc-4ba5-b160-62581d90b4f4}</Project>
       <Name>XSharp.Assembler</Name>
     </ProjectReference>
     <ProjectReference Include="..\XSharp\XSharp.csproj">

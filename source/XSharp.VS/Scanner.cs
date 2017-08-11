@@ -3,63 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Package;
+using MVSP = Microsoft.VisualStudio.Package;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
-using XS = XSharp;
 
-namespace XSharp.VS
-{
-  internal class Scanner : IScanner
-  {
-    struct TokenData
-    {
-      public TokenType Type;
-      public TokenColor Color;
+namespace XSharp.VS {
+  internal class Scanner : MVSP.IScanner {
+    struct TokenData {
+      public MVSP.TokenType Type;
+      public MVSP.TokenColor Color;
     }
 
     IVsTextBuffer mBuffer;
-    XS.Parser mParser;
+    XSharp.Parser mParser;
     int mTokenIdx;
     static TokenData[] mTokenMap;
 
-    static Scanner()
-    {
-      int xEnumMax = Enum.GetValues(typeof(XS.TokenType)).GetUpperBound(0);
+    static Scanner() {
+      int xEnumMax = Enum.GetValues(typeof(TokenType)).GetUpperBound(0);
       mTokenMap = new TokenData[xEnumMax + 1];
 
       // Set Default values
-      foreach (int i in Enum.GetValues(typeof(XS.TokenType)))
-      {
-        mTokenMap[i].Type = TokenType.Unknown;
-        mTokenMap[i].Color = TokenColor.Text;
+      foreach (int i in Enum.GetValues(typeof(TokenType))) {
+        mTokenMap[i].Type = MVSP.TokenType.Unknown;
+        mTokenMap[i].Color = MVSP.TokenColor.Text;
       }
 
-      mTokenMap[(int)XS.TokenType.Comment] = new TokenData { Type = TokenType.LineComment, Color = TokenColor.Comment };
-      mTokenMap[(int)XS.TokenType.LiteralAsm] = new TokenData { Type = TokenType.Literal, Color = TokenColor.String };
-      mTokenMap[(int)XS.TokenType.AlphaNum] = new TokenData { Type = TokenType.Identifier, Color = TokenColor.Identifier };
-      mTokenMap[(int)XS.TokenType.ValueInt] = new TokenData { Type = TokenType.Literal, Color = TokenColor.Number };
+      mTokenMap[(int)TokenType.Comment] = new TokenData { Type = MVSP.TokenType.LineComment, Color = MVSP.TokenColor.Comment };
+      mTokenMap[(int)TokenType.LiteralAsm] = new TokenData { Type = MVSP.TokenType.Literal, Color = MVSP.TokenColor.String };
+      mTokenMap[(int)TokenType.AlphaNum] = new TokenData { Type = MVSP.TokenType.Identifier, Color = MVSP.TokenColor.Identifier };
+      mTokenMap[(int)TokenType.ValueInt] = new TokenData { Type = MVSP.TokenType.Literal, Color = MVSP.TokenColor.Number };
 
-      var xKeyword = new TokenData { Type = TokenType.Keyword, Color = TokenColor.Keyword };
-      mTokenMap[(int)XS.TokenType.Register] = xKeyword;
-      mTokenMap[(int)XS.TokenType.Keyword] = xKeyword;
+      var xKeyword = new TokenData { Type = MVSP.TokenType.Keyword, Color = MVSP.TokenColor.Keyword };
+      mTokenMap[(int)TokenType.Register] = xKeyword;
+      mTokenMap[(int)TokenType.Keyword] = xKeyword;
 
-      mTokenMap[(int)XS.TokenType.Delimiter] = new TokenData { Type = TokenType.Delimiter, Color = TokenColor.Text };
-      mTokenMap[(int)XS.TokenType.Operator] = new TokenData { Type = TokenType.Operator, Color = TokenColor.Text };
-      mTokenMap[(int)XS.TokenType.WhiteSpace] = new TokenData { Type = TokenType.WhiteSpace, Color = TokenColor.Text };
-      mTokenMap[(int)XS.TokenType.Unknown] = new TokenData { Type = TokenType.Unknown, Color = TokenColor.Text };
+      mTokenMap[(int)TokenType.Delimiter] = new TokenData { Type = MVSP.TokenType.Delimiter, Color = MVSP.TokenColor.Text };
+      mTokenMap[(int)TokenType.Operator] = new TokenData { Type = MVSP.TokenType.Operator, Color = MVSP.TokenColor.Text };
+      mTokenMap[(int)TokenType.WhiteSpace] = new TokenData { Type = MVSP.TokenType.WhiteSpace, Color = MVSP.TokenColor.Text };
+      mTokenMap[(int)TokenType.Unknown] = new TokenData { Type = MVSP.TokenType.Unknown, Color = MVSP.TokenColor.Text };
     }
 
-    public Scanner(IVsTextBuffer aBuffer)
-    {
+    public Scanner(IVsTextBuffer aBuffer) {
       mBuffer = aBuffer;
     }
 
     // State argument: http://social.msdn.microsoft.com/Forums/en-US/vsx/thread/38939d76-6f8b-473f-9ee1-fc3ae7b59cce
-    bool IScanner.ScanTokenAndProvideInfoAboutIt(TokenInfo aTokenInfo, ref int aState)
-    {
-      if (mTokenIdx == mParser.Tokens.Count)
-      {
+    bool MVSP.IScanner.ScanTokenAndProvideInfoAboutIt(MVSP.TokenInfo aTokenInfo, ref int aState) {
+      if (mTokenIdx == mParser.Tokens.Count) {
         return false;
       }
 
@@ -77,10 +68,9 @@ namespace XSharp.VS
       return true;
     }
 
-    void IScanner.SetSource(string aSource, int aOffset)
-    {
+    void MVSP.IScanner.SetSource(string aSource, int aOffset) {
       mTokenIdx = 0;
-      mParser = new XS.Parser(aSource, aOffset, true, false);
+      mParser = new XSharp.Parser(aSource, aOffset, true, false);
     }
   }
 }
