@@ -8,6 +8,8 @@ X# creates NASM style assembly ready to assemble with [NASM](http://www.nasm.us/
 # Status
 Currently X# is used by the [C# Open Source Managed Operating System (COSMOS)](http://www.goCosmos.org) and parts of it are bound to Cosmos. We are in the process of and nearly finished separating out X# to allow it to operate as a stand alone project to allow users to make their own custom creations using X#.
 
+We have physicallly separated out X# and checked it in here. However there are still a few hard coded links to Cosmos and there is no independent documentation yet, nor are there standalone samples. We are working all of these issues.
+
 # Sample
 
 ```
