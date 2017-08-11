@@ -1,0 +1,24 @@
+﻿To debug this assembly use the VS Dev Hive.
+
+To do that, set the following options in the project properties.
+It requires a full path, but it is stored in the project .user file
+so it will not interfere with others who do not have VS at the same location.
+
+Alternatively, you can open XSharp.VS.csproj.user and modify it to include the
+property group:
+
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootSuffix Exp</StartArguments>
+  </PropertyGroup>
+</Project>
+
+$(DevEnvDir) is not accepted by the VS UI, so if you use the project properties dialog
+enter the full path to Visual Studio. Also if changes are made using project properties,
+it will expand $(DevEnvDir) it to a full path and save it.
