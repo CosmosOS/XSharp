@@ -1,0 +1,195 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "X#",
+	"patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#entities"
+        },
+		{
+			"include": "#keywords"
+		},
+        {
+            "include": "#registers"
+        },
+        {
+            "include": "#storage"
+        },
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash",
+                    "match": "//(.*)"
+                },
+                {
+                    "name": "comment.block",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/"
+                }
+            ]
+        },
+        "entities": {
+            "patterns": [
+                {
+                    "match": "(namespace) (\\w+)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type"
+                        },
+                        "2": {
+                            "name": "entity.name.type.xsharp"
+                        }
+                    }
+                },{
+                    "match": "(function) (\\w+)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type"
+                        },
+                        "2": {
+                            "name": "entity.name.function.xsharp"
+                        }
+                    }
+                },
+                {
+                    "match": "(\\w+)\\(\\)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.function.xsharp"
+                        }
+                    }
+                },
+                {
+                    "match": "(const) (\\w+)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type"
+                        },
+                        "2": {
+                            "name": "constant"
+                        }
+                    }
+                },
+                {
+                    "match": "(var) (\\w+)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type"
+                        },
+                        "2": {
+                            "name": "variable"
+                        }
+                    }
+                }
+            ]
+        },
+		"keywords": {
+			"patterns": [
+                {
+                    "name": "keyword.control.xsharp",
+                    "match": "\\b(if|while|for|goto)\\b"
+			    },
+                {
+                    "match": "(\\+|-|\\*|\\/|=|!=|&|\\||\\[(\\d+)|([^\\d\\W]+)\\])",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.operator.xsharp"
+                        },
+                        "2": {
+                            "name": "constant.numeric.xsharp"
+                        },
+                        "3": {
+                            "name": "support.variable.xsharp"
+                        }
+                    }
+                },
+                {
+                    "name": "keyword.xsharp",
+                    "match": "\\b(byte|word|dword)\\b"
+                }
+            ]
+		},
+        "registers": {
+            "patterns": [
+                {
+                    "name": "support.variable.xsharp.x86",
+                    "match": "\\b(EAX|AX|AH|AL|EBX|BX|BH|BL|ECX|CX|CH|CL|EDX|DX|DH|DL|ESI|EDI|EBP|ESP|eax|ax|ah|al|ebx|bx|bh|bl|ecx|cx|ch|cl|edx|dx|dh|dl|esi|edi|ebp|esp|All)\\b"
+                },
+                {
+                    "name": "support.variable.xsharp.x86.sse",
+                    "match": "\\b(XMM0|XMM1|XMM2|XMM3|XMM4|XMM5|XMM6|XMM7|xmm0|xmm1|xmm2|xmm3|xmm4|xmm5|xmm6|xmm7)\\b"
+                },
+                {
+                    "name": "support.variable.xsharp.ARM",
+                    "match": "\\b(r0|r1|r2|r3|r4|r5|r6|r7|r8|r9|r10|r11|r12|sp|pc|lr|R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|SP|PC|LR)\\b"
+                }
+            ]
+        },
+        "storage": {
+            "patterns": [
+                {
+                    "name": "storage.type.xsharp",
+                    "match": "\\b(namespace|function|const|var)\\b"
+                },
+                {
+                    "name": "storage.xsharp",
+                    "match": "\\b(const) (\\w+)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.xsharp"
+                        },
+                        "2": {
+                            "name": "constant.xsharp"
+                        }
+                    }
+                },
+                {
+                    "name": "storage.xsharp",
+                    "match": "\\b(var) (\\w+)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.xsharp"
+                        },
+                        "2": {
+                            "name": "variable.xsharp"
+                        }
+                    }
+                }
+            ]
+        },
+		"strings": {
+            "patterns":[
+                {
+                    "name": "string.quoted.single.xsharp",
+                    "begin": "'",
+                    "end": "'",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.xsharp",
+                            "match": "\\\\."
+                        }
+                    ]
+                },
+                {
+                    "name": "string.quoted.double.xsharp",
+                    "begin": "\"",
+                    "end": "\"",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.xsharp",
+                            "match": "\\\\."
+                        }
+			        ]
+                }
+            ]
+		}
+    },
+	"scopeName": "source.xsharp"
+}
