@@ -6,7 +6,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Package;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
-using XSC = XSharp;
+using XS = XSharp;
 
 namespace XSharp.VS
 {
@@ -19,35 +19,35 @@ namespace XSharp.VS
     }
 
     IVsTextBuffer mBuffer;
-    XSC.Parser mParser;
+    XS.Parser mParser;
     int mTokenIdx;
     static TokenData[] mTokenMap;
 
     static Scanner()
     {
-      int xEnumMax = Enum.GetValues(typeof(XSC.TokenType)).GetUpperBound(0);
+      int xEnumMax = Enum.GetValues(typeof(XS.TokenType)).GetUpperBound(0);
       mTokenMap = new TokenData[xEnumMax + 1];
 
       // Set Default values
-      foreach (int i in Enum.GetValues(typeof(XSC.TokenType)))
+      foreach (int i in Enum.GetValues(typeof(XS.TokenType)))
       {
         mTokenMap[i].Type = TokenType.Unknown;
         mTokenMap[i].Color = TokenColor.Text;
       }
 
-      mTokenMap[(int)XSC.TokenType.Comment] = new TokenData { Type = TokenType.LineComment, Color = TokenColor.Comment };
-      mTokenMap[(int)XSC.TokenType.LiteralAsm] = new TokenData { Type = TokenType.Literal, Color = TokenColor.String };
-      mTokenMap[(int)XSC.TokenType.AlphaNum] = new TokenData { Type = TokenType.Identifier, Color = TokenColor.Identifier };
-      mTokenMap[(int)XSC.TokenType.ValueInt] = new TokenData { Type = TokenType.Literal, Color = TokenColor.Number };
+      mTokenMap[(int)XS.TokenType.Comment] = new TokenData { Type = TokenType.LineComment, Color = TokenColor.Comment };
+      mTokenMap[(int)XS.TokenType.LiteralAsm] = new TokenData { Type = TokenType.Literal, Color = TokenColor.String };
+      mTokenMap[(int)XS.TokenType.AlphaNum] = new TokenData { Type = TokenType.Identifier, Color = TokenColor.Identifier };
+      mTokenMap[(int)XS.TokenType.ValueInt] = new TokenData { Type = TokenType.Literal, Color = TokenColor.Number };
 
       var xKeyword = new TokenData { Type = TokenType.Keyword, Color = TokenColor.Keyword };
-      mTokenMap[(int)XSC.TokenType.Register] = xKeyword;
-      mTokenMap[(int)XSC.TokenType.Keyword] = xKeyword;
+      mTokenMap[(int)XS.TokenType.Register] = xKeyword;
+      mTokenMap[(int)XS.TokenType.Keyword] = xKeyword;
 
-      mTokenMap[(int)XSC.TokenType.Delimiter] = new TokenData { Type = TokenType.Delimiter, Color = TokenColor.Text };
-      mTokenMap[(int)XSC.TokenType.Operator] = new TokenData { Type = TokenType.Operator, Color = TokenColor.Text };
-      mTokenMap[(int)XSC.TokenType.WhiteSpace] = new TokenData { Type = TokenType.WhiteSpace, Color = TokenColor.Text };
-      mTokenMap[(int)XSC.TokenType.Unknown] = new TokenData { Type = TokenType.Unknown, Color = TokenColor.Text };
+      mTokenMap[(int)XS.TokenType.Delimiter] = new TokenData { Type = TokenType.Delimiter, Color = TokenColor.Text };
+      mTokenMap[(int)XS.TokenType.Operator] = new TokenData { Type = TokenType.Operator, Color = TokenColor.Text };
+      mTokenMap[(int)XS.TokenType.WhiteSpace] = new TokenData { Type = TokenType.WhiteSpace, Color = TokenColor.Text };
+      mTokenMap[(int)XS.TokenType.Unknown] = new TokenData { Type = TokenType.Unknown, Color = TokenColor.Text };
     }
 
     public Scanner(IVsTextBuffer aBuffer)
@@ -80,7 +80,7 @@ namespace XSharp.VS
     void IScanner.SetSource(string aSource, int aOffset)
     {
       mTokenIdx = 0;
-      mParser = new XSC.Parser(aSource, aOffset, true, false);
+      mParser = new XS.Parser(aSource, aOffset, true, false);
     }
   }
 }
