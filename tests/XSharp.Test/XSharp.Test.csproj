@@ -123,9 +123,9 @@
       <Project>{73428975-9677-48a6-8481-6d5c39c64e4a}</Project>
       <Name>XSharp.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\source\XSharp.Compiler\XSharp.Compiler.csproj">
+    <ProjectReference Include="..\..\source\XSharp.XSC\XSharp.XSC.csproj">
       <Project>{a281a1b1-c718-4bcb-a7be-ed840a70449a}</Project>
-      <Name>XSharp.Compiler</Name>
+      <Name>XSharp.XSC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
