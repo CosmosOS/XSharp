@@ -1,7 +1,7 @@
 ﻿using System;
 
-using Cosmos.Assembler.x86.SSE;
-using Cosmos.Assembler.x86.x87;
+using XSharp.Assembler.x86.SSE;
+using XSharp.Assembler.x86.x87;
 
 namespace XSharp.Common
 {

@@ -34,11 +34,11 @@ C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.runti
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.runtimeconfig.dev.json
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.dll
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSC.pdb
-C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\Cosmos.Assembler.dll
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Common.dll
-C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\Cosmos.Assembler.pdb
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Common.pdb
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSharp.Compiler.csprojResolveAssemblyReference.cache
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSharp.Compiler.AssemblyInfo.cs
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSC.dll
 C:\source\Cosmos\XSharp\source\XSharp.Compiler\obj\Debug\netcoreapp1.0\XSC.pdb
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Assembler.dll
+C:\source\Cosmos\XSharp\source\XSharp.Compiler\bin\Debug\netcoreapp1.0\XSharp.Assembler.pdb

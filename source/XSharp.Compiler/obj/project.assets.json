@@ -2250,7 +2250,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Cosmos.Assembler/1.0.0": {
+      "XSharp.Assembler/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.5",
         "dependencies": {
@@ -2262,8 +2262,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.5",
         "dependencies": {
-          "Cosmos.Assembler": "1.0.0",
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "XSharp.Assembler": "1.0.0"
         }
       }
     },
@@ -4790,7 +4790,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Cosmos.Assembler/1.0.0": {
+      "XSharp.Assembler/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.5",
         "dependencies": {
@@ -4802,8 +4802,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.5",
         "dependencies": {
-          "Cosmos.Assembler": "1.0.0",
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "XSharp.Assembler": "1.0.0"
         }
       }
     }
@@ -10560,10 +10560,10 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "Cosmos.Assembler/1.0.0": {
+    "XSharp.Assembler/1.0.0": {
       "type": "project",
-      "path": "../Cosmos.Assembler/Cosmos.Assembler.csproj",
-      "msbuildProject": "../Cosmos.Assembler/Cosmos.Assembler.csproj"
+      "path": "../XSharp.Assembler/XSharp.Assembler.csproj",
+      "msbuildProject": "../XSharp.Assembler/XSharp.Assembler.csproj"
     },
     "XSharp.Common/1.0.0": {
       "type": "project",
@@ -10573,8 +10573,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.0": [
-      "Cosmos.Assembler >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.4",
+      "XSharp.Assembler >= 1.0.0",
       "XSharp.Common >= 1.0.0"
     ]
   },
@@ -10598,8 +10598,8 @@
             "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\XSharp.Common.csproj": {
               "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Common\\XSharp.Common.csproj"
             },
-            "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj": {
-              "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj"
+            "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Assembler\\XSharp.Assembler.csproj": {
+              "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Assembler\\XSharp.Assembler.csproj"
             }
           }
         }

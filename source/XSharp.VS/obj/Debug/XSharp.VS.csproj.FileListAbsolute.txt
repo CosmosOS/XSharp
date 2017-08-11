@@ -118,7 +118,6 @@ C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.pkgdef
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.VS.vsix
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\extension.vsixmanifest
-C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Cosmos.Assembler.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\EnvDTE.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\EnvDTE100.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\EnvDTE80.dll
@@ -158,7 +157,6 @@ C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.Projec
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.Text.Data.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.ImageCatalog.dll
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.GraphModel.dll
-C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Cosmos.Assembler.pdb
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.Common.pdb
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.CoreUtility.xml
 C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\Microsoft.VisualStudio.Imaging.xml
@@ -210,3 +208,5 @@ C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.pdb
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.pkgdef
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\XSharp.VS.latest.pkgdef
 C:\source\Cosmos\XSharp\source\XSharp.VS\obj\Debug\extension.vsixmanifest
+C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.Assembler.dll
+C:\source\Cosmos\XSharp\source\XSharp.VS\bin\Debug\XSharp.Assembler.pdb

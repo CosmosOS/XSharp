@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio;
 using System.Runtime.InteropServices;
 using System.IO;
-using Cosmos.Assembler;
+using XSharp.Assembler;
 using XSharp.Common;
 
 namespace XSharp.VS
@@ -34,7 +34,7 @@ namespace XSharp.VS
         {
           try
           {
-            new Assembler();
+            new Assembler.Assembler();
             try
             {
               var xGen = new AsmGenerator();
@@ -43,7 +43,7 @@ namespace XSharp.VS
             }
             finally
             {
-              Assembler.ClearCurrentInstance();
+              Assembler.Assembler.ClearCurrentInstance();
             }
           }
           catch (Exception ex)

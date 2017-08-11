@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Assembler\Cosmos.Assembler.csproj" />
+    <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
   </ItemGroup>
 
 </Project>

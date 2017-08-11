@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Cosmos.Assembler;
-using Cosmos.Assembler.x86;
-using Label = Cosmos.Assembler.Label;
+using XSharp.Assembler;
+using XSharp.Assembler.x86;
+using Label = XSharp.Assembler.Label;
 using static XSharp.Common.XSRegisters;
 
 //TODO: Fix indentaion and formatting in this file: ideal would be 4space-indent
@@ -667,22 +667,22 @@ namespace XSharp.Common
 
     public static void DataMember(string name, uint value = 0)
     {
-      Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
+      Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
     }
 
     public static void DataMember(string name, string value)
     {
-      Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
+      Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
     }
 
     public static void DataMemberBytes(string name, byte[] value)
     {
-      Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
+      Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
     }
 
     public static void DataMember(string name, uint elementCount, string size, string value)
     {
-      Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, value));
+      Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, value));
     }
 
     public static void RotateRight(Register register, uint bitCount)

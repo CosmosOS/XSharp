@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Cosmos.Assembler\Cosmos.Assembler.csproj" />
+      <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
       <ProjectReference Include="..\XSharp.Common\XSharp.Common.csproj" />
     </ItemGroup>
 

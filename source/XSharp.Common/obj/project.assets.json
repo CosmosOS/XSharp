@@ -899,7 +899,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Cosmos.Assembler/1.0.0": {
+      "XSharp.Assembler/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.5",
         "dependencies": {
@@ -3754,16 +3754,16 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Cosmos.Assembler/1.0.0": {
+    "XSharp.Assembler/1.0.0": {
       "type": "project",
-      "path": "../Cosmos.Assembler/Cosmos.Assembler.csproj",
-      "msbuildProject": "../Cosmos.Assembler/Cosmos.Assembler.csproj"
+      "path": "../XSharp.Assembler/XSharp.Assembler.csproj",
+      "msbuildProject": "../XSharp.Assembler/XSharp.Assembler.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v1.5": [
-      "Cosmos.Assembler >= 1.0.0",
-      "NETStandard.Library >= 1.6.1"
+      "NETStandard.Library >= 1.6.1",
+      "XSharp.Assembler >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3783,8 +3783,8 @@
       "frameworks": {
         "netstandard1.5": {
           "projectReferences": {
-            "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj": {
-              "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\Cosmos.Assembler\\Cosmos.Assembler.csproj"
+            "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Assembler\\XSharp.Assembler.csproj": {
+              "projectPath": "C:\\source\\Cosmos\\XSharp\\source\\XSharp.Assembler\\XSharp.Assembler.csproj"
             }
           }
         }

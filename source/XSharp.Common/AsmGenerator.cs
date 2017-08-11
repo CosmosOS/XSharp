@@ -1,5 +1,4 @@
-﻿using Cosmos.Assembler;
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -34,7 +33,7 @@ namespace XSharp.Common
     /// <param name="aReader">X# source code reader.</param>
     /// <returns>The resulting target assembler content. The returned object contains
     /// a code and a data block.</returns>
-    public Assembler Generate(TextReader aReader)
+    public Assembler.Assembler Generate(TextReader aReader)
     {
       if (aReader == null)
       {
@@ -42,7 +41,7 @@ namespace XSharp.Common
       }
       mPatterns.EmitUserComments = EmitUserComments;
       mLineNo = 0;
-      var xResult = new Assembler();
+      var xResult = new Assembler.Assembler();
       try
       {
         // Read one X# source code line at a time and process it.
@@ -62,7 +61,7 @@ namespace XSharp.Common
       }
       finally
       {
-        Assembler.ClearCurrentInstance();
+        Assembler.Assembler.ClearCurrentInstance();
       }
     }
 
@@ -71,7 +70,7 @@ namespace XSharp.Common
     /// <param name="aSrcPathname">X# source code file.</param>
     /// <returns>The resulting target assembler content. The returned object contains
     /// a code and a data block.</returns>
-    public Assembler Generate(string aSrcPathname)
+    public Assembler.Assembler Generate(string aSrcPathname)
     {
       try
       {
@@ -93,7 +92,7 @@ namespace XSharp.Common
     public void GenerateToFiles(string aSrcPathname)
     {
       mPathname = Path.GetFileName(aSrcPathname);
-      new Assembler(false);
+      new Assembler.Assembler(false);
       try
       {
         using (var xInput = new StreamReader(File.Open(aSrcPathname, FileMode.Open)))
@@ -108,7 +107,7 @@ namespace XSharp.Common
       }
       finally
       {
-        Assembler.ClearCurrentInstance();
+        Assembler.Assembler.ClearCurrentInstance();
       }
     }
 
@@ -134,7 +133,7 @@ namespace XSharp.Common
         ProcessLine(xLine, mLineNo);
 
       }
-      Assembler.CurrentInstance.FlushText(aOutput);
+      Assembler.Assembler.CurrentInstance.FlushText(aOutput);
       AssertLastFunctionComplete();
     }
 

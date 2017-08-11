@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Cosmos.Assembler.x86;
+using XSharp.Assembler.x86;
 
 namespace XSharp.Common
 {

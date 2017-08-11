@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v1.0": {
       "xsc/1.0.0": {
         "dependencies": {
-          "Cosmos.Assembler": "1.0.0",
+          "XSharp.Assembler": "1.0.0",
           "XSharp.Common": "1.0.0"
         },
         "runtime": {
@@ -937,19 +937,19 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "cosmos.assembler/1.0.0": {
+      "xsharp.assembler/1.0.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
           "System.Threading.Thread": "4.3.0"
         },
         "runtime": {
-          "Cosmos.Assembler.dll": {}
+          "XSharp.Assembler.dll": {}
         }
       },
       "xsharp.common/1.0.0": {
         "dependencies": {
-          "Cosmos.Assembler": "1.0.0",
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "XSharp.Assembler": "1.0.0"
         },
         "runtime": {
           "XSharp.Common.dll": {}
@@ -1481,7 +1481,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "cosmos.assembler/1.0.0": {
+    "xsharp.assembler/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

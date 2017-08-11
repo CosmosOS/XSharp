@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cosmos.Assembler;
-using Cosmos.Assembler.x86;
+using XSharp.Assembler;
+using XSharp.Assembler.x86;
 
 namespace XSharp.Common {
   /// <summary>This class is able to translate a single X# source code line into one or more
@@ -52,13 +52,13 @@ namespace XSharp.Common {
 
         // Last because we use Current() above
         Add(xBlock);
-        xBlock.ParentAssembler = Assembler.CurrentInstance;
-        new Assembler();
+        xBlock.ParentAssembler = Assembler.Assembler.CurrentInstance;
+        new Assembler.Assembler();
       }
 
       public void End()
       {
-        Assembler.ClearCurrentInstance();
+        Assembler.Assembler.ClearCurrentInstance();
         RemoveAt(Count - 1);
       }
     }
@@ -66,11 +66,11 @@ namespace XSharp.Common {
       public TokenList StartTokens;
       public int LabelID;
 
-      public Assembler ParentAssembler;
+      public Assembler.Assembler ParentAssembler;
 
       public void AddContentsToParentAssembler()
       {
-        ParentAssembler.Instructions.AddRange(Assembler.CurrentInstance.Instructions);
+        ParentAssembler.Instructions.AddRange(Assembler.Assembler.CurrentInstance.Instructions);
       }
     }
 

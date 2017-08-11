@@ -1,4 +1,4 @@
-﻿using Cosmos.Assembler.x86.SSE;
+﻿using XSharp.Assembler.x86.SSE;
 
 namespace XSharp.Common
 {
