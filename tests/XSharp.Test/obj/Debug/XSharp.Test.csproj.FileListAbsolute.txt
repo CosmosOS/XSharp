@@ -1,4 +1,0 @@
-C:\source\Cosmos\XSharp\tests\XSharp.Test\obj\Debug\XSharp.Test.csprojResolveAssemblyReference.cache
-C:\source\Cosmos\XSharp\tests\XSharp.Test\obj\Debug\XSharp.Test.MainForm.resources
-C:\source\Cosmos\XSharp\tests\XSharp.Test\obj\Debug\XSharp.Test.Properties.Resources.resources
-C:\source\Cosmos\XSharp\tests\XSharp.Test\obj\Debug\XSharp.Test.csproj.GenerateResource.Cache
