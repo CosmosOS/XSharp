@@ -2,8 +2,8 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="XSharp.VS" Version="1.0" Language="en-US" Publisher="Cosmos" />
-    <DisplayName>Cosmos X# Language</DisplayName>
-    <Description xml:space="preserve">Cosmos X# Extension for Visual Studio</Description>
+    <DisplayName>X# Language</DisplayName>
+    <Description xml:space="preserve">X# Extension for Visual Studio</Description>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
