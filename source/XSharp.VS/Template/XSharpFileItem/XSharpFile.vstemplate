@@ -1,0 +1,29 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>XSharp.xs</DefaultName>
+    <Name>X# Code File</Name>
+    <Description>X# Source File</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>XSharp.ico</Icon>
+  </TemplateData>
+  <WizardExtension>
+    <Assembly>Microsoft.VSDesigner, Version=8.0.0.0, Culture=Neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>Microsoft.VSDesigner.ProjectWizard.ItemPropertyWizard</FullClassName>
+  </WizardExtension>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>Cosmos.Assembler.x86, Version=1.0.0.0, Culture=neutral, PublicKeyToken=BF5BE72AFFB3826F</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>Cosmos.Assembler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5AE71220097CB983</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.xs" ReplaceParameters="false">Blank.xs</ProjectItem>
+    <CustomParameters>
+      <CustomParameter Name="$itemproperties$" Value="CustomTool" />
+      <CustomParameter Name="$CustomTool$" Value="CosmosXSharpGenerator" />
+    </CustomParameters>
+  </TemplateContent>
+</VSTemplate>

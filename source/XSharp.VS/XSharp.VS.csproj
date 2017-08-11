@@ -77,11 +77,13 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Template\XSharpFileItem.zip" />
     <None Include="..\XSharp.snk" />
+    <None Include="Template\XSharpFileItem\Blank.xs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Package.ico" />
+    <Content Include="Template\XSharpFileItem\XSharp.ico" />
+    <Content Include="Template\XSharpFileItem\XSharpFile.vstemplate" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
   <ItemGroup>
