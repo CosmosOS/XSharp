@@ -1,0 +1,42 @@
+Kudzu ----------------------------------------------------
+Reusable command line arg parser
+ in build
+-values allowed for options, etc... use Enums and types? or simple key values, or comment and evolve.. can use in zConsole later
+
+
+/! directives
+-namespace too
+pre/post directives, separate api than normal pre/post
+-as namespaces - process for
+pre/post as plugins
+
+Global - XSharp.cfg ?
+
+Marker for directives
+include files, ie $I
+
+Directives
+Namespaces for pre/post processor directives
+
+  separate from normal pre/post processing
+
+Loadable plugins + core code in build for now
+
+Directives
+Comments on/off/inherit
+
+SourceCode on/off/inherit
+
+Emit X# code as comments in .asm - might already do
+
+-Docs, Videos, website
+-Nuget pkg (Charles)
+
+Charles -------------------------------------------------
+
+Colorizer
+1) Fix it to ignore stuff it doesnt know about
+2) If #1, highlight entire line in red - or can we use red squigglies underneath easily?
+3) Fix it to handle unknown errors more gracefully. Just ignore for now? Or how to report to user without a dialog every time...
+4) Update to process /! - need to choose a color not alrady used. These are for directives like Namspace
+
