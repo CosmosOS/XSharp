@@ -1,7 +1,7 @@
 <Project>
     
     <PropertyGroup>
-        <PackageVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd"))</PackageVersion>
+        <VersionPrefix>$([System.DateTime]::Now.ToString("yyyy.MM.dd"))</VersionPrefix>
         <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly</XSharpDescription>
     </PropertyGroup>
     
