@@ -9,8 +9,6 @@
         <OutputType>Exe</OutputType>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
         <RootNamespace>XSharp.XSC</RootNamespace>
-        <Authors>Cosmos</Authors>
-        <Company>Cosmos</Company>
         <Description>$(XSharpDescription)</Description>
     </PropertyGroup>
 
