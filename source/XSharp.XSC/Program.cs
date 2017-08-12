@@ -7,34 +7,27 @@ namespace XSharp.Compiler {
   class Program {
     static void Main(string[] aArgs) {
       try {
+        if (aArgs.Length == 0) {
+          throw new Exception("No arguments were specified.");
+        }
+
         string xSrc = aArgs[0];
         var xGenerator = new AsmGenerator();
 
-        // TODO - reenable this as a switch - ie all in dir.
-        //string[] xFiles;
-        //if (Directory.Exists(xSrc))
-        //{
-        //  xFiles = Directory.GetFiles(xSrc, "*.xs");
-        //}
-        //else
-        //{
-        //  xFiles = new string[] { xSrc };
-        //}
-        //foreach (var xFile in xFiles)
-        //{
-        //  xGenerator.GenerateToFiles(xFile);
-        //}
+        string[] xFiles;
+        if (Directory.Exists(xSrc)) {
+          xFiles = Directory.GetFiles(xSrc, "*.xs");
+        } else {
+          xFiles = new string[] { xSrc };
+        }
+        foreach (var xFile in xFiles) {
+          xGenerator.GenerateToFiles(xFile);
+        }
 
-        var xAsm = new Assembler.Assembler();
-        var xStreamReader = new StringReader(@"namespace Test
-            while byte ESI[0] != 0 {
-              ! nop
-            }
-            ");
-        var xResult = xGenerator.Generate(xStreamReader);
-        Console.WriteLine("done");
+        Console.WriteLine("Done.");
       } catch (Exception ex) {
         Console.WriteLine(ex.ToString());
+        System.Threading.Thread.Sleep(3000);
         Environment.Exit(1);
       }
     }
