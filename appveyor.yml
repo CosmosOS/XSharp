@@ -1,0 +1,26 @@
+version: 0.20150918.{build}
+image: Visual Studio 2017
+configuration: Debug
+platform: AnyCPU
+shallow_clone: true
+clone_folder: c:\XSharp
+
+init:
+  - ps: Update-AppveyorBuild -Version "$(Get-Date -Format yyyy.MM.dd).$env:appveyor_build_number"
+
+nuget:
+  account_feed: false
+  project_feed: true
+  disable_publish_on_pr: true
+
+build_script:
+  - cmd: |      
+      & nuget restore "XSharp.sln"
+      & msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
+
+      & dotnet pack "source\XSharp.Assembler" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+      & dotnet pack "source\XSharp" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+      & dotnet pack "source\XSharp.XSC" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+
+artifacts:
+  - path: '**\*.nupkg'
