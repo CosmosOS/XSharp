@@ -1,7 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Launch\Bochs\" />
+    <Folder Include="Launch\ISO\" />
+    <Folder Include="Launch\PXE\" />
+    <Folder Include="Launch\VMWare\" />
+    <Folder Include="Tools\NASM\" />
+    <Folder Include="Tools\ISO\" />
+    <Folder Include="Tools\TFTP\" />
+  </ItemGroup>
 
 </Project>
