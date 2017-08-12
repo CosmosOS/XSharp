@@ -18,9 +18,9 @@ build_script:
       nuget restore "XSharp.sln"
       msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
 
-      dotnet pack "source\XSharp.Assembler" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp.XSC" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+      dotnet pack "source\XSharp.Assembler" -c Release
+      dotnet pack "source\XSharp" -c Release
+      dotnet pack "source\XSharp.XSC" -c Release
 
 artifacts:
   - path: 'source\**\*.nupkg'
