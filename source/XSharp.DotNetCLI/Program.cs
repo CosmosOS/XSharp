@@ -1,11 +1,16 @@
 ﻿using System;
 using System.IO;
 using XSharp.Assembler;
-using XSharp;
 
 namespace XSharp.XSC {
   class Program {
     static void Main(string[] aArgs) {
+      // Arg (some are todo)
+      // -Path
+      // -File
+      // -Options
+      // -.dll for resources
+
       try {
         if (aArgs.Length == 0) {
           throw new Exception("No arguments were specified.");
@@ -13,7 +18,7 @@ namespace XSharp.XSC {
 
         string xSrc = aArgs[0];
         var xGenerator = new AsmGenerator();
-
+        
         string[] xFiles;
         if (Directory.Exists(xSrc)) {
           xFiles = Directory.GetFiles(xSrc, "*.xs");
