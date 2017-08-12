@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.XSC", "source\XSharp.XSC\XSharp.XSC.csproj", "{A281A1B1-C718-4BCB-A7BE-ED840A70449A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.DotNetCLI", "source\XSharp.DotNetCLI\XSharp.DotNetCLI.csproj", "{A281A1B1-C718-4BCB-A7BE-ED840A70449A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Assembler", "source\XSharp.Assembler\XSharp.Assembler.csproj", "{20D2CE7B-FDCC-4BA5-B160-62581D90B4F4}"
 EndProject

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>dotnet-xsc</AssemblyName>
+        <AssemblyName>dotnet-xsharp</AssemblyName>
         <TargetFramework>netcoreapp1.0</TargetFramework>
         <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
         <SignAssembly>True</SignAssembly>

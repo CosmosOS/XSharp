@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "XSharp.XSC": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\playground\\"
+    }
+  }
+}

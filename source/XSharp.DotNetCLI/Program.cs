@@ -3,7 +3,7 @@ using System.IO;
 using XSharp.Assembler;
 using XSharp;
 
-namespace XSharp.Compiler {
+namespace XSharp.XSC {
   class Program {
     static void Main(string[] aArgs) {
       try {
