@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>XSC</AssemblyName>
+        <AssemblyName>dotnet-xsc</AssemblyName>
         <TargetFramework>netcoreapp1.0</TargetFramework>
         <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
         <SignAssembly>True</SignAssembly>
@@ -9,11 +9,14 @@
         <OutputType>Exe</OutputType>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
         <RootNamespace>XSharp.XSC</RootNamespace>
+        <Authors>Cosmos</Authors>
+        <Company>Cosmos</Company>
+        <Description>$(XSharpDescription)</Description>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
-      <ProjectReference Include="..\XSharp\XSharp.csproj" />
+        <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
 
 </Project>

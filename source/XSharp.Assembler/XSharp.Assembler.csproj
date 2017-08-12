@@ -4,6 +4,9 @@
         <TargetFramework>netstandard1.5</TargetFramework>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <Authors>Cosmos</Authors>
+        <Company>Cosmos</Company>
+        <Description>$(XSharpDescription)</Description>
     </PropertyGroup>
 
     <ItemGroup>

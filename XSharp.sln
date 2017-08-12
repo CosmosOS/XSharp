@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
 EndProject
@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Assembler", "source\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp", "source\XSharp\XSharp.csproj", "{36415FE7-2BC3-4C79-B1E3-5CCDB7B7098B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.Build", "source\XSharp.Build\XSharp.Build.csproj", "{833A0408-BD7C-4409-BCFE-78B3D211C98F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Build", "source\XSharp.Build\XSharp.Build.csproj", "{833A0408-BD7C-4409-BCFE-78B3D211C98F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C741BBD-6209-4240-9B96-59A4547152B5}"
+	ProjectSection(SolutionItems) = preProject
+		source\Directory.Build.props = source\Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,5 +67,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38755867-AF61-45AC-AE52-521402F19E80}
 	EndGlobalSection
 EndGlobal

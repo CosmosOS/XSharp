@@ -78,12 +78,18 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="..\XSharp.snk" />
-    <None Include="Template\XSharpFileItem\Blank.xs" />
+    <Content Include="Template\XSharpFileItem\Blank.xs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Package.ico" />
-    <Content Include="Template\XSharpFileItem\XSharp.ico" />
-    <Content Include="Template\XSharpFileItem\XSharpFile.vstemplate" />
+    <Content Include="Template\XSharpFileItem\XSharp.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Template\XSharpFileItem\XSharpFile.vstemplate">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
   <ItemGroup>
