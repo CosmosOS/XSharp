@@ -2,6 +2,7 @@
     
     <PropertyGroup>
         <VersionPrefix>$([System.DateTime]::Now.ToString("yyyy.MM.dd"))</VersionPrefix>
+        <PackageIconUrl>https://github.com/CosmosOS/XSharp/raw/master/source/XSharp.ico</PackageIconUrl>
         <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly</XSharpDescription>
     </PropertyGroup>
     
