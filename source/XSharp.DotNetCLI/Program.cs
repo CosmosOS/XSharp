@@ -19,22 +19,22 @@ namespace XSharp.DotNetCLI {
         xCLI.Parse(aArgs);
 
         // Options
-        var xUserComments = xCLI.GetSwitch("UserComments", "UC");
+        var xUserComments = xCLI["UserComments", "UC"];
         if (xUserComments != null) {
           xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         }
         //
-        var xSourceCode = xCLI.GetSwitch("SourceCode", "SC");
+        var xSourceCode = xCLI["SourceCode", "SC"];
         if (xSourceCode != null) {
           xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         }
         //
-        var xOutput = xCLI.GetSwitch("Out", "O");
+        var xOutput = xCLI["Out", "O"];
         if (xOutput != null) {
           xOutputPath = xOutput.Value;
         }
         //
-        xAppend = xCLI.GetSwitch("Append", "A") != null;
+        xAppend = xCLI["Append", "A"] != null;
         if (xAppend && xOutput == null) {
           throw new Exception("Use of -Append requires use of -Out.");
         }
@@ -48,7 +48,7 @@ namespace XSharp.DotNetCLI {
         // List of source files
         var xFiles = new List<string>();
         var xAssemblies = new List<Assembly>();
-        foreach (var xArg in xCLI.Items) {
+        foreach (var xArg in xCLI.Args) {
           string xVal = xArg.Value;
 
           if (Directory.Exists(xVal)) {
@@ -70,30 +70,40 @@ namespace XSharp.DotNetCLI {
           }
         }
 
-        // Generate output
-        foreach (var xFile in xFiles) {
-          var xReader = File.OpenText(xFile);
-          if (xAppend) {
-            xGen.Generate(xReader, File.AppendText(xOutputPath));
-          } else if (xFiles.Count == 1 && xOutputPath != null) {
-            xGen.Generate(File.OpenText(xFile), new StreamWriter(File.Create(xOutputPath)));
-          } else {
-            Console.WriteLine(xFile);
-            xGen.GenerateToFiles(xFile);
+        if (xCLI["Gen2"] != null) {
+          foreach (var xFile in xFiles) {
+            var xIn = File.OpenText(xFile);
+            var xOut = File.CreateText(Path.ChangeExtension(xFile, ".asm"));
+            var xCompiler = new Compiler(xOut);
+            xCompiler.Generate(xIn);
           }
-        }
-
-        // Generate output from embedded resources
-        foreach (var xAssembly in xAssemblies) {
-          TextWriter xWriter = null;
-          if (!xAppend) {
-            var xDestination = Path.ChangeExtension(xAssembly.Location, "asm");
-            xWriter = new StreamWriter(File.Create(xDestination));
+        } else {
+          // Generate output
+          foreach (var xFile in xFiles) {
+            var xReader = File.OpenText(xFile);
+            if (xAppend) {
+              xGen.Generate(xReader, File.AppendText(xOutputPath));
+            } else if (xFiles.Count == 1 && xOutputPath != null) {
+              xGen.Generate(File.OpenText(xFile), File.CreateText(xOutputPath));
+            } else {
+              Console.WriteLine(xFile);
+              xGen.GenerateToFiles(xFile);
+            }
           }
 
-          foreach (var xResource in xAssembly.GetManifestResourceNames().Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase))) {
-            var xStream = xAssembly.GetManifestResourceStream(xResource);
-            xGen.GenerateToFile(xResource, new StreamReader(xStream), xWriter);
+          // Generate output from embedded resources
+          foreach (var xAssembly in xAssemblies) {
+            TextWriter xWriter = null;
+            if (!xAppend) {
+              var xDestination = Path.ChangeExtension(xAssembly.Location, "asm");
+              xWriter = new StreamWriter(File.Create(xDestination));
+            }
+
+            foreach (var xResource in xAssembly.GetManifestResourceNames()
+              .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase))) {
+              var xStream = xAssembly.GetManifestResourceStream(xResource);
+              xGen.GenerateToFile(xResource, new StreamReader(xStream), xWriter);
+            }
           }
         }
 

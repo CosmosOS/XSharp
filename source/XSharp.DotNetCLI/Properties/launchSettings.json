@@ -2,7 +2,7 @@
   "profiles": {
     "XSharp.XSC": {
       "commandName": "Project",
-      "commandLineArgs": "..\\..\\playground\\ -Plugin:Cosmos.XSC"
+      "commandLineArgs": "..\\..\\playground\\ -Plugin:Cosmos.XSC -Gen2"
     }
   }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XSharp.Build {
     public class CliProcessor {
-        public class Item {
+        public class Arg {
             public string Value;
             public Switch Switch;
         }
@@ -25,7 +25,7 @@ namespace XSharp.Build {
         public bool RequireArgs = true;
         public bool PreserveSwitchCase = false;
 
-        public List<Item> Items = new List<Item>();
+        public List<Arg> Args = new List<Arg>();
         // Do not use dictionary. Dictionary loses order and dose not allow multiples.
         public List<Switch> Switches = new List<Switch>();
 
@@ -49,8 +49,8 @@ namespace XSharp.Build {
                     }
                     Switches.Add(xSwitch);
                 } else {
-                    var xItem = new Item() {Value = xArg, Switch = xSwitch};
-                    Items.Add(xItem);
+                    var xItem = new Arg() {Value = xArg, Switch = xSwitch};
+                    Args.Add(xItem);
                 }
             }
         }
@@ -62,6 +62,10 @@ namespace XSharp.Build {
                 aShortName = aShortName.ToUpper();
             }
             return Switches.FirstOrDefault(q => q.Name == aName || (aShortName != "" && q.Name == aShortName));
+        }
+
+        public Switch this[string aName, string aShortName = ""] {
+            get { return GetSwitch(aName, aShortName); }
         }
         public List<Switch> GetSwitches(string aName, string aShortName = "") {
             if (PreserveSwitchCase == false) {
