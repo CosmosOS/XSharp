@@ -10,8 +10,14 @@ namespace XSharp {
   public class AsmGenerator {
     protected TokenPatterns mPatterns = new TokenPatterns();
 
+    public enum FlagBool {
+      On, Off, Inherit
+    }
     /// <summary>Should we keep the user comments in the generated target assembly program ?</summary>
     public bool EmitUserComments = false;
+
+    public bool EmitSourceCode = true;
+
     protected int mLineNo = 0;
     protected string mPathname = "";
 
