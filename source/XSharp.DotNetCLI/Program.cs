@@ -38,7 +38,6 @@ namespace XSharp.DotNetCLI {
           // Instead of using individual .asm output files, append output to existing file. If file does not exist, create it.
         }
 
-
         // Plugins
         var xPlugins = xCLI.GetSwitches("PlugIn");
         foreach (var xPlugin in xPlugins) {
