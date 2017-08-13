@@ -138,13 +138,8 @@ namespace XSharp {
       if (String.IsNullOrEmpty(aLine) == false) {
         // Currently we use a new assembler for every line.
         // If we dont it could create a really large in memory object.
-        if (mPatterns.GetCode(aLine, aLineNo) == false) {
-          string xMsg = "Line " + mLineNo + ", " + "Parsing error: " + aLine;
-          if (mPathname != "") {
-            xMsg = "File " + mPathname + ", " + xMsg;
-          }
-          throw new Exception(xMsg);
-        }
+        mPatterns.GetCode(aLine, aLineNo);
+        //mPathname
       }
     }
   }

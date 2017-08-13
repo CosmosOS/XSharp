@@ -1107,13 +1107,14 @@ namespace XSharp {
       return true;
     }
 
-    public bool GetCode(string aLine, int aLineNo) {
+    public void GetCode(string aLine, int aLineNo) {
       var xParser = new Parser(aLine, aLineNo, false, false);
       var xTokens = xParser.Tokens;
 
       if (GetPatternCode(xTokens) == false) {
         if (xTokens.Count == 0) {
-          return false;
+          string xMsg = "Line " + aLineNo + ", " + "Parsing error: " + aLine;
+          throw new Exception(xMsg);
         }
 
         var xFirst = xTokens[0];
@@ -1127,10 +1128,7 @@ namespace XSharp {
           //xResult += "Call " + GroupLabel(aTokens[0].Value);
           XS.Call(GroupLabel(xTokens[0].RawValue));
         }
-        return true;
       }
-
-      return true;
     }
 
     /// <summary>Register a single pattern with its associated transformation handler.</summary>
