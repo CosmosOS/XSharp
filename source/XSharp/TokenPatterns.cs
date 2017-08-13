@@ -1107,34 +1107,27 @@ namespace XSharp {
       return true;
     }
 
-    public bool GetNonPatternCode(TokenList aTokens) {
-      if (aTokens.Count == 0) {
-        return false;
-      }
-
-      var xFirst = aTokens[0];
-      var xLast = aTokens[aTokens.Count - 1];
-
-      // Find match and emit X#
-      if (aTokens.Count == 2
-          && xFirst.Type == TokenType.AlphaNum
-          && xLast.Matches("()")) {
-        // () could be handled by pattern, but best to keep in one place for future
-        //xResult += "Call " + GroupLabel(aTokens[0].Value);
-        XS.Call(GroupLabel(aTokens[0].RawValue));
-      }
-      return true;
-    }
-
     public bool GetCode(string aLine, int aLineNo) {
       var xParser = new Parser(aLine, aLineNo, false, false);
       var xTokens = xParser.Tokens;
 
-      var xResult = GetPatternCode(xTokens);
-      if (!xResult) {
-        if (!GetNonPatternCode(xTokens)) {
+      if (GetPatternCode(xTokens) == false) {
+        if (xTokens.Count == 0) {
           return false;
         }
+
+        var xFirst = xTokens[0];
+        var xLast = xTokens[xTokens.Count - 1];
+
+        // Find match and emit X#
+        if (xTokens.Count == 2
+            && xFirst.Type == TokenType.AlphaNum
+            && xLast.Matches("()")) {
+          // () could be handled by pattern, but best to keep in one place for future
+          //xResult += "Call " + GroupLabel(aTokens[0].Value);
+          XS.Call(GroupLabel(xTokens[0].RawValue));
+        }
+        return true;
       }
 
       return true;

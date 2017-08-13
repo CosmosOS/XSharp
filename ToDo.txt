@@ -4,6 +4,7 @@ Change XSC to use Clogger
 
 Parser
   -Line based
+  -TokenPattern.cs - Merge in GetNonPatternCode, then merge up to caller
 
 Plugins - Use XSharp.Build.Plugins
 
