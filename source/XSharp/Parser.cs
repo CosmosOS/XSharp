@@ -135,7 +135,7 @@ namespace XSharp
     /// <param name="rPos">The index in current source code line of the first not yet consumed
     /// character. On return this parameter will be updated to account for characters that would
     /// have been consumed.</param>
-    protected void NewToken(TokenList aList, int aLineNo, ref int rPos)
+    protected void NewToken(TokenList aList, ref int rPos)
     {
       #region Pattern Notes
 
@@ -169,7 +169,7 @@ namespace XSharp
 
       string xString = null;
       char xChar1 = mData[mStart];
-      var xToken = new Token(aLineNo);
+      var xToken = new Token();
 
       // Directives and literal assembler code.
       if (mAllWhitespace) {
@@ -330,9 +330,9 @@ namespace XSharp
 
     /// <summary>Consume text that has been provided to the class constructor, splitting it into
     /// a list of tokens.</summary>
-    /// <param name="lineNumber">Line number for diagnostics and debugging.</param>
+    /// <param name="aLineNo">Line number for diagnostics and debugging.</param>
     /// <returns>The resulting tokens list.</returns>
-    protected TokenList Parse(int lineNumber)
+    protected TokenList Parse()
     {
       // Save in comment, might be useful in future. Already had to dig it out of TFS once
       //var xRegex = new System.Text.RegularExpressions.Regex(@"(\W)");
@@ -348,7 +348,7 @@ namespace XSharp
         if (xChar == '\'')
         {
           // Take data before the ' as a token.
-          NewToken(xResult, lineNumber, ref i);
+          NewToken(xResult, ref i);
           // Now scan to the next ' taking into account escaped single quotes.
           bool escapedCharacter = false;
           for (i = i + 1; i < mData.Length; i++)
@@ -388,7 +388,7 @@ namespace XSharp
             if (mData[i] == ')' && mData.LastIndexOf(")") <= i)
             {
               i++;
-              NewToken(xResult, lineNumber, ref i);
+              NewToken(xResult, ref i);
               break;
             }
           }
@@ -413,7 +413,7 @@ namespace XSharp
         // But its faster as the second short circuit rather than a separate if.
         if ((xCharType != xLastCharType) && (0 < i))
         {
-          NewToken(xResult, lineNumber, ref i);
+          NewToken(xResult, ref i);
         }
 
         xLastCharType = xCharType;
@@ -422,7 +422,7 @@ namespace XSharp
       // Last token
       if (mStart < mData.Length)
       {
-        NewToken(xResult, lineNumber, ref i);
+        NewToken(xResult, ref i);
       }
 
       return xResult;
@@ -436,23 +436,21 @@ namespace XSharp
     /// <param name="aAllowPatterns">True if <paramref name="aData"/> is a pattern and thus the parsing
     /// should be performed specifically.</param>
     /// <exception cref="Exception">At least one unrecognized token has been parsed.</exception>
-    public Parser(string aData, int lineNumber, bool aIncludeWhiteSpace, bool aAllowPatterns)
+    public Parser(string aData, bool aIncludeWhiteSpace, bool aAllowPatterns)
     {
       mData = aData;
       mIncludeWhiteSpace = aIncludeWhiteSpace;
       mAllowPatterns = aAllowPatterns;
       mAllWhitespace = true;
 
-      mTokens = Parse(lineNumber);
+      mTokens = Parse();
       if (mTokens.Count(q => q.Type == TokenType.Unknown) > 0)
       {
-
         foreach (var xToken in mTokens)
         {
           if (xToken.Type == TokenType.Unknown)
           {
-            throw new Exception(string.Format("Unknown token '{0}' found at {1}/{2}.",
-              xToken.RawValue ?? "NULL", xToken.LineNumber, xToken.SrcPosStart));
+            throw new Exception(string.Format("Unknown token '{0}' found at {1}.", xToken.RawValue ?? "NULL", xToken.SrcPosStart));
           }
         }
       }

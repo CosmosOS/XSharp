@@ -379,7 +379,7 @@ namespace XSharp {
       #region Handle all comparisons
       foreach (var xSize in xSizes) {
         foreach (var xComparison in mCompareOps) {
-          var xComparisonToken = new Token(-1);
+          var xComparisonToken = new Token();
           xComparisonToken.RawValue = xComparison;
           // Skip 0 and !0
           if (!xComparison.Contains("0")) {
@@ -608,7 +608,7 @@ namespace XSharp {
           Parser xParser;
           xParams.Reverse();
           foreach (string p in xParams) {
-            xParser = new Parser(p, 0, false, false);
+            xParser = new Parser(p, false, false);
             idx = 0;
             val = GetRef(xParser.Tokens, ref idx);
             if (val != "@ret_on_stack@") {
@@ -1107,14 +1107,13 @@ namespace XSharp {
       return true;
     }
 
-    public void GetCode(string aLine, int aLineNo) {
-      var xParser = new Parser(aLine, aLineNo, false, false);
+    public void GetCode(string aLine) {
+      var xParser = new Parser(aLine, false, false);
       var xTokens = xParser.Tokens;
 
       if (GetPatternCode(xTokens) == false) {
         if (xTokens.Count == 0) {
-          string xMsg = "Line " + aLineNo + ", " + "Parsing error: " + aLine;
-          throw new Exception(xMsg);
+          throw new Exception("Parsing error: " + aLine);
         }
 
         var xFirst = xTokens[0];
@@ -1138,7 +1137,7 @@ namespace XSharp {
     protected void AddPattern(string aPattern, CodeFunc aCode) {
       Parser xParser = null;
       try {
-        xParser = new Parser(aPattern, 1, false, true);
+        xParser = new Parser(aPattern, false, true);
       } catch (Exception e) {
         throw new Exception(string.Format("Invalid pattern '{0}'", aPattern ?? "NULL"), e);
       }
