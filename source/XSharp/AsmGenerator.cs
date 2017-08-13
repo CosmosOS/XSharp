@@ -116,10 +116,10 @@ namespace XSharp {
     /// <summary>Process a single X# source code line and translate it into the target
     /// assembler syntax.</summary>
     /// <param name="aLine">The processed X# source code line.</param>
-    /// <param name="lineNumber">Line number for debugging and diagnostic messages.</param>
+    /// <param name="aLineNo">Line number for debugging and diagnostic messages.</param>
     /// <returns>The resulting target assembler content. The returned object contains
     /// a code and a data block.</returns>
-    protected void ProcessLine(string aLine, int lineNumber) {
+    protected void ProcessLine(string aLine, int aLineNo) {
       aLine = aLine.Trim();
       if (String.IsNullOrEmpty(aLine) || aLine == "//") {
         return;
@@ -127,7 +127,7 @@ namespace XSharp {
 
       // Currently we use a new assembler for every line.
       // If we dont it could create a really large in memory object.
-      if (!mPatterns.GetCode(aLine, lineNumber)) {
+      if (!mPatterns.GetCode(aLine, aLineNo)) {
         var xMsg = new StringBuilder();
         if (mPathname != "") {
           xMsg.Append("File " + mPathname + ", ");
