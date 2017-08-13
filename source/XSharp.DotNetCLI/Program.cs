@@ -35,9 +35,8 @@ namespace XSharp.DotNetCLI {
         }
         //
         xAppend = xCLI.GetSwitch("Append", "A") != null;
-        if (xAppend && xOutput == null)
-        {
-          throw new Exception("When append is specified, output must be specified too!");
+        if (xAppend && xOutput == null) {
+          throw new Exception("Use of -Append requires use of -Out.");
         }
 
         // Plugins
@@ -61,7 +60,6 @@ namespace XSharp.DotNetCLI {
             string xExt = Path.GetExtension(xVal).ToUpper();
             if (xExt == ".XS") {
               xFiles.Add(Path.GetFullPath(xVal));
-
             } else if (xExt == ".DLL") {
               xAssemblies.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(xVal));
             } else {
@@ -72,42 +70,28 @@ namespace XSharp.DotNetCLI {
           }
         }
 
-        StreamWriter xWriter = null;
-        if (xAppend)
-        {
-          xWriter = new StreamWriter(File.Create(xOutputPath));
-        }
-
         // Generate output
         foreach (var xFile in xFiles) {
-          if (xAppend)
-          {
-            var xReader = new StreamReader(File.OpenRead(xFile));
-            xGen.GenerateToFile(Path.GetFileName(xFile), xReader, xWriter);
-          }
-          else if (xFiles.Count == 1 && xOutputPath != null)
-          {
-            xGen.Generate(new StreamReader(File.OpenRead(xFile)), xWriter);
-          }
-          else
-          {
+          var xReader = File.OpenText(xFile);
+          if (xAppend) {
+            xGen.Generate(xReader, File.AppendText(xOutputPath));
+          } else if (xFiles.Count == 1 && xOutputPath != null) {
+            xGen.Generate(File.OpenText(xFile), new StreamWriter(File.Create(xOutputPath)));
+          } else {
             Console.WriteLine(xFile);
             xGen.GenerateToFiles(xFile);
           }
         }
 
         // Generate output from embedded resources
-        foreach (var xAssembly in xAssemblies)
-        {
-          if (!xAppend)
-          {
+        foreach (var xAssembly in xAssemblies) {
+          TextWriter xWriter = null;
+          if (!xAppend) {
             var xDestination = Path.ChangeExtension(xAssembly.Location, "asm");
             xWriter = new StreamWriter(File.Create(xDestination));
           }
 
-          foreach (var xResource in xAssembly.GetManifestResourceNames()
-                                             .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase)))
-          {
+          foreach (var xResource in xAssembly.GetManifestResourceNames().Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase))) {
             var xStream = xAssembly.GetManifestResourceStream(xResource);
             xGen.GenerateToFile(xResource, new StreamReader(xStream), xWriter);
           }
