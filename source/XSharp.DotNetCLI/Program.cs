@@ -7,28 +7,23 @@ namespace XSharp.DotNetCLI {
   class Program {
     static void Main(string[] aArgs) {
       try {
-        var xCLI = new XSharp.Build.CliProcessor(aArgs);
-        var xGen = new AsmGenerator();
         var xFiles = new List<string>();
 
         // Parse arguments
-        foreach (var xArg in aArgs) {
-          if (xArg.StartsWith("-")) {
-            string xOpt = xArg.Substring(1).ToUpper();
-            throw new Exception("No matching switch found: " + xArg);
+        var xCLI = new XSharp.Build.CliProcessor(aArgs);
+        foreach (var xArg in xCLI.Items) {
+          if (Directory.Exists(xArg.Value)) {
+            string xPath = Path.GetFullPath(xArg.Value);
+            xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
+          } else if (File.Exists(xArg.Value)) {
+            xFiles.Add(Path.GetFullPath(xArg.Value));
           } else {
-            if (Directory.Exists(xArg)) {
-              string xPath = Path.GetFullPath(xArg);
-              xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
-            } else if (File.Exists(xArg)) {
-              xFiles.Add(Path.GetFullPath(xArg));
-            } else {
-              throw new Exception("Not a valid file or directory: " + xArg);
-            }
+            throw new Exception("Not a valid file or directory: " + xArg);
           }
         }
 
         // Generate output
+        var xGen = new AsmGenerator();
         foreach (var xFile in xFiles) {
           Console.WriteLine(xFile);
           xGen.GenerateToFiles(xFile);

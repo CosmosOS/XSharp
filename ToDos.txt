@@ -2,18 +2,6 @@ Kudzu ----------------------------------------------------
 
 Clogger
 -Change XSC to use
-
-Base CLI, just options and others
--switches - inherit and have public props
--files etc.
--if not file, put in other
--log index in array, and also a list of all to find next, previous, etc... also have a next,previous pointer
--flags -name:value
-Reusable command line arg parser
- in build
--values allowed for options, etc... use Enums and types? or simple key values, or comment and evolve.. can use in zConsole later
-
-
 /! directives
 -namespace too
 pre/post directives, separate api than normal pre/post

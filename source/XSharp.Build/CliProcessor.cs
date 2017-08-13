@@ -5,35 +5,40 @@ using System.Text;
 namespace XSharp.Build {
     public class CliProcessor {
         public class Item {
-            public readonly int OrigIdx = -1;
-            public readonly string Value;
-            public readonly Item Previous;
-            public readonly Item Next;
-
-            public Item(int aIdx, string aValue, Item aPrev, Item aNext) {
-                OrigIdx = aIdx;
-                Value = aValue;
-                Previous = aPrev;
-                Next = aNext;
-            }
+            public string Value;
+            public Switch Switch;
         }
 
-        public class Switch : Item {
-            public readonly string Name;
-
-            public Switch(int aIdx, string aName, string aValue, Item aPrev, Item aNext) : base(aIdx, aValue, aPrev, aNext) {
-                Name = aName;
-            }
+        public class Switch {
+            public string Name;
+            public string Value;
         }
 
-        public List<Item> All = new List<Item>();
-        public List<Item> Files = new List<Item>();
-        public List<Item> Others = new List<Item>();
+        public List<Item> Items = new List<Item>();
+        // Do not use dictionary. Dictionary loses order and dose not allow multiples.
         public List<Switch> Switches = new List<Switch>();
 
         public CliProcessor(string[] aArgs, bool aAllowNone = false) {
             if (aAllowNone == false && aArgs.Length == 0) {
                 throw new Exception("No arguments were specified.");
+            }
+
+            Switch xSwitch = null;
+            foreach (var xArg in aArgs) {
+                if (xArg.StartsWith("-")) {
+                    xSwitch = new Switch();
+                    var xParts = xArg.Substring(1).ToUpper().Split(':');
+                    xSwitch.Name = xParts[0];
+                    if (xParts.Length > 1) {
+                        xSwitch.Value = xParts[1];
+                    }
+                    Switches.Add(xSwitch);
+                } else {
+                    var xItem = new Item();
+                    xItem.Value = xArg;
+                    xItem.Switch = xSwitch;
+                    Items.Add(xItem);
+                }
             }
         }
     }
