@@ -1,4 +1,11 @@
 Kudzu ----------------------------------------------------
+
+Clogger
+-operator overloads like stringer - check stringer
+-Dual output - event which can output elsewhere
+-. etc - section, sub section, new file
+
+
 Reusable command line arg parser
  in build
 -values allowed for options, etc... use Enums and types? or simple key values, or comment and evolve.. can use in zConsole later
