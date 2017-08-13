@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <--
+        <!--
             Custom property used by a workaround in Diretory.Build.targets
             (the property should exist, according to the docs)
         -->

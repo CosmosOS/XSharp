@@ -5,8 +5,9 @@ platform: AnyCPU
 shallow_clone: true
 clone_folder: c:\XSharp
 
-init:
-  - ps: Update-AppveyorBuild -Version "$(Get-Date -Format yyyy.MM.dd).$env:appveyor_build_number"
+#init:
+# This option breaks the github link to the build until the build completes.
+#  - ps: Update-AppveyorBuild -Version "$(Get-Date -Format yyyy.MM.dd).$env:appveyor_build_number"
 
 nuget:
   account_feed: false
@@ -14,7 +15,7 @@ nuget:
   disable_publish_on_pr: true
 
 build_script:
-  - cmd: |      
+  - cmd: |
       nuget restore "XSharp.sln"
       msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
 
