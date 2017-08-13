@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XSharp.Lines {
   public class Literal : Line {
-    public Literal(string aLine) : base(aLine) {
+    public Literal(Compiler aCompiler, string aLine) : base(aCompiler, aLine) {
     }
   }
 }

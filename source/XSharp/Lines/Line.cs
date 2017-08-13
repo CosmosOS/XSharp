@@ -6,9 +6,11 @@ using System.Text;
 
 namespace XSharp.Lines {
   public abstract class Line {
-    public string RawText { get; protected set; }
+    public readonly Compiler Compiler;
+    public readonly string RawText;
 
-    public Line(string aLine) {
+    public Line(Compiler aCompiler, string aLine) {
+      Compiler = aCompiler;
       RawText = aLine;
     }
 
@@ -16,12 +18,12 @@ namespace XSharp.Lines {
     // However this would be a fair bit slower and this area is not expected to be expanded much,
     // nor is it intended for external expansion. Thus we have chosen for a bit of simplicity
     // and speed. If it needs expanded, its easily enough accomplished even with this method.
-    public static Line New(string aLine) {
+    public static Line New(Compiler aCompiler, string aLine) {
       aLine = aLine.Trim();
 
       Line xResult = null;
       if (aLine.Length == 0) {
-        xResult = new Empty(aLine);
+        xResult = new Empty(aCompiler, aLine);
 
       } else if (aLine[0] == '/') {
         if (aLine.Length > 1) {
@@ -29,15 +31,15 @@ namespace XSharp.Lines {
           aLine = aLine.Substring(2).TrimStart();
 
           if (xChar2 == '/') {
-            xResult = new Comment(aLine);
+            xResult = new Comment(aCompiler, aLine);
 
           } else if (xChar2 == '$') {
-            xResult = new Directive(aLine);
+            xResult = new Directive(aCompiler, aLine);
 
           }
 
         } else {
-          xResult = new XSharp(aLine);
+          xResult = new XSharp(aCompiler, aLine);
         }
       }
 

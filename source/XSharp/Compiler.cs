@@ -7,21 +7,25 @@ using System.Text;
 
 namespace XSharp {
   public class Compiler {
-    protected readonly TextWriter mOut;
-    protected int mLineNo;
+    protected readonly TextWriter Out;
+    public int LineNo { get; private set; }
 
     public Compiler(TextWriter aOut) {
-      mOut = aOut;
+      Out = aOut;
     }
 
     public void Generate(TextReader aIn) {
-      mLineNo = 1;
-      string xText = aIn.ReadLine();
-      while (xText != null) {
-        var xLine = Lines.Line.New(xText);
+      try {
+        LineNo = 1;
+        string xText = aIn.ReadLine();
+        while (xText != null) {
+          var xLine = Lines.Line.New(this, xText);
 
-        xText = aIn.ReadLine();
-        mLineNo++;
+          xText = aIn.ReadLine();
+          LineNo++;
+        }
+      } catch (Exception e) {
+        throw new Exception("Generation error on line " + LineNo, e);
       }
     }
   }

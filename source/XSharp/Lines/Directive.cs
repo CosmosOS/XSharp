@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XSharp.Lines {
   public class Directive : Line {
-    public Directive(string aLine) : base(aLine) {
+    public Directive(Compiler aCompiler, string aLine) : base(aCompiler, aLine) {
     }
   }
 }

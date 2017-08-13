@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XSharp.Lines {
   public class Comment : Line {
-    public Comment(string aLine) : base(aLine) {
+    public Comment(Compiler aCompiler, string aLine) : base(aCompiler, aLine) {
     }
   }
 }
