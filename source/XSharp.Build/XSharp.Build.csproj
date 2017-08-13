@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Launch\Bochs\" />
     <Folder Include="Launch\ISO\" />
+    <Folder Include="Launch\HyperV\" />
     <Folder Include="Launch\PXE\" />
     <Folder Include="Launch\VMWare\" />
     <Folder Include="Tools\NASM\" />

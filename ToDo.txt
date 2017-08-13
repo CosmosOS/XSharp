@@ -2,16 +2,49 @@ Kudzu ----------------------------------------------------
 
 Change XSC to use Clogger
 
+Plugins - Use XSharp.Build.Plugins
+
 pre/post directives, separate api than normal pre/post
 -as namespaces - process for - ie Cosmos.directive
 pre/post as plugins
 
-Global - XSharp.cfg ?
+-Emit into ONE .asm file. If output file is specified, all goes to one. Else does one .asm per .xs as now. Also append optino to existing .asm
 
-Loadable plugins + core code in build for now
+Publicity
+Docs, Videos, website, Microsoft, C9
 
--Docs, Videos, website
--Nuget pkg (Charles)
+---
+
+X# still has that hard ref to INTs last known address
+
+X# method arguments
+
+X# local vars - Zed style? . .. ..
+
+Asm debugging, modularize DS and then Cosmos expands it. Remote over serial too
+
+X# can be in C# with variable use etc through stack or special area for single X# calls
+
+Change IL2CPU to use X# instead of XSharp.Assembler
+
+DebugStub ReferenceHelper - Better way? Not needed if we merge probably, needed at all beyond?
+Convert DebugStub as necessary
+
+Move all X# code into Cosmos.CPU except that which is used as a plug to .NET Framework (that goes to CpuPlug, later)
+CpuPlug
+
+Redo parser (careful, need to work it out first).
+Possibly can be done earlier as part of CXSC
+
+
+To replace entirely current X# usage. 
+Remove old syntax and support after all ported
+Separate out X# into separate repo when it can stand alone.
+
+VS Code support (Jp2masa already has code, work with him and merge it in)
+
+X64, ARM etc
+UEFI integration
 
 Charles -------------------------------------------------
 
@@ -35,9 +68,24 @@ EmitUserComments
 /! include <file ref>
 Does an inline include of the reffed file. 
 
+Make us into a nuget pkg so users can find XSharp easily
+
+
+
+Change # VS items into X# / X Sharp
+Allow to be added to any .NET type library, standard, etc.. also VB.NET, C# etc
+
+X# Project Type
+Language Service - coloring, intellisense etc
+  
+We have some already - suggest to wait for parser upgrade before upgrading this too much
+ toNew file template, Cosmos X# File with custom tool - Need to wait for CXSC to be ready.
+
 jp2masa ------------------------------------------
 
 Can you modify our build process to to call XSC separately from IL2CPU? This will separate it out, and also let us handle plugins to XSC easier.
+
+Expand program.cs etc in XSC to allow compiling from resources in .dll files
 
 Arawn ------------------------------------------
 
