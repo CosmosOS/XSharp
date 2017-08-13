@@ -94,14 +94,14 @@ namespace XSharp {
       }
     }
 
-    public void GenerateFromEmbeddedResource(string aResourceName, Stream aResourceStream, TextWriter aDestinationWriter)
+    public void GenerateToFile(string aFileName, TextReader aSourceReader, TextWriter aDestinationWriter)
     {
       new Assembler.Assembler(false);
       try
       {
-        aDestinationWriter.WriteLine("; Start of " + aResourceName);
-        Generate(new StreamReader(aResourceStream), aDestinationWriter);
-        aDestinationWriter.WriteLine("; End of " + aResourceName);
+        aDestinationWriter.WriteLine("; Start of " + aFileName);
+        Generate(aSourceReader, aDestinationWriter);
+        aDestinationWriter.WriteLine("; End of " + aFileName);
         aDestinationWriter.Flush();
       }
       finally
