@@ -94,6 +94,22 @@ namespace XSharp {
       }
     }
 
+    public void GenerateFromEmbeddedResource(string aResourceName, Stream aResourceStream, TextWriter aDestinationWriter)
+    {
+      new Assembler.Assembler(false);
+      try
+      {
+        aDestinationWriter.WriteLine("; Start of " + aResourceName);
+        Generate(new StreamReader(aResourceStream), aDestinationWriter);
+        aDestinationWriter.WriteLine("; End of " + aResourceName);
+        aDestinationWriter.Flush();
+      }
+      finally
+      {
+        Assembler.Assembler.ClearCurrentInstance();
+      }
+    }
+
     /// <summary>Parse the input X# source code from the given reader and write both target
     /// assembler code and target assembler data in their respective writers.</summary>
     /// <param name="aIn">A reader to acquire X# source code from.</param>
