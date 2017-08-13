@@ -83,9 +83,12 @@ We have some already - suggest to wait for parser upgrade before upgrading this 
 
 jp2masa ------------------------------------------
 
+XSC
+-append/output params (see program.cs)
+-Expand program.cs etc in XSC to allow compiling from resources in .dll files
+
 Can you modify our build process to to call XSC separately from IL2CPU? This will separate it out, and also let us handle plugins to XSC easier.
 
-Expand program.cs etc in XSC to allow compiling from resources in .dll files
 
 Arawn ------------------------------------------
 
