@@ -113,12 +113,10 @@ namespace XSharp {
       AssertLastFunctionComplete();
     }
 
-    /// <summary>Process a single X# source code line and translate it into the target
-    /// assembler syntax.</summary>
+    /// <summary>Process a single X# source code line and translate it into the target assembler syntax.</summary>
     /// <param name="aLine">The processed X# source code line.</param>
     /// <param name="aLineNo">Line number for debugging and diagnostic messages.</param>
-    /// <returns>The resulting target assembler content. The returned object contains
-    /// a code and a data block.</returns>
+    /// <returns>The resulting target assembler content. The returned object contains a code and a data block.</returns>
     protected void ProcessLine(string aLine, int aLineNo) {
       aLine = aLine.Trim();
       if (String.IsNullOrEmpty(aLine) || aLine == "//") {
