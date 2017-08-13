@@ -1107,7 +1107,7 @@ namespace XSharp {
       return true;
     }
 
-    public void GetCode(string aLine) {
+    public void Assemble(string aLine) {
       var xParser = new Parser(aLine, false, false);
       var xTokens = xParser.Tokens;
 

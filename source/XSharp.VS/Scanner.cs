@@ -70,7 +70,7 @@ namespace XSharp.VS {
 
     void MVSP.IScanner.SetSource(string aSource, int aOffset) {
       mTokenIdx = 0;
-      mParser = new XSharp.Parser(aSource, aOffset, true, false);
+      mParser = new XSharp.Parser(aSource, true, false);
     }
   }
 }
