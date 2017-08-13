@@ -134,12 +134,16 @@ namespace XSharp {
     /// <param name="aLineNo">Line number for debugging and diagnostic messages.</param>
     /// <returns>The resulting target assembler content. The returned object contains a code and a data block.</returns>
     protected void ProcessLine(string aLine, int aLineNo) {
-      aLine = aLine.Trim();
-      if (String.IsNullOrEmpty(aLine) == false) {
-        // Currently we use a new assembler for every line.
-        // If we dont it could create a really large in memory object.
-        mPatterns.GetCode(aLine);
-        //mPathname, aLineNo
+      try {
+        aLine = aLine.Trim();
+        if (String.IsNullOrEmpty(aLine) == false) {
+          // Currently we use a new assembler for every line.
+          // If we dont it could create a really large in memory object.
+          mPatterns.GetCode(aLine);
+          //mPathname, aLineNo
+        }
+      } catch (Exception e) {
+        throw new Exception("Source error. Line " + aLineNo + ", File: " + mPathname, e);
       }
     }
   }
