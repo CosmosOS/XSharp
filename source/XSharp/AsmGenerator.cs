@@ -139,7 +139,7 @@ namespace XSharp {
         if (String.IsNullOrEmpty(aLine) == false) {
           // Currently we use a new assembler for every line.
           // If we dont it could create a really large in memory object.
-          mPatterns.GetCode(aLine);
+          mPatterns.Assemble(aLine);
           //mPathname, aLineNo
         }
       } catch (Exception e) {
