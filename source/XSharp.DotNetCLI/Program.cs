@@ -6,18 +6,8 @@ using XSharp.Assembler;
 namespace XSharp.DotNetCLI {
   class Program {
     static void Main(string[] aArgs) {
-      // Might use https://www.nuget.org/packages/Microsoft.Extensions.CommandLineUtils/ in future
-      //
-      // Arg (some are todo)
-      // -Path
-      // -File
-      // -Options
-      // -.dll for resources
-
       try {
-        if (aArgs.Length == 0) {
-          throw new Exception("No arguments were specified.");
-        }
+        var xCLI = new XSharp.Build.CliProcessor(aArgs);
         var xGen = new AsmGenerator();
         var xFiles = new List<string>();
 
