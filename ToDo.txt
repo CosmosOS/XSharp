@@ -15,6 +15,7 @@ Docs, Videos, website, Microsoft, C9
 
 ---
 
+X# plugs
 X# still has that hard ref to INTs last known address
 
 X# method arguments
@@ -68,18 +69,20 @@ EmitUserComments
 /! include <file ref>
 Does an inline include of the reffed file. 
 
-Make us into a nuget pkg so users can find XSharp easily
+Change VS items into X# / X Sharp
+ name/section
 
-
-
-Change # VS items into X# / X Sharp
 Allow to be added to any .NET type library, standard, etc.. also VB.NET, C# etc
 
+
 X# Project Type
+
+
 Language Service - coloring, intellisense etc
   
 We have some already - suggest to wait for parser upgrade before upgrading this too much
- toNew file template, Cosmos X# File with custom tool - Need to wait for CXSC to be ready.
+
+Make X# into a nuget pkg so users can find it easily
 
 jp2masa ------------------------------------------
 
