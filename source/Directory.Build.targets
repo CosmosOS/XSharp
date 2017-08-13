@@ -1,0 +1,13 @@
+<Project>
+
+    <PropertyGroup>
+        <!--
+            Workaround: VersionPrefix sets the prefix for both Version and PackageVersion, and there's currently no way
+                        of setting the prefix only for PackageVersion, although the documentation shows a
+                        PackageVersionPrefix property that doesn't exist and has no effect on pack.
+        -->
+        <PackageVersion Condition="$(PackageVersionPrefix) != '' and $(VersionSuffix) != ''">$(PackageVersionPrefix)-$(VersionSuffix)</PackageVersion>
+        <PackageVersion Condition="$(PackageVersionPrefix) != '' and $(VersionSuffix) == ''">$(PackageVersionPrefix)</PackageVersion>
+    </PropertyGroup>
+    
+</Project>

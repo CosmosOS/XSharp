@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>dotnet-xsharp</AssemblyName>
         <TargetFramework>netcoreapp1.0</TargetFramework>
+        <OutputType>Exe</OutputType>
         <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
+        <AssemblyName>dotnet-xsharp</AssemblyName>
+        <RootNamespace>XSharp.XSC</RootNamespace>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-        <OutputType>Exe</OutputType>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
-        <RootNamespace>XSharp.XSC</RootNamespace>
-        <Description>$(XSharpDescription)</Description>
+        <Description>X# dotnet CLI tool.
+$(XSharpDescription)</Description>
     </PropertyGroup>
 
     <ItemGroup>

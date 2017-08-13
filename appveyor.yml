@@ -20,7 +20,7 @@ build_script:
 
       dotnet pack "source\XSharp.Assembler" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
       dotnet pack "source\XSharp" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp.XSC" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+      dotnet pack "source\XSharp.DotNetCLI" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
 
 artifacts:
   - path: 'source\**\*.nupkg'
