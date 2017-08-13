@@ -171,9 +171,8 @@ namespace XSharp
       char xChar1 = mData[mStart];
       var xToken = new Token(lineNumber);
 
-      // Recognize comments and literal assembler code.
-      if (mAllWhitespace && "/!".Contains(xChar1))
-      {
+      // Directives and literal assembler code.
+      if (mAllWhitespace && (xChar1 == '!' || xChar1 =='/')) {
         rPos = mData.Length; // This will account for the dummy whitespace at the end.
         xString = mData.Substring(mStart + 1, rPos - mStart - 1).Trim();
         // So ToString/Format wont generate error
@@ -181,21 +180,15 @@ namespace XSharp
         xString = xString.Replace("}", "}}");
         // Fix issue #15662 with string length check.
         // Fix issue #15663 with comparing from mData and not from xString anymore.
-        if ((xChar1 == '/') && (xString.Length >= 2))
-        {
-          if (mData[mStart + 1] == '/')
-          {
-            xString = xString.Substring(1);
+        if ((xChar1 == '/') && (xString.Length >= 2)) {
+          char xChar2 = mData[mStart + 1];
+          xString = xString.Substring(1);
+          if (xChar2 == '/') {
             xToken.Type = TokenType.Comment;
-          }
-          else if (mData[mStart + 1] == '!')
-          {
-            xString = xString.Substring(1);
+          } else if (xChar2 == '!') {
             xToken.Type = TokenType.Directive;
           }
-        }
-        else if (xChar1 == '!')
-        {
+        } else if (xChar1 == '!') {
           // Literal assembler code.
           xToken.Type = TokenType.LiteralAsm;
         }
