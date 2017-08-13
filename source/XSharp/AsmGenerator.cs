@@ -97,19 +97,16 @@ namespace XSharp {
     /// <summary>Parse the input X# source code from the given reader and write both target
     /// assembler code and target assembler data in their respective writers.</summary>
     /// <param name="aIn">A reader to acquire X# source code from.</param>
-    /// <param name="aOutputData">A writer that will receive target assembler data.</param>
-    /// <param name="aOutputCode">A writer that will receive target assembler code.</param>
+    /// <param name="aOut">A writer that will receive target assembler data.</param>
     public void Generate(TextReader aIn, TextWriter aOut) {
       mPatterns.EmitUserComments = EmitUserComments;
       mLineNo = 1;
       // Read one X# source code line at a time and process it.
-      while (true) {
-        string xLine = aIn.ReadLine();
-        if (xLine == null) {
-          break;
-        }
-
+      string xLine = aIn.ReadLine();
+      while (xLine != null) {
         ProcessLine(xLine, mLineNo);
+
+        xLine = aIn.ReadLine();
         mLineNo++;
       }
       Assembler.Assembler.CurrentInstance.FlushText(aOut);
