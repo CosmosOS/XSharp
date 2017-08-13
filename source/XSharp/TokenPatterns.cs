@@ -1126,8 +1126,8 @@ namespace XSharp {
       return true;
     }
 
-    public bool GetCode(string aLine, int lineNumber) {
-      var xParser = new Parser(aLine, lineNumber, false, false);
+    public bool GetCode(string aLine, int aLineNo) {
+      var xParser = new Parser(aLine, aLineNo, false, false);
       var xTokens = xParser.Tokens;
 
       var xResult = GetPatternCode(xTokens);
