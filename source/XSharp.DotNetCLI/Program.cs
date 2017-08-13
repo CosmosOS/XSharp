@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using XSharp.Assembler;
 
 namespace XSharp.DotNetCLI {
   class Program {
@@ -10,7 +9,8 @@ namespace XSharp.DotNetCLI {
         var xFiles = new List<string>();
 
         // Parse arguments
-        var xCLI = new XSharp.Build.CliProcessor(aArgs);
+        var xCLI = new Build.CliProcessor();
+        xCLI.Parse(aArgs);
         foreach (var xArg in xCLI.Items) {
           if (Directory.Exists(xArg.Value)) {
             string xPath = Path.GetFullPath(xArg.Value);
@@ -22,8 +22,17 @@ namespace XSharp.DotNetCLI {
           }
         }
 
-        // Generate output
         var xGen = new AsmGenerator();
+        var xUserComments = xCLI.GetSwitch("UserComments");
+        if (xUserComments != null) {
+          xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
+        }
+        var xSourceCode = xCLI.GetSwitch("SourceCode");
+        if (xSourceCode != null) {
+          xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
+        }
+
+        // Generate output
         foreach (var xFile in xFiles) {
           Console.WriteLine(xFile);
           xGen.GenerateToFiles(xFile);
