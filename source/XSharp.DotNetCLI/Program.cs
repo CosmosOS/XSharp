@@ -6,34 +6,47 @@ namespace XSharp.DotNetCLI {
   class Program {
     static void Main(string[] aArgs) {
       try {
-        var xFiles = new List<string>();
+        var xGen = new AsmGenerator();
 
         // Parse arguments
         var xCLI = new Build.CliProcessor();
         xCLI.Parse(aArgs);
-        foreach (var xArg in xCLI.Items) {
-          if (Directory.Exists(xArg.Value)) {
-            string xPath = Path.GetFullPath(xArg.Value);
-            xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
-          } else if (File.Exists(xArg.Value)) {
-            xFiles.Add(Path.GetFullPath(xArg.Value));
-          } else {
-            throw new Exception("Not a valid file or directory: " + xArg);
-          }
-        }
 
-        var xGen = new AsmGenerator();
+        // Switches
         var xUserComments = xCLI.GetSwitch("UserComments");
         if (xUserComments != null) {
           xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         }
+        //
         var xSourceCode = xCLI.GetSwitch("SourceCode");
         if (xSourceCode != null) {
           xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         }
-
+        //
         var xPlugins = xCLI.GetSwitches("Plugin");
         foreach (var xPlugin in xPlugins) {
+        }
+
+        // List of files
+        var xFiles = new List<string>();
+        foreach (var xArg in xCLI.Items) {
+          string xVal = xArg.Value;
+
+          if (Directory.Exists(xVal)) {
+            // If dir specified, find all .xs files
+            string xPath = Path.GetFullPath(xVal);
+            xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
+
+          } else if (File.Exists(xVal)) {
+            string xExt = Path.GetExtension(xVal).ToUpper();
+            if (xExt == ".XS") {
+              xFiles.Add(Path.GetFullPath(xVal));
+            } else if (xExt == ".DLL") {
+              // TODO - Handle embedded resources .xs files
+            }
+            } else {
+            throw new Exception("Not a valid file or directory: " + xVal);
+          }
         }
 
         // Generate output

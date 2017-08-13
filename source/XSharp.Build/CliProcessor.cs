@@ -29,9 +29,14 @@ namespace XSharp.Build {
         // Do not use dictionary. Dictionary loses order and dose not allow multiples.
         public List<Switch> Switches = new List<Switch>();
 
+        protected bool mParsed = false;
         public void Parse(string[] aArgs) {
             if (RequireArgs && aArgs.Length == 0) {
                 throw new Exception("No arguments were specified.");
+            }
+            mParsed = true;
+            if (mParsed) {
+                throw new Exception("Already parsed.");
             }
 
             Switch xSwitch = null;

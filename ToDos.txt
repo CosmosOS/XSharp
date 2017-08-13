@@ -38,3 +38,9 @@ Does an inline include of the reffed file.
 jp2masa ------------------------------------------
 
 Can you modify our build process to to call XSC separately from IL2CPU? This will separate it out, and also let us handle plugins to XSC easier.
+
+Arawn ------------------------------------------
+
+UEFI
+
+Move stuff to XSharp.Build
