@@ -29,8 +29,8 @@ namespace XSharp.VS {
         mTokenMap[i].Color = MVSP.TokenColor.Text;
       }
 
-      mTokenMap[(int)TokenType.Comment] = new TokenData { Type = MVSP.TokenType.LineComment, Color = MVSP.TokenColor.Comment };
-      mTokenMap[(int)TokenType.LiteralAsm] = new TokenData { Type = MVSP.TokenType.Literal, Color = MVSP.TokenColor.String };
+      mTokenMap[(int)TokenType.Line_Comment] = new TokenData { Type = MVSP.TokenType.LineComment, Color = MVSP.TokenColor.Comment };
+      mTokenMap[(int)TokenType.Line_LiteralAsm] = new TokenData { Type = MVSP.TokenType.Literal, Color = MVSP.TokenColor.String };
       mTokenMap[(int)TokenType.AlphaNum] = new TokenData { Type = MVSP.TokenType.Identifier, Color = MVSP.TokenColor.Identifier };
       mTokenMap[(int)TokenType.ValueInt] = new TokenData { Type = MVSP.TokenType.Literal, Color = MVSP.TokenColor.Number };
 

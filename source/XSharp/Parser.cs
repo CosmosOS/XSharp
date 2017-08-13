@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace XSharp
-{
+namespace XSharp {
   /// <summary>
   /// Parser recognizes the following tokens:
   /// - _123      -> Number
@@ -13,8 +12,7 @@ namespace XSharp
   /// - _ABC      -> Random label, used indirectly (ie, used as a field)
   /// - #_ABC     -> Random label, used for the value (ie, pointer to the field)
   /// </summary>
-  public class Parser
-  {
+  public class Parser {
     /// <summary>Index in <see cref="mData"/> of the first yet unconsumed character.</summary>
     protected int mStart = 0;
 
@@ -36,13 +34,12 @@ namespace XSharp
     protected TokenList mTokens;
 
     /// <summary>Get a list of tokens that has been built at class instanciation.</summary>
-    public TokenList Tokens
-    {
+    public TokenList Tokens {
       get { return mTokens; }
     }
 
-    protected static readonly char[] mComma = new char[] {','};
-    protected static readonly char[] mSpace = new char[] {' '};
+    protected static readonly char[] mComma = new char[] { ',' };
+    protected static readonly char[] mSpace = new char[] { ' ' };
 
     public static string[] mKeywords = (
       "As,All"
@@ -77,8 +74,7 @@ namespace XSharp
     public static readonly string[] Operators =
       "( ) () ! = != >= <= [ [- ] + - * : { } < > ?= ?& @ ~> <~ >> << ++ -- # +# & | ^".Split(mSpace);
 
-    static Parser()
-    {
+    static Parser() {
       Registers8 = new Dictionary<string, XSRegisters.Register>()
       {
         {"AL", XSRegisters.AL},
@@ -135,8 +131,7 @@ namespace XSharp
     /// <param name="rPos">The index in current source code line of the first not yet consumed
     /// character. On return this parameter will be updated to account for characters that would
     /// have been consumed.</param>
-    protected void NewToken(TokenList aList, ref int rPos)
-    {
+    protected void NextToken(TokenList aList, ref int rPos) {
       #region Pattern Notes
 
       // All patterns start with _, this makes them reserved. User can use too, but at own risk of conflict.
@@ -173,7 +168,7 @@ namespace XSharp
 
       // Directives and literal assembler code.
       if (mAllWhitespace) {
-        if (xChar1 == '!' || xChar1 =='/') {
+        if (xChar1 == '!' || xChar1 == '/') {
           rPos = mData.Length; // This will account for the dummy whitespace at the end.
           xString = mData.Substring(mStart + 1, rPos - mStart - 1).Trim();
           // So ToString/Format wont generate error
@@ -184,12 +179,12 @@ namespace XSharp
           // Fix issue #15663 with comparing from mData and not from xString anymore.
           if (xChar1 == '!') {
             // Literal assembler code.
-            xToken.Type = TokenType.LiteralAsm;
+            xToken.Type = TokenType.Line_LiteralAsm;
           } else if (xString.Length > 0) {
             char xChar2 = xString[0];
             xString = xString.Substring(1);
             if (xChar2 == '/') {
-              xToken.Type = TokenType.Comment;
+              xToken.Type = TokenType.Line_Comment;
             } else if (xChar2 == '!') {
               xToken.Type = TokenType.Directive;
             }
@@ -200,102 +195,67 @@ namespace XSharp
       if (xToken.Type == TokenType.Unknown) {
         xString = mData.Substring(mStart, rPos - mStart);
 
-        if (string.IsNullOrWhiteSpace(xString) && xString.Length > 0)
-        {
+        if (string.IsNullOrWhiteSpace(xString) && xString.Length > 0) {
           xToken.Type = TokenType.WhiteSpace;
 
-        }
-        else if (xChar1 == '\'')
-        {
+        } else if (xChar1 == '\'') {
           xToken.Type = TokenType.ValueString;
           xString = xString.Substring(1, xString.Length - 2);
 
-        }
-        else if (char.IsDigit(xChar1))
-        {
+        } else if (char.IsDigit(xChar1)) {
           xToken.Type = TokenType.ValueInt;
-          if (xString.StartsWith("0x"))
-          {
+          if (xString.StartsWith("0x")) {
             xToken.SetIntValue(Convert.ToUInt32(xString, 16));
-          }
-          else
-          {
+          } else {
             xToken.SetIntValue(uint.Parse(xString));
           }
-        }
-        else if (xChar1 == '$')
-        {
+        } else if (xChar1 == '$') {
           xToken.Type = TokenType.ValueInt;
           // Remove surrounding '
           xString = "0x" + xString.Substring(1);
-          if (xString.StartsWith("0x"))
-          {
+          if (xString.StartsWith("0x")) {
             xToken.SetIntValue(Convert.ToUInt32(xString, 16));
-          }
-          else
-          {
+          } else {
             xToken.SetIntValue(uint.Parse(xString));
           }
-        }
-        else if (IsAlphaNum(xChar1))
-        {
+        } else if (IsAlphaNum(xChar1)) {
           // This must be after check for ValueInt
           string xUpper = xString.ToUpper();
 
           // Special parsing when in pattern mode. We recognize some special strings
           // which would otherwise be considered as simple AlphaNum token otherwise.
-          if (mAllowPatterns)
-          {
-            if (RegisterPatterns.Contains(xUpper))
-            {
+          if (mAllowPatterns) {
+            if (RegisterPatterns.Contains(xUpper)) {
               xToken.Type = TokenType.Register;
-            }
-            else if (xUpper == "_KEYWORD")
-            {
+            } else if (xUpper == "_KEYWORD") {
               xToken.Type = TokenType.Keyword;
               xString = null;
-            }
-            else if (xUpper == "_ABC")
-            {
+            } else if (xUpper == "_ABC") {
               xToken.Type = TokenType.AlphaNum;
               xString = null;
-            }
-            else if (xUpper == "_PCALL")
-            {
+            } else if (xUpper == "_PCALL") {
               xString = null;
               xToken.Type = TokenType.Call;
             }
           }
 
-          if (xToken.Type == TokenType.Unknown)
-          {
+          if (xToken.Type == TokenType.Unknown) {
             XSRegisters.Register xRegister;
-            if (Registers.TryGetValue(xUpper, out xRegister))
-            {
+            if (Registers.TryGetValue(xUpper, out xRegister)) {
               xToken.Type = TokenType.Register;
               xToken.SetRegister(xRegister);
-            }
-            else if (mKeywords.Contains(xUpper))
-            {
+            } else if (mKeywords.Contains(xUpper)) {
               xToken.Type = TokenType.Keyword;
-            }
-            else if (xString.Contains("(") && xString.Contains(")") && IsAlphaNum(xChar1))
-            {
+            } else if (xString.Contains("(") && xString.Contains(")") && IsAlphaNum(xChar1)) {
               xToken.Type = TokenType.Call;
-            }
-            else
-            {
+            } else {
               xToken.Type = TokenType.AlphaNum;
             }
           }
 
-        }
-        else if (Delimiters.Contains(xString))
-        {
+        } else if (Delimiters.Contains(xString)) {
           xToken.Type = TokenType.Delimiter;
-        }
-        else if (Operators.Contains(xString))
-        {
+        } else if (Operators.Contains(xString)) {
           xToken.Type = TokenType.Operator;
         }
       }
@@ -303,28 +263,24 @@ namespace XSharp
       xToken.RawValue = xString;
       xToken.SrcPosStart = mStart;
       xToken.SrcPosEnd = xToken.Type == TokenType.Call ? rPos : rPos - 1;
-      if (mAllWhitespace && (xToken.Type != TokenType.WhiteSpace))
-      {
+      if (mAllWhitespace && (xToken.Type != TokenType.WhiteSpace)) {
         mAllWhitespace = false;
       }
       mStart = xToken.Type == TokenType.Call ? rPos + 1 : rPos;
 
-      if (mIncludeWhiteSpace || (xToken.Type != TokenType.WhiteSpace))
-      {
+      if (mIncludeWhiteSpace || (xToken.Type != TokenType.WhiteSpace)) {
         aList.Add(xToken);
       }
     }
 
-    protected enum CharType
-    {
+    protected enum CharType {
       WhiteSpace,
       Identifier,
       Symbol,
       String
     };
 
-    protected bool IsAlphaNum(char aChar)
-    {
+    protected bool IsAlphaNum(char aChar) {
       return char.IsLetterOrDigit(aChar) || aChar == '_' || aChar == '.' || aChar == '$';
     }
 
@@ -332,8 +288,7 @@ namespace XSharp
     /// a list of tokens.</summary>
     /// <param name="aLineNo">Line number for diagnostics and debugging.</param>
     /// <returns>The resulting tokens list.</returns>
-    protected TokenList Parse()
-    {
+    protected TokenList Parse() {
       // Save in comment, might be useful in future. Already had to dig it out of TFS once
       //var xRegex = new System.Text.RegularExpressions.Regex(@"(\W)");
 
@@ -341,24 +296,19 @@ namespace XSharp
       CharType xLastCharType = CharType.WhiteSpace;
       CharType xCharType = CharType.WhiteSpace;
       int i = 0;
-      for (i = 0; i < mData.Length; i++)
-      {
+      for (i = 0; i < mData.Length; i++) {
         char xChar = mData[i];
         // Extract string literal (surrounded with single quote characters).
-        if (xChar == '\'')
-        {
+        if (xChar == '\'') {
           // Take data before the ' as a token.
-          NewToken(xResult, ref i);
+          NextToken(xResult, ref i);
           // Now scan to the next ' taking into account escaped single quotes.
           bool escapedCharacter = false;
-          for (i = i + 1; i < mData.Length; i++)
-          {
+          for (i = i + 1; i < mData.Length; i++) {
             bool done = false;
-            switch (mData[i])
-            {
+            switch (mData[i]) {
               case '\'':
-                if (!escapedCharacter)
-                {
+                if (!escapedCharacter) {
                   done = true;
                 }
                 break;
@@ -369,60 +319,46 @@ namespace XSharp
                 escapedCharacter = false;
                 break;
             }
-            if (done)
-            {
+            if (done) {
               break;
             }
           }
-          if (i == mData.Length)
-          {
+          if (i == mData.Length) {
             throw new Exception("Unterminated string.");
           }
           i++;
           xCharType = CharType.String;
-        }
-        else if (xChar == '(')
-        {
-          for (i += 1; i < mData.Length; i++)
-          {
-            if (mData[i] == ')' && mData.LastIndexOf(")") <= i)
-            {
+        } else if (xChar == '(') {
+          for (i += 1; i < mData.Length; i++) {
+            if (mData[i] == ')' && mData.LastIndexOf(")") <= i) {
               i++;
-              NewToken(xResult, ref i);
+              NextToken(xResult, ref i);
               break;
             }
           }
-        }
-        else if (char.IsWhiteSpace(xChar))
-        {
+        } else if (char.IsWhiteSpace(xChar)) {
           xCharType = CharType.WhiteSpace;
-        }
-        else if (IsAlphaNum(xChar))
-        {
+        } else if (IsAlphaNum(xChar)) {
           // _ and . were never likely to stand on their own. ie ESP _ 2 and ESP . 2 are never likely to be used.
           // Having them on their own required a lot of code
           // to treat them as a single unit where we did use them. So we treat them as AlphaNum.
           xCharType = CharType.Identifier;
-        }
-        else
-        {
+        } else {
           xCharType = CharType.Symbol;
         }
 
         // i > 0 - Never do NewToken on first char. i = 0 is just a pass to get char and set lastchar.
         // But its faster as the second short circuit rather than a separate if.
-        if ((xCharType != xLastCharType) && (0 < i))
-        {
-          NewToken(xResult, ref i);
+        if ((xCharType != xLastCharType) && (0 < i)) {
+          NextToken(xResult, ref i);
         }
 
         xLastCharType = xCharType;
       }
 
       // Last token
-      if (mStart < mData.Length)
-      {
-        NewToken(xResult, ref i);
+      if (mStart < mData.Length) {
+        NextToken(xResult, ref i);
       }
 
       return xResult;
@@ -436,20 +372,16 @@ namespace XSharp
     /// <param name="aAllowPatterns">True if <paramref name="aData"/> is a pattern and thus the parsing
     /// should be performed specifically.</param>
     /// <exception cref="Exception">At least one unrecognized token has been parsed.</exception>
-    public Parser(string aData, bool aIncludeWhiteSpace, bool aAllowPatterns)
-    {
+    public Parser(string aData, bool aIncludeWhiteSpace, bool aAllowPatterns) {
       mData = aData;
       mIncludeWhiteSpace = aIncludeWhiteSpace;
       mAllowPatterns = aAllowPatterns;
       mAllWhitespace = true;
 
       mTokens = Parse();
-      if (mTokens.Count(q => q.Type == TokenType.Unknown) > 0)
-      {
-        foreach (var xToken in mTokens)
-        {
-          if (xToken.Type == TokenType.Unknown)
-          {
+      if (mTokens.Count(q => q.Type == TokenType.Unknown) > 0) {
+        foreach (var xToken in mTokens) {
+          if (xToken.Type == TokenType.Unknown) {
             throw new Exception(string.Format("Unknown token '{0}' found at {1}.", xToken.RawValue ?? "NULL", xToken.SrcPosStart));
           }
         }
