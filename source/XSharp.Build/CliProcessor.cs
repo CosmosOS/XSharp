@@ -33,11 +33,10 @@ namespace XSharp.Build {
         public void Parse(string[] aArgs) {
             if (RequireArgs && aArgs.Length == 0) {
                 throw new Exception("No arguments were specified.");
-            }
-            mParsed = true;
-            if (mParsed) {
+            } else if (mParsed) {
                 throw new Exception("Already parsed.");
             }
+            mParsed = true;
 
             Switch xSwitch = null;
             foreach (var xArg in aArgs) {

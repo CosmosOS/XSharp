@@ -131,11 +131,11 @@ namespace XSharp
     /// <summary>Parse next token from currently parsed line, starting at given position and
     /// add the retrieved token at end of given token list.</summary>
     /// <param name="aList">The token list where to add the newly recognized token.</param>
-    /// <param name="lineNumber">Line number for diagnostics and debugging purpose.</param>
+    /// <param name="aLineNo">Line number for diagnostics and debugging purpose.</param>
     /// <param name="rPos">The index in current source code line of the first not yet consumed
     /// character. On return this parameter will be updated to account for characters that would
     /// have been consumed.</param>
-    protected void NewToken(TokenList aList, int lineNumber, ref int rPos)
+    protected void NewToken(TokenList aList, int aLineNo, ref int rPos)
     {
       #region Pattern Notes
 
@@ -169,32 +169,35 @@ namespace XSharp
 
       string xString = null;
       char xChar1 = mData[mStart];
-      var xToken = new Token(lineNumber);
+      var xToken = new Token(aLineNo);
 
       // Directives and literal assembler code.
-      if (mAllWhitespace && (xChar1 == '!' || xChar1 =='/')) {
-        rPos = mData.Length; // This will account for the dummy whitespace at the end.
-        xString = mData.Substring(mStart + 1, rPos - mStart - 1).Trim();
-        // So ToString/Format wont generate error
-        xString = xString.Replace("{", "{{");
-        xString = xString.Replace("}", "}}");
-        // Fix issue #15662 with string length check.
-        // Fix issue #15663 with comparing from mData and not from xString anymore.
-        if ((xChar1 == '/') && (xString.Length >= 2)) {
-          char xChar2 = mData[mStart + 1];
-          xString = xString.Substring(1);
-          if (xChar2 == '/') {
-            xToken.Type = TokenType.Comment;
-          } else if (xChar2 == '!') {
-            xToken.Type = TokenType.Directive;
+      if (mAllWhitespace) {
+        if (xChar1 == '!' || xChar1 =='/') {
+          rPos = mData.Length; // This will account for the dummy whitespace at the end.
+          xString = mData.Substring(mStart + 1, rPos - mStart - 1).Trim();
+          // So ToString/Format wont generate error
+          xString = xString.Replace("{", "{{");
+          xString = xString.Replace("}", "}}");
+
+          // Fix issue #15662 with string length check.
+          // Fix issue #15663 with comparing from mData and not from xString anymore.
+          if (xChar1 == '!') {
+            // Literal assembler code.
+            xToken.Type = TokenType.LiteralAsm;
+          } else if (xString.Length > 0) {
+            char xChar2 = xString[0];
+            xString = xString.Substring(1);
+            if (xChar2 == '/') {
+              xToken.Type = TokenType.Comment;
+            } else if (xChar2 == '!') {
+              xToken.Type = TokenType.Directive;
+            }
           }
-        } else if (xChar1 == '!') {
-          // Literal assembler code.
-          xToken.Type = TokenType.LiteralAsm;
         }
       }
-      else
-      {
+
+      if (xToken.Type == TokenType.Unknown) {
         xString = mData.Substring(mStart, rPos - mStart);
 
         if (string.IsNullOrWhiteSpace(xString) && xString.Length > 0)
@@ -444,12 +447,12 @@ namespace XSharp
       if (mTokens.Count(q => q.Type == TokenType.Unknown) > 0)
       {
 
-        foreach (Token token in mTokens)
+        foreach (var xToken in mTokens)
         {
-          if (TokenType.Unknown == token.Type)
+          if (xToken.Type == TokenType.Unknown)
           {
             throw new Exception(string.Format("Unknown token '{0}' found at {1}/{2}.",
-              token.RawValue ?? "NULL", token.LineNumber, token.SrcPosStart));
+              xToken.RawValue ?? "NULL", xToken.LineNumber, xToken.SrcPosStart));
           }
         }
       }
