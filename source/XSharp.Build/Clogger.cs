@@ -4,14 +4,14 @@ using System.IO;
 using System.Text;
 
 namespace XSharp.Build {
-    public class Clogger {
+    public class Clogger : IDisposable {
         public enum FileType {
             Overwrite,
             Append,
             Timestamped
         }
 
-        public readonly TextWriter Out;
+        public TextWriter Out { get; protected set; }
 
         public Clogger(TextWriter aOut) {
             Out = aOut;
@@ -30,8 +30,26 @@ namespace XSharp.Build {
             }
         }
 
+        public void Dispose() {
+            Out.Dispose();
+            Out = null;
+        }
+
         public string TimeStamp() {
             return DateTime.Now.ToString("yyyyMMdd'-'HHmmss");
+        }
+
+        public static Clogger operator *(Clogger aThis, string aValue) {
+            aThis.Out.WriteLine(aValue);
+            return aThis;
+        }
+        public static Clogger operator +(Clogger aThis, string aValue) {
+            aThis.Out.Write(aValue);
+            return aThis;
+        }
+        public static Clogger operator ++(Clogger aThis) {
+            aThis.Out.WriteLine();
+            return aThis;
         }
     }
 }
