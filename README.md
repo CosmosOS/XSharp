@@ -1,4 +1,7 @@
 # X# (X Sharp)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/7i6422fyriiab61a/branch/master?svg=true)](https://ci.appveyor.com/project/CosmosOS/xsharp/branch/master)
+
 X# is a HLA (High Level Assembler) for X86/X64 assembly. In the future other flavors for ARM and other processors are planned.
 
 X# is integrated into Visual Studio and we are working on support for Visual Studio Code as well. X# can also be used using simple text editors such as notepad.

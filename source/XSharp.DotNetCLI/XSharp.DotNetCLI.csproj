@@ -14,6 +14,10 @@ $(XSharpDescription)</Description>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />

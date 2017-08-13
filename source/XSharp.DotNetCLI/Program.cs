@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace XSharp.DotNetCLI {
   class Program {
@@ -46,6 +48,7 @@ namespace XSharp.DotNetCLI {
 
         // List of source files
         var xFiles = new List<string>();
+        var xAssemblies = new List<Assembly>();
         foreach (var xArg in xCLI.Items) {
           string xVal = xArg.Value;
 
@@ -60,8 +63,7 @@ namespace XSharp.DotNetCLI {
               xFiles.Add(Path.GetFullPath(xVal));
 
             } else if (xExt == ".DLL") {
-              // TODO - Handle embedded resources .xs files
-
+              xAssemblies.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(xVal));
             } else {
               throw new Exception("Not a valid file type: " + xVal);
             }
@@ -74,6 +76,20 @@ namespace XSharp.DotNetCLI {
         foreach (var xFile in xFiles) {
           Console.WriteLine(xFile);
           xGen.GenerateToFiles(xFile);
+        }
+
+        // Generate output from embedded resources
+        foreach (var xAssembly in xAssemblies)
+        {
+          var xDestination = Path.ChangeExtension(xAssembly.Location, "asm");
+          var xWriter = new StreamWriter(File.Create(xDestination));
+
+          foreach (var xResource in xAssembly.GetManifestResourceNames()
+                                             .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase)))
+          {
+            var xStream = xAssembly.GetManifestResourceStream(xResource);
+            xGen.GenerateFromEmbeddedResource(xResource, xStream, xWriter);
+          }
         }
 
         // Finalize
