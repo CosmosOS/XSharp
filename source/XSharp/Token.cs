@@ -5,16 +5,27 @@ namespace XSharp
   public enum TokenType
   {
     // Line based
-    Comment, LiteralAsm
+    Comment,
+    LiteralAsm,
+    Directive,
+
     //
-    , Register, Keyword, AlphaNum
+    Register,
+    Keyword,
+    AlphaNum,
+
     // Values
-    , ValueInt, ValueString
+    ValueInt,
+    ValueString,
+
     //
-    , WhiteSpace, Operator, Delimiter
-    , Call
+    WhiteSpace,
+    Operator,
+    Delimiter,
+    Call,
+
     // For now used during scanning while user is typing, but in future could be user methods we have to find etc
-    , Unknown
+    Unknown
   }
 
   public class Token
@@ -26,10 +37,7 @@ namespace XSharp
 
     public uint IntValue
     {
-      get
-      {
-        return mIntValue.Value;
-      }
+      get { return mIntValue.Value; }
     }
 
     private uint? mIntValue;
