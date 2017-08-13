@@ -32,6 +32,10 @@ namespace XSharp.DotNetCLI {
           xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         }
 
+        var xPlugins = xCLI.GetSwitches("Plugin");
+        foreach (var xPlugin in xPlugins) {
+        }
+
         // Generate output
         foreach (var xFile in xFiles) {
           Console.WriteLine(xFile);

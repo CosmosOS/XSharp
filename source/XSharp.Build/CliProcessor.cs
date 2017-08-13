@@ -51,13 +51,20 @@ namespace XSharp.Build {
             }
         }
 
-        // Only returns first. If multiple expected, use different method.
+        // Only returns first - by design
         public Switch GetSwitch(string aName, string aShortName = "") {
             if (PreserveSwitchCase == false) {
                 aName = aName.ToUpper();
                 aShortName = aShortName.ToUpper();
             }
             return Switches.FirstOrDefault(q => q.Name == aName || (aShortName != "" && q.Name == aShortName));
+        }
+        public List<Switch> GetSwitches(string aName, string aShortName = "") {
+            if (PreserveSwitchCase == false) {
+                aName = aName.ToUpper();
+                aShortName = aShortName.ToUpper();
+            }
+            return Switches.FindAll(q => q.Name == aName || (aShortName != "" && q.Name == aShortName));
         }
     }
 }

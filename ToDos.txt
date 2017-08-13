@@ -1,31 +1,14 @@
 Kudzu ----------------------------------------------------
 
-Clogger
--Change XSC to use
-/! directives
--namespace too
+Change XSC to use Clogger
+
 pre/post directives, separate api than normal pre/post
--as namespaces - process for
+-as namespaces - process for - ie Cosmos.directive
 pre/post as plugins
 
 Global - XSharp.cfg ?
 
-Marker for directives
-include files, ie $I
-
-Directives
-Namespaces for pre/post processor directives
-
-  separate from normal pre/post processing
-
 Loadable plugins + core code in build for now
-
-Directives
-Comments on/off/inherit
-
-SourceCode on/off/inherit
-
-Emit X# code as comments in .asm - might already do
 
 -Docs, Videos, website
 -Nuget pkg (Charles)
@@ -38,3 +21,20 @@ Colorizer
 3) Fix it to handle unknown errors more gracefully. Just ignore for now? Or how to report to user without a dialog every time...
 4) Update to process /! - need to choose a color not alrady used. These are for directives like Namspace
 
+Change all namespace in .xs source files to:
+/! namespace ....
+
+EmitUserComments
+-Take from property first
+-Each .xs can turn on or off with directive, or use inherit. If no directive, then inherit
+  -Settings only apply for that .xs and reset to the master property when new .xs is processed
+  -Same for .EmitSourceCode
+
+.EmitSourceCode comments - if on then above each section it should emit a comment in the .ASM file showing the X# source.
+
+/! include <file ref>
+Does an inline include of the reffed file. 
+
+jp2masa ------------------------------------------
+
+Can you modify our build process to to call XSC separately from IL2CPU? This will separate it out, and also let us handle plugins to XSC easier.
