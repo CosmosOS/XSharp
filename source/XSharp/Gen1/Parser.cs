@@ -186,7 +186,7 @@ namespace XSharp {
             if (xChar2 == '/') {
               xToken.Type = TokenType.Line_Comment;
             } else if (xChar2 == '!') {
-              xToken.Type = TokenType.Directive;
+              xToken.Type = TokenType.Line_Directive;
             }
           }
         }

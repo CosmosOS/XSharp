@@ -6,11 +6,16 @@ Parser
   -Line based
      -Line type - token list to lineoftokens, put line type there plus raw data
      -Separate processors for each
+  -Make directive /$ 
+  -Make literals /!
+  -token, follow pattern intead of tokenize and pattern match? Each can parse iteslf then. Easier to debug and find problems
+  -Multiline comments
   -TokenPattern.cs - merge GetCode up to caller
   -Call() - integrate into pre process so all passed later must be tokens
   -Call(Params, can be regs or memroy or labelws or const..)
   -function(params)
   -/! Cosmos.Plug - params?
+
 
 Plugins - Use XSharp.Build.Plugins
 
