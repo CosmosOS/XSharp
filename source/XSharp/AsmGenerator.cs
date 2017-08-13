@@ -119,20 +119,16 @@ namespace XSharp {
     /// <returns>The resulting target assembler content. The returned object contains a code and a data block.</returns>
     protected void ProcessLine(string aLine, int aLineNo) {
       aLine = aLine.Trim();
-      if (String.IsNullOrEmpty(aLine) || aLine == "//") {
-        return;
-      }
-
-      // Currently we use a new assembler for every line.
-      // If we dont it could create a really large in memory object.
-      if (!mPatterns.GetCode(aLine, aLineNo)) {
-        var xMsg = new StringBuilder();
-        if (mPathname != "") {
-          xMsg.Append("File " + mPathname + ", ");
+      if (String.IsNullOrEmpty(aLine) == false) {
+        // Currently we use a new assembler for every line.
+        // If we dont it could create a really large in memory object.
+        if (mPatterns.GetCode(aLine, aLineNo) == false) {
+          string xMsg = "Line " + mLineNo + ", " + "Parsing error: " + aLine;
+          if (mPathname != "") {
+            xMsg = "File " + mPathname + ", " + xMsg;
+          }
+          throw new Exception(xMsg);
         }
-        xMsg.Append("Line " + mLineNo + ", ");
-        xMsg.Append("Parsing error: " + aLine);
-        throw new Exception(xMsg.ToString());
       }
     }
   }
