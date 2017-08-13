@@ -83,11 +83,10 @@ namespace XSharp {
       mPathname = Path.GetFileName(aSrcPathname);
       new Assembler.Assembler(false);
       try {
-        using (var xInput = new StreamReader(File.Open(aSrcPathname, FileMode.Open))) {
-          using (var xOutput = new StreamWriter(File.Open(Path.ChangeExtension(aSrcPathname, ".asm"), FileMode.OpenOrCreate))) {
-            xOutput.WriteLine("; Generated at {0}", DateTime.Now.ToString(new CultureInfo("en-US")));
-
-            Generate(xInput, xOutput);
+        using (var xIn = File.OpenText(aSrcPathname)) {
+          using (var xOut = new StreamWriter(File.Open(Path.ChangeExtension(aSrcPathname, ".asm"), FileMode.OpenOrCreate))) {
+            xOut.WriteLine("; Generated at {0}", DateTime.Now.ToString(new CultureInfo("en-US")));
+            Generate(xIn, xOut);
           }
         }
       } finally {

@@ -2,6 +2,9 @@ Kudzu ----------------------------------------------------
 
 Change XSC to use Clogger
 
+Parser
+  -Line based
+
 Plugins - Use XSharp.Build.Plugins
 
 pre/post directives, separate api than normal pre/post
