@@ -6,6 +6,9 @@
             "include": "#comments"
         },
         {
+            "include": "#directives"
+        },
+        {
             "include": "#entities"
         },
 		{
@@ -35,19 +38,17 @@
                 }
             ]
         },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "meta.preprocessor",
+                    "match": "\\/! (.+)"
+                }
+            ]
+        },
         "entities": {
             "patterns": [
                 {
-                    "match": "(namespace) (\\w+)",
-                    "captures": {
-                        "1": {
-                            "name": "storage.type"
-                        },
-                        "2": {
-                            "name": "entity.name.type.xsharp"
-                        }
-                    }
-                },{
                     "match": "(function) (\\w+)",
                     "captures": {
                         "1": {
@@ -119,16 +120,20 @@
         "registers": {
             "patterns": [
                 {
+                    "name": "support.variable.xsharp",
+                    "match": "\\bAll\b"
+                },
+                {
                     "name": "support.variable.xsharp.x86",
-                    "match": "\\b(EAX|AX|AH|AL|EBX|BX|BH|BL|ECX|CX|CH|CL|EDX|DX|DH|DL|ESI|EDI|EBP|ESP|eax|ax|ah|al|ebx|bx|bh|bl|ecx|cx|ch|cl|edx|dx|dh|dl|esi|edi|ebp|esp|All)\\b"
+                    "match": "\\b(?i:EAX|AX|AH|AL|EBX|BX|BH|BL|ECX|CX|CH|CL|EDX|DX|DH|DL|ESI|EDI|EBP|ESP)\\b"
                 },
                 {
                     "name": "support.variable.xsharp.x86.sse",
-                    "match": "\\b(XMM0|XMM1|XMM2|XMM3|XMM4|XMM5|XMM6|XMM7|xmm0|xmm1|xmm2|xmm3|xmm4|xmm5|xmm6|xmm7)\\b"
+                    "match": "\\b(?i:XMM0|XMM1|XMM2|XMM3|XMM4|XMM5|XMM6|XMM7)\\b"
                 },
                 {
                     "name": "support.variable.xsharp.ARM",
-                    "match": "\\b(r0|r1|r2|r3|r4|r5|r6|r7|r8|r9|r10|r11|r12|sp|pc|lr|R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|SP|PC|LR)\\b"
+                    "match": "\\b(?i:r0|r1|r2|r3|r4|r5|r6|r7|r8|r9|r10|r11|r12|sp|pc|lr)\\b"
                 }
             ]
         },
@@ -136,7 +141,7 @@
             "patterns": [
                 {
                     "name": "storage.type.xsharp",
-                    "match": "\\b(namespace|function|const|var)\\b"
+                    "match": "\\b(function|const|var)\\b"
                 },
                 {
                     "name": "storage.xsharp",

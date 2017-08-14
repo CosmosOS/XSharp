@@ -17,12 +17,12 @@ nuget:
 build_script:
   - cmd: |
       nuget restore "XSharp.sln"
-      msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:VersionSuffix="%APPVEYOR_BUILD_NUMBER%" /p:DeployExtension=false
+      msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
 
-      dotnet pack "source\XSharp.Assembler" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp.Build" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-      dotnet pack "source\XSharp.DotNetCLI" -c Release --version-suffix %APPVEYOR_BUILD_NUMBER%
+      msbuild "source\XSharp.Assembler" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
+      msbuild "source\XSharp.Build" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
+      msbuild "source\XSharp" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
+      msbuild "source\XSharp.DotNetCLI" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
 
 artifacts:
-  - path: 'source\**\*.nupkg'
+  - path: 'artifacts\nuget\*.nupkg'
