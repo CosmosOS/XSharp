@@ -72,10 +72,12 @@ namespace XSharp.DotNetCLI {
 
         if (xCLI["Gen2"] != null) {
           foreach (var xFile in xFiles) {
-            var xIn = File.OpenText(xFile);
-            var xOut = File.CreateText(Path.ChangeExtension(xFile, ".asm"));
-            var xCompiler = new Compiler(xOut);
-            xCompiler.Generate(xIn);
+            using (var xIn = File.OpenText(xFile)) {
+              using (var xOut = File.CreateText(Path.ChangeExtension(xFile, ".asm"))) {
+                var xCompiler = new Compiler(xOut);
+                xCompiler.Emit(xIn);
+              }
+            }
           }
         } else {
           // Generate output
