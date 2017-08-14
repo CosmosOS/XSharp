@@ -1,0 +1,3 @@
+This documentation is outdated and may be deleted from the repo. 
+For the current and updated documentation for X#, be sure to visit:
+http://www.gocosmos.org/xsharp/docs
