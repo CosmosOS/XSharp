@@ -7,7 +7,7 @@ using System.Text;
 namespace XSharp {
   public class Compiler {
     protected readonly TextWriter Out;
-    protected int Indent = 0;
+    protected string Indent = "";
     public int LineNo { get; private set; }
     public bool EmitUserComments = true;
     public bool EmitSourceCode = true;
@@ -17,7 +17,7 @@ namespace XSharp {
     }
 
     public void WriteLine(string aText = "") {
-      Out.WriteLine(new string(' ', Indent) + aText);
+      Out.WriteLine(Indent + aText);
     }
 
     public void Emit(TextReader aIn) {
@@ -28,7 +28,9 @@ namespace XSharp {
         string xText = aIn.ReadLine();
         while (xText != null) {
           var xLine = Lines.Line.New(this, xText);
-          Indent = xText.Length - xText.TrimStart().Length;
+
+          int i = xText.Length - xText.TrimStart().Length;
+          Indent = xText.Substring(0, i);
           
           xLine.Emit();
 

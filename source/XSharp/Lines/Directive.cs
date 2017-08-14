@@ -8,6 +8,9 @@ namespace XSharp.Lines {
     }
 
     public override void Emit() {
+      if (Compiler.EmitSourceCode) {
+        Compiler.WriteLine("; " + RawText.Trim());
+      }
     }
   }
 }
