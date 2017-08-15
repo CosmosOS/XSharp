@@ -11,8 +11,4 @@
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Tokens\" />
-    </ItemGroup>
-
 </Project>
