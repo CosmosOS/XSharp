@@ -21,6 +21,7 @@ build_script:
 
       msbuild "source\XSharp.Assembler" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
       msbuild "source\XSharp.Build" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
+      msbuild "source\XSharp.Build.Tasks" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
       msbuild "source\XSharp" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
       msbuild "source\XSharp.DotNetCLI" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
 
