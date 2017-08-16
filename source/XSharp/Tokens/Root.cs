@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XSharp.Values;
 
 namespace XSharp.Tokens {
   public class Root : Token {
@@ -8,15 +9,16 @@ namespace XSharp.Tokens {
       Tokens.Add(new Register());
     }
 
-    protected override bool IsMatch(string aText) {
+    protected override bool IsMatch(Value aValue) {
       // Dont foresee this ever being called in Root, but....
       return true;
     }
 
-    public List<Values.Value> Parse(string aText) {
-      var xResult = new List<Values.Value>();
+    public List<CodePoint> Parse(string aText) {
+      var xResult = new List<CodePoint>();
       int aPos = 0;
-      var xValue = Next(aText, ref aPos);
+      var xCP = Next(aText, ref aPos);
+      xResult.Add(xCP);
       return xResult;
     }
   }

@@ -4,11 +4,6 @@ Change XSC to use Clogger
 
 Parser
 Make parsers list that is unique. Can cash instances too, statics and then use?
-CodePoint
--Line
--Token
--Value
--TextStart, TextEnd
 
    -SyntaxMap - can be circular
    -UI for map, read from file? and code?

@@ -5,20 +5,20 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class Register : RegisterBase {
-    protected override bool IsMatch(string aText) {
+    protected override bool IsMatch(Values.Value aValue) {
       // Probably can find a faster lookup method, but given that the lists are small hashing or other
       // method might be longer.
-      if (Register32.Names.Contains(aText.ToUpper())) {
+      string xText = aValue.RawText.ToUpper();
+      if (Register32.Names.Contains(xText)) {
         Size = 32;
-        return true;
-      } else if (Register16.Names.Contains(aText.ToUpper())) {
+      } else if (Register16.Names.Contains(xText)) {
         Size = 16;
-        return true;
-      } else if (Register08.Names.Contains(aText.ToUpper())) {
+      } else if (Register08.Names.Contains(xText)) {
         Size = 8;
-        return true;
+      } else {
+        return false;
       }
-      return false;
+      return true;
     }
   }
 }

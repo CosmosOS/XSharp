@@ -13,14 +13,14 @@ namespace XSharp.Parsers {
     }
 
     public override Values.Value Parse(string aText, ref int rStart) {
-      if (FirstChars.IndexOf(aText[rStart]) > -1) {
+      if (FirstChars.IndexOf(aText[rStart]) == -1) {
         return null;
       }
 
       var xOut = new StringBuilder(aText[rStart]);
       int i;
       for (i = rStart + 1; i < aText.Length; i++) {
-        if (Chars.IndexOf(aText[rStart]) > -1) {
+        if (Chars.IndexOf(aText[i]) == -1) {
           break;
         }
       }

@@ -2,6 +2,10 @@
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
+
+// Temp to test parser
+	EAX = 0
+
 function ProcessCommand {
     /! Nop
 

@@ -22,6 +22,6 @@ namespace XSharp.Parsers {
     // Do not store any state in this class. It is
     // used from different places at once and only exists
     // to allow overrides since .NET types have no VMT.
-    public abstract Values.Value Parse(string aText, ref int rStart);
+    public abstract object Parse(string aText, ref int rStart);
   }
 }
