@@ -3,22 +3,21 @@ Kudzu ----------------------------------------------------
 Change XSC to use Clogger
 
 Parser
-      public static readonly string AlphaExtra = "_";
+Make parsers list that is unique. Can cash instances too, statics and then use?
+CodePoint
+-Line
+-Token
+-Value
+-TextStart, TextEnd
 
--SyntaxMap
-  -Link available parsers to Tokens available - ie tokens have a parser specified - can cause overrides etc. But also could cause conflicts. Add up front and elminate dups.
    -SyntaxMap - can be circular
-   -TokenList - each refs to a SyntaxMap item
    -UI for map, read from file? and code?
-   --
    TokenValue - points to token instance
    Token - instances
    SyntaxMap - or merge instances? use cheap intances
 
   -Multiline comments
      -Feedback from line to tell it "more" - use /* for both ends
-  -token, follow pattern intead of tokenize and pattern match? Each can parse iteslf then. Easier to debug and find problems
-  -TokenPattern.cs - merge GetCode up to caller
   -Call() - integrate into pre process so all passed later must be tokens
   -Call(Params, can be regs or memroy or labelws or const..)
   -function(params)
