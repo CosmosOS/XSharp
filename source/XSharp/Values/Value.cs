@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Values {
-  public class Value {
-    public readonly string Text;
-    public readonly Tokens.Token Token;
+  public abstract class Value {
+    public readonly string RawText;
 
-    public Value(string aText, Tokens.Token aToken) {
-      Text = aText;
-      Token = aToken;
+    public Value(string aText) {
+      RawText = aText;
     }
   }
 }

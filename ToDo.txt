@@ -3,8 +3,13 @@ Kudzu ----------------------------------------------------
 Change XSC to use Clogger
 
 Parser
+      public static readonly string AlphaExtra = "_";
+
+-SyntaxMap
+  -Link available parsers to Tokens available - ie tokens have a parser specified - can cause overrides etc. But also could cause conflicts. Add up front and elminate dups.
    -SyntaxMap - can be circular
    -TokenList - each refs to a SyntaxMap item
+   -UI for map, read from file? and code?
    --
    TokenValue - points to token instance
    Token - instances

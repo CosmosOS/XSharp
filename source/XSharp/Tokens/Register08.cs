@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public class Register16 : RegisterBase {
-    public static readonly string[] Names = "AX,BX,CX,DX".Split(',');
+  public class Register08 : RegisterBase {
+    public static readonly string[] Names = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
 
-    public Register16() {
-      Size = 16;
+    public Register08() {
+      Size = 8;
     }
 
     protected override bool IsMatch(string aText) {
