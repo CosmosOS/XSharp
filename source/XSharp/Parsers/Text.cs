@@ -12,7 +12,7 @@ namespace XSharp.Parsers {
       Chars = FirstChars + Parser.Chars.Number;
     }
 
-    public override Values.Value Parse(string aText, ref int rStart) {
+    public override object Parse(string aText, ref int rStart) {
       if (FirstChars.IndexOf(aText[rStart]) == -1) {
         return null;
       }
@@ -26,9 +26,8 @@ namespace XSharp.Parsers {
       }
 
       string xText = aText.Substring(rStart, i - rStart);
-      var xResult = new Values.Text(xText);
       rStart = i;
-      return xResult;
+      return xText;
     }
   }
 }

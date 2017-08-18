@@ -8,9 +8,9 @@ namespace XSharp {
     public readonly int TextStart;
     public readonly int TextEnd;
     public readonly Tokens.Token Token;
-    public readonly Values.Value Value;
+    public readonly object Value;
 
-    public CodePoint(string aFullText, int aTextStart, int aTextEnd, Tokens.Token aToken, Values.Value aValue) {
+    public CodePoint(string aFullText, int aTextStart, int aTextEnd, Tokens.Token aToken, object aValue) {
       FullText = aFullText;
       TextStart = aTextStart;
       TextEnd = aTextEnd;

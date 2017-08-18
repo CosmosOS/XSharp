@@ -11,8 +11,11 @@ namespace XSharp.Tokens {
       Size = 32;
     }
 
-    protected override bool IsMatch(Values.Value aValue) {
-      return Names.Contains(aValue.RawText.ToUpper());
+    protected override bool IsMatch(object aValue) {
+      if (aValue is string) {
+        return Names.Contains(((string)aValue).ToUpper());
+      }
+      return false;
     }
   }
 }

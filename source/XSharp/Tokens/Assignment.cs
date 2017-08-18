@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using XSharp.Values;
 
 namespace XSharp.Tokens {
   public class Assignment : Token {
@@ -11,7 +10,7 @@ namespace XSharp.Tokens {
 
     protected override bool IsMatch(object aValue) {
       if (aValue is string) {
-        return (string) aValue == "=";
+        return (string)aValue == "=";
       }
       return false;
     }
