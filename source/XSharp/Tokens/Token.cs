@@ -13,18 +13,19 @@ namespace XSharp.Tokens {
       int i;
       for (i = rStart; i < aText.Length; i++) {
         if (char.IsWhiteSpace(aText[i]) == false) {
+          rStart = i;
+          int xThisStart = rStart;
           // Yes, this looping is slow with all the calls. But for our current
           // needs its fast enough and worth the expansion.
           // Any optimazations should keep the basic design.
           foreach (var xParser in Tokens) {
             // Find which parser claims it.
             // TODO - This can scan parsers more than once. Need to optimize this.
-            var xValue = xParser.Parser.Parse(aText, ref i);
+            var xValue = xParser.Parser.Parse(aText, ref rStart);
             if (xValue != null) {
               foreach (var xToken in Tokens) {
                 if (xToken.IsMatch(xValue)) {
-                  rStart = i;
-                  return new CodePoint(aText, rStart, i - 1, xToken, xValue);
+                  return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);
                 }
               }
             }

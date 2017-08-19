@@ -11,12 +11,11 @@ namespace XSharp.Lines {
     }
 
     public override void Emit() {
-      string xText = RawText.Trim();
       if (Compiler.EmitSourceCode) {
-        Compiler.WriteLine("; " + xText);
+        Compiler.WriteLine("; " + RawText.Trim());
       }
 
-      TokenMap.Parse(xText);
+      TokenMap.Parse(RawText);
       // Where to emit? Part of parse? Internal seperation?
     }
   }
