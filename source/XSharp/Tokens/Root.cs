@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace XSharp.Tokens {
   public class Root : Token {
     public Root() {
-      Tokens.Add(new Register());
+      AddPattern(null, typeof(Register), typeof(Assignment));
     }
 
     protected override bool IsMatch(object aValue) {
@@ -14,10 +15,21 @@ namespace XSharp.Tokens {
     }
 
     public List<CodePoint> Parse(string aText) {
+      // Important for end detection. Do not TrimStart, will goof up CodePoint indexes.
+      aText = aText.TrimEnd();
       var xResult = new List<CodePoint>();
       int aPos = 0;
-      var xCP = Next(aText, ref aPos);
-      xResult.Add(xCP);
+      Token xToken = this;
+
+      while (aPos < aText.Length) {
+        var xCP = xToken.Next(aText, ref aPos);
+        if (xCP == null) {
+          break;
+        }
+        xToken = xCP.Token;
+        xResult.Add(xCP);
+      }
+
       return xResult;
     }
   }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace XSharp.Parsers {
-  public class Text : Parser {
+  public class Identifier : Parser {
     protected static readonly string FirstChars;
     protected static readonly string Chars;
 
-    static Text() {
+    static Identifier() {
       FirstChars = Parser.Chars.Alpha + "_";
       Chars = FirstChars + Parser.Chars.Number;
     }
@@ -17,7 +18,6 @@ namespace XSharp.Parsers {
         return null;
       }
 
-      var xOut = new StringBuilder(aText[rStart]);
       int i;
       for (i = rStart + 1; i < aText.Length; i++) {
         if (Chars.IndexOf(aText[i]) == -1) {
