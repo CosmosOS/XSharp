@@ -5,7 +5,7 @@ using System.Text;
 namespace XSharp.Tokens {
   public class Assignment : Token {
     public Assignment() {
-      Parser = new Parsers.Symbols();
+      Parser = new Parsers.Operator();
     }
 
     protected override bool IsMatch(object aValue) {

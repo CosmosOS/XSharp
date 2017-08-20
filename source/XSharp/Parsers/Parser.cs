@@ -4,15 +4,14 @@ using System.Text;
 
 namespace XSharp.Parsers {
   public abstract class Parser {
-    public static class Chars {
+    public static class CharSets {
       public static readonly string Alpha;
       public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRTSUVWXYZ";
       public static readonly string AlphaLower;
       public static readonly string Number = "0123456789";
       public static readonly string AlphaNum;
-      public static readonly string Symbol = "`!@#$%^&()+-*/=,.:{}[]";
 
-      static Chars() {
+      static CharSets() {
         AlphaLower = AlphaUpper.ToLower();
         Alpha = AlphaUpper + AlphaLower;
         AlphaNum = Alpha + AlphaNum;

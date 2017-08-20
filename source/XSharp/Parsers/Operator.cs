@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Parsers {
-  public class Symbols : Parser {
+  public class Operator : Parser {
     protected static readonly string Chars;
 
-    static Symbols() {
-      Chars = Parser.Chars.Symbol;
+    static Operator() {
+      Chars = "=";
     }
 
     public override object Parse(string aText, ref int rStart) {

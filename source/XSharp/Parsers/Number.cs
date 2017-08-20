@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Parsers {
-  public class Identifier : Parser {
+  public class Number : Parser {
     protected static readonly string FirstChars;
     protected static readonly string Chars;
 
-    static Identifier() {
+    static Number() {
       FirstChars = Parser.CharSets.Alpha + "_";
       Chars = FirstChars + Parser.CharSets.Number;
     }
