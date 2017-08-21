@@ -11,9 +11,11 @@ namespace XSharp.Tokens {
       foreach (var xMethod in GetType().GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();
         if (xAttrib != null) {
-          AddPattern((Compiler aCompiler, List<CodePoint> aPoints) => {
-            xMethod.Invoke(this, new object[] {aCompiler, aPoints});
-          }, xAttrib.TokenTypes);
+          AddPattern(
+            (Compiler aCompiler, List<CodePoint> aPoints) => {
+              xMethod.Invoke(this, new object[] { aCompiler, aPoints });
+            }
+            , xAttrib.TokenTypes);
         }
       }
     }
