@@ -8,8 +8,9 @@ namespace XSharp.Parsers {
     protected static readonly string Chars;
 
     static Number() {
-      FirstChars = Parser.CharSets.Alpha + "_";
-      Chars = FirstChars + Parser.CharSets.Number;
+      Chars = CharSets.Number;
+      // Hex, etc.. need to find current X# syntax
+      FirstChars = "" + Chars;
     }
 
     public override object Parse(string aText, ref int rStart) {

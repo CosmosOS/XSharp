@@ -7,22 +7,33 @@ using System.Text;
 namespace XSharp.Tokens {
   public abstract class Token {
     protected List<Token> Tokens = new List<Token>();
+    protected Action<List<CodePoint>> Emitter;
     protected Parsers.Parser Parser;
 
     protected abstract bool IsMatch(object aValue);
 
-    protected void AddPattern(Action<List<CodePoint>> aEvent, params Type[] aTokenTypes) {
+    protected void AddPattern(Action<List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
       var xToken = this;
       foreach (var xType in aTokenTypes) {
         xToken = xToken.AddToken(xType);
       }
+
+      if (xToken.Tokens.Count > 0) {
+        throw new Exception("Cannot add emitter to a token which has subtokens.");
+      }
+      xToken.Emitter = aEmitter;
     }
     protected Token AddToken(Type aTokenType) {
       var xToken = Tokens.SingleOrDefault(q => q.GetType() == aTokenType);
+
       if (xToken == null) {
+        if (Emitter != null) {
+          throw new Exception("Cannot add subtokens to a token which has an emitter.");
+        }
         xToken = (Token)Activator.CreateInstance(aTokenType);
         Tokens.Add(xToken);
       }
+
       return xToken;
     }
 
