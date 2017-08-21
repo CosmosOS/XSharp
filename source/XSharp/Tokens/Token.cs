@@ -70,7 +70,13 @@ namespace XSharp.Tokens {
 
       foreach (var xToken in Tokens) {
         if (xToken.IsMatch(xValue)) {
-          if (xToken.Tokens == null && rStart < aText.Length) {
+          if (rStart == aText.Length) {
+            if (xToken.Tokens != null) {
+              throw new Exception("Incomplete line. Tokens exist beyond end of text.\r\n" + aText);
+            } else if (xToken.Emitter == null) {
+              throw new Exception("No emitter found for final token.\r\n" + aText);
+            }
+          } else if (xToken.Tokens == null) {
             throw new Exception("Text exists beyond end of recognized line.\r\n" + aText);
           }
           return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);

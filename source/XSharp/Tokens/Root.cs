@@ -6,7 +6,7 @@ using System.Text;
 namespace XSharp.Tokens {
   public class Root : Token {
     public Root() {
-      AddPattern(Emit_RegisterAssign, typeof(Register), typeof(Assignment));
+      AddPattern(Emit_RegisterAssign, typeof(Register), typeof(Assignment), typeof(Number64u));
     }
 
     protected override bool IsMatch(object aValue) {
