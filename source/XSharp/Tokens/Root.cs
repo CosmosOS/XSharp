@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace XSharp.Tokens {
   public class Root : Token {
     public Root() {
-      AddPattern(Emit__Reg_Assign_Num, typeof(Register), typeof(Assignment), typeof(Number64u));
+      // Load emitters to pattern list
+      foreach (var xMethod in GetType().GetRuntimeMethods()) {
+        var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();
+        if (xAttrib != null) {
+          AddPattern((Compiler aCompiler, List<CodePoint> aPoints) => {
+            xMethod.Invoke(this, new object[] {aCompiler, aPoints});
+          }, xAttrib.TokenTypes);
+        }
+      }
     }
 
     protected override bool IsMatch(object aValue) {
@@ -33,6 +42,7 @@ namespace XSharp.Tokens {
       return xResult;
     }
 
+    [Emitter(typeof(Register), typeof(Assignment), typeof(Number64u))]
     protected void Emit__Reg_Assign_Num(Compiler aCompiler, List<CodePoint> aPoints) {
       var xReg = (string)aPoints[0].Value;
       var xVal = ((UInt64)aPoints[2].Value).ToString("X");

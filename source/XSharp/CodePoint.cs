@@ -12,8 +12,10 @@ namespace XSharp {
 
     public CodePoint(string aFullText, int aTextStart, int aTextEnd, Tokens.Token aToken, object aValue) {
       FullText = aFullText;
+      //
       TextStart = aTextStart;
       TextEnd = aTextEnd;
+      //
       Token = aToken;
       Value = aValue;
     }
