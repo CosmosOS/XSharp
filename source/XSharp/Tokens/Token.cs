@@ -6,32 +6,32 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public abstract class Token {
-    protected List<Token> Tokens = new List<Token>();
-    protected Action<List<CodePoint>> Emitter;
-    protected Parsers.Parser Parser;
+    protected List<Token> mTokens = new List<Token>();
+    public Action<Compiler, List<CodePoint>> Emitter;
+    protected Parsers.Parser mParser;
 
     protected abstract bool IsMatch(object aValue);
 
-    protected void AddPattern(Action<List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
+    protected void AddPattern(Action<Compiler, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
       var xToken = this;
       foreach (var xType in aTokenTypes) {
         xToken = xToken.AddToken(xType);
       }
 
-      if (xToken.Tokens.Count > 0) {
+      if (xToken.mTokens.Count > 0) {
         throw new Exception("Cannot add emitter to a token which has subtokens.");
       }
       xToken.Emitter = aEmitter;
     }
     protected Token AddToken(Type aTokenType) {
-      var xToken = Tokens.SingleOrDefault(q => q.GetType() == aTokenType);
+      var xToken = mTokens.SingleOrDefault(q => q.GetType() == aTokenType);
 
       if (xToken == null) {
         if (Emitter != null) {
           throw new Exception("Cannot add subtokens to a token which has an emitter.");
         }
         xToken = (Token)Activator.CreateInstance(aTokenType);
-        Tokens.Add(xToken);
+        mTokens.Add(xToken);
       }
 
       return xToken;
@@ -58,8 +58,8 @@ namespace XSharp.Tokens {
       // Any optimazations should keep the basic design.
       // TODO - This can scan parsers more than once. Need to optimize this.
       rStart = xThisStart;
-      foreach (var xToken in Tokens) {
-        xValue = xToken.Parser.Parse(aText, ref rStart);
+      foreach (var xToken in mTokens) {
+        xValue = xToken.mParser.Parse(aText, ref rStart);
         if (xValue != null) {
           break;
         }
@@ -68,15 +68,15 @@ namespace XSharp.Tokens {
         throw new Exception("No matching parser found on line.\r\n" + aText);
       }
 
-      foreach (var xToken in Tokens) {
+      foreach (var xToken in mTokens) {
         if (xToken.IsMatch(xValue)) {
           if (rStart == aText.Length) {
-            if (xToken.Tokens != null) {
+            if (xToken.mTokens.Count > 0) {
               throw new Exception("Incomplete line. Tokens exist beyond end of text.\r\n" + aText);
             } else if (xToken.Emitter == null) {
               throw new Exception("No emitter found for final token.\r\n" + aText);
             }
-          } else if (xToken.Tokens == null) {
+          } else if (xToken.mTokens == null) {
             throw new Exception("Text exists beyond end of recognized line.\r\n" + aText);
           }
           return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);

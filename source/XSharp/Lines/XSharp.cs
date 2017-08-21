@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
 namespace XSharp.Lines {
   public class XSharp : Line {
-    protected Tokens.Root TokenMap = new Tokens.Root();
+    protected static Tokens.Root mTokenMap = new Tokens.Root();
 
     public XSharp(Compiler aCompiler, string aLine) : base(aCompiler, aLine) {
     }
@@ -15,8 +16,9 @@ namespace XSharp.Lines {
         Compiler.WriteLine("; " + RawText.Trim());
       }
 
-      TokenMap.Parse(RawText);
-      // Where to emit? Part of parse? Internal seperation?
+      var xCodePoints = mTokenMap.Parse(RawText);
+      var xLastToken = xCodePoints.Last().Token;
+      xLastToken.Emitter(Compiler, xCodePoints);
     }
   }
 }

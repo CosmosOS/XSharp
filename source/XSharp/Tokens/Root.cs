@@ -33,7 +33,8 @@ namespace XSharp.Tokens {
       return xResult;
     }
 
-    protected void Emit_RegisterAssign(List<CodePoint> aCodePoints) {
+    protected void Emit_RegisterAssign(Compiler aCompiler, List<CodePoint> aCodePoints) {
+      aCompiler.WriteLine("TEST");
     }
   }
 }

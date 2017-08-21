@@ -7,7 +7,7 @@ namespace XSharp.Tokens {
     public int Size { get; protected set; }
 
     protected RegisterBase() {
-      Parser = Parsers.Parsers.Identifier;
+      mParser = Parsers.Parsers.Identifier;
     }
   }
 }
