@@ -12,6 +12,11 @@ namespace XSharp.Parsers {
       Chars = FirstChars + Parser.CharSets.Number;
     }
 
+    public readonly bool UpperResult;
+    public Identifier(bool aUpperResult = false) {
+      UpperResult = aUpperResult;
+    }
+
     public override object Parse(string aText, ref int rStart) {
       if (FirstChars.IndexOf(aText[rStart]) == -1) {
         return null;
@@ -25,6 +30,9 @@ namespace XSharp.Parsers {
       }
 
       string xText = aText.Substring(rStart, i - rStart);
+      if (UpperResult) {
+        xText = xText.ToUpper();
+      }
       rStart = i;
       return xText;
     }
