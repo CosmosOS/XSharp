@@ -6,7 +6,7 @@ using System.Text;
 namespace XSharp.Tokens {
   public class Root : Token {
     public Root() {
-      AddPattern(Emit_RegisterAssign, typeof(Register), typeof(Assignment), typeof(Number64u));
+      AddPattern(Emit__Reg_Assign_Num, typeof(Register), typeof(Assignment), typeof(Number64u));
     }
 
     protected override bool IsMatch(object aValue) {
@@ -33,8 +33,10 @@ namespace XSharp.Tokens {
       return xResult;
     }
 
-    protected void Emit_RegisterAssign(Compiler aCompiler, List<CodePoint> aCodePoints) {
-      aCompiler.WriteLine("TEST");
+    protected void Emit__Reg_Assign_Num(Compiler aCompiler, List<CodePoint> aPoints) {
+      var xReg = (string)aPoints[0].Value;
+      var xVal = ((UInt64)aPoints[2].Value).ToString("X");
+      aCompiler.WriteLine($"mov {xReg}, 0x{xVal}");
     }
   }
 }
