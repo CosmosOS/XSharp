@@ -13,7 +13,10 @@ namespace XSharp.Tokens {
         if (xAttrib != null) {
           AddPattern(
             (Compiler aCompiler, List<CodePoint> aPoints) => {
-              xMethod.Invoke(this, new object[] { aCompiler, aPoints });
+              var xArgs = new List<object>();
+              xArgs.Add(aCompiler);
+              xArgs.AddRange(aPoints.Select(q => q.Value));
+              xMethod.Invoke(this, xArgs.ToArray());
             }
             , xAttrib.TokenTypes);
         }
@@ -45,10 +48,8 @@ namespace XSharp.Tokens {
     }
 
     [Emitter(typeof(Register), typeof(Assignment), typeof(Number64u))]
-    protected void Emit__Reg_Assign_Num(Compiler aCompiler, List<CodePoint> aPoints) {
-      var xReg = (string)aPoints[0].Value;
-      var xVal = ((UInt64)aPoints[2].Value).ToString("X");
-      aCompiler.WriteLine($"mov {xReg}, 0x{xVal}");
+    protected void Emit_RegAssignNum(Compiler aCompiler, string aReg, string aEquals, UInt64 aVal) {
+      aCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
     }
   }
 }
