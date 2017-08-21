@@ -8,15 +8,14 @@ namespace XSharp.Tokens {
   public class Root : Token {
     public Root() {
       // Load emitters to pattern list
-      foreach (var xMethod in GetType().GetRuntimeMethods()) {
+      foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();
         if (xAttrib != null) {
           AddPattern(
             (Compiler aCompiler, List<CodePoint> aPoints) => {
-              var xArgs = new List<object>();
-              xArgs.Add(aCompiler);
-              xArgs.AddRange(aPoints.Select(q => q.Value));
-              xMethod.Invoke(this, xArgs.ToArray());
+              var xEmitter = new Emitters(aPoints);
+              var xResult = (string)xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
+              aCompiler.WriteLine(xResult);
             }
             , xAttrib.TokenTypes);
         }
@@ -47,9 +46,5 @@ namespace XSharp.Tokens {
       return xResult;
     }
 
-    [Emitter(typeof(Register), typeof(Assignment), typeof(Number64u))]
-    protected void Emit_RegAssignNum(Compiler aCompiler, string aReg, string aEquals, UInt64 aVal) {
-      aCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
-    }
   }
 }
