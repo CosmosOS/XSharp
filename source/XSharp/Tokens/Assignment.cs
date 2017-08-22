@@ -8,11 +8,11 @@ namespace XSharp.Tokens {
       mParser = Parsers.Parsers.Operator;
     }
 
-    protected override bool IsMatch(object aValue) {
-      if (aValue is string) {
-        return (string)aValue == "=";
+    protected override object IsMatch(object aValue) {
+      if (aValue is string && (string)aValue == "=") {
+        return "=";
       }
-      return false;
+      return null;
     }
   }
 }

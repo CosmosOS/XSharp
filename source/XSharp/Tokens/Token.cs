@@ -10,7 +10,7 @@ namespace XSharp.Tokens {
     public Action<Compiler, List<CodePoint>> Emitter;
     protected Parsers.Parser mParser;
 
-    protected abstract bool IsMatch(object aValue);
+    protected abstract object IsMatch(object aValue);
 
     protected void AddPattern(Action<Compiler, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
       var xToken = this;
@@ -38,8 +38,6 @@ namespace XSharp.Tokens {
     }
 
     public CodePoint Next(string aText, ref int rStart) {
-      object xValue = null;
-
       int xThisStart = -1;
       for (xThisStart = rStart; xThisStart < aText.Length; xThisStart++) {
         if (char.IsWhiteSpace(aText[xThisStart]) == false) {
@@ -58,18 +56,20 @@ namespace XSharp.Tokens {
       // Any optimazations should keep the basic design.
       // TODO - This can scan parsers more than once. Need to optimize this.
       rStart = xThisStart;
+      object xParsedVal = null;
       foreach (var xToken in mTokens) {
-        xValue = xToken.mParser.Parse(aText, ref rStart);
-        if (xValue != null) {
+        xParsedVal = xToken.mParser.Parse(aText, ref rStart);
+        if (xParsedVal != null) {
           break;
         }
       }
-      if (xValue == null) {
+      if (xParsedVal == null) {
         throw new Exception("No matching parser found on line.\r\n" + aText);
       }
 
       foreach (var xToken in mTokens) {
-        if (xToken.IsMatch(xValue)) {
+        var xVal = xToken.IsMatch(xParsedVal);
+        if (xVal != null) {
           if (rStart == aText.Length) {
             if (xToken.mTokens.Count > 0) {
               throw new Exception("Incomplete line. Tokens exist beyond end of text.\r\n" + aText);
@@ -79,7 +79,7 @@ namespace XSharp.Tokens {
           } else if (xToken.mTokens == null) {
             throw new Exception("Text exists beyond end of recognized line.\r\n" + aText);
           }
-          return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);
+          return new CodePoint(aText, xThisStart, rStart - 1, xToken, xVal);
         }
       }
       throw new Exception("No matching token found on line.\r\n" + aText);

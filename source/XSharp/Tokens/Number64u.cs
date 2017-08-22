@@ -8,8 +8,11 @@ namespace XSharp.Tokens {
       mParser = Parsers.Parsers.Number64u;
     }
 
-    protected override bool IsMatch(object aValue) {
-      return aValue is UInt64;
+    protected override object IsMatch(object aValue) {
+      if (aValue is UInt64) {
+        return aValue;
+      }
+      return null;
     }
   }
 }

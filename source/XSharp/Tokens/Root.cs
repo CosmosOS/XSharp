@@ -22,9 +22,8 @@ namespace XSharp.Tokens {
       }
     }
 
-    protected override bool IsMatch(object aValue) {
-      // Dont foresee this ever being called in Root, but....
-      return true;
+    protected override object IsMatch(object aValue) {
+      return null;
     }
 
     public List<CodePoint> Parse(string aText) {

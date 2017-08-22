@@ -12,7 +12,7 @@ namespace XSharp {
     }
 
     // EAX = 0
-    [Emitter(typeof(Register), typeof(Assignment), typeof(Number64u))]
+    [Emitter(typeof(RegisterXX), typeof(Assignment), typeof(Number64u))]
     protected string RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
       return $"mov {aReg}, 0x{aVal:X}";
     }
