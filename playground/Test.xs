@@ -1,4 +1,7 @@
-﻿/$ namespace DebugStub
+﻿	EAX = 0
+// Temp Test ^
+
+/$ namespace DebugStub
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
