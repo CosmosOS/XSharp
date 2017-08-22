@@ -11,6 +11,15 @@ namespace XSharp {
       mCodePoints = aCodePoints;
     }
 
+    public class Op2SlashBack : Op {
+      public Op2SlashBack() : base(@"//") {}
+    }
+
+    [Emitter(typeof(Op2SlashBack), typeof(OpEquals))]
+    protected string Comment(string aOp, string aText) {
+      return "; " + aText;
+    }
+
     // EAX = 0
     [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
     protected string RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
