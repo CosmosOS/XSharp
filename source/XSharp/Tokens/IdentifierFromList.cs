@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public abstract class IdentifierFromList : Token {
+  public abstract class IdentifierFromList : Identifier {
     protected string[] mList;
 
-    protected IdentifierFromList() {
-      mParser = Parsers.Parsers.IdentifierUpper;
+    protected IdentifierFromList(bool aUpper = true) : base(null, aUpper) {
       mList = GetList();
     }
 
