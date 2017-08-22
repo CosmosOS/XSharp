@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public class RegisterXX : Register {
+  public class RegXX : Reg {
     public static readonly string[] Names;
 
-    static RegisterXX() {
+    static RegXX() {
       var xNames = new List<string>();
-      xNames.AddRange(Register32.Names);
-      xNames.AddRange(Register16.Names);
-      xNames.AddRange(Register08.Names);
+      xNames.AddRange(Reg32.Names);
+      xNames.AddRange(Reg16.Names);
+      xNames.AddRange(Reg08.Names);
       Names = xNames.ToArray();
     }
 

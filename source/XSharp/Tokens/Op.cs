@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public class Assignment : Token {
-    public Assignment() {
+  public class Op : Token {
+    protected string mText;
+
+    protected Op(string aText) {
       mParser = Parsers.Parsers.Operator;
+      mText = aText;
     }
 
     protected override object IsMatch(object aValue) {
-      if (aValue is string && (string)aValue == "=") {
-        return "=";
+      if (aValue is string && (string)aValue == mText) {
+        return mText;
       }
       return null;
     }

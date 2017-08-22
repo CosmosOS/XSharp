@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public abstract class IdentifierFromList : Identifier {
+  public abstract class IdList : ID {
     protected string[] mList;
 
-    protected IdentifierFromList(bool aUpper = true) : base(null, aUpper) {
+    protected IdList(bool aUpper = true) : base(null, aUpper) {
       mList = GetList();
     }
 

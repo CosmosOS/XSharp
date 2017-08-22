@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public class Identifier : Token {
+  public class ID : Token {
     protected string mText;
 
-    public Identifier(string aText = null, bool aUpper = true) {
+    public ID(string aText = null, bool aUpper = true) {
       if (aUpper) {
         mParser = Parsers.Parsers.IdentifierUpper;
       } else {

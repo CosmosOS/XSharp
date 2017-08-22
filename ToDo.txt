@@ -1,9 +1,7 @@
-Token.Assignment - make SymbolEqual and descend from common
 Spruce
 Parser and Token All
 Get rid of lines
 -Namepsace without directive
-TokenSlash with ctor arg, etc
 
 
 Kudzu ----------------------------------------------------
