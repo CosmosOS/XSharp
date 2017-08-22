@@ -1,9 +1,5 @@
-
-Registers - use a list and ctor
--Fixed one match
-
+Identifier single
 Token.Assignment - make SymbolEqual and descend from common
-IsMatch - return altered value?
 Spruce
 Parser and Token All
 Get rid of lines

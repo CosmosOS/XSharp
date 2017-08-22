@@ -7,11 +7,8 @@ namespace XSharp.Tokens {
   public class Register16 : Register {
     public static readonly string[] Names = "AX,BX,CX,DX".Split(',');
 
-    protected override object IsMatch(object aValue) {
-      if (aValue is string && Names.Contains((string)aValue)) {
-        return aValue;
-      }
-      return null;
+    protected override string[] GetList() {
+      return Names;
     }
   }
 }

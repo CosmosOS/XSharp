@@ -15,11 +15,8 @@ namespace XSharp.Tokens {
       Names = xNames.ToArray();
     }
 
-    protected override object IsMatch(object aValue) {
-      if (aValue is string && Names.Contains((string)aValue)) {
-        return aValue;
-      }
-      return null;
+    protected override string[] GetList() {
+      return Names;
     }
   }
 }
