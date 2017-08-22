@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Build", "source\XSha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Build.Tasks", "source\XSharp.Build.Tasks\XSharp.Build.Tasks.csproj", "{8D8DD4A6-C0A5-4298-856C-6D43DD7577EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spruce", "source\Spruce\Spruce.csproj", "{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,14 @@ Global
 		{8D8DD4A6-C0A5-4298-856C-6D43DD7577EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D8DD4A6-C0A5-4298-856C-6D43DD7577EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{8D8DD4A6-C0A5-4298-856C-6D43DD7577EB}.Release|x86.Build.0 = Release|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Debug|x86.Build.0 = Debug|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Release|x86.ActiveCfg = Release|Any CPU
+		{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
