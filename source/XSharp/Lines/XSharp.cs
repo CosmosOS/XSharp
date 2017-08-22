@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace XSharp.Lines {
   public class XSharp : Line {
-    protected static Tokens.Root mTokenMap = new Tokens.Root();
+    protected static Tokens.Root mTokenMap = new Tokens.Root(typeof(Emitters));
 
     public XSharp(Compiler aCompiler, string aLine) : base(aCompiler, aLine) {
     }

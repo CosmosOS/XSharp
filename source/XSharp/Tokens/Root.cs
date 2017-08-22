@@ -6,14 +6,14 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class Root : Token {
-    public Root() {
+    public Root(Type aEmitterType) {
       // Load emitters to pattern list
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();
         if (xAttrib != null) {
           AddPattern(
             (Compiler aCompiler, List<CodePoint> aPoints) => {
-              var xEmitter = new Emitters(aPoints);
+              var xEmitter = Activator.CreateInstance(aEmitterType, aPoints);
               var xResult = (string)xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
               aCompiler.WriteLine(xResult);
             }
