@@ -12,21 +12,23 @@ namespace XSharp.Tokens {
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
         if (xAttrib != null) {
-          AddPattern(
-            (object aCompiler, List<CodePoint> aPoints) => {
-              var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
-              string xResult;
-              if (xMethod.GetParameters().Length == 0) {
-                // Using this method, users must read CodePoints directly
-                xResult = (string)xMethod.Invoke(xEmitter, null);
-              } else {
-                xResult = (string) xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
-              }
-              ((Compiler)aCompiler).WriteLine(xResult);
-            }
-            , xAttrib.TokenTypes);
+          AddPattern(EmitterHandler(aEmitterType, xMethod), xAttrib.TokenTypes);
         }
       }
+    }
+
+    protected Action<object, List<CodePoint>> EmitterHandler(Type aEmitterType, MethodInfo aMethod) {
+      return (object aCompiler, List<CodePoint> aPoints) => {
+        var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
+        string xResult;
+        if (aMethod.GetParameters().Length == 0) {
+          // Using this method, users must read CodePoints directly
+          xResult = (string) aMethod.Invoke(xEmitter, null);
+        } else {
+          xResult = (string) aMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
+        }
+        ((Compiler) aCompiler).WriteLine(xResult);
+      };
     }
 
     protected override bool IsMatch(ref object rValue) {
