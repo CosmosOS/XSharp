@@ -7,8 +7,8 @@ namespace XSharp.Tokens {
   public class All : TypedToken<string> {
     public All() : base(Parsers.Parsers.All) { }
 
-    protected override object IsMatch(string aValue) {
-      return aValue;
+    protected override bool IsMatch(ref string rValue) {
+      return true;
     }
   }
 }

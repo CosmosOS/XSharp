@@ -10,11 +10,8 @@ namespace XSharp.Tokens {
       mText = aText;
     }
 
-    protected override object IsMatch(string aValue) {
-      if (aValue == mText) {
-        return mText;
-      }
-      return null;
+    protected override bool IsMatch(ref string rValue) {
+      return rValue == mText;
     }
   }
 }

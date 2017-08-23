@@ -28,8 +28,8 @@ namespace XSharp.Tokens {
       }
     }
 
-    protected override object IsMatch(object aValue) {
-      return null;
+    protected override bool IsMatch(ref object rValue) {
+      return false;
     }
 
     public List<CodePoint> Parse(string aText) {

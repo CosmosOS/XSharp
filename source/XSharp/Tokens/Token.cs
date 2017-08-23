@@ -14,7 +14,7 @@ namespace XSharp.Tokens {
       mParser = aParser;
     }
 
-    protected abstract object IsMatch(object aValue);
+    protected abstract bool IsMatch(ref object rValue);
 
     protected void AddPattern(Action<Compiler, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
       var xToken = this;
@@ -74,8 +74,7 @@ namespace XSharp.Tokens {
 
       // Important - not just for speed, but only call tokens with matching parsers
       foreach (var xToken in mTokens.Where(q => q.mParser == xParser)) {
-        var xVal = xToken.IsMatch(xParsedVal);
-        if (xVal != null) {
+        if (xToken.IsMatch(ref xParsedVal)) {
           if (rStart == aText.Length) {
             if (xToken.mTokens.Count > 0) {
               throw new Exception("Incomplete line. Tokens exist beyond end of text.\r\n" + aText);
@@ -85,7 +84,7 @@ namespace XSharp.Tokens {
           } else if (xToken.mTokens == null) {
             throw new Exception("Text exists beyond end of recognized line.\r\n" + aText);
           }
-          return new CodePoint(aText, xThisStart, rStart - 1, xToken, xVal);
+          return new CodePoint(aText, xThisStart, rStart - 1, xToken, xParsedVal);
         }
       }
       throw new Exception("No matching token found on line.\r\n" + aText);

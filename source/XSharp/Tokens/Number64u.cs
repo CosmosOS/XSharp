@@ -6,8 +6,8 @@ namespace XSharp.Tokens {
   public class Number64u : TypedToken<UInt64> {
     public Number64u() : base(Parsers.Parsers.Number64u) { }
 
-    protected override object IsMatch(UInt64 aValue) {
-      return aValue;
+    protected override bool IsMatch(ref UInt64 rValue) {
+      return true;
     }
   }
 }

@@ -7,9 +7,12 @@ namespace XSharp.Tokens {
   public abstract class TypedToken<T> : Token {
     public TypedToken(Parsers.Parser aParser) : base(aParser) { }
 
-    protected abstract object IsMatch(T aValue);
-    protected override object IsMatch(object aValue) {
-      return IsMatch((T)aValue);
+    protected abstract bool IsMatch(ref T rValue);
+    protected override bool IsMatch(ref object rValue) {
+      var xValue = (T)rValue;
+      bool xResult = IsMatch(ref xValue);
+      rValue = xValue;
+      return xResult;
     }
   }
 }

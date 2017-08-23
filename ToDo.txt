@@ -1,6 +1,3 @@
-ismatch<t>
-return bool, use ref arg
-
 Parser and Token All
 Get rid of lines
 -Namepsace without directive

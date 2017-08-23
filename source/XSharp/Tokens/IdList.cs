@@ -13,11 +13,8 @@ namespace XSharp.Tokens {
 
     protected abstract string[] GetList();
 
-    protected override object IsMatch(string aValue) {
-      if (mList.Contains(aValue)) {
-        return aValue;
-      }
-      return null;
+    protected override bool IsMatch(ref string rValue) {
+      return mList.Contains(rValue);
     }
   }
 }
