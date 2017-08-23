@@ -4,7 +4,6 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class OpSlashFwd : Op {
-    public OpSlashFwd() : base("/") {
-    }
+    public OpSlashFwd() : base("/") { }
   }
 }

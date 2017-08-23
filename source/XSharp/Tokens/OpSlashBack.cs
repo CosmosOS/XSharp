@@ -4,7 +4,6 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class OpSlashBack : Op {
-    public OpSlashBack() : base(@"\") {
-    }
+    public OpSlashBack() : base(@"\") { }
   }
 }
