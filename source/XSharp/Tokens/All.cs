@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.Tokens
-{
-    class All
-    {
-    }
+namespace XSharp.Tokens {
+  class All {
+  }
 }

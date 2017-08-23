@@ -27,12 +27,15 @@ namespace XSharp {
         // and also to keep indentation in the output.
         string xText = aIn.ReadLine();
         while (xText != null) {
-          var xLine = Lines.Line.New(this, xText);
-
           int i = xText.Length - xText.TrimStart().Length;
           Indent = xText.Substring(0, i);
-          
-          xLine.Emit();
+
+          if (string.IsNullOrWhiteSpace(xText)) {
+            WriteLine();
+          } else {
+            var xLine = new Lines.XSharp(this, xText);
+            xLine.Emit();
+          }
 
           xText = aIn.ReadLine();
           LineNo++;
