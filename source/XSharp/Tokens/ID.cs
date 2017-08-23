@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.Tokens {
-  public class ID : Token {
+  public class ID : TypedToken<string> {
     protected string mText;
 
     public ID(string aText = null, bool aUpper = true) : base(aUpper ? Parsers.Parsers.IdentifierUpper : Parsers.Parsers.Identifier) {
@@ -16,8 +16,8 @@ namespace XSharp.Tokens {
       }
     }
 
-    protected override object IsMatch(object aValue) {
-      if (aValue is string && (string)aValue == mText) {
+    protected override object IsMatch(string aValue) {
+      if (aValue == mText) {
         return mText;
       }
       return null;
