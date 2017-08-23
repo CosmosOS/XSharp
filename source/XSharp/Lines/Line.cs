@@ -22,10 +22,7 @@ namespace XSharp.Lines {
     // and speed. If it needs expanded, its easily enough accomplished even with this method.
     public static Line New(Compiler aCompiler, string aLine) {
       Line xResult = null;
-      if (string.IsNullOrWhiteSpace(aLine)) {
-        xResult = new Empty(aCompiler, aLine);
-
-      } else if (aLine[0] == '/') {
+      if (aLine[0] == '/') {
         if (aLine.Length > 1) {
           char xChar2 = aLine[1];
           aLine = aLine.Substring(2).TrimStart();
@@ -40,7 +37,6 @@ namespace XSharp.Lines {
             xResult = new Literal(aCompiler, aLine);
           }
         }
-
       } else {
         xResult = new XSharp(aCompiler, aLine);
       }

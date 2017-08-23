@@ -8,5 +8,9 @@ namespace XSharp.Tokens {
     public All() {
       
     }
+
+    protected override object IsMatch(object aValue) {
+      throw new NotImplementedException();
+    }
   }
 }
