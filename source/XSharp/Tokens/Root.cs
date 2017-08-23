@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Spruce;
 
 namespace XSharp.Tokens {
-  public class Root : Token {
+  public class Root : Spruce.Tokens.Token {
     public Root(Type aEmitterType) : base(null) {
       // Load emitters to pattern list
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
         if (xAttrib != null) {
           AddPattern(
-            (Compiler aCompiler, List<CodePoint> aPoints) => {
+            (object aCompiler, List<CodePoint> aPoints) => {
               var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
               string xResult;
               if (xMethod.GetParameters().Length == 0) {
@@ -21,7 +22,7 @@ namespace XSharp.Tokens {
               } else {
                 xResult = (string) xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
               }
-              aCompiler.WriteLine(xResult);
+              ((Compiler)aCompiler).WriteLine(xResult);
             }
             , xAttrib.TokenTypes);
         }
@@ -37,7 +38,7 @@ namespace XSharp.Tokens {
       aText = aText.TrimEnd();
       var xResult = new List<CodePoint>();
       int aPos = 0;
-      Token xToken = this;
+      Spruce.Tokens.Token xToken = this;
 
       while (aPos < aText.Length) {
         var xCP = xToken.Next(aText, ref aPos);

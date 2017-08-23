@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp {
+namespace Spruce {
   public class CodePoint {
     public readonly string FullText;
     public readonly int TextStart;

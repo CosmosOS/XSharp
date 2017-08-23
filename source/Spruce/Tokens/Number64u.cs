@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Parsers = Spruce.Parsers;
 
-namespace XSharp.Tokens {
+namespace Spruce.Tokens {
   public class Number64u : TypedToken<UInt64> {
     public Number64u() : base(Parsers.Parsers.Number64u) { }
 

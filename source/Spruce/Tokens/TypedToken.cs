@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using XSharp.Assembler;
 using Parsers = Spruce.Parsers;
 
-namespace XSharp.Tokens {
+namespace Spruce.Tokens {
   public abstract class TypedToken<T> : Token {
     public TypedToken(Parsers.Parser aParser) : base(aParser) { }
 

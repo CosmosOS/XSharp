@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Parsers = Spruce.Parsers;
 
-namespace XSharp.Tokens {
+namespace Spruce.Tokens {
   public class All : TypedToken<string> {
     public All() : base(Parsers.Parsers.All) { }
 

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using Parsers = Spruce.Parsers;
 
-namespace XSharp.Tokens {
+namespace Spruce.Tokens {
   public abstract class Token {
     protected List<Token> mTokens = new List<Token>();
-    public Action<Compiler, List<CodePoint>> Emitter;
+    public Action<object, List<CodePoint>> Emitter;
     protected readonly Parsers.Parser mParser;
 
     public Token(Parsers.Parser aParser) {
@@ -17,7 +17,7 @@ namespace XSharp.Tokens {
 
     protected abstract bool IsMatch(ref object rValue);
 
-    protected void AddPattern(Action<Compiler, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
+    protected void AddPattern(Action<object, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
       var xToken = this;
       foreach (var xType in aTokenTypes) {
         xToken = xToken.AddToken(xType);

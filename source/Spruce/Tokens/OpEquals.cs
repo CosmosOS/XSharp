@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.Tokens {
+namespace Spruce.Tokens {
   public class OpEquals : Op {
     public OpEquals() : base("=") { }
   }
