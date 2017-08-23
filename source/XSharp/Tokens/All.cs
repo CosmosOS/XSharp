@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using XSharp.Parsers;
+using Parsers = Spruce.Parsers;
 
 namespace XSharp.Tokens {
   public class All : TypedToken<string> {

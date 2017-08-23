@@ -5,18 +5,31 @@ using XSharp.Tokens;
 
 namespace XSharp {
   public class Emitters {
+    protected readonly Compiler mCompiler;
     protected readonly List<CodePoint> mCodePoints;
 
-    public Emitters(List<CodePoint> aCodePoints) {
+    public Emitters(Compiler aCompiler, List<CodePoint> aCodePoints) {
+      mCompiler = aCompiler;
       mCodePoints = aCodePoints;
     }
 
-    public class Op2Slash : Op {
-      public Op2Slash() : base(@"//") {}
+    public class OpComment : Op {
+      public OpComment() : base(@"//") { }
+    }
+    public class OpLiteral : Op {
+      public OpLiteral() : base(@"//!") { }
     }
 
-    [Emitter(typeof(Op2Slash), typeof(All))]
+    [Emitter(typeof(OpLiteral), typeof(All))]
+    protected string Literal(string aOp, string aText) {
+      return aText;
+    }
+
+    [Emitter(typeof(OpComment), typeof(All))]
     protected string Comment(string aOp, string aText) {
+      if (mCompiler.EmitUserComments) {
+        mCompiler.WriteLine("; " + aText);
+      }
       return "; " + aText;
     }
 

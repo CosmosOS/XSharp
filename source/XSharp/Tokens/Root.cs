@@ -13,11 +13,11 @@ namespace XSharp.Tokens {
         if (xAttrib != null) {
           AddPattern(
             (Compiler aCompiler, List<CodePoint> aPoints) => {
-              var xEmitter = Activator.CreateInstance(aEmitterType, aPoints);
+              var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
               string xResult;
               if (xMethod.GetParameters().Length == 0) {
-                // This method must read CodePoints directly
-                xResult = (string)xMethod.Invoke(xEmitter, new object[] {});
+                // Using this method, users must read CodePoints directly
+                xResult = (string)xMethod.Invoke(xEmitter, null);
               } else {
                 xResult = (string) xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
               }

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Spruce\Spruce.csproj" />
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
     </ItemGroup>
 

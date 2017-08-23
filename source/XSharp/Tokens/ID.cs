@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Parsers = Spruce.Parsers;
 
 namespace XSharp.Tokens {
   public class ID : TypedToken<string> {

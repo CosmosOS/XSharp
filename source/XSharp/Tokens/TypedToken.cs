@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using XSharp.Assembler;
+using Parsers = Spruce.Parsers;
 
 namespace XSharp.Tokens {
   public abstract class TypedToken<T> : Token {

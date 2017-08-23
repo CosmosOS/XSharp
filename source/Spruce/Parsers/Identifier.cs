@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.Parsers {
-  public class Number64u : Number {
+namespace Spruce.Parsers {
+  public class Identifier : Parser {
     protected static readonly string FirstChars;
     protected static readonly string Chars;
 
-    static Number64u() {
-      Chars = CharSets.Number;
-      // Hex, etc.. need to find current X# syntax
-      FirstChars = "" + Chars;
+    static Identifier() {
+      FirstChars = Parser.CharSets.Alpha + "_";
+      Chars = FirstChars + Parser.CharSets.Number;
+    }
+
+    public readonly bool UpperResult;
+    public Identifier(bool aUpperResult = false) {
+      UpperResult = aUpperResult;
     }
 
     public override object Parse(string aText, ref int rStart) {
@@ -26,8 +30,11 @@ namespace XSharp.Parsers {
       }
 
       string xText = aText.Substring(rStart, i - rStart);
+      if (UpperResult) {
+        xText = xText.ToUpper();
+      }
       rStart = i;
-      return UInt64.Parse(xText);
+      return xText;
     }
   }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.Parsers {
+namespace Spruce.Parsers {
   public abstract class Parser {
     public static class CharSets {
       public static readonly string Alpha;

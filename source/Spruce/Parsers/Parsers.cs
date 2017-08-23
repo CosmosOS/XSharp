@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.Parsers {
+namespace Spruce.Parsers {
   public static class Parsers {
     public static readonly All All = new All();
     public static readonly Identifier Identifier = new Identifier();
