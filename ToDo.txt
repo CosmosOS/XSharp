@@ -10,15 +10,8 @@ Enrique 500
 Change XSC to use Clogger
 
 Parser
-Make parsers list that is unique. Can cash instances too, statics and then use?
--Also sort by value type - string, etc then can remove all if aValue is
-
    -SyntaxMap - can be circular
    -UI for map, read from file? and code?
-   TokenValue - points to token instance
-   Token - instances
-   SyntaxMap - or merge instances? use cheap intances
-
   -Multiline comments
      -Feedback from line to tell it "more" - use /* for both ends
   -Call() - integrate into pre process so all passed later must be tokens

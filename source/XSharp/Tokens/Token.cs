@@ -58,12 +58,13 @@ namespace XSharp.Tokens {
       // Yes, this looping is slow with all the calls. But for our current
       // needs its fast enough and worth the expansion.
       // Any optimazations should keep the basic design.
-      // TODO - This can scan parsers more than once. Need to optimize this.
       rStart = xThisStart;
+      Parsers.Parser xParser = null;
       object xParsedVal = null;
-      foreach (var xToken in mTokens) {
-        xParsedVal = xToken.mParser.Parse(aText, ref rStart);
+      foreach (var x in mTokens.Select(q => q.mParser).Distinct()) {
+        xParsedVal = x.Parse(aText, ref rStart);
         if (xParsedVal != null) {
+          xParser = x;
           break;
         }
       }
@@ -71,7 +72,8 @@ namespace XSharp.Tokens {
         throw new Exception("No matching parser found on line.\r\n" + aText);
       }
 
-      foreach (var xToken in mTokens) {
+      // Important - not just for speed, but only call tokens with matching parsers
+      foreach (var xToken in mTokens.Where(q => q.mParser == xParser)) {
         var xVal = xToken.IsMatch(xParsedVal);
         if (xVal != null) {
           if (rStart == aText.Length) {
