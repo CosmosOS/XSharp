@@ -6,8 +6,7 @@ namespace XSharp.Tokens {
   public class Op : Token {
     protected string mText;
 
-    protected Op(string aText) {
-      mParser = Parsers.Parsers.Operator;
+    protected Op(string aText) : base(Parsers.Parsers.Operator) {
       mText = aText;
     }
 

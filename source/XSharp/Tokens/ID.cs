@@ -6,13 +6,7 @@ namespace XSharp.Tokens {
   public class ID : Token {
     protected string mText;
 
-    public ID(string aText = null, bool aUpper = true) {
-      if (aUpper) {
-        mParser = Parsers.Parsers.IdentifierUpper;
-      } else {
-        mParser = Parsers.Parsers.Identifier;
-      }
-
+    public ID(string aText = null, bool aUpper = true) : base(aUpper ? Parsers.Parsers.IdentifierUpper : Parsers.Parsers.Identifier) {
       if (aText != null) {
         if (aUpper) {
           mText = aText.ToUpper();

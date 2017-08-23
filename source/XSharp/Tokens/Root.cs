@@ -6,7 +6,7 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class Root : Token {
-    public Root(Type aEmitterType) {
+    public Root(Type aEmitterType) : base(null) {
       // Load emitters to pattern list
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();

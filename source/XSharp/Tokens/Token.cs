@@ -8,7 +8,11 @@ namespace XSharp.Tokens {
   public abstract class Token {
     protected List<Token> mTokens = new List<Token>();
     public Action<Compiler, List<CodePoint>> Emitter;
-    protected Parsers.Parser mParser;
+    protected readonly Parsers.Parser mParser;
+
+    public Token(Parsers.Parser aParser) {
+      mParser = aParser;
+    }
 
     protected abstract object IsMatch(object aValue);
 

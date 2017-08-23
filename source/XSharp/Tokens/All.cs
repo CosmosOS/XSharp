@@ -5,8 +5,7 @@ using XSharp.Parsers;
 
 namespace XSharp.Tokens {
   public class All : Token {
-    public All() {
-      
+    public All() : base(Parsers.Parsers.All) {
     }
 
     protected override object IsMatch(object aValue) {
