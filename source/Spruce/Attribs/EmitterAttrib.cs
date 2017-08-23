@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp {
+namespace Spruce.Attribs {
   [AttributeUsage(System.AttributeTargets.Method)]
-  public class EmitterAttribute : Attribute {
+  public class Emitter : Attribute {
     public readonly Type[] TokenTypes;
 
-    public EmitterAttribute(params Type[] aParams) {
+    public Emitter(params Type[] aParams) {
       TokenTypes = aParams;
     }
   }

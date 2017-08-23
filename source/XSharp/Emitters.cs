@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using XSharp.Tokens;
+using Spruce.Attribs;
 
 namespace XSharp {
   public class Emitters {

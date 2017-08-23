@@ -9,7 +9,7 @@ namespace XSharp.Tokens {
     public Root(Type aEmitterType) : base(null) {
       // Load emitters to pattern list
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
-        var xAttrib = xMethod.GetCustomAttribute<EmitterAttribute>();
+        var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
         if (xAttrib != null) {
           AddPattern(
             (Compiler aCompiler, List<CodePoint> aPoints) => {
