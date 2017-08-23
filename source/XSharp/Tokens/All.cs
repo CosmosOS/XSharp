@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XSharp.Parsers;
 
 namespace XSharp.Tokens {
-  class All {
+  public class All : Token {
+    public All() {
+      
+    }
   }
 }
