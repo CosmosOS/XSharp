@@ -37,12 +37,6 @@ namespace XSharp.Lines {
             xResult = new Literal(aCompiler, aLine);
           }
         }
-      } else {
-        xResult = new XSharp(aCompiler, aLine);
-      }
-
-      if (xResult == null) {
-        throw new Exception("Unable to determine line type.");
       }
       return xResult;
     }

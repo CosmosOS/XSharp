@@ -1,5 +1,5 @@
-﻿	EAX = 0
-// Temp Test
+﻿// Temp Test
+	EAX = 0
 
 /$ namespace DebugStub
 

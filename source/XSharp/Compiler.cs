@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace XSharp {
   public class Compiler {
+    protected static Tokens.Root mTokenMap = new Tokens.Root(typeof(Emitters));
     protected readonly TextWriter Out;
     protected string Indent = "";
     public int LineNo { get; private set; }
@@ -33,8 +35,13 @@ namespace XSharp {
           if (string.IsNullOrWhiteSpace(xText)) {
             WriteLine();
           } else {
-            var xLine = new Lines.XSharp(this, xText);
-            xLine.Emit();
+            if (EmitSourceCode) {
+              WriteLine("; " + xText.Trim());
+            }
+
+            var xCodePoints = mTokenMap.Parse(xText);
+            var xLastToken = xCodePoints.Last().Token;
+            xLastToken.Emitter(this, xCodePoints);
           }
 
           xText = aIn.ReadLine();

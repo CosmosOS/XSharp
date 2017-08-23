@@ -11,11 +11,11 @@ namespace XSharp {
       mCodePoints = aCodePoints;
     }
 
-    public class Op2SlashBack : Op {
-      public Op2SlashBack() : base(@"//") {}
+    public class Op2Slash : Op {
+      public Op2Slash() : base(@"//") {}
     }
 
-    [Emitter(typeof(Op2SlashBack), typeof(OpEquals))]
+    [Emitter(typeof(Op2Slash), typeof(All))]
     protected string Comment(string aOp, string aText) {
       return "; " + aText;
     }

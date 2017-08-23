@@ -7,7 +7,7 @@ namespace XSharp.Parsers {
     protected static readonly string Chars;
 
     static Operator() {
-      Chars = "=";
+      Chars = @"=+-*/\";
     }
 
     public override object Parse(string aText, ref int rStart) {
@@ -17,7 +17,6 @@ namespace XSharp.Parsers {
           break;
         }
       }
-
       if (i == rStart) {
         return null;
       }

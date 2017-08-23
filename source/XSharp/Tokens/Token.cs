@@ -56,7 +56,7 @@ namespace XSharp.Tokens {
       // Find which parser claims it.
       //
       // Yes, this looping is slow with all the calls. But for our current
-      // needs its fast enough and worth the expansion.
+      // needs its fast enough and worth the expansion capabilities.
       // Any optimazations should keep the basic design.
       rStart = xThisStart;
       Parsers.Parser xParser = null;
