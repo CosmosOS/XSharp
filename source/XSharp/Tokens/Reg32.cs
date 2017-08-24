@@ -5,10 +5,8 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class Reg32 : Reg {
-    public static readonly string[] Names = "EAX,EBX,ECX,EDX,ESI,EDI".Split(',');
-
     protected override string[] GetList() {
-      return Names;
+      return x86.Params.Reg32.Names;
     }
   }
 }

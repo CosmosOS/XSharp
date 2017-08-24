@@ -1,4 +1,5 @@
-XSharp.x86
+Move register names to x86
+
 "EAX" -> Reg
 types then map to compile
 Asm.Emit(Asm.Op.Mov, "EAX", 0);
