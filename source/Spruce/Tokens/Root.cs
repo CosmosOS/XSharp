@@ -6,7 +6,7 @@ using System.Text;
 using Spruce;
 
 namespace Spruce.Tokens {
-    public class Root : Token {
+    public class Root : Token { 
         public Root(object aEmitter = null) : base(null) {
             if (aEmitter == null) {
                 return;
@@ -16,7 +16,7 @@ namespace Spruce.Tokens {
             foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods()) {
                 var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
                 if (xAttrib != null) {
-                    Action<List<CodePoint>> xAction;
+                    Token.Action xAction;
                     if (xMethod.GetParameters().Length == 1) {
                         xAction = (List<CodePoint> aPoints) => {
                             xMethod.Invoke(aEmitter, new object[] { aPoints });
