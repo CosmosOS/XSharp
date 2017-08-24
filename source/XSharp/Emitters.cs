@@ -8,6 +8,7 @@ using XSharp.x86;
 using XSharp.x86.Assemblers;
 
 namespace XSharp {
+  // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
   public class Emitters {
     public readonly Compiler Compiler;
     public readonly x86.Assemblers.Assembler Asm;
@@ -23,7 +24,7 @@ namespace XSharp {
       Compiler.WriteLine(aText);
     }
 
-    // // Texxt
+    // // Text
     [Emitter(typeof(OpComment), typeof(All))]
     protected void Comment(string aOp, string aText) {
       if (Compiler.EmitUserComments) {
@@ -33,10 +34,8 @@ namespace XSharp {
     }
 
     // EAX = 0
-    [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number32u))]
+    [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Number32u))]
     protected void RegAssignNum(string aReg, string aEquals, UInt32 aVal) {
-      Compiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
-
       Asm.Emit(OpCode.Mov, aReg, aVal);
     }
   }
