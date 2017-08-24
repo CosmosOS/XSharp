@@ -1,8 +1,8 @@
 ﻿// Temp Test Area
     //! nop
+    AX = 0
 	EAX = 0
 //END
-    AX = 0
 
 /$ namespace DebugStub
 
