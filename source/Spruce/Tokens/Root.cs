@@ -14,19 +14,20 @@ namespace Spruce.Tokens {
 
             // Load emitters to pattern list
             foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods()) {
-                var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
-                if (xAttrib != null) {
-                    Token.Action xAction;
-                    if (xMethod.GetParameters().Length == 1) {
-                        xAction = (List<CodePoint> aPoints) => {
-                            xMethod.Invoke(aEmitter, new object[] { aPoints });
-                        };
-                    } else {
-                        xAction = (List<CodePoint> aPoints) => {
-                            xMethod.Invoke(aEmitter, aPoints.Select(q => q.Value).ToArray());
-                        };
+                foreach (var xAttrib in xMethod.GetCustomAttributes<Attribs.Emitter>()) {
+                    if (xAttrib != null) {
+                        Token.Action xAction;
+                        if (xMethod.GetParameters().Length == 1) {
+                            xAction = (List<CodePoint> aPoints) => {
+                                xMethod.Invoke(aEmitter, new object[] {aPoints});
+                            };
+                        } else {
+                            xAction = (List<CodePoint> aPoints) => {
+                                xMethod.Invoke(aEmitter, aPoints.Select(q => q.Value).ToArray());
+                            };
+                        }
+                        AddPattern(xAction, xAttrib.TokenTypes);
                     }
-                    AddPattern(xAction, xAttrib.TokenTypes);
                 }
             }
         }

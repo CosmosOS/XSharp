@@ -1,6 +1,7 @@
 ﻿// Temp Test Area
     //! nop
     AH = 0
+    AX = 0
 	EAX = 0
 //END
 

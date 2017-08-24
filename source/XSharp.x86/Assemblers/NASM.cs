@@ -15,6 +15,7 @@ namespace XSharp.x86.Assemblers {
 
             mMap = new Map();
             Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg08), typeof(i08u));
+            Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg16), typeof(i16u));
             Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg32), typeof(i32u));
         }
 
@@ -29,7 +30,7 @@ namespace XSharp.x86.Assemblers {
         }
 
         public override void Emit(OpCode aOp, params object[] aParams) {
-            mOut.Write(Indent + aOp.ToString().ToUpper() + " ");
+            mOut.Write(Indent + aOp + " ");
             mMap.Execute(aOp, aParams);
         }
     }

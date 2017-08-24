@@ -31,15 +31,11 @@ namespace XSharp {
         Compiler.WriteLine("; " + aText);
       }
     }
-
-    // AX = 0
-    [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Num08u))]
-    protected void RegAssignNum(string aReg, string aEquals, byte aVal) {
-      Asm.Emit(OpCode.Mov, aReg, aVal);
-    }
-    // EAX = 0
-    [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Num32u))]
-    protected void RegAssignNum(string aReg, string aEquals, UInt32 aVal) {
+    
+    [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Num08u))] // AH = 0
+    [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Num16u))] // AX = 0
+    [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Num32u))] // EAX = 0
+    protected void RegAssignNum(string aReg, string aEquals, object aVal) {
       Asm.Emit(OpCode.Mov, aReg, aVal);
     }
   }
