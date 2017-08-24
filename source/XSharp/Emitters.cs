@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using Spruce.Attribs;
+using Spruce.Parsers;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
 using XSharp.x86.Assemblers;
+using All = Spruce.Tokens.All;
+using Num08u = Spruce.Tokens.Num08u;
+using Num16u = Spruce.Tokens.Num16u;
+using Num32u = Spruce.Tokens.Num32u;
 
 namespace XSharp {
   // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
@@ -18,20 +23,22 @@ namespace XSharp {
       Asm = aAsm;
     }
 
-    // //! NASM Mnemonic
-    [Emitter(typeof(OpLiteral), typeof(All))]
+    [Emitter(typeof(OpLiteral), typeof(All))] // //! NASM Mnemonic
     protected void Literal(string aOp, string aText) {
       Compiler.WriteLine(aText);
     }
 
-    // // Text
-    [Emitter(typeof(OpComment), typeof(All))]
+    [Emitter(typeof(OpComment), typeof(All))] // // Text
     protected void Comment(string aOp, string aText) {
       if (Compiler.EmitUserComments) {
         Compiler.WriteLine("; " + aText);
       }
     }
-    
+
+    [Emitter(typeof(Namespace), typeof(Identifier))] // namespace name
+    protected void Namespace(string aNamespace, string aText) {
+    }
+
     [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Num08u))] // AH = 0
     [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Num16u))] // AX = 0
     [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Num32u))] // EAX = 0

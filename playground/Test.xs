@@ -1,17 +1,15 @@
-﻿// Temp Test Area
+﻿namespace DebugStub
+
+// Temp Test Area
     //! nop
     AH = 0
     AX = 0
 	EAX = 0
-//END
-
-/$ namespace DebugStub
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
+//END
 function ProcessCommand {
-    /! Nop
-
     ComReadAL()
     // Some callers expect AL to be returned, so we preserve it
     // in case any commands modify AL.
