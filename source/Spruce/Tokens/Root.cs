@@ -17,8 +17,8 @@ namespace Spruce.Tokens {
                 var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
                 if (xAttrib != null) {
                     AddPattern((List<CodePoint> aPoints) => {
-                        if (xMethod.GetParameters().Length == 0) {
-                            xMethod.Invoke(aEmitter, null);
+                        if (xMethod.GetParameters().Length == 1) {
+                            xMethod.Invoke(aEmitter, new object[] { aPoints.ToArray() });
                         } else {
                             xMethod.Invoke(aEmitter, aPoints.Select(q => q.Value).ToArray());
                         }
