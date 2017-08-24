@@ -14,14 +14,12 @@ namespace XSharp.Tokens {
         if (xAttrib != null) {
           AddPattern((object aCompiler, List<CodePoint> aPoints) => {
             var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
-            string xResult;
             if (xMethod.GetParameters().Length == 0) {
               // Using this method, users must read CodePoints directly
-              xResult = (string)xMethod.Invoke(xEmitter, null);
+              xMethod.Invoke(xEmitter, null);
             } else {
-              xResult = (string)xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
+              xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
             }
-        ((Compiler)aCompiler).WriteLine(xResult);
           }, xAttrib.TokenTypes);
         }
       }

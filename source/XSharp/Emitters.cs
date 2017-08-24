@@ -24,22 +24,22 @@ namespace XSharp {
     }
 
     [Emitter(typeof(OpLiteral), typeof(All))]
-    protected string Literal(string aOp, string aText) {
-      return aText;
+    protected void Literal(string aOp, string aText) {
+      mCompiler.WriteLine(aText);
     }
 
     [Emitter(typeof(OpComment), typeof(All))]
-    protected string Comment(string aOp, string aText) {
+    protected void Comment(string aOp, string aText) {
       if (mCompiler.EmitUserComments) {
         mCompiler.WriteLine("; " + aText);
       }
-      return "; " + aText;
+      mCompiler.WriteLine("; " + aText);
     }
 
     // EAX = 0
     [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
-    protected string RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
-      return $"mov {aReg}, 0x{aVal:X}";
+    protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
+      mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
     }
   }
 }
