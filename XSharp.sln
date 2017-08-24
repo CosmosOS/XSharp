@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C741BBD-6209-4240-9B96-59A4547152B5}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		source\Directory.Build.props = source\Directory.Build.props
 		source\Directory.Build.targets = source\Directory.Build.targets
 		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
 	EndProjectSection
@@ -25,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Build.Tasks", "sourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spruce", "source\Spruce\Spruce.csproj", "{36DB4B64-2B1A-410C-BBBB-C31EBA1D4968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.x86", "XSharp.x86\XSharp.x86.csproj", "{4AB4A688-8324-4A8D-ABB9-CCC27298FA31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.x86", "XSharp.x86\XSharp.x86.csproj", "{4AB4A688-8324-4A8D-ABB9-CCC27298FA31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
