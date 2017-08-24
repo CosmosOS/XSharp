@@ -9,6 +9,14 @@ clone_folder: c:\XSharp
 # This option breaks the github link to the build until the build completes.
 #  - ps: Update-AppveyorBuild -Version "$(Get-Date -Format yyyy.MM.dd).$env:appveyor_build_number"
 
+install:
+- ps: |
+    $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
+    mkdir $env:DOTNET_INSTALL_DIR -Force | Out-Null
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dotnet/cli/release/2.0.0/scripts/obtain/dotnet-install.ps1" -OutFile "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1"
+    '& "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1" -Version 2.0.0 -InstallDir $env:DOTNET_INSTALL_DIR'
+    $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
+
 nuget:
   account_feed: false
   project_feed: true
@@ -16,7 +24,7 @@ nuget:
 
 build_script:
   - cmd: |
-      nuget restore "XSharp.sln"
+      build\nuget restore "XSharp.sln"
       msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
 
       msbuild "source\XSharp.Assembler" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"
