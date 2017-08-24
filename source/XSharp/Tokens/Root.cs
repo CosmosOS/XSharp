@@ -6,29 +6,25 @@ using System.Text;
 using Spruce;
 
 namespace XSharp.Tokens {
-  public class Root : Spruce.Tokens.Token {
+  public class Root : Spruce.Tokens.Root {
     public Root(Type aEmitterType) : base(null) {
       // Load emitters to pattern list
       foreach (var xMethod in typeof(Emitters).GetRuntimeMethods()) {
         var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
         if (xAttrib != null) {
-          AddPattern(EmitterHandler(aEmitterType, xMethod), xAttrib.TokenTypes);
+          AddPattern((object aCompiler, List<CodePoint> aPoints) => {
+            var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
+            string xResult;
+            if (xMethod.GetParameters().Length == 0) {
+              // Using this method, users must read CodePoints directly
+              xResult = (string)xMethod.Invoke(xEmitter, null);
+            } else {
+              xResult = (string)xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
+            }
+        ((Compiler)aCompiler).WriteLine(xResult);
+          }, xAttrib.TokenTypes);
         }
       }
-    }
-
-    protected Action<object, List<CodePoint>> EmitterHandler(Type aEmitterType, MethodInfo aMethod) {
-      return (object aCompiler, List<CodePoint> aPoints) => {
-        var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
-        string xResult;
-        if (aMethod.GetParameters().Length == 0) {
-          // Using this method, users must read CodePoints directly
-          xResult = (string) aMethod.Invoke(xEmitter, null);
-        } else {
-          xResult = (string) aMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
-        }
-        ((Compiler) aCompiler).WriteLine(xResult);
-      };
     }
 
     protected override bool IsMatch(ref object rValue) {

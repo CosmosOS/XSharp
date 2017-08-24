@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		source\Directory.Build.props = source\Directory.Build.props
 		source\Directory.Build.targets = source\Directory.Build.targets
+		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
