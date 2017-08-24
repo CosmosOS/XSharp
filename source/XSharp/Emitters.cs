@@ -12,9 +12,9 @@ namespace XSharp {
     public readonly Compiler Compiler;
     public readonly x86.Assemblers.Assembler Asm;
 
-    public Emitters(Compiler aCompiler) {
+    public Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm) {
       Compiler = aCompiler;
-      Asm = Compiler.Asm;
+      Asm = aAsm;
     }
 
     // //! NASM Mnemonic
