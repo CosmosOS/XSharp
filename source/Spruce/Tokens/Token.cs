@@ -22,7 +22,7 @@ namespace Spruce.Tokens {
         protected void AddPattern(Action aEmitter, params Type[] aTokenTypes) {
             var xToken = this;
             foreach (var xType in aTokenTypes) {
-                xToken = xToken.AddToken(xType);
+                xToken = xToken.Add(xType);
             }
 
             if (xToken.mTokens.Count > 0) {
@@ -30,7 +30,7 @@ namespace Spruce.Tokens {
             }
             xToken.Emitter = aEmitter;
         }
-        protected Token AddToken(Type aTokenType) {
+        protected Token Add(Type aTokenType) {
             var xToken = mTokens.SingleOrDefault(q => q.GetType() == aTokenType);
 
             if (xToken == null) {

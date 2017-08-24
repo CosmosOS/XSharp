@@ -1,3 +1,7 @@
+compare to sense, curb
+distance of sensors
+220 lines?
+
 remove reg level, only leave regxx
 inside use .tostring + $""
 

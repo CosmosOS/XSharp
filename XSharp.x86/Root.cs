@@ -15,17 +15,13 @@ namespace XSharp.x86 {
             }
 
             foreach (var xType in aParamTypes) {
-                //xParam = xParam.Add(xType);
+                xParam = xParam.Add(xType);
             }
 
             if (xParam.Params.Count > 0) {
                 throw new Exception("Cannot add action to a param which has subparams.");
             }
             xParam.Action = aAction;
-        }
-
-        protected Params.Param Add(List<Params.Param> aParams, Type aType) {
-            return null;
         }
     }
 }
