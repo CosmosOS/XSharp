@@ -8,7 +8,7 @@ using System.Text;
 namespace XSharp {
   public class Compiler {
     protected static Spruce.Tokens.Root mTokenMap = new Spruce.Tokens.Root(typeof(Emitters));
-    protected readonly TextWriter Out;
+    public readonly TextWriter Out;
     protected string Indent = "";
     public int LineNo { get; private set; }
     public bool EmitUserComments = true;

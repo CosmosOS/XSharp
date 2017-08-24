@@ -40,7 +40,7 @@ namespace XSharp {
     // EAX = 0
     [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
     protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
-      var xAsm = new NASM();
+      var xAsm = new NASM(mCompiler.Out);
       xAsm.Emit(OpCode.Mov, aReg, aVal);
 
       mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
