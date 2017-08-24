@@ -5,6 +5,7 @@ using Spruce;
 using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
+using XSharp.x86;
 
 namespace XSharp {
   public class Emitters {
@@ -39,6 +40,9 @@ namespace XSharp {
     // EAX = 0
     [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
     protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
+      var xAsm = new NASM();
+      xAsm.Emit(OpCode.Mov, aReg, aVal);
+
       mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
     }
   }
