@@ -1,11 +1,4 @@
-compare to sense, curb
-distance of sensors
-220 lines?
-
-Move indentation? Or before calling Emit/execute?
-Hex values for uint32 as $
-remove reg level, only leave regxx
-inside use .tostring + $""
+$ for hex
 
 
 Kudzu ----------------------------------------------------
