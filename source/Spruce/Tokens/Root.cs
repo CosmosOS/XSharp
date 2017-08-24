@@ -16,13 +16,17 @@ namespace Spruce.Tokens {
             foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods()) {
                 var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
                 if (xAttrib != null) {
-                    AddPattern((List<CodePoint> aPoints) => {
-                        if (xMethod.GetParameters().Length == 1) {
-                            xMethod.Invoke(aEmitter, new object[] { aPoints.ToArray() });
-                        } else {
+                    Action<List<CodePoint>> xAction;
+                    if (xMethod.GetParameters().Length == 1) {
+                        xAction = (List<CodePoint> aPoints) => {
+                            xMethod.Invoke(aEmitter, new object[] { aPoints });
+                        };
+                    } else {
+                        xAction = (List<CodePoint> aPoints) => {
                             xMethod.Invoke(aEmitter, aPoints.Select(q => q.Value).ToArray());
-                        }
-                    }, xAttrib.TokenTypes);
+                        };
+                    }
+                    AddPattern(xAction, xAttrib.TokenTypes);
                 }
             }
         }
