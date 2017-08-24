@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.x86 {
-    public class Root {
-        public delegate void Action(Params.Param[] aParams, object[] aValues);
-        protected Dictionary<OpCode, List<Params.Param>> mOpCodes = new Dictionary<OpCode, List<Params.Param>>();
+    public class Map {
+        protected Dictionary<OpCode, Params.Param> mOpCodes = new Dictionary<OpCode, Params.Param>();
 
-        public void Add(Root.Action aAction, OpCode aOpCode, params Type[] aParamTypes) {
-            List<Params.Param> xParams;
-            if (mOpCodes.TryGetValue(aOpCode, out xParams) == false) {
-                xParams = new List<Params.Param>();
-                mOpCodes[aOpCode] = xParams;
+        public void Add(Params.Param.ActionDelegate aAction, OpCode aOpCode, params Type[] aParamTypes) {
+            // See if OpCode already mapped, if not create a slot
+            Params.Param xParam;
+            if (mOpCodes.TryGetValue(aOpCode, out xParam) == false) {
+                xParam = new Params.Root();
+                mOpCodes[aOpCode] = xParam;
             }
 
             foreach (var xType in aParamTypes) {
-
+                //xParam = xParam.Add(xType);
             }
+
+            if (xParam.Params.Count > 0) {
+                throw new Exception("Cannot add action to a param which has subparams.");
+            }
+            xParam.Action = aAction;
+        }
+
+        protected Params.Param Add(List<Params.Param> aParams, Type aType) {
+            return null;
         }
     }
 }

@@ -7,15 +7,15 @@ using XSharp.x86.Params;
 namespace XSharp.x86.Assemblers {
     public class NASM : Assembler {
         protected readonly TextWriter mOut;
-        protected readonly Root mRoot;
+        protected readonly Map mRoot;
 
         public NASM(TextWriter aOut) {
             mOut = aOut;
 
-            Root.Action xAction = (Param[] aParams, object[] aValues) => {
+            Param.ActionDelegate xAction = (Param[] aParams, object[] aValues) => {
                 int x = 1;
             };
-            mRoot = new Root();
+            mRoot = new Map();
             mRoot.Add(xAction, OpCode.Mov, typeof(RegXX), typeof(I32U));
         }
 
