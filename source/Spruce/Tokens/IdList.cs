@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace Spruce.Tokens {
-    public abstract class IdList : ID {
+    public abstract class IdList : TypedToken<string> {
         protected string[] mList;
 
-        protected IdList(string[] aList, bool aUpper = true) : base(null, aUpper) {
+        protected IdList(string[] aList, bool aUpperResult = true) : base(aUpperResult ? Parsers.Parsers.IdentifierUpper : Parsers.Parsers.Identifier) {
             mList = aList;
         }
 

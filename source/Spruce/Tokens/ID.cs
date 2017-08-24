@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Parsers = Spruce.Parsers;
 
 namespace Spruce.Tokens {
-  public class ID : TypedToken<string> {
-    protected string mText;
+    public class ID : TypedToken<string> {
+        protected string mText;
 
-    public ID(string aText = null, bool aUpper = true) : base(aUpper ? Parsers.Parsers.IdentifierUpper : Parsers.Parsers.Identifier) {
-      if (aText != null) {
-        if (aUpper) {
-          mText = aText.ToUpper();
-        } else {
-          mText = aText;
+        public ID() : base(Parsers.Parsers.Identifier) {
         }
-      }
-    }
+        public ID(string aText, bool aUpperResult = true) : base(aUpperResult ? Parsers.Parsers.IdentifierUpper : Parsers.Parsers.Identifier) {
+            mText = aText;
+        }
 
-    protected override bool IsMatch(ref string rValue) {
-      return rValue == mText;
+        protected override bool IsMatch(ref string rValue) {
+            return rValue == mText;
+        }
     }
-  }
 }

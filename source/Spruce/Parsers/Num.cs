@@ -4,13 +4,12 @@ using System.Text;
 
 namespace Spruce.Parsers {
   public abstract class Num : Parser {
-      protected static readonly string FirstChars;
-      protected static readonly string Chars;
+      protected readonly string FirstChars;
+      protected readonly string Chars;
 
-      static Num() {
+      protected Num() {
+          FirstChars = CharSets.Number;
           Chars = CharSets.Number;
-          // Hex, etc.. need to find current X# syntax
-          FirstChars = "" + Chars;
       }
 
       protected string ParseToString(string aText, ref int rStart) {

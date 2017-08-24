@@ -1,4 +1,4 @@
-﻿namespace DebugStub
+﻿// namespace DebugStub
 
 // Temp Test Area
     //! nop

@@ -1,10 +1,18 @@
+; // namespace DebugStub
+; namespace DebugStub
+
 ; // Temp Test Area
 ; Temp Test Area
     ; //! nop
     nop
     ; AH = 0
-    MOV AH, 0x0
+    Mov AH, 0x0
     ; AX = 0
-    MOV AX, 0x0
+    Mov AX, 0x0
 	; EAX = 0
-	MOV EAX, 0x0
+	Mov EAX, 0x0
+
+; // Modifies: AL, DX (ComReadAL)
+; Modifies: AL, DX (ComReadAL)
+; // Returns: AL
+; Returns: AL

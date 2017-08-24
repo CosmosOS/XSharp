@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Spruce.Parsers {
-  public class Identifier : Parser {
-    protected static readonly string FirstChars;
-    protected static readonly string Chars;
+    public class Identifier : Parser {
+        protected string mFirstChars;
+        protected string mChars;
+        protected bool mUpperResult = false;
 
-    static Identifier() {
-      FirstChars = Parser.CharSets.Alpha + "_";
-      Chars = FirstChars + Parser.CharSets.Number;
-    }
+        public Identifier(bool aUpperResult = false) {
+            mUpperResult = aUpperResult;
 
-    public readonly bool UpperResult;
-    public Identifier(bool aUpperResult = false) {
-      UpperResult = aUpperResult;
-    }
-
-    public override object Parse(string aText, ref int rStart) {
-      if (FirstChars.IndexOf(aText[rStart]) == -1) {
-        return null;
-      }
-
-      int i;
-      for (i = rStart + 1; i < aText.Length; i++) {
-        if (Chars.IndexOf(aText[i]) == -1) {
-          break;
+            mFirstChars = Parser.CharSets.Alpha + "_";
+            mChars = mFirstChars + Parser.CharSets.Number;
         }
-      }
 
-      string xText = aText.Substring(rStart, i - rStart);
-      if (UpperResult) {
-        xText = xText.ToUpper();
-      }
-      rStart = i;
-      return xText;
+        public override object Parse(string aText, ref int rStart) {
+            if (mFirstChars.IndexOf(aText[rStart]) == -1) {
+                return null;
+            }
+
+            int i;
+            for (i = rStart + 1; i < aText.Length; i++) {
+                if (mChars.IndexOf(aText[i]) == -1) {
+                    break;
+                }
+            }
+
+            string xText = aText.Substring(rStart, i - rStart);
+            if (mUpperResult) {
+                xText = xText.ToUpper();
+            }
+            rStart = i;
+            return xText;
+        }
     }
-  }
 }
