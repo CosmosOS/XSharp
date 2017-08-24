@@ -30,7 +30,6 @@ namespace XSharp {
       if (Compiler.EmitUserComments) {
         Compiler.WriteLine("; " + aText);
       }
-      Compiler.WriteLine("; " + aText);
     }
 
     // EAX = 0

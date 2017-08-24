@@ -39,6 +39,9 @@ namespace XSharp {
 
           if (string.IsNullOrWhiteSpace(xText)) {
             WriteLine();
+          } else if (xText == "//END") {
+            // Temp hack, remove in future
+            break;
           } else {
             if (EmitSourceCode) {
               WriteLine("; " + xText.Trim());
