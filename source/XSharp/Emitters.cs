@@ -34,7 +34,7 @@ namespace XSharp {
     }
 
     // EAX = 0
-    [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Number32u))]
+    [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Num32u))]
     protected void RegAssignNum(string aReg, string aEquals, UInt32 aVal) {
       Asm.Emit(OpCode.Mov, aReg, aVal);
     }
