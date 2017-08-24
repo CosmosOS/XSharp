@@ -40,7 +40,7 @@ namespace XSharp {
     protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
       mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
 
-      var xAsm = new NASM(mCompiler.Out);
+      var xAsm = new x86.Assemblers.NASM(mCompiler.Out);
       xAsm.Emit(OpCode.Mov, aReg, aVal);
     }
   }
