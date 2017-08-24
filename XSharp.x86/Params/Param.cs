@@ -5,11 +5,24 @@ using System.Linq;
 
 namespace XSharp.x86.Params {
     public abstract class Param {
-        public delegate void ActionDelegate(Params.Param[] aParams, object[] aValues);
+        public delegate void ActionDelegate(object[] aValues);
         public ActionDelegate Action;
         public List<Param> Params = new List<Param>();
         public abstract bool IsMatch(object aValue);
 
+        public virtual object Transform(object aValue) {
+            return aValue;
+        }
+
+        public Param Next(object aValue) {
+            foreach (var xParam in Params) {
+                if (xParam.IsMatch(aValue)) {
+                    return xParam;
+                }
+            }
+            throw new Exception("End of map reached.");
+        }
+       
         public Param Add(Type aParamType) {
             var xParam = Params.SingleOrDefault(q => q.GetType() == aParamType);
 

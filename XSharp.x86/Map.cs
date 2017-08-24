@@ -23,5 +23,22 @@ namespace XSharp.x86 {
             }
             xParam.Action = aAction;
         }
+
+        public void Execute(OpCode aOp, params object[] aParams) {
+            Params.Param xParam;
+            if (mOpCodes.TryGetValue(aOp, out xParam) == false) {
+                throw new Exception("No OpCode found in map for : " + aOp);
+            }
+
+            for (int i = 0; i < aParams.Length; i++) {
+                xParam = xParam.Next(aParams[i]);
+                aParams[i] = xParam.Transform(aParams[i]);
+            }
+            if (xParam.Params.Count > 0) {
+                throw new Exception("End param has subparams.");
+            }
+
+            xParam.Action(aParams);
+        }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Spruce.Parsers {
-  public class Number64u : Number {
+  public class Number32u : Number {
     protected static readonly string FirstChars;
     protected static readonly string Chars;
 
-    static Number64u() {
+    static Number32u() {
       Chars = CharSets.Number;
       // Hex, etc.. need to find current X# syntax
       FirstChars = "" + Chars;
@@ -27,7 +27,7 @@ namespace Spruce.Parsers {
 
       string xText = aText.Substring(rStart, i - rStart);
       rStart = i;
-      return UInt64.Parse(xText);
+      return UInt32.Parse(xText);
     }
   }
 }

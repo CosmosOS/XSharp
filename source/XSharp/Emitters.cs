@@ -36,8 +36,8 @@ namespace XSharp {
     }
 
     // EAX = 0
-    [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
-    protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
+    [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number32u))]
+    protected void RegAssignNum(string aReg, string aEquals, UInt32 aVal) {
       mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
 
       var xAsm = new x86.Assemblers.NASM(mCompiler.Out);
