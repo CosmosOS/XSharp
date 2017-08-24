@@ -5,8 +5,7 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class Reg16 : Reg {
-    protected override string[] GetList() {
-      return x86.Params.Reg16.Names;
+    public Reg16() : base(x86.Params.Reg16.Names) {
     }
   }
 }

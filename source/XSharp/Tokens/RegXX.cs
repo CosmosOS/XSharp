@@ -5,8 +5,10 @@ using System.Text;
 
 namespace XSharp.Tokens {
   public class RegXX : Reg {
-    protected override string[] GetList() {
-      return x86.Params.RegXX.Names;
+    // MUST be overloads and not default param. See note in Reg.
+    public RegXX() : base(x86.Params.RegXX.Names) {
+    }
+    public RegXX(string[] aList) : base(aList) {
     }
   }
 }

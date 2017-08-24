@@ -8,6 +8,10 @@ using Spruce;
 namespace Spruce.Tokens {
     public class Root : Token {
         public Root(Type aEmitterType = null) : base(null) {
+            if (aEmitterType == null) {
+                return;
+            }
+
             // Load emitters to pattern list
             foreach (var xMethod in aEmitterType.GetRuntimeMethods()) {
                 var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
