@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using XSharp.x86.Assemblers;
 
 namespace XSharp {
   public class Compiler {
     protected Spruce.Tokens.Root mTokenMap;
     public readonly TextWriter Out;
+    public readonly x86.Assemblers.Assembler Asm;
     protected string Indent = "";
     public int LineNo { get; private set; }
     public bool EmitUserComments = true;
@@ -16,6 +18,7 @@ namespace XSharp {
 
     public Compiler(TextWriter aOut) {
       Out = aOut;
+      Asm = new NASM(aOut);
       var xEmitters = new Emitters(this);
       mTokenMap = new Spruce.Tokens.Root(xEmitters);
     }
