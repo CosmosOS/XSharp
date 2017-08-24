@@ -15,10 +15,6 @@ namespace Spruce.Tokens {
             mParser = aParser;
         }
 
-        protected void LoadEmitters() {
-
-        }
-
         protected abstract bool IsMatch(ref object rValue);
 
         protected void AddPattern(Action<object, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {

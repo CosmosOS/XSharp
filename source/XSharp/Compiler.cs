@@ -7,7 +7,7 @@ using System.Text;
 
 namespace XSharp {
   public class Compiler {
-    protected static Tokens.Root mTokenMap = new Tokens.Root(typeof(Emitters));
+    protected static Spruce.Tokens.Root mTokenMap = new Spruce.Tokens.Root(typeof(Emitters));
     protected readonly TextWriter Out;
     protected string Indent = "";
     public int LineNo { get; private set; }
