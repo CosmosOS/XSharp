@@ -1,6 +1,4 @@
-"EAX" -> Reg
-types then map to compile
-Asm.Emit(Asm.Op.Mov, "EAX", 0);
+remove reg level, only leave regxx
 inside use .tostring + $""
 
 

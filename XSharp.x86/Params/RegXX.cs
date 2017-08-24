@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XSharp.x86.Params {
     public class RegXX : Reg {
-        public static readonly string[] Names;
+        public static new readonly string[] Names;
 
         static RegXX() {
             var xNames = new List<string>();
@@ -13,5 +13,8 @@ namespace XSharp.x86.Params {
             xNames.AddRange(Reg08.Names);
             Names = xNames.ToArray();
         }
+
+        public RegXX() : base(Names) { }
+        public RegXX(string[] aNames) : base(aNames) { }
     }
 }
