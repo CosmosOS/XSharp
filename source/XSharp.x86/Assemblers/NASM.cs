@@ -14,7 +14,8 @@ namespace XSharp.x86.Assemblers {
             mOut = aOut;
 
             mMap = new Map();
-            Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg32), typeof(I32U));
+            Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg08), typeof(i08u));
+            Add("{0}, 0x{1:X}", OpCode.Mov, typeof(Reg32), typeof(i32u));
         }
 
         protected void Add(string aOutput, OpCode aOpCode, params Type[] aParamTypes) {

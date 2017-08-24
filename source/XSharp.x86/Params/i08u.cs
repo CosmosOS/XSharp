@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace XSharp.x86.Params {
-    public class i32u : Param {
+    public class i08u : Param {
         public override bool IsMatch(object aValue) {
-            return aValue is UInt32;
+            return aValue is byte;
         }
     }
 }

@@ -8,15 +8,16 @@ using System.Runtime.Loader;
 namespace XSharp.DotNetCLI {
   class Program {
     static void Main(string[] aArgs) {
+      try { 
+      // Parse arguments
+      var xCLI = new Build.CliProcessor();
+      xCLI.Parse(aArgs);
+
       try {
         var xGen = new AsmGenerator();
 
         bool xAppend = false;
         string xOutputPath = null;
-
-        // Parse arguments
-        var xCLI = new Build.CliProcessor();
-        xCLI.Parse(aArgs);
 
         // Options
         var xUserComments = xCLI["UserComments", "UC"];
@@ -111,10 +112,18 @@ namespace XSharp.DotNetCLI {
 
         // Finalize
         Console.WriteLine("Done.");
+        } catch (Exception ex) {
+          Console.WriteLine(ex.ToString());
+          if (xCLI["WaitOnError"] != null) {
+            Console.WriteLine();
+            Console.WriteLine("Waiting on error. Press Enter to exit.");
+            Console.ReadLine();
+          }
+          Environment.Exit(-1);
+        }
       } catch (Exception ex) {
-        Console.WriteLine(ex.ToString());
-        System.Threading.Thread.Sleep(3000);
-        Environment.Exit(1);
+        Console.WriteLine("Argument parse error:\r\n" + ex);
+        Environment.Exit(-2);
       }
     }
   }
