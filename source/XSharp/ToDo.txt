@@ -1,4 +1,7 @@
-Move register names to x86
+Can make action with 1 param if array to pass CodePoints
+  -pass first if first.
+  -wont need to create emitter instances, can be static or single instance.
+  -mCompiler? Other data? Compiler can be part of above instance and created BEFORE.
 
 "EAX" -> Reg
 types then map to compile

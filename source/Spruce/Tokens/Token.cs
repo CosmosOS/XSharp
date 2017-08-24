@@ -8,7 +8,7 @@ using Parsers = Spruce.Parsers;
 namespace Spruce.Tokens {
     public abstract class Token {
         protected List<Token> mTokens = new List<Token>();
-        public Action<object, List<CodePoint>> Emitter;
+        public Action<List<CodePoint>> Emitter;
         protected readonly Parsers.Parser mParser;
 
         public Token(Parsers.Parser aParser) {
@@ -17,7 +17,7 @@ namespace Spruce.Tokens {
 
         protected abstract bool IsMatch(ref object rValue);
 
-        protected void AddPattern(Action<object, List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
+        protected void AddPattern(Action<List<CodePoint>> aEmitter, params Type[] aTokenTypes) {
             var xToken = this;
             foreach (var xType in aTokenTypes) {
                 xToken = xToken.AddToken(xType);

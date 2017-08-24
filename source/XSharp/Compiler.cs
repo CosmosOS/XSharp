@@ -7,7 +7,7 @@ using System.Text;
 
 namespace XSharp {
   public class Compiler {
-    protected static Spruce.Tokens.Root mTokenMap = new Spruce.Tokens.Root(typeof(Emitters));
+    protected Spruce.Tokens.Root mTokenMap;
     public readonly TextWriter Out;
     protected string Indent = "";
     public int LineNo { get; private set; }
@@ -16,6 +16,8 @@ namespace XSharp {
 
     public Compiler(TextWriter aOut) {
       Out = aOut;
+      var xEmitters = new Emitters(this);
+      mTokenMap = new Spruce.Tokens.Root(xEmitters);
     }
 
     public void WriteLine(string aText = "") {
@@ -41,7 +43,7 @@ namespace XSharp {
 
             var xCodePoints = mTokenMap.Parse(xText);
             var xLastToken = xCodePoints.Last().Token;
-            xLastToken.Emitter(this, xCodePoints);
+            xLastToken.Emitter(xCodePoints);
           }
 
           xText = aIn.ReadLine();

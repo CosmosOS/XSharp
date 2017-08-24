@@ -10,11 +10,9 @@ using XSharp.x86;
 namespace XSharp {
   public class Emitters {
     protected readonly Compiler mCompiler;
-    protected readonly List<CodePoint> mCodePoints;
 
-    public Emitters(Compiler aCompiler, List<CodePoint> aCodePoints) {
+    public Emitters(Compiler aCompiler) {
       mCompiler = aCompiler;
-      mCodePoints = aCodePoints;
     }
 
     public class OpComment : Op {
@@ -40,10 +38,10 @@ namespace XSharp {
     // EAX = 0
     [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Number64u))]
     protected void RegAssignNum(string aReg, string aEquals, UInt64 aVal) {
+      mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
+
       var xAsm = new NASM(mCompiler.Out);
       xAsm.Emit(OpCode.Mov, aReg, aVal);
-
-      mCompiler.WriteLine($"mov {aReg}, 0x{aVal:X}");
     }
   }
 }

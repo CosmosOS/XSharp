@@ -7,22 +7,20 @@ using Spruce;
 
 namespace Spruce.Tokens {
     public class Root : Token {
-        public Root(Type aEmitterType = null) : base(null) {
-            if (aEmitterType == null) {
+        public Root(object aEmitter = null) : base(null) {
+            if (aEmitter == null) {
                 return;
             }
 
             // Load emitters to pattern list
-            foreach (var xMethod in aEmitterType.GetRuntimeMethods()) {
+            foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods()) {
                 var xAttrib = xMethod.GetCustomAttribute<Spruce.Attribs.Emitter>();
                 if (xAttrib != null) {
-                    AddPattern((object aCompiler, List<CodePoint> aPoints) => {
-                        var xEmitter = Activator.CreateInstance(aEmitterType, aCompiler, aPoints);
+                    AddPattern((List<CodePoint> aPoints) => {
                         if (xMethod.GetParameters().Length == 0) {
-                            // Using this method, users must read CodePoints directly
-                            xMethod.Invoke(xEmitter, null);
+                            xMethod.Invoke(aEmitter, null);
                         } else {
-                            xMethod.Invoke(xEmitter, aPoints.Select(q => q.Value).ToArray());
+                            xMethod.Invoke(aEmitter, aPoints.Select(q => q.Value).ToArray());
                         }
                     }, xAttrib.TokenTypes);
                 }
