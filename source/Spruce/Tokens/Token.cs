@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
-using Parsers = Spruce.Parsers;
 
 namespace Spruce.Tokens {
     // Do not store any parse state in this class. It is
