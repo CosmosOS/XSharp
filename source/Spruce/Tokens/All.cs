@@ -4,11 +4,11 @@ using System.Text;
 using Parsers = Spruce.Parsers;
 
 namespace Spruce.Tokens {
-  public class All : TypedToken<string> {
-    public All() : base(Parsers.Parsers.All) { }
-
-    protected override bool IsMatch(ref string rValue) {
-      return true;
-    }
+  public class All : Token {
+      public override object Parse(string aText, ref int rStart) {
+          string xResult = aText.Substring(rStart);
+          rStart = aText.Length;
+          return xResult;
+      }
   }
 }

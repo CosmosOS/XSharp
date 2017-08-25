@@ -6,23 +6,33 @@ using System.Text;
 using Parsers = Spruce.Parsers;
 
 namespace Spruce.Tokens {
+    // Do not store any parse state in this class. It is
+    // used from different places at once.
     public abstract class Token {
-        public delegate void Action(List<CodePoint> aPoints);
+        public static class Chars {
+            public static readonly string Alpha;
+            public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRTSUVWXYZ";
+            public static readonly string AlphaLower;
+            public static readonly string Number = "0123456789";
+            public static readonly string AlphaNum;
 
-        protected List<Token> mTokens = new List<Token>();
-        public Action Emitter;
-        protected readonly Parsers.Parser mParser;
-
-        public Token(Parsers.Parser aParser) {
-            mParser = aParser;
+            static Chars() {
+                AlphaLower = AlphaUpper.ToLower();
+                Alpha = AlphaUpper + AlphaLower;
+                AlphaNum = Alpha + AlphaNum;
+            }
         }
 
-        protected abstract bool IsMatch(ref object rValue);
+        public delegate void Action(List<CodePoint> aPoints);
+        protected List<Token> mTokens = new List<Token>();
+        public Action Emitter;
 
-        protected void AddPattern(Action aEmitter, params Type[] aTokenTypes) {
+        public abstract object Parse(string aText, ref int rStart);
+
+        protected void AddEmitter(Action aEmitter, params Type[] aTokenTypes) {
             var xToken = this;
             foreach (var xType in aTokenTypes) {
-                xToken = xToken.Add(xType);
+                xToken = xToken.AddToken(xType);
             }
 
             if (xToken.mTokens.Count > 0) {
@@ -30,7 +40,7 @@ namespace Spruce.Tokens {
             }
             xToken.Emitter = aEmitter;
         }
-        protected Token Add(Type aTokenType) {
+        protected Token AddToken(Type aTokenType) {
             var xToken = mTokens.SingleOrDefault(q => q.GetType() == aTokenType);
 
             if (xToken == null) {
@@ -53,44 +63,17 @@ namespace Spruce.Tokens {
             }
             if (xThisStart == aText.Length) {
                 // All whitespace. Should never happen wtih our .TrimEnd(), but just in case.
-                throw new Exception("No token text found on line.\r\n" + aText);
+                throw new Exception("End of line reached.");
             }
 
-            // Find which parser claims it.
-            //
-            // Yes, this looping is slow with all the calls. But for our current
-            // needs its fast enough and worth the expansion capabilities.
-            // Any optimazations should keep the basic design.
             rStart = xThisStart;
-            Parsers.Parser xParser = null;
-            object xParsedVal = null;
-            foreach (var x in mTokens.Select(q => q.mParser).Distinct()) {
-                xParsedVal = x.Parse(aText, ref rStart);
-                if (xParsedVal != null) {
-                    xParser = x;
-                    break;
+            foreach (var xToken in mTokens) {
+                var xValue = xToken.Parse(aText, ref rStart);
+                if (xValue != null) {
+                    return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);
                 }
             }
-            if (xParsedVal == null) {
-                throw new Exception("No matching parser found on line.\r\n" + aText);
-            }
-
-            // Important - not just for speed, but only call tokens with matching parsers
-            foreach (var xToken in mTokens.Where(q => q.mParser == xParser)) {
-                if (xToken.IsMatch(ref xParsedVal)) {
-                    if (rStart == aText.Length) {
-                        if (xToken.mTokens.Count > 0) {
-                            throw new Exception("Incomplete line. Tokens exist beyond end of text.\r\n" + aText);
-                        } else if (xToken.Emitter == null) {
-                            throw new Exception("No emitter found for final token.\r\n" + aText);
-                        }
-                    } else if (xToken.mTokens == null) {
-                        throw new Exception("Text exists beyond end of recognized line.\r\n" + aText);
-                    }
-                    return new CodePoint(aText, xThisStart, rStart - 1, xToken, xParsedVal);
-                }
-            }
-            throw new Exception("No matching token found on line.\r\n" + aText);
+            throw new Exception("No matching token found on line.");
         }
     }
 }

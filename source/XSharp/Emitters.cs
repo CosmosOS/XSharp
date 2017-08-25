@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Spruce.Attribs;
-using Spruce.Parsers;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
-using XSharp.x86.Assemblers;
-using All = Spruce.Tokens.All;
-using Num08u = Spruce.Tokens.Num08u;
-using Num16u = Spruce.Tokens.Num16u;
-using Num32u = Spruce.Tokens.Num32u;
 
 namespace XSharp {
   // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
@@ -35,7 +29,7 @@ namespace XSharp {
       }
     }
 
-    [Emitter(typeof(Namespace), typeof(ID))] // namespace name
+    [Emitter(typeof(Namespace), typeof(Identifier))] // namespace name
     protected void Namespace(string aNamespace, string aText) {
     }
 
