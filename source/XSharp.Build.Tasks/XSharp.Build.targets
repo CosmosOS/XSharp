@@ -1,0 +1,21 @@
+﻿<Project>
+
+    <Target Name="CoreCompile"
+            Inputs="@(Compile)"
+            Outputs="$(OutputFile)">
+        <Xsc InputFiles="@(Compile)"
+             OutputFile="$(OutputFile)"
+             Append="True"
+             ToolPath="$(XscToolPath)"
+             ToolExe="$(XscToolExe)" />
+    </Target>
+
+    <!--
+    <Target Name="Assemble"
+            Condition="$(Assemble) == 'True'"
+            AfterTargets="CoreCompile">
+        <XsAssemble />
+    </Target>
+    -->
+
+</Project>
