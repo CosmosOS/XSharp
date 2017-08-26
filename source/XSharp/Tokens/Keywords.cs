@@ -7,11 +7,4 @@ namespace XSharp.Tokens {
     public Namespace() : base("Namespace") { }
   }
 
-  public class NOP : Spruce.Tokens.MatchList {
-    public NOP() : base("NOP") { }
-  }
-
-  public class Return : Spruce.Tokens.MatchList {
-    public Return() : base("Return") { }
-  }
 }

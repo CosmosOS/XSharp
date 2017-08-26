@@ -38,6 +38,8 @@ namespace Spruce.Tokens {
         protected void BuildChars(string[] aList) {
             void AddChar(StringBuilder aSB, char aChar) {
                 if (!aSB.ToString().Contains(aChar)) {
+                    // Convert to lower, simplest way as we convert to upper later
+                    aChar = char.ToLowerInvariant(aChar);
                     aSB.Append(aChar);
                     char xCharUp = char.ToUpperInvariant(aChar);
                     if (xCharUp != aChar) {

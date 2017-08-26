@@ -40,9 +40,10 @@ namespace XSharp {
       Asm.Emit(OpCode.Mov, aReg, aVal);
     }
 
-    [Emitter(typeof(NOP))] // NOP
-    protected void NOP() {
-      Asm.Emit(OpCode.NOP);
+    [Emitter(typeof(NOP))]
+    [Emitter(typeof(Return))]
+    protected void NOP(OpCode aOpCode) {
+      Asm.Emit(aOpCode);
     }
   }
 }
