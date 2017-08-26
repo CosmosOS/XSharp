@@ -1,9 +1,4 @@
-Merge parsers
-Nop
-Emitters.cs - Need XSharp.Identifier [Emitter(typeof(Namespace), typeof(Matcher))] // namespace name
 $ for hex - where to?
-Keyword Token - Namespace as one token? Return type of namespace? or simpler as is? Beginning of compounds....
-
 
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
