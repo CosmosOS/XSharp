@@ -20,8 +20,8 @@ namespace XSharp.x86
     {
         Mov,
         NOP,
-        Ret,
         PushAD,
-        PopAD
+        PopAD,
+        Ret
     }
 }
