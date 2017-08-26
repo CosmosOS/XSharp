@@ -22,16 +22,19 @@ namespace XSharp.x86.Assemblers {
         }
 
         protected void Add(OpCode aOpCode, string aOutput = null, params Type[] aParamTypes) {
-            Param.ActionDelegate xAction = (object[] aValues) => {
-                // Could use null Action, but cleaner to just do nothing rather
-                // than push logic up to know when null action is ok on tail token.
-                if (aOutput != null) {
+            Param.ActionDelegate xAction;
+            if (aOutput == null) {
+                xAction = (object[] aValues) => {
+                    mOut.WriteLine();
+                };
+            } else {
+                xAction = (object[] aValues) => {
                     // Can be done with a single call to .WriteLine but makes
                     // debugging far more difficult.
                     string xOut = string.Format(aOutput, aValues);
                     mOut.WriteLine(xOut);
-                }
-            };
+                };
+            }
             mMap.Add(xAction, aOpCode, aParamTypes);
         }
 
