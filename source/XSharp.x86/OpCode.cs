@@ -17,6 +17,7 @@ namespace XSharp.x86 {
     // https://sites.google.com/site/paulclaytonplace/andy-glew-s-comparch-wiki/hint-instructions - Generic, Intel doesnt appear to have hints
     public enum OpCode {
         Mov,
-        NOP
+        NOP,
+        RET
     }
 }
