@@ -74,8 +74,6 @@ namespace XSharp
         {
         }
 
-        // Methods for functions. Leave these at the bottom of the file.
-
         // function fName123 {
         [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
         protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
