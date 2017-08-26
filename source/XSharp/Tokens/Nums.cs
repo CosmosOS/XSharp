@@ -5,32 +5,34 @@ using System.Text;
 
 namespace XSharp.Tokens {
     public abstract class Num : Spruce.Tokens.Num {
-        protected Num() : base(Chars.Digit + Chars.ExtraHexDigit, Chars.Digit + "$") { }
-    }
+        protected Func<string, NumberStyles, object> mParse;
 
-    public class Int08u : Spruce.Tokens.Num08u {
-    }
-
-    public class Int16u : Spruce.Tokens.Num16u {
-    }
-
-    public class Int32u : Spruce.Tokens.Num32u {
-        protected override bool CheckChar(int aLocalPos, char aChar) {
-            if (aLocalPos == 0) {
-                if (aChar == '$') {
-                    return true;
-                }
-            } else if (Chars.ExtraHexDigit.IndexOf(aChar) > -1) {
-                return true;
-            }
-            return base.CheckChar(aLocalPos, aChar);
+        protected Num() : base(Chars.ExtraHexDigit, "$") {
         }
 
         protected override object Check(string aText) {
             if (aText[0] == '$') {
-                return UInt32.Parse(aText.Substring(1), NumberStyles.HexNumber);
+                return mParse(aText.Substring(1), NumberStyles.HexNumber);
             }
-            return UInt32.Parse(aText);
+            return mParse(aText, NumberStyles.Integer);
+        }
+    }
+
+    public class Int08u : Num {
+        public Int08u() {
+            mParse = (aText, aStyle) => byte.Parse(aText, aStyle);
+        }
+    }
+
+    public class Int16u : Num {
+        public Int16u() {
+            mParse = (aText, aStyle) => UInt16.Parse(aText, aStyle);
+        }
+    }
+
+    public class Int32u : Num {
+        public Int32u() {
+            mParse = (aText, aStyle) => UInt32.Parse(aText, aStyle);
         }
     }
 }

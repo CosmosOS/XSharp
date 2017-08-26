@@ -65,15 +65,15 @@ namespace Spruce.Tokens {
             SetChars(xChars.ToString(), xFirstChars.ToString());
         }
 
-        protected Token(string aChars = null, string aFirstChars = null) {
-            SetChars(aChars, aFirstChars);
+        protected Token(string aChars = null, string aExtraFirstChars = null) {
+            SetChars(aChars, aExtraFirstChars);
         }
 
         protected virtual bool CheckChar(int aLocalPos, char aChar) {
             if (aLocalPos == 0) {
-                return mFirstChars.IndexOf(aChar) >= 0;
+                return mFirstChars.IndexOf(aChar) > -1;
             }
-            return mChars.IndexOf(aChar) >= 0;
+            return mChars.IndexOf(aChar) > -1;
         }
 
         protected abstract object Check(string aText);

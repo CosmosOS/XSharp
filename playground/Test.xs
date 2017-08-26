@@ -3,12 +3,14 @@
 // Temp Test Area
     //! nop
     AH = 0
+    AH = $FF
     AX = 0
-	EAX= 0
-    NOP
-    return
+    AX = $FFFF
+	EAX = 0
 	EAX = $FFFF
 	EAX = $FFFFFFFF
+    NOP
+    return
 	+All
 	-All
 
