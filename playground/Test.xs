@@ -1,6 +1,5 @@
-﻿namespace DebugStub
-
-// Temp Test Area
+﻿// Temp Test Area
+    
     //! nop
     AH = 0
     AH = $FF
@@ -15,6 +14,8 @@
 	-All
 testFun()
 
+
+namespace DebugStub
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
