@@ -11,7 +11,7 @@ namespace XSharp.Tokens {
     public class Int08u : Spruce.Tokens.Num08u {
     }
 
-    public class Int16u : Spruce.Tokens.Num08u {
+    public class Int16u : Spruce.Tokens.Num16u {
     }
 
     public class Int32u : Spruce.Tokens.Num32u {

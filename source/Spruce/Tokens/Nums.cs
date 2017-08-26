@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Spruce.Tokens {
     public abstract class Num : Token {
-        protected Num() : base(Chars.Digit) { }
+        protected Num(string aChars = null, string aFirstChars = null) : base(aChars ?? Chars.Digit, aFirstChars) { }
     }
 
     public class Num08u : Num {
