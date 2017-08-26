@@ -53,7 +53,7 @@ namespace XSharp
         [Emitter(typeof(Return))]
         [Emitter(typeof(PushAll))]
         [Emitter(typeof(PopAll))]
-        protected void NOP(OpCode aOpCode)
+        protected void ZeroParamOp(OpCode aOpCode)
         {
             Asm.Emit(aOpCode);
         }
