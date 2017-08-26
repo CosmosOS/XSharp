@@ -17,7 +17,6 @@ namespace Spruce.Tokens {
             set => mCompare = value ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
         }
 
-        protected MatchList(string aText) : this(new[] { aText }) { }
         protected MatchList(string[] aList) {
             mList = aList;
             mMaxLength = aList.Max(q => q.Length);
