@@ -78,7 +78,13 @@ namespace XSharp
 
         // function fName123 {
         [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
-        protected void FunctionDefinition(string funcKeyword, string functionName, string opOpenBraces)
+        protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
+        {
+        }
+
+        // }
+        [Emitter(typeof(OpCloseBrace))]
+        protected void FunctionDefinitionEnd(string opCloseBrace)
         {
         }
 
