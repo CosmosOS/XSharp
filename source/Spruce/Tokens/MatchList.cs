@@ -11,16 +11,17 @@ namespace Spruce.Tokens {
         }
         protected ResultFormat FormatResult = ResultFormat.MatchSource;
         protected readonly string[] mList;
-        protected StringComparison mCompare;
 
+        protected StringComparison mCompare = StringComparison.InvariantCultureIgnoreCase;
         protected bool mMatchCase {
             set => mCompare = value ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
         }
 
+        protected MatchList(string[][] aList) : this(aList.SelectMany(x => x).ToArray()) { }
+
         protected MatchList(string[] aList) {
             mList = aList;
             mMaxLength = aList.Max(q => q.Length);
-            mMatchCase = false; // Calls setter to set default.
             BuildChars(aList);
         }
 
