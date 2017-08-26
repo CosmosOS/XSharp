@@ -7,6 +7,8 @@
 	EAX = 0
     NOP
     return
+	EAX = $FFFF
+	EAX = $FFFFFFFF
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL

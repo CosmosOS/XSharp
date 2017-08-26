@@ -13,6 +13,10 @@
     NOP 
     ; return
     RET 
+	; EAX = $FFFF
+	Mov EAX, 0xFFFF
+	; EAX = $FFFFFFFF
+	Mov EAX, 0xFFFFFFFF
 
 ; Modifies: AL, DX (ComReadAL)
 ; Returns: AL

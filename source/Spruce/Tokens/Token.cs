@@ -83,7 +83,7 @@ namespace Spruce.Tokens {
 
             int i;
             for (i = 1; i < aText.Length - rStart; i++) {
-                if (i > mMaxLength) {
+                if (mMaxLength > 0 && i > mMaxLength) {
                     // Exceeded max length, cant be what we are looking for.
                     return null;
                 }
