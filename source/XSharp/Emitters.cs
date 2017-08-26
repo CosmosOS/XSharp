@@ -90,7 +90,7 @@ namespace XSharp
 
         // Important! Last as fall through to prevent early claims over keywords.
         // fName ()
-        [Emitter(typeof(AlphaNum), typeof(OpOpenParanthesis), typeof(OpCloseParanthesis))]
+        [Emitter(typeof(AlphaNum), typeof(OpOpenParenthesis), typeof(OpCloseParenthesis))]
         protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
         {
         }

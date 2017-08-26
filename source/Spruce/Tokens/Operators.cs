@@ -98,16 +98,16 @@
         }
     }
 
-    public class OpOpenParanthesis : MatchOne
+    public class OpOpenParenthesis : MatchOne
     {
-        public OpOpenParanthesis() : base("(")
+        public OpOpenParenthesis() : base("(")
         {
         }
     }
 
-    public class OpCloseParanthesis : MatchOne
+    public class OpCloseParenthesis : MatchOne
     {
-        public OpCloseParanthesis() : base(")")
+        public OpCloseParenthesis() : base(")")
         {
         }
     }
