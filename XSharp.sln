@@ -7,6 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		source\Directory.Build.targets = source\Directory.Build.targets
+		playground\Test.asm = playground\Test.asm
+		playground\Test.xs = playground\Test.xs
+		playground\TestG1.asm = playground\TestG1.asm
 		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
 	EndProjectSection
 EndProject

@@ -17,7 +17,8 @@ namespace Spruce.Tokens {
             foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods()) {
                 foreach (var xAttrib in xMethod.GetCustomAttributes<Attribs.Emitter>()) {
                     Token.Action xAction;
-                    if (xMethod.GetParameters().Length == 1) {
+                    var xParam = xMethod.GetParameters()[0];
+                    if (xParam.ParameterType.IsGenericType) {
                         xAction = (List<CodePoint> aPoints) => {
                             xMethod.Invoke(aEmitter, new object[] { aPoints });
                         };

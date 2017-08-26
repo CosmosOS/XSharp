@@ -5,6 +5,7 @@
     AH = 0
     AX = 0
 	EAX = 0
+    NOP
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL

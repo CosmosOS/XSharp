@@ -9,6 +9,7 @@
     Mov AX, 0x0
 	; EAX = 0
 	Mov EAX, 0x0
-
+    ; NOP
+    NOP 
 ; Modifies: AL, DX (ComReadAL)
 ; Returns: AL

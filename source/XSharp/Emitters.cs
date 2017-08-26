@@ -39,5 +39,10 @@ namespace XSharp {
     protected void RegAssignNum(string aReg, string aEquals, object aVal) {
       Asm.Emit(OpCode.Mov, aReg, aVal);
     }
+
+    [Emitter(typeof(NOP))] // NOP
+    protected void NOP(string aOp) {
+      Asm.Emit(OpCode.NOP);
+    }
   }
 }
