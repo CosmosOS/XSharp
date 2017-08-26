@@ -68,26 +68,33 @@ namespace Spruce.Tokens {
             SetChars(aChars, aFirstChars);
         }
 
+        protected virtual bool CheckChar(int aLocalPos, char aChar) {
+            if (aLocalPos == 0) {
+                return mFirstChars.IndexOf(aChar) >= 0;
+            }
+            return mChars.IndexOf(aChar) >= 0;
+        }
+
         protected abstract object Check(string aText);
         protected virtual object Parse(string aText, ref int rStart) {
-            if (mFirstChars.IndexOf(aText[rStart]) == -1) {
+            if (CheckChar(0, aText[rStart]) == false) {
                 return null;
             }
 
             int i;
-            for (i = rStart + 1; i < aText.Length; i++) {
-                if (i - rStart > mMaxLength) {
+            for (i = 1; i < aText.Length - rStart; i++) {
+                if (i > mMaxLength) {
                     // Exceeded max length, cant be what we are looking for.
                     return null;
                 }
-                if (mChars.IndexOf(aText[i]) == -1) {
+                if (CheckChar(i, aText[rStart + i]) == false) {
                     break;
                 }
             }
 
-            object xResult = Check(aText.Substring(rStart, i - rStart));
+            object xResult = Check(aText.Substring(rStart, i));
             if (xResult != null) {
-                rStart = i;
+                rStart += i;
             }
             return xResult;
         }
