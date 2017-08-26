@@ -1,26 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XSharp.x86;
+﻿using XSharp.x86;
 
-namespace XSharp.Tokens {
-  public class ZeroParamOp: Spruce.Tokens.MatchOne {
-    protected OpCode mOpCode;
+namespace XSharp.Tokens
+{
+    public class ZeroParamOp : Spruce.Tokens.MatchOne
+    {
+        protected OpCode mOpCode;
 
-    protected ZeroParamOp(string aText, OpCode aOpCode) : base(aText) {
-      mOpCode = aOpCode;
+        protected ZeroParamOp(string aText, OpCode aOpCode) : base(aText)
+        {
+            mOpCode = aOpCode;
+        }
+
+        protected override object Check(string aText)
+        {
+            return mOpCode;
+        }
     }
 
-    protected override object Check(string aText) {
-      return mOpCode;
+    public class NOP : ZeroParamOp
+    {
+        public NOP() : base("NOP", OpCode.NOP)
+        {
+        }
     }
-  }
 
-  public class NOP : ZeroParamOp {
-    public NOP() : base("NOP", OpCode.NOP) { }
-  }
+    public class Return : ZeroParamOp
+    {
+        public Return() : base("Return", OpCode.RET)
+        {
+        }
+    }
 
-  public class Return : ZeroParamOp {
-    public Return() : base("Return", OpCode.RET) { }
-  }
+    public class PushAll : ZeroParamOp
+    {
+        public PushAll() : base("+All", OpCode.Pushad)
+        {
+        }
+    }
+
+    public class PopAll : ZeroParamOp
+    {
+        public PopAll() : base("-All", OpCode.Popad)
+        {
+        }
+    }
 }

@@ -9,6 +9,8 @@
     return
 	EAX = $FFFF
 	EAX = $FFFFFFFF
+	+All
+	-All
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL

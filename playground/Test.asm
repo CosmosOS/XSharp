@@ -17,6 +17,10 @@
 	Mov EAX, 0xFFFF
 	; EAX = $FFFFFFFF
 	Mov EAX, 0xFFFFFFFF
+	; +All
+	Pushad 
+	; -All
+	Popad 
 
 ; Modifies: AL, DX (ComReadAL)
 ; Returns: AL
