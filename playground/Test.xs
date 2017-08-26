@@ -18,8 +18,8 @@ testFun()
 
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
-//END
 function ProcessCommand {
+//END
     ComReadAL()
     // Some callers expect AL to be returned, so we preserve it
     // in case any commands modify AL.
