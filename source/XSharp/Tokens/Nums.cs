@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XSharp.Tokens {
     public abstract class Num : Spruce.Tokens.Num {
-        protected Num() { }
+        protected Num() : base(Chars.Digit + Chars.ExtraHexDigit, Chars.Digit + "$") { }
     }
 
     public class Int08u : Spruce.Tokens.Num08u {
@@ -30,7 +30,7 @@ namespace XSharp.Tokens {
             if (aText[0] == '$') {
                 return UInt32.Parse(aText.Substring(1), NumberStyles.HexNumber);
             }
-            return base.Check(aText);
+            return UInt32.Parse(aText);
         }
     }
 }
