@@ -40,6 +40,7 @@ namespace XSharp
         {
         }
 
+        // Don't use RegXX. This method ensures proper data sizes.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
@@ -87,6 +88,7 @@ namespace XSharp
         {
         }
 
+        // Important! Last as fall through to prevent early claims over keywords.
         // fName ()
         [Emitter(typeof(AlphaNum), typeof(OpOpenParanthesis), typeof(OpCloseParanthesis))]
         protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
