@@ -32,7 +32,7 @@ namespace Spruce.Tokens {
 
         protected void SetChars(string aChars, string aFirstChars = null) {
             mChars = aChars;
-            mFirstChars = mFirstChars ?? mChars;
+            mFirstChars = aFirstChars ?? aChars;
         }
 
         protected void BuildChars(string[] aList) {
