@@ -57,15 +57,14 @@ namespace XSharp
             Asm.Emit(aOpCode);
         }
 
-        // +EAX, -AX etc
-        [Emitter(typeof(OpPlus), typeof(Reg08))]
-        [Emitter(typeof(OpPlus), typeof(Reg16))]
-        [Emitter(typeof(OpPlus), typeof(Reg32))]
-        [Emitter(typeof(OpMinus), typeof(Reg08))]
-        [Emitter(typeof(OpMinus), typeof(Reg16))]
-        [Emitter(typeof(OpMinus), typeof(Reg32))]
-        protected void RegisterPushPop(OpCode opCode, string register)
-        {
+        // +RegXX
+        [Emitter(typeof(OpPlus), typeof(RegXX))]
+        protected void RegPush(string aOp, string aReg) {
+        }
+
+        // -RegXX
+        [Emitter(typeof(OpMinus), typeof(RegXX))]
+        protected void RegPop(string aOp, string aReg) {
         }
 
         // if AL = #Vs2Ds_Noop return
