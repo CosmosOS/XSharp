@@ -56,5 +56,36 @@ namespace XSharp
         {
             Asm.Emit(aOpCode);
         }
+
+        // +EAX, -AX etc
+        [Emitter(typeof(OpPlus), typeof(Reg08))]
+        [Emitter(typeof(OpPlus), typeof(Reg16))]
+        [Emitter(typeof(OpPlus), typeof(Reg32))]
+        [Emitter(typeof(OpMinus), typeof(Reg08))]
+        [Emitter(typeof(OpMinus), typeof(Reg16))]
+        [Emitter(typeof(OpMinus), typeof(Reg32))]
+        protected void RegisterPushPop(OpCode opCode, string register)
+        {
+        }
+
+        // if AL = #Vs2Ds_Noop return
+        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Constant), typeof(Return))]
+        protected void IfCondition(string register, string opEquals, string constantName, string opReturn)
+        {
+        }
+
+        // Methods for functions. Leave these at the bottom of the file.
+
+        // function fName123 {
+        [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
+        protected void FunctionDefinition(string funcKeyword, string functionName, string opOpenBraces)
+        {
+        }
+
+        // fName ()
+        [Emitter(typeof(AlphaNum), typeof(OpOpenParanthesis), typeof(OpCloseParanthesis))]
+        protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
+        {
+        }
     }
 }

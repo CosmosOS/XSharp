@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Spruce.Tokens {
-    public class AlphaNum : Token {
+namespace Spruce.Tokens
+{
+    public class AlphaNum : Token
+    {
         // First char cannot be digit
-        public AlphaNum() : base(Chars.Alpha, Chars.AlphaNum) { }
+        public AlphaNum() : base(Chars.AlphaNum, Chars.Alpha) { }
 
-        protected override object Check(string aText) {
-            throw new NotImplementedException();
+        protected override object Check(string aText)
+        {
+            return aText;
         }
     }
 }

@@ -83,4 +83,32 @@
         {
         }
     }
+
+    public class OpOpenBrace : MatchOne
+    {
+        public OpOpenBrace() : base("{")
+        {
+        }
+    }
+
+    public class OpCloseBrace : MatchOne
+    {
+        public OpCloseBrace() : base("}")
+        {
+        }
+    }
+
+    public class OpOpenParanthesis : MatchOne
+    {
+        public OpOpenParanthesis() : base("(")
+        {
+        }
+    }
+
+    public class OpCloseParanthesis : MatchOne
+    {
+        public OpCloseParanthesis() : base(")")
+        {
+        }
+    }
 }
