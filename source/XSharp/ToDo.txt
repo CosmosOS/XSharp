@@ -1,5 +1,3 @@
-$ for hex - where to?
-
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
 Enrique 500
