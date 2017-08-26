@@ -16,12 +16,15 @@ namespace XSharp.x86
     // https://stackoverflow.com/questions/4798356/amd64-nopw-assembly-instruction
     // http://john.freml.in/amd64-nopl - Jump targets aligned on 16 byte boundaries
     // https://sites.google.com/site/paulclaytonplace/andy-glew-s-comparch-wiki/hint-instructions - Generic, Intel doesnt appear to have hints
+
+
+    // Please add ops in alphabetical order
     public enum OpCode
     {
         Mov,
         NOP,
-        PushAD,
         PopAD,
+        PushAD,
         Ret
     }
 }
