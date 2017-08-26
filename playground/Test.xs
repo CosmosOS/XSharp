@@ -19,11 +19,11 @@ testFun()
 // Modifies: AL, DX (ComReadAL)
 // Returns: AL
 function ProcessCommand {
-//END
     ComReadAL()
     // Some callers expect AL to be returned, so we preserve it
     // in case any commands modify AL.
     // We push EAX to keep stack aligned. 
+//END
     +EAX
 
     // Noop has no data at all (see notes in client DebugConnector), so skip Command ID

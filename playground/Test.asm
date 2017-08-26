@@ -31,3 +31,7 @@
 ; Modifies: AL, DX (ComReadAL)
 ; Returns: AL
 ; function ProcessCommand {
+    ; ComReadAL()
+    ; Some callers expect AL to be returned, so we preserve it
+    ; in case any commands modify AL.
+    ; We push EAX to keep stack aligned.
