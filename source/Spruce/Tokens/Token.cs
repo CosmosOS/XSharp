@@ -10,6 +10,7 @@ namespace Spruce.Tokens {
         public static class Chars {
             public static readonly string Alpha;
             public static readonly string Digit = "0123456789";
+            public static readonly string ExtraHexDigit = "ABCDEFabcdef";
             public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRTSUVWXYZ";
             public static readonly string AlphaLower;
             public static readonly string AlphaNum;

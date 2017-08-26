@@ -10,7 +10,7 @@ namespace XSharp.Tokens {
         if (aChar == '$') {
           return true;
         }
-      } else if ("ABCDEFabcdef".IndexOf(aChar) > -1) {
+      } else if (Chars.ExtraHexDigit.IndexOf(aChar) > -1) {
         return true;
       }
       return base.CheckChar(aLocalPos, aChar);
