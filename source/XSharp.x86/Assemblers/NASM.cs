@@ -21,9 +21,9 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
             Add(OpCode.NOP);
-            Add(OpCode.RET);
-            Add(OpCode.Pushad);
-            Add(OpCode.Popad);
+            Add(OpCode.Ret);
+            Add(OpCode.PushAD);
+            Add(OpCode.PopAD);
         }
 
         protected void Add(OpCode aOpCode, string aOutput = null, params Type[] aParamTypes)

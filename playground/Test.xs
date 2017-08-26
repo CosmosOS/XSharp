@@ -4,7 +4,7 @@
     //! nop
     AH = 0
     AX = 0
-	EAX = 0
+	EAX= 0
     NOP
     return
 	EAX = $FFFF

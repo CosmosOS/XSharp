@@ -26,21 +26,21 @@ namespace XSharp.Tokens
 
     public class Return : ZeroParamOp
     {
-        public Return() : base("Return", OpCode.RET)
+        public Return() : base("Return", OpCode.Ret)
         {
         }
     }
 
     public class PushAll : ZeroParamOp
     {
-        public PushAll() : base("+All", OpCode.Pushad)
+        public PushAll() : base("+All", OpCode.PushAD)
         {
         }
     }
 
     public class PopAll : ZeroParamOp
     {
-        public PopAll() : base("-All", OpCode.Popad)
+        public PopAll() : base("-All", OpCode.PopAD)
         {
         }
     }
