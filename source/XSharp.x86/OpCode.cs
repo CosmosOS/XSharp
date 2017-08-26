@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XSharp.x86 {
+namespace XSharp.x86
+{
     // http://ref.x86asm.net/coder32-abc.html
     // http://ref.x86asm.net/coder32.html
     // http://www.sandpile.org/
@@ -15,9 +16,12 @@ namespace XSharp.x86 {
     // https://stackoverflow.com/questions/4798356/amd64-nopw-assembly-instruction
     // http://john.freml.in/amd64-nopl - Jump targets aligned on 16 byte boundaries
     // https://sites.google.com/site/paulclaytonplace/andy-glew-s-comparch-wiki/hint-instructions - Generic, Intel doesnt appear to have hints
-    public enum OpCode {
+    public enum OpCode
+    {
         Mov,
         NOP,
-        RET
+        RET,
+        Pushad,
+        Popad
     }
 }
