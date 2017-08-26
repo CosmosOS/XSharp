@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Spruce.Tokens {
-    public class Num16u : Num {
+    public class Alpha : Token {
+        public Alpha() : base(Chars.Alpha) { }
+
         protected override object Check(string aText) {
-            return UInt16.Parse(aText);
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,9 +9,9 @@ namespace Spruce.Tokens {
     public abstract class Token {
         public static class Chars {
             public static readonly string Alpha;
+            public static readonly string Digit = "0123456789";
             public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRTSUVWXYZ";
             public static readonly string AlphaLower;
-            public static readonly string Number = "0123456789";
             public static readonly string AlphaNum;
 
             static Chars() {
@@ -25,7 +25,70 @@ namespace Spruce.Tokens {
         protected List<Token> mTokens = new List<Token>();
         public Action Emitter;
 
-        public abstract object Parse(string aText, ref int rStart);
+        // Used by default parse method
+        protected int mMaxLength;
+        protected string mFirstChars = null;
+        protected string mChars;
+
+        protected void SetChars(string aChars, string aFirstChars = null) {
+            mChars = aChars;
+            mFirstChars = mFirstChars ?? mChars;
+        }
+
+        protected void BuildChars(string[] aList) {
+            void AddChar(StringBuilder aSB, char aChar) {
+                if (!aSB.ToString().Contains(aChar)) {
+                    aSB.Append(aChar);
+                    char xCharUp = char.ToUpperInvariant(aChar);
+                    if (xCharUp != aChar) {
+                        aSB.Append(xCharUp);
+                    }
+                }
+            }
+
+            var xChars = new StringBuilder();
+            var xFirstChars = new StringBuilder();
+            foreach (var xString in aList) {
+                if (string.IsNullOrEmpty(xString)) {
+                    throw new Exception("Empty or null strings not permitted.");
+                }
+                AddChar(xFirstChars, xString[0]);
+                if (xString.Length > 1) {
+                    foreach (char xChar in xString.Substring(1)) {
+                        AddChar(xChars, xChar);
+                    }
+                }
+            }
+            SetChars(xChars.ToString(), xFirstChars.ToString());
+        }
+
+        protected Token(string aChars = null, string aFirstChars = null) {
+            SetChars(aChars, aFirstChars);
+        }
+
+        protected abstract object Check(string aText);
+        protected virtual object Parse(string aText, ref int rStart) {
+            if (mFirstChars.IndexOf(aText[rStart]) == -1) {
+                return null;
+            }
+
+            int i;
+            for (i = rStart + 1; i < aText.Length; i++) {
+                if (i - rStart > mMaxLength) {
+                    // Exceeded max length, cant be what we are looking for.
+                    return null;
+                }
+                if (mChars.IndexOf(aText[i]) == -1) {
+                    break;
+                }
+            }
+
+            object xResult = Check(aText.Substring(rStart, i - rStart));
+            if (xResult != null) {
+                rStart = i;
+            }
+            return xResult;
+        }
 
         protected void AddEmitter(Action aEmitter, params Type[] aTokenTypes) {
             var xToken = this;

@@ -29,7 +29,7 @@ namespace XSharp {
       }
     }
 
-    [Emitter(typeof(Namespace), typeof(Identifier))] // namespace name
+    [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
     protected void Namespace(string aNamespace, string aText) {
     }
 

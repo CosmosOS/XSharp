@@ -43,12 +43,11 @@ namespace XSharp {
             // Temp hack, remove in future
             break;
           } else {
-            if (EmitSourceCode) {
-              WriteLine("; " + xText.Trim());
-            }
-
             var xCodePoints = mTokenMap.Parse(xText);
             var xLastToken = xCodePoints.Last().Token;
+            if (EmitSourceCode && (xCodePoints[0].Token is Tokens.OpComment == false)) {
+              WriteLine("; " + xText.Trim());
+            }
             xLastToken.Emitter(xCodePoints);
           }
 

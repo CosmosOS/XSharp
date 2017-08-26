@@ -4,7 +4,7 @@ using System.Text;
 using Spruce.Tokens;
 
 namespace XSharp.Tokens {
-  public class Reg : Identifier {
+  public class Reg : MatchList {
     protected Reg(string[] aList) : base(aList) { }
   }
 
