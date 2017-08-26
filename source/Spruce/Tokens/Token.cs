@@ -27,7 +27,7 @@ namespace Spruce.Tokens {
 
         // Used by default parse method
         protected int mMaxLength;
-        protected string mFirstChars = null;
+        protected string mFirstChars;
         protected string mChars;
 
         protected void SetChars(string aChars, string aFirstChars = null) {
