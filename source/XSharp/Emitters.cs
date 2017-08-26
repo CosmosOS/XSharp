@@ -41,7 +41,7 @@ namespace XSharp {
     }
 
     [Emitter(typeof(NOP))] // NOP
-    protected void NOP(string aOp) {
+    protected void NOP() {
       Asm.Emit(OpCode.NOP);
     }
   }
