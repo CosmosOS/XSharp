@@ -13,13 +13,17 @@ namespace Spruce.Tokens {
 
         public override object Parse(string aText, ref int rStart) {
             int xOrigStart = rStart;
+            var xResult = new List<object>();
             foreach (var xToken in mInternals) {
-                if (xToken.Parse(aText, ref rStart) == null) {
+                var xParseResult = (xToken.Parse(aText, ref rStart));
+                if (xParseResult == null) {
+                    // Not all internal tokens match, restore rStart and return null.
                     rStart = xOrigStart;
                     return null;
                 }
+                xResult.Add(xParseResult);
             }
-            return null;
+            return xResult;
         }
 
     }

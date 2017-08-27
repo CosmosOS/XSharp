@@ -4,7 +4,7 @@
     {
         public AlphaNum() : this("") { }
         // First char cannot be digit
-        public AlphaNum(string aExtraChars, string aExtraFirstChars = "") : base(aExtraChars + Chars.Digit, aExtraFirstChars + Chars.Digit) { }
+        public AlphaNum(string aExtraChars, string aExtraFirstChars = "") : base(aExtraChars + Chars.AlphaNum, aExtraFirstChars + Chars.AlphaNum) { }
 
         public override object Check(string aText)
         {

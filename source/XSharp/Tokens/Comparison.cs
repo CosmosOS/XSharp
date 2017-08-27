@@ -8,13 +8,13 @@ namespace XSharp.Tokens {
     public class Compare : Spruce.Tokens.Compound {
     }
 
-    public class Compare08 : Spruce.Tokens.Compound {
+    public class Compare08 : Compare {
     }
 
-    public class Compare16 : Spruce.Tokens.Compound {
+    public class Compare16 : Compare {
     }
 
-    public class Compare32 : Spruce.Tokens.Compound {
+    public class Compare32 : Compare {
         public Compare32() {
             mInternals.Add(new Reg32());
             mInternals.Add(new OpCompare());
