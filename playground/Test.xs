@@ -1,4 +1,4 @@
-﻿//if AX = 0
+﻿// if AX = 0
 // Temp Test Area
     +EAX
     //! nop
@@ -29,7 +29,6 @@ function ProcessCommand {
     // in case any commands modify AL.
     // We push EAX to keep stack aligned. 
     +EAX
-//END
 
     // Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     // Noop also does not send ACK.
@@ -39,7 +38,7 @@ function ProcessCommand {
 	EAX = 0
     ComReadAL()
     .CommandID = EAX
-
+//END
     // Get AL back so we can compare it, but also leave it for later
     EAX = ESP[0]
 

@@ -31,6 +31,7 @@ namespace XSharp
                 Compiler.WriteLine("; " + aText);
             }
         }
+
         [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
         protected void Namespace(string aNamespace, string aText)
         {
@@ -38,16 +39,31 @@ namespace XSharp
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement) {
+        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
+        {
         }
 
         // Don't use RegXX. This method ensures proper data sizes.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))] // EAX = 0
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Constant))] // EAX = 0
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))] // EAX = 0
         protected void RegAssignNum(string aReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aReg, aVal);
+        }
+
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(VariableAddress))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Constant))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(RegXX))]
+        protected void VariableAssignment(string aVariableName, string aOpEquals, string aValue)
+        {
         }
 
         [Emitter(typeof(NOP))]
@@ -117,7 +133,7 @@ namespace XSharp
         [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
         protected void IfCondition(string aOpIf, object aLeftValue, string aOpEquals, object aRightValue,
-            string aOpReturn)
+            object aOpReturn)
         {
         }
 
@@ -198,8 +214,8 @@ namespace XSharp
 
         // Label
         [Emitter(typeof(AlphaNum), typeof(OpColon))]
-        protected void LabelDefinition(string aLabelName, string aOpColon) {
+        protected void LabelDefinition(string aLabelName, string aOpColon)
+        {
         }
-
     }
 }
