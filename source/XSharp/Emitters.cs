@@ -136,11 +136,6 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(AlphaNum), typeof(OpColon))]
-        protected void LabelDefinition(string aLabelName, string aOpColon)
-        {
-        }
-
         // EAX = #constVal
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Constant))]
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Variable))]
@@ -194,11 +189,17 @@ namespace XSharp
         {
         }
 
-        // Important! Last as fall through to prevent early claims over keywords.
+        // Important! All that start with AlphaNum MUST be last to allow fall through to prevent early claims over keywords.
         // fName ()
-        [Emitter(typeof(AlphaNum), typeof(OpOpenParenthesis), typeof(OpCloseParenthesis))]
+        [Emitter(typeof(AlphaNum), typeof(OpOpenParen), typeof(OpCloseParen))]
         protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
         {
         }
+
+        // Label
+        [Emitter(typeof(AlphaNum), typeof(OpColon))]
+        protected void LabelDefinition(string aLabelName, string aOpColon) {
+        }
+
     }
 }
