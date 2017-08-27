@@ -14,6 +14,7 @@
 	-All
 
 	const i = 'Test \'string\''
+	x:
 
 namespace DebugStub
 

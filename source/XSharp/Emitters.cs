@@ -132,6 +132,11 @@ namespace XSharp
         {
         }
 
+        [Emitter(typeof(AlphaNum), typeof(OpColon))]
+        protected void LabelDefinition(string aLabelName, string aOpColon)
+        {
+        }
+
         // function fName123 {
         [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
         protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
