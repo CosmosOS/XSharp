@@ -17,9 +17,14 @@ namespace XSharp
             Asm = aAsm;
         }
 
+        // Temp TEST
+        [Emitter(typeof(Compare32))]
+        protected void Test(string[] aData) {
+            Compiler.WriteLine("Woohoo!");
+        }
+
         [Emitter(typeof(OpLiteral), typeof(All))] // //! Literal NASM Output
-        protected void Literal(string aOp, string aText)
-        {
+        protected void Literal(string aOp, string aText) {
             Compiler.WriteLine(aText);
         }
 

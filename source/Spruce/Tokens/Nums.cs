@@ -9,19 +9,19 @@ namespace Spruce.Tokens {
     }
 
     public class Num08u : Num {
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             return byte.Parse(aText, NumberStyles.Integer);
         }
     }
 
     public class Num16u : Num {
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             return UInt16.Parse(aText, NumberStyles.Integer);
         }
     }
 
     public class Num32u : Num {
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             return UInt32.Parse(aText, NumberStyles.Integer);
         }
     }

@@ -1,8 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Spruce.Attribs;
 
 namespace XSharp.Tokens {
-    public class Comparison : Spruce.Tokens.Compound {
+    [GroupToken(typeof(Compare08), typeof(Compare16), typeof(Compare32))]
+    public class Compare : Spruce.Tokens.Compound {
+    }
+
+    public class Compare08 : Spruce.Tokens.Compound {
+    }
+
+    public class Compare16 : Spruce.Tokens.Compound {
+    }
+
+    public class Compare32 : Spruce.Tokens.Compound {
+        public Compare32() {
+            mInternals.Add(new Reg32());
+            mInternals.Add(new OpCompare());
+            mInternals.Add(new Int32u());
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace XSharp.Tokens {
             mOpCode = aOpCode;
         }
 
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             if (base.Check(aText) == null) {
                 return null;
             }

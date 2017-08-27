@@ -29,7 +29,7 @@ namespace Spruce.Tokens {
             BuildChars(aList);
         }
 
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             string xText = Array.Find(mList, q => q.Equals(aText, mCompare));
 
             if (xText == null) {

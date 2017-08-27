@@ -2,13 +2,13 @@
 {
     public class String : Token
     {
-        protected override object Check(string aText)
+        public override object Check(string aText)
         {
             return null;
         }
 
         // We are overriding the parse method to set rStart itself
-        protected override object Parse(string aText, ref int rStart)
+        public override object Parse(string aText, ref int rStart)
         {
             int i;
 

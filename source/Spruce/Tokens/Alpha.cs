@@ -6,7 +6,7 @@ namespace Spruce.Tokens {
     public class Alpha : Token {
         public Alpha() : base(Chars.Alpha) { }
 
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             throw new NotImplementedException();
         }
     }

@@ -10,7 +10,7 @@ namespace XSharp.Tokens {
         protected Num() : base(Chars.ExtraHexDigit, "$") {
         }
 
-        protected override object Check(string aText) {
+        public override object Check(string aText) {
             if (aText[0] == '$') {
                 return mParse(aText.Substring(1), NumberStyles.HexNumber);
             }

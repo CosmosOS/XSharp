@@ -85,9 +85,13 @@ namespace Spruce.Tokens {
             return mChars.IndexOf(aChar) > -1;
         }
 
-        protected abstract object Check(string aText);
+        // Empty instead of abstract. Parse calls Check, but if Parse is overriden
+        // then check is often not needed.
+        public virtual object Check(string aText) {
+            return null;
+        }
 
-        protected virtual object Parse(string aText, ref int rStart) {
+        public virtual object Parse(string aText, ref int rStart) {
             if (CheckChar(0, aText[rStart]) == false) {
                 return null;
             }

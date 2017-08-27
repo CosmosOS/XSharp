@@ -6,7 +6,7 @@
         {
         }
 
-        protected override object Check(string aText)
+        public override object Check(string aText)
         {
             return aText.Substring(1);
         }

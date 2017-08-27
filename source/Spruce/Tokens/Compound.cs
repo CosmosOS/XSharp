@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Spruce.Tokens {
+    // Could use attribs to build descendants up like Groups,
+    // but compounds will usually add functionality anyway and
+    // may use instanced Tokens rather than default ctors so
+    // it is done without attributes.
     public class Compound : Token {
         // Tokens that make up the compound
         protected List<Token> mInternals = new List<Token>();
 
-        protected override object Check(string aText) {
-            throw new NotImplementedException();
+        public override object Parse(string aText, ref int rStart) {
+            int xOrigStart = rStart;
+            foreach (var xToken in mInternals) {
+                if (xToken.Check(aText) == null) {
+                    return null;
+                }
+            }
+            return null;
         }
+
     }
 }
