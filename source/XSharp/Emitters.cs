@@ -137,6 +137,52 @@ namespace XSharp
         {
         }
 
+        // EAX = #constVal
+        [Emitter(typeof(RegXX), typeof(OpArithmetic), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpArithmetic), typeof(Variable))]
+        [Emitter(typeof(Reg08), typeof(OpArithmetic), typeof(Reg08))]
+        [Emitter(typeof(Reg08), typeof(OpArithmetic), typeof(Int08u))]
+        [Emitter(typeof(Reg16), typeof(OpArithmetic), typeof(Reg16))]
+        [Emitter(typeof(Reg16), typeof(OpArithmetic), typeof(Int16u))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(Reg32))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(Int32u))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(VariableAddress))]
+        protected void Arithmetic(string aRegister, string aOpArithmetic, object aValue)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpIncrementDecrement))]
+        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Variable))]
+        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Reg08))]
+        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Int08u))]
+        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Reg16))]
+        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Int16u))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Reg32))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Int32u))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(VariableAddress))]
+        protected void BitwiseArithmetic(string aRegister, string aOpBitwise, object aValue)
+        {
+        }
+
+        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
+        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
+        protected void BitwiseNot(string aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int08u))]
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int16u))]
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int32u))]
+        protected void BitwiseShift(string aRegister, string aBitwiseShift, object aNumberBits)
+        {
+        }
+
         // function fName123 {
         [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
         protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)

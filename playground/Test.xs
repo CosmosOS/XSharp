@@ -1,6 +1,8 @@
 ﻿// Temp Test Area
     
     //! nop
+	EAX ++
+
     AH = 0
     AH = $FF
     AX = 0
@@ -14,7 +16,7 @@
 	-All
 
 	const i = 'Test \'string\''
-	x:
+	EAX = ~ECX
 
 namespace DebugStub
 
