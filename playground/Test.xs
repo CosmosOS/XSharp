@@ -1,5 +1,5 @@
 ﻿// Temp Test Area
-    
+    +EAX
     //! nop
     AH = 0
     AH = $FF

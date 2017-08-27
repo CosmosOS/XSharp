@@ -1,3 +1,4 @@
+comparisons as group token
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
 Enrique 500
