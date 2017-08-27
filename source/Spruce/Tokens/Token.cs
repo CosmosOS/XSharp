@@ -151,6 +151,10 @@ namespace Spruce.Tokens {
         }
 
         public CodePoint Next(string aText, ref int rStart) {
+            if (mTokens.Count == 0) {
+                throw new Exception("No tokens to scan.");
+            }
+
             int xThisStart = -1;
             for (xThisStart = rStart; xThisStart < aText.Length; xThisStart++) {
                 if (char.IsWhiteSpace(aText[xThisStart]) == false) {
