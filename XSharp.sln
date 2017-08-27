@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B402673F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Tests", "tests\XSharp.Tests\XSharp.Tests.csproj", "{8AC538DE-494C-482D-9E2C-67F0FA5211F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceDebugger", "source\SpruceDebugger\SpruceDebugger.csproj", "{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,14 @@ Global
 		{8AC538DE-494C-482D-9E2C-67F0FA5211F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AC538DE-494C-482D-9E2C-67F0FA5211F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{8AC538DE-494C-482D-9E2C-67F0FA5211F9}.Release|x86.Build.0 = Release|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

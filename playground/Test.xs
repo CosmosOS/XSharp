@@ -1,4 +1,5 @@
-﻿// Temp Test Area
+﻿//if AX = 0
+// Temp Test Area
     +EAX
     //! nop
 	EAX++
