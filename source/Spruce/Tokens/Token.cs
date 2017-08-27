@@ -123,7 +123,7 @@ namespace Spruce.Tokens {
                         xTokenTypes[0] = xGroupType;
                         xToken.AddEmitter(aEmitter, xTokenTypes);
                     }
-                    break;
+                    return;
                 } else {
                     // Single token
                     xToken = xToken.AddToken(xType);
