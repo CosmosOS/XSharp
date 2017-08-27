@@ -111,4 +111,11 @@
         {
         }
     }
+
+    public class OpColon : MatchOne
+    {
+        public OpColon() : base(":")
+        {
+        }
+    }
 }

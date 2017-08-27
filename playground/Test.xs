@@ -1,6 +1,8 @@
 ﻿// Temp Test Area
     +EAX
     //! nop
+	EAX ++
+
     AH = 0
     AH = $FF
     AX = 0
@@ -12,8 +14,9 @@
     return
 	+All
 	-All
-testFun()
 
+	const i = 'Test \'string\''
+	EAX = ~ECX
 
 namespace DebugStub
 

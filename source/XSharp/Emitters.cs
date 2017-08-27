@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Spruce.Attribs;
+﻿using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
@@ -60,17 +57,129 @@ namespace XSharp
 
         // +RegXX
         [Emitter(typeof(OpPlus), typeof(RegXX))]
-        protected void RegPush(string aOp, string aReg) {
+        [Emitter(typeof(OpPlus), typeof(Constant))]
+        [Emitter(typeof(OpPlus), typeof(Variable))]
+        [Emitter(typeof(OpPlus), typeof(VariableAddress))]
+        [Emitter(typeof(OpPlus), typeof(Int08u))]
+        [Emitter(typeof(OpPlus), typeof(Int16u))]
+        [Emitter(typeof(OpPlus), typeof(Int32u))]
+        protected void RegPush(string aOp, object aReg)
+        {
         }
 
         // -RegXX
         [Emitter(typeof(OpMinus), typeof(RegXX))]
-        protected void RegPop(string aOp, string aReg) {
+        [Emitter(typeof(OpMinus), typeof(Constant))]
+        [Emitter(typeof(OpMinus), typeof(Variable))]
+        [Emitter(typeof(OpMinus), typeof(VariableAddress))]
+        [Emitter(typeof(OpMinus), typeof(Int08u))]
+        [Emitter(typeof(OpMinus), typeof(Int16u))]
+        [Emitter(typeof(OpMinus), typeof(Int32u))]
+        protected void RegPop(string aOp, object aReg)
+        {
         }
 
         // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Constant), typeof(Return))]
-        protected void IfCondition(string register, string opEquals, string constantName, string opReturn)
+        [Emitter(typeof(If), typeof(RegXX), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(RegXX), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg32), typeof(OpComparision), typeof(VariableAddress), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg08), typeof(OpComparision), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg16), typeof(OpComparision), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg32), typeof(OpComparision), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(VariableAddress), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Constant), typeof(OpComparision), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(VariableAddress), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpComparision), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpComparision), typeof(VariableAddress), typeof(Return))]
+        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpComparision), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int08u), typeof(OpComparision), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int08u), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int08u), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int16u), typeof(OpComparision), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int16u), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int16u), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int32u), typeof(OpComparision), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int32u), typeof(OpComparision), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int32u), typeof(OpComparision), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int32u), typeof(OpComparision), typeof(VariableAddress), typeof(Return))]
+        protected void IfCondition(string aOpIf, object aLeftValue, string aOpEquals, object aRightValue,
+            string aOpReturn)
+        {
+        }
+
+        // If = return
+        [Emitter(typeof(If), typeof(OpEquals), typeof(Return))]
+        protected void IfConditionPure(string aOpIf, string aEquals, string aReturns)
+        {
+        }
+
+        // const i = 0
+        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
+        protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
+        {
+        }
+
+        [Emitter(typeof(AlphaNum), typeof(OpColon))]
+        protected void LabelDefinition(string aLabelName, string aOpColon)
+        {
+        }
+
+        // EAX = #constVal
+        [Emitter(typeof(RegXX), typeof(OpArithmetic), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpArithmetic), typeof(Variable))]
+        [Emitter(typeof(Reg08), typeof(OpArithmetic), typeof(Reg08))]
+        [Emitter(typeof(Reg08), typeof(OpArithmetic), typeof(Int08u))]
+        [Emitter(typeof(Reg16), typeof(OpArithmetic), typeof(Reg16))]
+        [Emitter(typeof(Reg16), typeof(OpArithmetic), typeof(Int16u))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(Reg32))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(Int32u))]
+        [Emitter(typeof(Reg32), typeof(OpArithmetic), typeof(VariableAddress))]
+        protected void Arithmetic(string aRegister, string aOpArithmetic, object aValue)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpIncrementDecrement))]
+        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Variable))]
+        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Reg08))]
+        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Int08u))]
+        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Reg16))]
+        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Int16u))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Reg32))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Int32u))]
+        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(VariableAddress))]
+        protected void BitwiseArithmetic(string aRegister, string aOpBitwise, object aValue)
+        {
+        }
+
+        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
+        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
+        protected void BitwiseNot(string aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int08u))]
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int16u))]
+        [Emitter(typeof(RegXX), typeof(OpBitwiseShift), typeof(Int32u))]
+        protected void BitwiseShift(string aRegister, string aBitwiseShift, object aNumberBits)
         {
         }
 
