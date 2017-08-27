@@ -13,7 +13,6 @@ namespace XSharp.Tokens {
 
     [GroupToken(typeof(Reg08), typeof(Reg16), typeof(Reg32))]
     public class RegXX : Reg {
-        public RegXX() : base(new string[][] { x86P.Reg08.Names, x86P.Reg16.Names, x86P.Reg32.Names }) { }
         protected RegXX(string[] aList) : base(aList) { }
     }
 
