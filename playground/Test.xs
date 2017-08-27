@@ -1,8 +1,7 @@
 ﻿// Temp Test Area
     +EAX
-//END
     //! nop
-	EAX ++
+	EAX++
 
     AH = 0
     AH = $FF
@@ -29,6 +28,7 @@ function ProcessCommand {
     // in case any commands modify AL.
     // We push EAX to keep stack aligned. 
     +EAX
+//END
 
     // Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     // Noop also does not send ACK.

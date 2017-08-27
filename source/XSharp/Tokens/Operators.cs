@@ -17,16 +17,16 @@ namespace XSharp.Tokens
         }
     }
 
-    public class OpComparision : MatchList
+    public class OpCompare : MatchList
     {
-        public OpComparision() : base("< > = <= >= !=".Split(' '))
+        public OpCompare() : base("< > = <= >= !=".Split(' '))
         {
         }
     }
 
-    public class OpArithmetic : MatchList
+    public class OpMath : MatchList
     {
-        public OpArithmetic() : base("+ - * / %".Split(' '))
+        public OpMath() : base("+ - * / %".Split(' '))
         {
         }
     }
@@ -39,16 +39,16 @@ namespace XSharp.Tokens
         }
     }
 
-    public class OpIncrementDecrement : MatchList
+    public class OpIncDec : MatchList
     {
-        public OpIncrementDecrement() : base("++ --".Split(' '))
+        public OpIncDec() : base("++ --".Split(' '))
         {
         }
     }
 
-    public class OpBitwiseShift : MatchList
+    public class OpShift : MatchList
     {
-        public OpBitwiseShift() : base("<< >>".Split(' '))
+        public OpShift() : base("<< >>".Split(' '))
         {
         }
     }
