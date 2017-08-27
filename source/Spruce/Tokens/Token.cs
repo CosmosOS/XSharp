@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using Spruce.Attribs;
@@ -107,8 +108,26 @@ namespace Spruce.Tokens {
 
         protected void AddEmitter(Action aEmitter, params Type[] aTokenTypes) {
             var xToken = this;
-            foreach (var xType in aTokenTypes) {
-                xToken = xToken.AddToken(xType);
+            for (int i = 0; i < aTokenTypes.Length; i++) {
+                var xType = aTokenTypes[i];
+                if (xType.IsDefined(typeof(GroupToken), false)) {
+                    // Group token, need to split tree
+                    var xGroupAttrib = xType.GetCustomAttribute<GroupToken>();
+                    // New array with each group token + rest that follow.
+                    // Copy rest but leave first slot open.
+                    var xTokenTypes = new Type[aTokenTypes.Length - i];
+                    for (int j = 1; j < aTokenTypes.Length - i; j++) {
+                        xTokenTypes[j] = aTokenTypes[i + j];
+                    }
+                    foreach (var xGroupType in xGroupAttrib.TokenTypes) {
+                        xTokenTypes[0] = xGroupType;
+                        xToken.AddEmitter(aEmitter, xTokenTypes);
+                    }
+                    break;
+                } else {
+                    // Single token
+                    xToken = xToken.AddToken(xType);
+                }
             }
 
             if (xToken.mTokens.Count > 0) {
