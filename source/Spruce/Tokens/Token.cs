@@ -41,15 +41,19 @@ namespace Spruce.Tokens {
             mFirstChars = aFirstChars ?? aChars;
         }
 
-        protected void BuildChars(string[] aList) {
+        protected void BuildChars(string[] aList, bool aIgnoreCase = true) {
             void AddChar(StringBuilder aSB, char aChar) {
                 if (!aSB.ToString().Contains(aChar)) {
-                    // Convert to upper, simplest way as we convert to lower later
-                    aChar = char.ToUpperInvariant(aChar);
-                    aSB.Append(aChar);
-                    char xCharUp = char.ToLowerInvariant(aChar);
-                    if (xCharUp != aChar) {
-                        aSB.Append(xCharUp);
+                    if (aIgnoreCase) {
+                        // Convert to upper, simplest way as we convert to lower later
+                        aChar = char.ToUpperInvariant(aChar);
+                        aSB.Append(aChar);
+                        char xCharUp = char.ToLowerInvariant(aChar);
+                        if (xCharUp != aChar) {
+                            aSB.Append(xCharUp);
+                        }
+                    } else {
+                        aSB.Append(aChar);
                     }
                 }
             }

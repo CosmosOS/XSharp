@@ -4,7 +4,6 @@ comparisons as group token
 IfPredicate - { and return - goto has value. Can compound front intead wtih compuonds, ie {if, compare, return/goto abc123/{ as sep attribs}
 
 Vinay
--Syntax tree dump
 -Flesh out emitters
 
 Kudzu ----------------------------------------------------

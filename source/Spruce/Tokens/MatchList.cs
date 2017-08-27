@@ -22,6 +22,10 @@ namespace Spruce.Tokens {
         protected MatchList(string[] aList) {
             mList = aList;
             mMaxLength = aList.Max(q => q.Length);
+            // Can optimize based on mMatchCase but user can set
+            // after ctor so need to account or update when prop changes.
+            // Not critical as Check has final call, but would reduce size of Chars and
+            // give a slight perf boost.
             BuildChars(aList);
         }
 
