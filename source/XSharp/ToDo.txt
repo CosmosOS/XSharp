@@ -1,10 +1,13 @@
-groups to add regxx etc
 register class from assembler, wtih size etc.. then to string and convert
 comparisons as group token
 IfPredicate - { and return - goto has value. Can compound front intead wtih compuonds, ie {if, compare, return/goto abc123/{ as sep attribs}
 
 Vinay
 -Flesh out emitters
+-DebugTool
+  -Show tree
+  -Show duplicate matches (ie + and ++)
+  -Live input to play and graph path
 
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3

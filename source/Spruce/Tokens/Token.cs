@@ -27,7 +27,7 @@ namespace Spruce.Tokens {
 
         public delegate void Action(List<CodePoint> aPoints);
 
-        protected List<Token> mTokens = new List<Token>();
+        protected List<Token> mChildren = new List<Token>();
         public Action Emitter;
 
         // Used by default parse method
@@ -134,28 +134,28 @@ namespace Spruce.Tokens {
                 }
             }
 
-            if (xToken.mTokens.Count > 0) {
+            if (xToken.mChildren.Count > 0) {
                 throw new Exception("Cannot add emitter to a token which has subtokens.");
             }
             xToken.Emitter = aEmitter;
         }
 
         protected Token AddToken(Type aTokenType) {
-            var xToken = mTokens.SingleOrDefault(q => q.GetType() == aTokenType);
+            var xToken = mChildren.SingleOrDefault(q => q.GetType() == aTokenType);
 
             if (xToken == null) {
                 if (Emitter != null) {
                     throw new Exception("Cannot add subtokens to a token which has an emitter.");
                 }
                 xToken = (Token)Activator.CreateInstance(aTokenType);
-                mTokens.Add(xToken);
+                mChildren.Add(xToken);
             }
 
             return xToken;
         }
 
         public CodePoint Next(string aText, ref int rStart) {
-            if (mTokens.Count == 0) {
+            if (mChildren.Count == 0) {
                 throw new Exception("No tokens to scan.");
             }
 
@@ -171,7 +171,7 @@ namespace Spruce.Tokens {
             }
 
             rStart = xThisStart;
-            foreach (var xToken in mTokens) {
+            foreach (var xToken in mChildren) {
                 var xValue = xToken.Parse(aText, ref rStart);
                 if (xValue != null) {
                     return new CodePoint(aText, xThisStart, rStart - 1, xToken, xValue);
