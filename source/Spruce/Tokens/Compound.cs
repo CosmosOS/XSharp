@@ -14,7 +14,8 @@ namespace Spruce.Tokens {
         public override object Parse(string aText, ref int rStart) {
             int xOrigStart = rStart;
             foreach (var xToken in mInternals) {
-                if (xToken.Check(aText) == null) {
+                if (xToken.Parse(aText, ref rStart) == null) {
+                    rStart = xOrigStart;
                     return null;
                 }
             }
