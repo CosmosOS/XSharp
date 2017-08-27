@@ -28,9 +28,9 @@
         }
     }
 
-    public class Var : Spruce.Tokens.MatchOne
+    public class VarKeyword : Spruce.Tokens.MatchOne
     {
-        public Var() : base("Var")
+        public VarKeyword() : base("VarKeyword")
         {
         }
     }

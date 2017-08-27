@@ -158,13 +158,13 @@ namespace XSharp
         }
 
         // const i = 0
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(Constant))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(Variable), typeof(AlphaNum), typeof(OpEquals), typeof(VariableAddress))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Constant))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
         {
         }
