@@ -31,7 +31,6 @@ namespace XSharp
                 Compiler.WriteLine("; " + aText);
             }
         }
-
         [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
         protected void Namespace(string aNamespace, string aText)
         {

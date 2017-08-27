@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Spruce.Attribs;
 using Spruce.Tokens;
 using x86P = XSharp.x86.Params;
 
@@ -10,6 +11,7 @@ namespace XSharp.Tokens {
         protected Reg(string[][] aList) : base(aList) { }
     }
 
+    [GroupToken(typeof(Reg08), typeof(Reg16), typeof(Reg32))]
     public class RegXX : Reg {
         public RegXX() : base(new string[][] { x86P.Reg08.Names, x86P.Reg16.Names, x86P.Reg32.Names }) { }
         protected RegXX(string[] aList) : base(aList) { }

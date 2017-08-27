@@ -1,4 +1,8 @@
+IfPredicate
+register class from assembler, wtih size etc.. then to string and convert
+groups to add regxx etc
 comparisons as group token
+
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
 Enrique 500
