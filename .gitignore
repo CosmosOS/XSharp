@@ -44,3 +44,4 @@ build.force
 Cosmos.Assembler.Log
 UpgradeLog*.htm
 source/_ReSharper.Caches/
+playground/Test.asm
