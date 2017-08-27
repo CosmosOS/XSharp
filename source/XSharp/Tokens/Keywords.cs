@@ -21,16 +21,16 @@
         }
     }
 
-    public class Const : Spruce.Tokens.MatchOne
+    public class ConstKeyword : Spruce.Tokens.MatchOne
     {
-        public Const() : base("Const")
+        public ConstKeyword() : base("Const")
         {
         }
     }
 
     public class VarKeyword : Spruce.Tokens.MatchOne
     {
-        public VarKeyword() : base("VarKeyword")
+        public VarKeyword() : base("Var")
         {
         }
     }

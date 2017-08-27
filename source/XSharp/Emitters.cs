@@ -67,7 +67,7 @@ namespace XSharp
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(VariableAddress))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Constant))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(RegXX))]
-        protected void VariableAssignment(string aVariableName, string aOpEquals, string aValue)
+        protected void VariableAssignment(string aVariableName, string aOpEquals, object aValue)
         {
         }
 
@@ -149,10 +149,10 @@ namespace XSharp
         }
 
         // const i = 0
-        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(Const), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
         }

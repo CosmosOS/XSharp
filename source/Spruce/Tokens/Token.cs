@@ -7,9 +7,11 @@ using System.Text;
 using Spruce.Attribs;
 
 namespace Spruce.Tokens {
+
     // Do not store any parse state in this class. It is
     // used from different places at once.
     public abstract class Token {
+
         public static class Chars {
             public static readonly string Alpha;
             public static readonly string Digit = "0123456789";
@@ -74,8 +76,8 @@ namespace Spruce.Tokens {
             SetChars(xChars.ToString(), xFirstChars.ToString());
         }
 
-        protected Token(string aChars = null, string aExtraFirstChars = null) {
-            SetChars(aChars, aExtraFirstChars);
+        protected Token(string aChars = null, string aFirstChars = null) {
+            SetChars(aChars, aFirstChars);
         }
 
         protected virtual bool CheckChar(int aLocalPos, char aChar) {
