@@ -36,6 +36,11 @@ namespace XSharp
         {
         }
 
+        // MUST be before RegXX,OpMath,... because of + vs ++
+        [Emitter(typeof(RegXX), typeof(OpIncDec))]
+        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement) {
+        }
+
         // Don't use RegXX. This method ensures proper data sizes.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
@@ -147,11 +152,6 @@ namespace XSharp
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(Int32u))]
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(VariableAddress))]
         protected void Arithmetic(string aRegister, string aOpArithmetic, object aValue)
-        {
-        }
-
-        [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
         {
         }
 
