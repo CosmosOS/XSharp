@@ -12,8 +12,8 @@
     return
 	+All
 	-All
-testFun()
 
+	const i = 'Test \'string\''
 
 namespace DebugStub
 

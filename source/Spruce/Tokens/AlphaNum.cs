@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Spruce.Tokens
+﻿namespace Spruce.Tokens
 {
     public class AlphaNum : Token
     {

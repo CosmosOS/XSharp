@@ -20,4 +20,18 @@
         {
         }
     }
+
+    public class Const : Spruce.Tokens.MatchOne
+    {
+        public Const() : base("Const")
+        {
+        }
+    }
+
+    public class Var : Spruce.Tokens.MatchOne
+    {
+        public Var() : base("Var")
+        {
+        }
+    }
 }
