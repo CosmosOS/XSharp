@@ -17,12 +17,6 @@ namespace XSharp
             Asm = aAsm;
         }
 
-        // Temp TEST
-        [Emitter(typeof(If), typeof(Compare32))]
-        protected void Test(string aIf, object[] aData) {
-            Compiler.WriteLine("Woohoo!");
-        }
-
         [Emitter(typeof(OpLiteral), typeof(All))] // //! Literal NASM Output
         protected void Literal(string aOp, string aText) {
             Compiler.WriteLine(aText);
@@ -105,66 +99,44 @@ namespace XSharp
         }
 
         // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        protected void IfCondition(string aOpIf, object aLeftValue, string aOpEquals, object aRightValue,
-            object aOpReturn)
+        [Emitter(typeof(If), typeof(Compare), typeof(Return))]
+        protected void IfConditionReturn(string aOpIf, object[] aCompareData, object aOpReturn)
+        {
+        }
+
+        [Emitter(typeof(If), typeof(Compare), typeof(OpOpenBrace))]
+        protected void IfConditionBlockStart(string aOpIf, object[] aCompareData, object aOpOpenBrace)
         {
         }
 
         // If = return
         [Emitter(typeof(If), typeof(OpEquals), typeof(Return))]
-        protected void IfConditionPure(string aOpIf, string aEquals, string aReturns)
+        protected void IfConditionPureReturn(string aOpIf, string aEquals, string aReturns)
+        {
+        }
+
+        [Emitter(typeof(If), typeof(OpEquals), typeof(OpOpenBrace))]
+        protected void IfConditionPureBlockStart(string aOpIf, string aEquals, string aOpOpenBrace)
         {
         }
 
         // const i = 0
-        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(ConstKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(String))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
         }
 
         // const i = 0
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Const))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(VariableAddress))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
         {
         }
@@ -211,26 +183,26 @@ namespace XSharp
         }
 
         // function fName123 {
-        [Emitter(typeof(Function), typeof(AlphaNum), typeof(OpOpenBrace))]
+        [Emitter(typeof(Function), typeof(Identifier), typeof(OpOpenBrace))]
         protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
         {
         }
 
         // }
         [Emitter(typeof(OpCloseBrace))]
-        protected void FunctionDefinitionEnd(string opCloseBrace)
+        protected void BlockEnd(string opCloseBrace)
         {
         }
 
         // Important! All that start with AlphaNum MUST be last to allow fall through to prevent early claims over keywords.
         // fName ()
-        [Emitter(typeof(AlphaNum), typeof(OpOpenParen), typeof(OpCloseParen))]
+        [Emitter(typeof(Identifier), typeof(OpOpenParen), typeof(OpCloseParen))]
         protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
         {
         }
 
         // Label
-        [Emitter(typeof(AlphaNum), typeof(OpColon))]
+        [Emitter(typeof(Identifier), typeof(OpColon))]
         protected void LabelDefinition(string aLabelName, string aOpColon)
         {
         }
