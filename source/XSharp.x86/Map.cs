@@ -24,6 +24,7 @@ namespace XSharp.x86 {
             xParam.Action = aAction;
         }
 
+        // Use Params to transform values and call Action with transformed values.
         public void Execute(OpCode aOp, params object[] aParams) {
             Params.Param xParam;
             if (mOpCodes.TryGetValue(aOp, out xParam) == false) {
