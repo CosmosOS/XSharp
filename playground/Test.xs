@@ -1,4 +1,4 @@
-﻿if EAX = 0
+﻿if EAX = 0 return
 // Temp Test Area
     +EAX
     //! nop

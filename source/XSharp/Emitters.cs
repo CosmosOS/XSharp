@@ -17,12 +17,6 @@ namespace XSharp
             Asm = aAsm;
         }
 
-        // Temp TEST
-        [Emitter(typeof(If), typeof(Compare32))]
-        protected void Test(string aIf, object[] aData) {
-            Compiler.WriteLine("Woohoo!");
-        }
-
         [Emitter(typeof(OpLiteral), typeof(All))] // //! Literal NASM Output
         protected void Literal(string aOp, string aText) {
             Compiler.WriteLine(aText);
@@ -105,40 +99,8 @@ namespace XSharp
         }
 
         // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Const), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        protected void IfCondition(string aOpIf, object aLeftValue, string aOpEquals, object aRightValue,
-            object aOpReturn)
+        [Emitter(typeof(If), typeof(Compare), typeof(Return))]
+        protected void IfConditionReturn(string aOpIf, object[] aCompareData, object aOpReturn)
         {
         }
 
