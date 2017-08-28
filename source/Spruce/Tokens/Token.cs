@@ -43,7 +43,8 @@ namespace Spruce.Tokens {
             mFirstChars = aFirstChars ?? aChars;
         }
 
-        protected void BuildChars(string[] aList, bool aIgnoreCase = true) {
+        // NOOB = Not Out Of Bound Chars - ie complete set of possible (even if not used) chars. Used for border detection.
+        protected void BuildChars(string[] aList, string aNoobChars = "", bool aIgnoreCase = true) {
             void AddChar(StringBuilder aSB, char aChar) {
                 if (!aSB.ToString().Contains(aChar)) {
                     if (aIgnoreCase) {
@@ -51,6 +52,7 @@ namespace Spruce.Tokens {
                         aChar = char.ToUpperInvariant(aChar);
                         aSB.Append(aChar);
                         char xCharUp = char.ToLowerInvariant(aChar);
+                        // If its not alpha, won't be different so don't add twice.
                         if (xCharUp != aChar) {
                             aSB.Append(xCharUp);
                         }
@@ -66,9 +68,12 @@ namespace Spruce.Tokens {
                 if (string.IsNullOrEmpty(xString)) {
                     throw new Exception("Empty or null strings not permitted.");
                 }
+
+                // Don't add NOOB chars to first char, not needed.
                 AddChar(xFirstChars, xString[0]);
+
                 if (xString.Length > 1) {
-                    foreach (char xChar in xString.Substring(1)) {
+                    foreach (char xChar in xString.Substring(1) + aNoobChars) {
                         AddChar(xChars, xChar);
                     }
                 }

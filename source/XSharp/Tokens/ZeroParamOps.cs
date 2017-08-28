@@ -1,7 +1,7 @@
 ﻿using XSharp.x86;
 
 namespace XSharp.Tokens {
-    public class ZeroParamOp : Spruce.Tokens.MatchOne {
+    public class ZeroParamOp : Spruce.Tokens.AlphaNumList {
         protected OpCode mOpCode;
 
         protected ZeroParamOp(string aText, OpCode aOpCode) : base(aText) {

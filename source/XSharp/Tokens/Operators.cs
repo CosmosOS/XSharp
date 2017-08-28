@@ -2,7 +2,7 @@
 
 namespace XSharp.Tokens
 {
-    public class OpComment : MatchOne
+    public class OpComment : MatchList
     {
         // Comments require a space after. Prevents future conflicts with 3 char ones like Literal
         public OpComment() : base(@"// ")
@@ -10,9 +10,8 @@ namespace XSharp.Tokens
         }
     }
 
-    public class OpLiteral : MatchOne
-    {
-        public OpLiteral() : base(@"//!")
+    public class OpLiteral : MatchList {
+        public OpLiteral() : base(@"//! ")
         {
         }
     }

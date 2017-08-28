@@ -11,22 +11,19 @@ namespace Spruce.Tokens {
         }
         protected ResultFormat FormatResult = ResultFormat.MatchSource;
         protected readonly string[] mList;
+        protected StringComparison mCompare;
 
-        protected StringComparison mCompare = StringComparison.InvariantCultureIgnoreCase;
-        protected bool mMatchCase {
-            set => mCompare = value ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
-        }
-
-        protected MatchList(string[][] aList) : this(aList.SelectMany(x => x).ToArray()) { }
-
-        protected MatchList(string[] aList) {
+        protected MatchList(string aText, string aNoobChars = "", bool aIgnoreCase = true) : this(new[] { aText }, aNoobChars, aIgnoreCase) { }
+        protected MatchList(string[] aList, string aNoobChars = "", bool aIgnoreCase = true) {
             mList = aList;
             mMaxLength = aList.Max(q => q.Length);
+            mCompare = aIgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture;
+
             // Can optimize based on mMatchCase but user can set
             // after ctor so need to account or update when prop changes.
             // Not critical as Check has final call, but would reduce size of Chars and
             // give a slight perf boost.
-            BuildChars(aList);
+            BuildChars(aList, aNoobChars, aIgnoreCase);
         }
 
         public override object Check(string aText) {

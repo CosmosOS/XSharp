@@ -1,135 +1,96 @@
-﻿namespace Spruce.Tokens
-{
-    public class OpEquals : MatchOne
-    {
-        public OpEquals() : base("=")
-        {
+﻿namespace Spruce.Tokens {
+    public class OpEquals : MatchList {
+        public OpEquals() : base("=") {
         }
     }
 
-    public class OpSlashBack : MatchOne
-    {
-        public OpSlashBack() : base(@"\")
-        {
+    public class OpSlashBack : MatchList {
+        public OpSlashBack() : base(@"\") {
         }
     }
 
-    public class OpSlashFwd : MatchOne
-    {
-        public OpSlashFwd() : base("/")
-        {
+    public class OpSlashFwd : MatchList {
+        public OpSlashFwd() : base("/") {
         }
     }
 
-    public class OpPlus : MatchOne
-    {
-        public OpPlus() : base("+")
-        {
+    public class OpPlus : MatchList {
+        public OpPlus() : base("+") {
         }
     }
 
-    public class OpMinus : MatchOne
-    {
-        public OpMinus() : base("-")
-        {
+    public class OpMinus : MatchList {
+        public OpMinus() : base("-") {
         }
     }
 
-    public class OpStar : MatchOne
-    {
-        public OpStar() : base("*")
-        {
+    public class OpStar : MatchList {
+        public OpStar() : base("*") {
         }
     }
 
-    public class OpPipe : MatchOne
-    {
-        public OpPipe() : base("|")
-        {
+    public class OpPipe : MatchList {
+        public OpPipe() : base("|") {
         }
     }
 
-    public class OpTilde : MatchOne
-    {
-        public OpTilde() : base("~")
-        {
+    public class OpTilde : MatchList {
+        public OpTilde() : base("~") {
         }
     }
 
-    public class OpPercent : MatchOne
-    {
-        public OpPercent() : base("%")
-        {
+    public class OpPercent : MatchList {
+        public OpPercent() : base("%") {
         }
     }
 
-    public class OpCaret : MatchOne
-    {
-        public OpCaret() : base("^")
-        {
+    public class OpCaret : MatchList {
+        public OpCaret() : base("^") {
         }
     }
 
-    public class OpAt : MatchOne
-    {
-        public OpAt() : base("@")
-        {
+    public class OpAt : MatchList {
+        public OpAt() : base("@") {
         }
     }
 
-    public class OpAnd : MatchOne
-    {
-        public OpAnd() : base("&")
-        {
+    public class OpAnd : MatchList {
+        public OpAnd() : base("&") {
         }
     }
 
-    public class OpOpenBrace : MatchOne
-    {
-        public OpOpenBrace() : base("{")
-        {
+    public class OpOpenBrace : MatchList {
+        public OpOpenBrace() : base("{") {
         }
     }
 
-    public class OpCloseBrace : MatchOne
-    {
-        public OpCloseBrace() : base("}")
-        {
+    public class OpCloseBrace : MatchList {
+        public OpCloseBrace() : base("}") {
         }
     }
 
-    public class OpOpenParen : MatchOne
-    {
-        public OpOpenParen() : base("(")
-        {
+    public class OpOpenParen : MatchList {
+        public OpOpenParen() : base("(") {
         }
     }
 
-    public class OpCloseParen : MatchOne
-    {
-        public OpCloseParen() : base(")")
-        {
+    public class OpCloseParen : MatchList {
+        public OpCloseParen() : base(")") {
         }
     }
 
-    public class OpOpenBracket : MatchOne
-    {
-        public OpOpenBracket() : base("[")
-        {
+    public class OpOpenBracket : MatchList {
+        public OpOpenBracket() : base("[") {
         }
     }
 
-    public class OpCloseBracket : MatchOne
-    {
-        public OpCloseBracket() : base("]")
-        {
+    public class OpCloseBracket : MatchList {
+        public OpCloseBracket() : base("]") {
         }
     }
 
-    public class OpColon : MatchOne
-    {
-        public OpColon() : base(":")
-        {
+    public class OpColon : MatchList {
+        public OpColon() : base(":") {
         }
     }
 }
