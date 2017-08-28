@@ -1,9 +1,9 @@
 ﻿namespace XSharp.Tokens
 {
-    public class Variable : Spruce.Tokens.AlphaNum
+    public class Variable : Identifier
     {
-        public Variable() : base(Chars.AlphaNum, ".")
-        {
+        public Variable() {
+            mFirstChars = ".";
         }
 
         protected override bool CheckChar(int aLocalPos, char aChar)

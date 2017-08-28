@@ -1,9 +1,10 @@
 ﻿namespace XSharp.Tokens
 {
-    public class Const : Spruce.Tokens.AlphaNum
+    public class Const : Identifier
     {
-        public Const() : base("", "#")
+        public Const()
         {
+            mFirstChars = "#";
         }
 
         protected override bool CheckChar(int aLocalPos, char aChar)
