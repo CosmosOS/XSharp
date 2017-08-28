@@ -99,14 +99,16 @@ namespace Spruce.Tokens {
         }
 
         public virtual object Parse(string aText, ref int rStart) {
+            // Check first char
             if (CheckChar(0, aText[rStart]) == false) {
                 return null;
             }
 
+            // Check chars 2+
             int i;
             for (i = 1; i < aText.Length - rStart; i++) {
                 if (mMaxLength > 0 && i > mMaxLength) {
-                    // Exceeded max length, cant be what we are looking for.
+                    // Exceeded max length, cant be what we are looking for. Quit now.
                     return null;
                 }
                 if (CheckChar(i, aText[rStart + i]) == false) {
