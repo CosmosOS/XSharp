@@ -7,6 +7,10 @@ using Spruce.Tokens;
 namespace XSharp.Tokens {
     public class Reg : MatchList {
         protected Reg(string[] aList) : base(aList) { }
+
+        public override object Check(string aText) {
+            return new x86.Register(aText);
+        }
     }
 
     [GroupToken(typeof(Reg08), typeof(Reg16), typeof(Reg32))]

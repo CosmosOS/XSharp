@@ -1,6 +1,4 @@
-﻿if EAX = 0 return
-// Temp Test Area
-    +EAX
+﻿    +EAX
     //! nop
 	EAX++
 
@@ -18,6 +16,7 @@
 
 	const i = 'Test \'string\''
 	EAX = ~ECX
+// Above here is temp Test Area
 
 namespace DebugStub
 
