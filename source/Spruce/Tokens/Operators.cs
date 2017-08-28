@@ -112,6 +112,20 @@
         }
     }
 
+    public class OpOpenBracket : MatchOne
+    {
+        public OpOpenBracket() : base("[")
+        {
+        }
+    }
+
+    public class OpCloseBracket : MatchOne
+    {
+        public OpCloseBracket() : base("]")
+        {
+        }
+    }
+
     public class OpColon : MatchOne
     {
         public OpColon() : base(":")

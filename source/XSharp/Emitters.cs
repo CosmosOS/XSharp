@@ -46,10 +46,10 @@ namespace XSharp
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))] // EAX = 0
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))] // EAX = 0
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))] // EAX = 0
-        protected void RegAssignNum(string aReg, string aEquals, object aVal)
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
+        protected void RegAssignment(string aReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aReg, aVal);
         }
@@ -138,6 +138,33 @@ namespace XSharp
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
+        {
+        }
+
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
+        protected void VariableArrayAssignment(string aVariableName, string aOpOpenBracket, object aIndex,
+            string aOpCloseBracket, string aOpEquals, object aValue)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void AssignmentToVariable(string aRegister, string aOpEquals, string aVariableName, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
         {
         }
 
