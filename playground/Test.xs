@@ -1,5 +1,6 @@
-﻿    +EAX
+﻿	EAX = 0
 //END
+    +EAX
     //! nop
 	EAX++
 

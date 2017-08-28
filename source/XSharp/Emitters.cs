@@ -84,7 +84,6 @@ namespace XSharp
         [Emitter(typeof(OpPlus), typeof(Int32u))]
         protected void RegPush(string aOp, object aReg)
         {
-            int x = 4;
         }
 
         // -RegXX
