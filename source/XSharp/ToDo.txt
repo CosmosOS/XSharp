@@ -1,5 +1,3 @@
-old down to 1 with size and isgenp
-register class from assembler, wtih size etc.. then to string and convert
 CL vs CLEAR - need detect oob
 comparisons as enum
 Do away with . prefix for vars?

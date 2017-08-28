@@ -2,7 +2,7 @@
 {
     public class AlphaNum : Token
     {
-        public AlphaNum() : this("")
+        public AlphaNum() : this(Chars.AlphaNum)
         {
         }
 
