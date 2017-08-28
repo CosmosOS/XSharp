@@ -139,24 +139,15 @@ namespace Spruce.Tokens {
                     xToken = xToken.AddToken(xType);
                 }
             }
-
-            if (xToken.mChildren.Count > 0) {
-                throw new Exception("Cannot add emitter to a token which has subtokens.");
-            }
             xToken.Emitter = aEmitter;
         }
 
         protected Token AddToken(Type aTokenType) {
             var xToken = mChildren.SingleOrDefault(q => q.GetType() == aTokenType);
-
             if (xToken == null) {
-                if (Emitter != null) {
-                    throw new Exception("Cannot add subtokens to a token which has an emitter.");
-                }
                 xToken = (Token)Activator.CreateInstance(aTokenType);
                 mChildren.Add(xToken);
             }
-
             return xToken;
         }
 

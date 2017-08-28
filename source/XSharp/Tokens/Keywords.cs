@@ -34,4 +34,11 @@
         {
         }
     }
+
+    public class AsKeyword : Spruce.Tokens.MatchOne
+    {
+        public AsKeyword() : base("as")
+        {
+        }
+    }
 }

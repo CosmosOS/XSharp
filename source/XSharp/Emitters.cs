@@ -38,7 +38,7 @@ namespace XSharp
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
+        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement)
         {
         }
 
@@ -46,10 +46,10 @@ namespace XSharp
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))] // EAX = 0
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))] // EAX = 0
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))] // EAX = 0
-        protected void RegAssignNum(string aReg, string aEquals, object aVal)
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
+        protected void RegAssignment(Register aReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aReg, aVal);
         }
@@ -141,6 +141,33 @@ namespace XSharp
         {
         }
 
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
+        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
+        protected void VariableArrayAssignment(string aVariableName, string aOpOpenBracket, object aIndex,
+            string aOpCloseBracket, string aOpEquals, object aValue)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void AssignmentToVariable(Register aRegister, string aOpEquals, string aVariableName, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
+        {
+        }
+
         // EAX = #constVal
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Const))]
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Variable))]
@@ -151,7 +178,7 @@ namespace XSharp
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(Reg32))]
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(Int32u))]
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(VariableAddress))]
-        protected void Arithmetic(string aRegister, string aOpArithmetic, object aValue)
+        protected void Arithmetic(Register aRegister, string aOpArithmetic, object aValue)
         {
         }
 
@@ -164,21 +191,21 @@ namespace XSharp
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Reg32))]
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Int32u))]
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(VariableAddress))]
-        protected void BitwiseArithmetic(string aRegister, string aOpBitwise, object aValue)
+        protected void BitwiseArithmetic(Register aRegister, string aOpBitwise, object aValue)
         {
         }
 
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
-        protected void BitwiseNot(string aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
+        protected void BitwiseNot(Register aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
         {
         }
 
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int08u))]
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int16u))]
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int32u))]
-        protected void BitwiseShift(string aRegister, string aBitwiseShift, object aNumberBits)
+        protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
         {
         }
 

@@ -1,4 +1,5 @@
 CL vs CLEAR - need detect oob
+EAX = ESI vs EAX = ESI[4]
 comparisons as enum
 Do away with . prefix for vars?
 IfPredicate - { and return - goto has value. Can compound front intead wtih compuonds, ie {if, compare, return/goto abc123/{ as sep attribs}

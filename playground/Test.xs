@@ -1,5 +1,5 @@
-﻿if EAX = 0 return
-// Temp Test Area
+﻿	EAX = 0
+//END
     +EAX
     //! nop
 	EAX++
@@ -18,6 +18,7 @@
 
 	const i = 'Test \'string\''
 	EAX = ~ECX
+// Above here is temp Test Area
 
 namespace DebugStub
 
@@ -29,7 +30,6 @@ function ProcessCommand {
     // in case any commands modify AL.
     // We push EAX to keep stack aligned. 
     +EAX
-//END
 
     // Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     // Noop also does not send ACK.
