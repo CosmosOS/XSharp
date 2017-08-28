@@ -1,8 +1,8 @@
 ﻿namespace XSharp.Tokens
 {
-    public class Const : Spruce.Tokens.Token
+    public class Const : Spruce.Tokens.AlphaNum
     {
-        public Const() : base(Chars.AlphaNum, "#")
+        public Const() : base("", "#")
         {
         }
 
