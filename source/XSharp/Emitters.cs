@@ -19,7 +19,7 @@ namespace XSharp
 
         // Temp TEST
         [Emitter(typeof(If), typeof(Compare32))]
-        protected void Test(string[] aData) {
+        protected void Test(string aIf, object[] aData) {
             Compiler.WriteLine("Woohoo!");
         }
 

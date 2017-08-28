@@ -158,23 +158,25 @@ namespace Spruce.Tokens {
             return xToken;
         }
 
+        protected void SkipWhiteSpace(string aText, ref int rStart) {
+            for (; rStart < aText.Length; rStart++) {
+                if (char.IsWhiteSpace(aText[rStart]) == false) {
+                    break;
+                }
+            }
+            if (rStart == aText.Length) {
+                // All whitespace. Should never happen wtih our .TrimEnd(), but just in case.
+                throw new Exception("End of line reached.");
+            }
+        }
+
         public CodePoint Next(string aText, ref int rStart) {
             if (mChildren.Count == 0) {
                 throw new Exception("No tokens to scan.");
             }
 
-            int xThisStart = -1;
-            for (xThisStart = rStart; xThisStart < aText.Length; xThisStart++) {
-                if (char.IsWhiteSpace(aText[xThisStart]) == false) {
-                    break;
-                }
-            }
-            if (xThisStart == aText.Length) {
-                // All whitespace. Should never happen wtih our .TrimEnd(), but just in case.
-                throw new Exception("End of line reached.");
-            }
-
-            rStart = xThisStart;
+            SkipWhiteSpace(aText, ref rStart);
+            int xThisStart = rStart;
             foreach (var xToken in mChildren) {
                 var xValue = xToken.Parse(aText, ref rStart);
                 if (xValue != null) {

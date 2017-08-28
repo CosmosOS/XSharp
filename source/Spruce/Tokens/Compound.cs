@@ -12,18 +12,18 @@ namespace Spruce.Tokens {
         protected List<Token> mInternals = new List<Token>();
 
         public override object Parse(string aText, ref int rStart) {
-            int xOrigStart = rStart;
+            int xThisStart = rStart;
             var xResult = new List<object>();
             foreach (var xToken in mInternals) {
-                var xParseResult = (xToken.Parse(aText, ref rStart));
+                SkipWhiteSpace(aText, ref xThisStart);
+                var xParseResult = (xToken.Parse(aText, ref xThisStart));
                 if (xParseResult == null) {
-                    // Not all internal tokens match, restore rStart and return null.
-                    rStart = xOrigStart;
                     return null;
                 }
                 xResult.Add(xParseResult);
             }
-            return xResult;
+            rStart = xThisStart;
+            return xResult.ToArray();
         }
 
     }
