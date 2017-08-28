@@ -22,19 +22,17 @@
         }
     }
 
-    public class VariableAddress : Spruce.Tokens.AlphaNum
+    public class VariableAddress : Identifier
     {
-        public VariableAddress() : base(Chars.AlphaNum, "@")
+        public VariableAddress()
         {
+            mFirstChars = "@";
         }
 
         protected override bool CheckChar(int aLocalPos, char aChar)
         {
             switch (aLocalPos)
             {
-                case 0:
-                    return aChar == '@';
-
                 case 1:
                     return aChar == '.';
 
