@@ -8,20 +8,14 @@ namespace XSharp.x86.Params {
     }
 
     public class Reg08 : Reg {
-        public static readonly string[] Names = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
-
-        public Reg08() : base(Names) { }
+        public Reg08() : base(Register.Names.Reg08) { }
     }
 
     public class Reg16 : Reg {
-        public static readonly string[] Names = "AX,BX,CX,DX".Split(',');
-
-        public Reg16() : base(Names) { }
+        public Reg16() : base(Register.Names.Reg16) { }
     }
 
     public class Reg32 : Reg {
-        public static readonly string[] Names = "EAX,EBX,ECX,EDX,ESI,EDI".Split(',');
-
-        public Reg32() : base(Names) { }
+        public Reg32() : base(Register.Names.Reg32) { }
     }
 }

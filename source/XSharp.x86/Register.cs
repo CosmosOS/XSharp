@@ -5,6 +5,12 @@ using System.Text;
 
 namespace XSharp.x86 {
     public class Register {
+        public class Names {
+            public static readonly string[] Reg08 = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
+            public static readonly string[] Reg16 = "AX,BX,CX,DX".Split(',');
+            public static readonly string[] Reg32 = "EAX,EBX,ECX,EDX,ESI,EDI".Split(',');
+        }
+
         // These statics are not used much now but will be used even with NASM
         // and will become far important wtih binary assembler.
         public static Register EAX = new Register("EAX");
@@ -35,14 +41,17 @@ namespace XSharp.x86 {
         public Register(string aName) {
             Name = aName.ToUpper();
 
-            if (Params.Reg32.Names.Contains(Name)) {
+            //TODO Add special registers and leave IsGenPurpose = false
+            if (Names.Reg32.Contains(Name)) {
                 IsGenPurpose = true;
-            } else if (Params.Reg16.Names.Contains(Name)) {
+                Size = 32;
+            } else if (Names.Reg16.Contains(Name)) {
                 IsGenPurpose = true;
-            } else if (Params.Reg08.Names.Contains(Name)) {
+                Size = 16;
+            } else if (Names.Reg08.Contains(Name)) {
                 IsGenPurpose = true;
+                Size = 8;
             } else {
-                //TODO Add special registers and leave IsGenPurpose = false
                 throw new Exception(aName + " is not a recognized register name.");
             }
         }
