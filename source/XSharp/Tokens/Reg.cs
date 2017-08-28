@@ -5,7 +5,7 @@ using Spruce.Attribs;
 using Spruce.Tokens;
 
 namespace XSharp.Tokens {
-    public class Reg : MatchList {
+    public class Reg : AlphaNumList {
         protected Reg(string[] aList) : base(aList) { }
 
         public override object Check(string aText) {

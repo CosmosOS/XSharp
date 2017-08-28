@@ -1,5 +1,5 @@
-﻿	EAX = 0
-//END
+﻿    AX = 0
+
     +EAX
     //! nop
 	EAX++
@@ -13,6 +13,7 @@
 	EAX = $FFFFFFFF
     NOP
     return
+//END
 	+All
 	-All
 
