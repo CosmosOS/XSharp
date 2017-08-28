@@ -180,7 +180,7 @@ namespace XSharp
 
         // }
         [Emitter(typeof(OpCloseBrace))]
-        protected void FunctionDefinitionEnd(string opCloseBrace)
+        protected void BlockEnd(string opCloseBrace)
         {
         }
 
