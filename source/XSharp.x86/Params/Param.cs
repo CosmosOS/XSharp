@@ -10,6 +10,8 @@ namespace XSharp.x86.Params {
         public List<Param> Params = new List<Param>();
         public abstract bool IsMatch(object aValue);
 
+        // Currently not used (Check refs in case used in future)
+        // so may not be needed in final.
         public virtual object Transform(object aValue) {
             return aValue;
         }
