@@ -38,7 +38,7 @@ namespace XSharp
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(string aRegister, object aOpIncrementDecrement)
+        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement)
         {
         }
 
@@ -49,7 +49,7 @@ namespace XSharp
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
-        protected void RegAssignment(string aReg, string aEquals, object aVal)
+        protected void RegAssignment(Register aReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aReg, aVal);
         }
@@ -165,7 +165,7 @@ namespace XSharp
         }
 
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
-        protected void AssignmentToVariable(string aRegister, string aOpEquals, string aVariableName, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
+        protected void AssignmentToVariable(Register aRegister, string aOpEquals, string aVariableName, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
         {
         }
 
@@ -179,7 +179,7 @@ namespace XSharp
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(Reg32))]
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(Int32u))]
         [Emitter(typeof(Reg32), typeof(OpMath), typeof(VariableAddress))]
-        protected void Arithmetic(string aRegister, string aOpArithmetic, object aValue)
+        protected void Arithmetic(Register aRegister, string aOpArithmetic, object aValue)
         {
         }
 
@@ -192,21 +192,21 @@ namespace XSharp
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Reg32))]
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Int32u))]
         [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(VariableAddress))]
-        protected void BitwiseArithmetic(string aRegister, string aOpBitwise, object aValue)
+        protected void BitwiseArithmetic(Register aRegister, string aOpBitwise, object aValue)
         {
         }
 
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
-        protected void BitwiseNot(string aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
+        protected void BitwiseNot(Register aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
         {
         }
 
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int08u))]
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int16u))]
         [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int32u))]
-        protected void BitwiseShift(string aRegister, string aBitwiseShift, object aNumberBits)
+        protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
         {
         }
 
