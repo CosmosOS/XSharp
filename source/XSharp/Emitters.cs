@@ -53,7 +53,7 @@ namespace XSharp
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))] // EAX = 0
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Constant))] // EAX = 0
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))] // EAX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))] // EAX = 0
         protected void RegAssignNum(string aReg, string aEquals, object aVal)
         {
@@ -65,7 +65,7 @@ namespace XSharp
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int32u))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(VariableAddress))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Constant))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(RegXX))]
         protected void VariableAssignment(string aVariableName, string aOpEquals, object aValue)
         {
@@ -82,7 +82,7 @@ namespace XSharp
 
         // +RegXX
         [Emitter(typeof(OpPlus), typeof(RegXX))]
-        [Emitter(typeof(OpPlus), typeof(Constant))]
+        [Emitter(typeof(OpPlus), typeof(Const))]
         [Emitter(typeof(OpPlus), typeof(Variable))]
         [Emitter(typeof(OpPlus), typeof(VariableAddress))]
         [Emitter(typeof(OpPlus), typeof(Int08u))]
@@ -94,7 +94,7 @@ namespace XSharp
 
         // -RegXX
         [Emitter(typeof(OpMinus), typeof(RegXX))]
-        [Emitter(typeof(OpMinus), typeof(Constant))]
+        [Emitter(typeof(OpMinus), typeof(Const))]
         [Emitter(typeof(OpMinus), typeof(Variable))]
         [Emitter(typeof(OpMinus), typeof(VariableAddress))]
         [Emitter(typeof(OpMinus), typeof(Int08u))]
@@ -105,36 +105,36 @@ namespace XSharp
         }
 
         // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(RegXX), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
         [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(Return))]
         [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(Return))]
         [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(Constant), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(Variable), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Constant), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Const), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Variable), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Const), typeof(OpCompare), typeof(Int32u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
         [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int08u), typeof(Return))]
         [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int16u), typeof(Return))]
         [Emitter(typeof(If), typeof(Variable), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
         [Emitter(typeof(If), typeof(VariableAddress), typeof(OpCompare), typeof(Int32u), typeof(Return))]
         [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Int08u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(Int08u), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Int16u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(Int16u), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Int32u), typeof(Return))]
-        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Constant), typeof(Return))]
+        [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Const), typeof(Return))]
         [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(Variable), typeof(Return))]
         [Emitter(typeof(If), typeof(Int32u), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
         protected void IfCondition(string aOpIf, object aLeftValue, string aOpEquals, object aRightValue,
@@ -162,7 +162,7 @@ namespace XSharp
         [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Int32u))]
         [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(String))]
-        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Constant))]
+        [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(VarKeyword), typeof(AlphaNum), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
@@ -170,7 +170,7 @@ namespace XSharp
         }
 
         // EAX = #constVal
-        [Emitter(typeof(RegXX), typeof(OpMath), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpMath), typeof(Const))]
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Variable))]
         [Emitter(typeof(Reg08), typeof(OpMath), typeof(Reg08))]
         [Emitter(typeof(Reg08), typeof(OpMath), typeof(Int08u))]
@@ -183,7 +183,7 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Constant))]
+        [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Const))]
         [Emitter(typeof(RegXX), typeof(OpBitwise), typeof(Variable))]
         [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Reg08))]
         [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Int08u))]
