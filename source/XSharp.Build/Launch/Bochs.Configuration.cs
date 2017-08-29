@@ -54,7 +54,7 @@ namespace XSharp.Build.Launch
         {
             var xConfiguration = "";
 
-            using (var xStream = GetType().Assembly.GetManifestResourceStream(GetType(), "Cosmos.bxrc"))
+            using (var xStream = GetType().Assembly.GetManifestResourceStream("XSharp.Build.Resources.Cosmos.bxrc"))
             {
                 using (var xReader = new StreamReader(xStream))
                 {

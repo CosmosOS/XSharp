@@ -91,6 +91,10 @@ namespace XSharp.Build.Launch
         }
 
         private DisplayLibraryOptions mDisplayLibraryOptions;
+        
+        public bool RedirectOutput { get; private set; }
+        public Action<string> LogOutput { get; private set; }
+        public Action<string> LogError { get; private set; }
 
         /// <summary>
         /// Instantiation occurs when debugging engine is invoked to launch the process in suspended
@@ -99,7 +103,8 @@ namespace XSharp.Build.Launch
         /// </summary>
         public Bochs(bool aUseGDB, string aConfigurationFile, string aIsoFile, string aPipeServerName,
             bool aUseDebugVersion, bool aStartDebugGui, string aHardDisk = null, string aBochsDirectory = null,
-            string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None)
+            string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None,
+            bool aRedirectOutput = false, Action<string> aLogOutput = null, Action<string> aLogError = null)
             : base(aUseGDB)
         {
             mBochsConfigurationFile = aConfigurationFile ?? throw new ArgumentNullException(nameof(aConfigurationFile));
@@ -114,6 +119,10 @@ namespace XSharp.Build.Launch
 
             mDisplayLibrary = aDisplayLibrary;
             mDisplayLibraryOptions = aDisplayLibraryOptions;
+
+            RedirectOutput = aRedirectOutput;
+            LogOutput = aLogOutput;
+            LogError = aLogError;
 
             if (String.IsNullOrWhiteSpace(aBochsDirectory) || !Directory.Exists(aBochsDirectory))
             {
@@ -171,10 +180,6 @@ namespace XSharp.Build.Launch
                 writer.Write(content);
             }
         }
-
-        public bool RedirectOutput = false;
-        public Action<string> LogOutput;
-        public Action<string> LogError;
 
         /// <summary>Initialize and start the Bochs process.</summary>
         public override void Start()
