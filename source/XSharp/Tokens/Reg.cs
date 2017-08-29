@@ -9,7 +9,11 @@ namespace XSharp.Tokens {
         protected Reg(string[] aList) : base(aList) { }
 
         public override object Check(string aText) {
-            return new x86.Register(aText);
+            var xText = base.Check(aText) as string;
+            if (xText != null) {
+                return new x86.Register(xText);
+            }
+            return null;
         }
     }
 
