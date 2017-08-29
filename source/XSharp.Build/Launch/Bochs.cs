@@ -58,9 +58,34 @@ namespace XSharp.Build.Launch
         private string mPipeServerName;
 
         private bool mUseDebugVersion;
-        
+
+        private string mConfigInterface;
+        public string ConfigInterface
+        {
+            get
+            {
+                if (mConfigInterface == null)
+                {
+                    switch (DisplayLibrary)
+                    {
+                        case "win32":
+                            mConfigInterface = "win32config";
+                            break;
+                        case "wx":
+                            mConfigInterface = "wx";
+                            break;
+                        default:
+                            mConfigInterface = "textconfig";
+                            break;
+                    }
+                }
+
+                return mConfigInterface;
+            }
+        }
+
         private string mDisplayLibrary;
-        protected string DisplayLibrary
+        public string DisplayLibrary
         {
             get
             {
