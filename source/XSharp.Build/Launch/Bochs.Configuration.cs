@@ -28,6 +28,7 @@ namespace XSharp.Build.Launch
         {
             var xConfiguration = DefaultConfiguration;
 
+            xConfiguration = xConfiguration.Replace("$CONFIG_INTERFACE$", ConfigInterface);
             xConfiguration = xConfiguration.Replace("$DISPLAY_LIBRARY$", DisplayLibrary);
             xConfiguration = xConfiguration.Replace("$DISPLAY_LIBRARY_OPTIONS$", GetDisplayLibraryOptionsAsString());
             xConfiguration = xConfiguration.Replace("$DEBUG_SYMBOLS_PATH$", mDebugSymbolsPath);
