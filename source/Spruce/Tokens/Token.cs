@@ -105,8 +105,8 @@ namespace Spruce.Tokens {
             }
 
             // Check chars 2+
-            int i;
-            for (i = 1; i < aText.Length - rStart; i++) {
+            int i = 1;
+            for (; i < aText.Length - rStart; i++) {
                 if (mMaxLength > 0 && i > mMaxLength) {
                     // Exceeded max length, cant be what we are looking for. Quit now.
                     return null;
