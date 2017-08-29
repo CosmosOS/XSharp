@@ -27,7 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
 
