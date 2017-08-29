@@ -5,13 +5,11 @@ using System.Text;
 
 namespace Spruce.Tokens {
     public class ObjectList<T> : Token {
-        protected readonly bool mIgnoreCase;
         protected readonly Dictionary<string, T> mList = new Dictionary<string, T>();
 
-        protected ObjectList(string[] aKeyList, T[] aObjList, string aNoobChars = "", bool aIgnoreCase = true) {
-            mIgnoreCase = aIgnoreCase;
+        protected ObjectList(string[] aKeyList, T[] aObjList, string aNoobChars = "", bool aIgnoreCase = true) : base(aIgnoreCase) {
             mMaxLength = aKeyList.Max(q => q.Length);
-            BuildChars(aKeyList, aNoobChars, aIgnoreCase);
+            BuildChars(aKeyList, aNoobChars);
 
             for (int i = 0; i < aKeyList.Length; i++) {
                 mList.Add(mIgnoreCase ? aKeyList[i].ToUpper() : aKeyList[i], aObjList[i]);
@@ -19,11 +17,11 @@ namespace Spruce.Tokens {
         }
 
         protected override bool Check(string aText) {
-            return mList.ContainsKey(mIgnoreCase ? aText.ToUpper() : aText);
+            return mList.ContainsKey(aText);
         }
 
         protected override object Transform(string aText) {
-            return mList[mIgnoreCase ? aText.ToUpper() : aText];
+            return mList[aText];
         }
     }
 }

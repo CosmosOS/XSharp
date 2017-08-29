@@ -1,3 +1,4 @@
+Move ignore case
 EAX = ESI vs EAX = ESI[4]
 Cosmos dev rules page
   -spacing

@@ -27,13 +27,11 @@ namespace Spruce.Tokens {
         }
 
         public delegate void Action(List<CodePoint> aPoints);
-
         protected List<Token> mChildren = new List<Token>();
         public Action Emitter;
 
-        // Used by default parse method
         protected int mMaxLength;
-
+        protected readonly bool mIgnoreCase;
         protected string mFirstChars;
         protected string mChars;
 
@@ -43,10 +41,11 @@ namespace Spruce.Tokens {
         }
 
         // NOOB = Not Out Of Bound Chars - ie complete set of possible (even if not used) chars. Used for border detection.
-        protected void BuildChars(string[] aList, string aNoobChars = "", bool aIgnoreCase = true) {
+        // mIgnoreCase must be set before calling BuildChars
+        protected void BuildChars(string[] aList, string aNoobChars = "") {
             void AddChar(StringBuilder aSB, char aChar) {
                 if (!aSB.ToString().Contains(aChar)) {
-                    if (aIgnoreCase) {
+                    if (mIgnoreCase) {
                         // Convert to upper, simplest way as we convert to lower later
                         aChar = char.ToUpperInvariant(aChar);
                         aSB.Append(aChar);
@@ -80,7 +79,11 @@ namespace Spruce.Tokens {
             SetChars(xChars.ToString(), xFirstChars.ToString());
         }
 
-        protected Token(string aChars = null, string aFirstChars = null) {
+        protected Token(bool aIgnoreCase = false) {
+            mIgnoreCase = aIgnoreCase;
+        }
+        protected Token(string aChars, string aFirstChars = null, bool aIgnoreCase = false) : this(aIgnoreCase) {
+            mIgnoreCase = aIgnoreCase;
             SetChars(aChars, aFirstChars);
         }
 
@@ -119,6 +122,7 @@ namespace Spruce.Tokens {
             }
 
             string xText = aText.Substring(rStart, i);
+            if (mIgnoreCase) xText = xText.ToUpper();
             if (Check(xText)) {
                 rStart += i;
                 return Transform(xText);
