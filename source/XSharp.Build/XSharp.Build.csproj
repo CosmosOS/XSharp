@@ -12,7 +12,7 @@
     </PropertyGroup>
   
     <ItemGroup>
-        <EmbeddedResource Include="Launch\Cosmos.bxrc" />
+        <EmbeddedResource Include="Resources\Cosmos.bxrc" />
         <EmbeddedResource Include="Resources\Cosmos.nvram" />
         <EmbeddedResource Include="Resources\Cosmos.vmx" />
         <EmbeddedResource Include="Resources\FileSystem.vmdk" />
