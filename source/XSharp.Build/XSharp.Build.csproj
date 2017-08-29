@@ -1,20 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <Description>$(XSharpDescription)</Description>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Launch\Bochs\" />
-    <Folder Include="Launch\ISO\" />
-    <Folder Include="Launch\HyperV\" />
-    <Folder Include="Launch\PXE\" />
-    <Folder Include="Launch\VMWare\" />
-    <Folder Include="Tools\NASM\" />
-    <Folder Include="Tools\ISO\" />
-    <Folder Include="Tools\TFTP\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <HardDiskResourceNamespace>HardDisk</HardDiskResourceNamespace>
+    </PropertyGroup>
+  
+    <ItemGroup>
+        <EmbeddedResource Include="Launch\Cosmos.bxrc" />
+        <EmbeddedResource Include="Resources\Cosmos.nvram" />
+        <EmbeddedResource Include="Resources\Cosmos.vmx" />
+        <EmbeddedResource Include="Resources\FileSystem.vmdk" />
+        <EmbeddedResource Include="Resources\FileSystem.vhdx" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Deploy\" />
+        <Folder Include="Tools\NASM\" />
+        <Folder Include="Tools\ISO\" />
+        <Folder Include="Tools\TFTP\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
+      <PackageReference Include="System.IO.Ports" Version="4.4.0" />
+      <PackageReference Include="System.Management.Automation" Version="6.0.0-alpha17" />
+    </ItemGroup>
 
 </Project>
