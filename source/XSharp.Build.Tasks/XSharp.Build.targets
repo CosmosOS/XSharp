@@ -3,11 +3,13 @@
     <Target Name="CoreCompile"
             Inputs="@(Compile)"
             Outputs="$(OutputFile)">
+        
         <Xsc InputFiles="@(Compile)"
              OutputFile="$(OutputFile)"
              Append="True"
              ToolPath="$(XscToolPath)"
              ToolExe="$(XscToolExe)" />
+
     </Target>
 
     <!--

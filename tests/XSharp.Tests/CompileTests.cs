@@ -13,6 +13,7 @@ namespace XSharp.Tests
         private static string mAssemblyDir = Path.GetDirectoryName(typeof(CompileTests).Assembly.Location);
         private static bool IgnoreCase = false;
         private static bool Trim = false;
+        private static bool SkipLineComments = false;
 
         private static IEnumerable<string> GetXSharpInput()
         {
@@ -48,6 +49,13 @@ namespace XSharp.Tests
                         {
                             var xActualLine = xActualOutputReader.ReadLine();
                             var xExpectedLine = xExpectedOutputReader.ReadLine();
+
+                            if (SkipLineComments
+                                && xActualLine.Trim().StartsWith(';')
+                                && xExpectedLine.StartsWith(';'))
+                            {
+                                continue;
+                            }
 
                             if (IgnoreCase)
                             {
