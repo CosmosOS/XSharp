@@ -11,9 +11,9 @@
         {
         }
 
-        public override object Check(string aText)
-        {
-            return aText;
+        // CAREFUL. Matches ALL, but is proper behaviour and needed.
+        protected override bool Check(string aText) {
+            return true;
         }
     }
 }

@@ -39,9 +39,6 @@ namespace Spruce.Tokens {
             }
         }
 
-        public override object Check(string aText) {
-            throw new Exception("Check not valid on Root.");
-        }
         public override object Parse(string aText, ref int rStart) {
             throw new Exception("Parse not valid on Root.");
         }

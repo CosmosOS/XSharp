@@ -1,95 +1,95 @@
 ﻿namespace Spruce.Tokens {
-    public class OpEquals : MatchList {
+    public class OpEquals : StringList {
         public OpEquals() : base("=") {
         }
     }
 
-    public class OpSlashBack : MatchList {
+    public class OpSlashBack : StringList {
         public OpSlashBack() : base(@"\") {
         }
     }
 
-    public class OpSlashFwd : MatchList {
+    public class OpSlashFwd : StringList {
         public OpSlashFwd() : base("/") {
         }
     }
 
-    public class OpPlus : MatchList {
+    public class OpPlus : StringList {
         public OpPlus() : base("+") {
         }
     }
 
-    public class OpMinus : MatchList {
+    public class OpMinus : StringList {
         public OpMinus() : base("-") {
         }
     }
 
-    public class OpStar : MatchList {
+    public class OpStar : StringList {
         public OpStar() : base("*") {
         }
     }
 
-    public class OpPipe : MatchList {
+    public class OpPipe : StringList {
         public OpPipe() : base("|") {
         }
     }
 
-    public class OpTilde : MatchList {
+    public class OpTilde : StringList {
         public OpTilde() : base("~") {
         }
     }
 
-    public class OpPercent : MatchList {
+    public class OpPercent : StringList {
         public OpPercent() : base("%") {
         }
     }
 
-    public class OpCaret : MatchList {
+    public class OpCaret : StringList {
         public OpCaret() : base("^") {
         }
     }
 
-    public class OpAt : MatchList {
+    public class OpAt : StringList {
         public OpAt() : base("@") {
         }
     }
 
-    public class OpAnd : MatchList {
+    public class OpAnd : StringList {
         public OpAnd() : base("&") {
         }
     }
 
-    public class OpOpenBrace : MatchList {
+    public class OpOpenBrace : StringList {
         public OpOpenBrace() : base("{") {
         }
     }
 
-    public class OpCloseBrace : MatchList {
+    public class OpCloseBrace : StringList {
         public OpCloseBrace() : base("}") {
         }
     }
 
-    public class OpOpenParen : MatchList {
+    public class OpOpenParen : StringList {
         public OpOpenParen() : base("(") {
         }
     }
 
-    public class OpCloseParen : MatchList {
+    public class OpCloseParen : StringList {
         public OpCloseParen() : base(")") {
         }
     }
 
-    public class OpOpenBracket : MatchList {
+    public class OpOpenBracket : StringList {
         public OpOpenBracket() : base("[") {
         }
     }
 
-    public class OpCloseBracket : MatchList {
+    public class OpCloseBracket : StringList {
         public OpCloseBracket() : base("]") {
         }
     }
 
-    public class OpColon : MatchList {
+    public class OpColon : StringList {
         public OpColon() : base(":") {
         }
     }

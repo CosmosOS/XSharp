@@ -10,8 +10,8 @@ namespace Spruce.Tokens {
             return xResult;
         }
 
-        public override object Check(string aText) {
-            return aText;
+        protected override bool Check(string aText) {
+            return true;
         }
     }
 }

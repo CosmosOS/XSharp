@@ -5,9 +5,5 @@ using System.Text;
 namespace Spruce.Tokens {
     public class Alpha : Token {
         public Alpha() : base(Chars.Alpha) { }
-
-        public override object Check(string aText) {
-            throw new NotImplementedException();
-        }
     }
 }

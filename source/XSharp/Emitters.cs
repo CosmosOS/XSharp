@@ -124,7 +124,7 @@ namespace XSharp
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
         }
@@ -133,7 +133,7 @@ namespace XSharp
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(String))]
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]

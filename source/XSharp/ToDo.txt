@@ -1,18 +1,12 @@
+ObjectList
+EAX = ESI vs EAX = ESI[4]
 Cosmos dev rules page
   -spacing
   -naming
   -reformatting
   -Ownership of files, if not look at project but where?
 
-Comments with more than one space after // are not working
-  -Line 110 of Token.cs is being hit. (Exceeded max length)
-  -Change loop limit
-split check and transform....?
-if size exceeded or NOOB, abort....
-
-EAX = ESI vs EAX = ESI[4]
 comparisons as enum
-Do away with . prefix for vars?
 IfPredicate - { and return - goto has value. Can compound front intead wtih compuonds, ie {if, compare, return/goto abc123/{ as sep attribs}
 
 -Flesh out emitters

@@ -91,12 +91,14 @@ namespace Spruce.Tokens {
             return mChars.IndexOf(aChar) > -1;
         }
 
-        // Empty instead of abstract. Parse calls Check, but if Parse is overriden
-        // then check is often not needed.
-        public virtual object Check(string aText) {
-            return null;
-        }
-
+        // Default stages - can be overridden individually or whole.
+        // 1) Parse get a string of chars that potentially match what we need.
+        // 2) Check - See if it matches exactly or not. May or may not be a simple comparison.
+        //            MUST be overridden unless Parse is also overridden.
+        // 3) Transform - Transform into the desired result object. May remain a string (default)
+        //    or be converted int a number or other full object type.
+        //
+        // TODO Can seperate the NOOB chars and short circuit earlier but may not be worth the additional overhead.
         public virtual object Parse(string aText, ref int rStart) {
             // Check first char
             if (CheckChar(0, aText[rStart]) == false) {
@@ -110,17 +112,27 @@ namespace Spruce.Tokens {
                 // +1 because we need to look one past to avoid conflicts like CL vs CLEAR
                 xLength = Math.Min(xLength, mMaxLength + 1);
             }
-            // Not 0 - We did 0 at start of method.
+            // Not 0 - We already did 0 at start of method.
             int i = 1;
             while (i < xLength && CheckChar(i, aText[rStart + i])) {
                 i++;
             }
 
-            object xResult = Check(aText.Substring(rStart, i));
-            if (xResult != null) {
+            string xText = aText.Substring(rStart, i);
+            if (Check(xText)) {
                 rStart += i;
+                return Transform(xText);
             }
-            return xResult;
+            return null;
+        }
+        // NotImpl instead of abstract. Parse calls Check, but if Parse is overriden
+        // then check is often not needed and this makes it so such descendants
+        // dont need to override something they don't use anyway.
+        protected virtual bool Check(string aText) {
+            throw new NotImplementedException();
+        }
+        protected virtual object Transform(string aText) {
+            return aText;
         }
 
         protected void AddEmitter(Action aEmitter, params Type[] aTokenTypes) {

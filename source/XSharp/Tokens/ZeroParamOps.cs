@@ -1,4 +1,5 @@
-﻿using XSharp.x86;
+﻿using System.Runtime.CompilerServices;
+using XSharp.x86;
 
 namespace XSharp.Tokens {
     public class ZeroParamOp : Spruce.Tokens.AlphaNumList {
@@ -8,10 +9,7 @@ namespace XSharp.Tokens {
             mOpCode = aOpCode;
         }
 
-        public override object Check(string aText) {
-            if (base.Check(aText) == null) {
-                return null;
-            }
+        protected override object Transform(string aText) {
             return mOpCode;
         }
     }

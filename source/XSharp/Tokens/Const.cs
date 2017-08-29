@@ -16,7 +16,7 @@
             return base.CheckChar(aLocalPos, aChar);
         }
 
-        public override object Check(string aText)
+        protected override object Transform(string aText)
         {
             return aText.Substring(1);
         }
