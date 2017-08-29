@@ -198,7 +198,7 @@ namespace XSharp
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
-        protected void BitwiseNot(Register aRegister, string aOpEquals, string aOpTilde, string aSourceRegister)
+        protected void BitwiseNot(Register aRegister, string aOpEquals, string aOpTilde, Register aSourceRegister)
         {
         }
 
