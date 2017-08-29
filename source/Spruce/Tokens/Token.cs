@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using Spruce.Attribs;
 
@@ -105,15 +104,16 @@ namespace Spruce.Tokens {
             }
 
             // Check chars 2+
+            int xLength = aText.Length - rStart;
+            if (mMaxLength > 0) {
+                // Short circuit if maxlength, but only if its less than actual length avail
+                // +1 because we need to look one past to avoid conflicts like CL vs CLEAR
+                xLength = Math.Min(xLength, mMaxLength + 1);
+            }
+            // Not 0 - We did 0 at start of method.
             int i = 1;
-            for (; i < aText.Length - rStart; i++) {
-                if (mMaxLength > 0 && i > mMaxLength) {
-                    // Exceeded max length, cant be what we are looking for. Quit now.
-                    return null;
-                }
-                if (CheckChar(i, aText[rStart + i]) == false) {
-                    break;
-                }
+            while (i < xLength && CheckChar(i, aText[rStart + i])) {
+                i++;
             }
 
             object xResult = Check(aText.Substring(rStart, i));

@@ -1,3 +1,4 @@
+; Test Comment
     ; AX = 0
     Mov AX, 0x0
 
@@ -24,3 +25,11 @@
     NOP 
     ; return
     Ret 
+	; +All
+	PushAD 
+	; -All
+	PopAD 
+
+	; const i = 'Test \'string\''
+	; EAX = ~ECX
+; Above here is temp Test Area

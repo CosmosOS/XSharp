@@ -1,4 +1,5 @@
-﻿    AX = 0
+﻿//   Test Comment
+    AX = 0
 
     +EAX
     //! nop
@@ -13,13 +14,13 @@
 	EAX = $FFFFFFFF
     NOP
     return
-//END
 	+All
 	-All
 
 	const i = 'Test \'string\''
 	EAX = ~ECX
 // Above here is temp Test Area
+//END
 
 namespace DebugStub
 
