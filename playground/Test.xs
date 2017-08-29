@@ -1,4 +1,6 @@
-﻿//   Test Comment
+﻿    EAX = ESI[4]
+    EAX = ESI
+//   Test Comment
     AX = 0
 
     +EAX
