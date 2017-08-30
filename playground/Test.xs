@@ -1,4 +1,4 @@
-﻿	EAX = ESI[4]
+﻿//	EAX = ESI[4] - Old way, see next line for new way
     EAX = [ESI + 4]
     EAX = ESI
 	EAX = [ESI]
