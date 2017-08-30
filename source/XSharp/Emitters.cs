@@ -82,10 +82,10 @@ namespace XSharp
 
         // OLD to be deprecated in G2. Use EAX = [EBX + 4] instead
         // EAX = EBX[4]
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        protected void RegTest3(object a1, object a2, object a3, object a4, object a5, object a6) {
-            int i = 4;
-        }
+        //[Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
+        //protected void RegTest3(object a1, object a2, object a3, object a4, object a5, object a6) {
+        //    int i = 4;
+        //}
 
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
