@@ -4,10 +4,15 @@ using System.Text;
 
 namespace XSharp.x86
 {
+    // Do all 8086/88 ops first
+    // https://en.wikipedia.org/wiki/X86_instruction_listings
+    //
     // http://ref.x86asm.net/coder32-abc.html
     // http://ref.x86asm.net/coder32.html
     // http://www.sandpile.org/
-    // https://en.wikipedia.org/wiki/X86_instruction_listings
+    // https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm
+    // https://www.codeproject.com/Articles/662301/x-Instruction-Encoding-Revealed-Bit-Twiddling-fo
+    // http://www.felixcloutier.com/x86/
     //
     // Mulitbyte NOPs
     // https://software.intel.com/en-us/forums/watercooler-catchall/topic/307174
@@ -16,7 +21,6 @@ namespace XSharp.x86
     // https://stackoverflow.com/questions/4798356/amd64-nopw-assembly-instruction
     // http://john.freml.in/amd64-nopl - Jump targets aligned on 16 byte boundaries
     // https://sites.google.com/site/paulclaytonplace/andy-glew-s-comparch-wiki/hint-instructions - Generic, Intel doesnt appear to have hints
-
 
     // Please add ops in alphabetical order
     public enum OpCode

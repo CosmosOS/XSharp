@@ -6,13 +6,11 @@ using XSharp.x86;
 namespace XSharp
 {
     // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
-    public class Emitters
-    {
+    public class Emitters {
         public readonly Compiler Compiler;
         public readonly x86.Assemblers.Assembler Asm;
 
-        public Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm)
-        {
+        public Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm) {
             Compiler = aCompiler;
             Asm = aAsm;
         }
@@ -23,23 +21,33 @@ namespace XSharp
         }
 
         [Emitter(typeof(OpComment), typeof(All))] // // Comment text
-        protected void Comment(string aOp, string aText)
-        {
-            if (Compiler.EmitUserComments)
-            {
+        protected void Comment(string aOp, string aText) {
+            if (Compiler.EmitUserComments) {
                 Compiler.WriteLine("; " + aText);
             }
         }
 
         [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
-        protected void Namespace(string aNamespace, string aText)
-        {
+        protected void Namespace(string aNamespace, string aText) {
         }
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement)
-        {
+        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement) {
+        }
+
+        // These are temp hacks to test parser, need updated and expanded for actual use
+        // Param args should be typed as well, just used objects to get this done
+        // EAX = [EBX]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpCloseBracket))]
+        protected void RegTest1(object a1, object a2, object a3, object a4, object a5) {
+            int i = 4;
+        }
+        // EAX = [EBX + 1]
+        // Using byte now for offset, dont remember what x86 actually supports
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpPlus), typeof(Int08u), typeof(OpCloseBracket))]
+        protected void RegTest2(object a1, object a2, object a3, object a4, object a5, object a6, object a7) {
+            int i = 4;
         }
 
         // Don't use RegXX. This method ensures proper data sizes.
@@ -129,7 +137,6 @@ namespace XSharp
         {
         }
 
-        // const i = 0
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
@@ -202,9 +209,9 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int08u))]
-        [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int16u))]
-        [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int32u))]
+        [Emitter(typeof(Reg08), typeof(OpShift), typeof(Int08u))]
+        [Emitter(typeof(Reg16), typeof(OpShift), typeof(Int16u))]
+        [Emitter(typeof(Reg32), typeof(OpShift), typeof(Int32u))]
         protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
         {
         }

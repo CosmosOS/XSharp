@@ -29,4 +29,8 @@ namespace XSharp.Tokens {
     public class Reg32 : RegXX {
         public Reg32() : base(x86.Register.Names.Reg32) { }
     }
+
+    // Section 6 - http://www.c-jump.com/CIS77/ASM/Addressing/lecture.html
+    //public class BaseReg - use group
+    //public class IndexReg - use group
 }

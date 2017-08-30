@@ -9,6 +9,9 @@ comparisons as enum
 IfPredicate - { and return - goto has value. Can compound front intead wtih compuonds, ie {if, compare, return/goto abc123/{ as sep attribs}
 
 -Flesh out emitters
+  -able to parse all existing .xs
+  -Do emitting
+  -Do all 8086/88 ops from Wikipedia
 -DebugTool
   -Show tree
   -Show duplicate matches (ie + and ++)
