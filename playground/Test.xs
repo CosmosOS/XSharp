@@ -1,5 +1,7 @@
-﻿    EAX = ESI[4]
+﻿	EAX = ESI[4]
+    EAX = [ESI + 4]
     EAX = ESI
+	EAX = [ESI]
 //   Test Comment
     AX = 0
 

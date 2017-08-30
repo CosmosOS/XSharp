@@ -162,7 +162,12 @@ namespace Spruce.Tokens {
                     xToken = xToken.AddToken(xType);
                 }
             }
-            xToken.Emitter = aEmitter;
+            if (aEmitter != null) {
+                if (xToken.Emitter != null) {
+                    throw new Exception("Emitter already assigned to token.");
+                }
+                xToken.Emitter = aEmitter;
+            }
         }
 
         protected Token AddToken(Type aTokenType) {

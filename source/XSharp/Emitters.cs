@@ -15,11 +15,13 @@ namespace XSharp
             Asm = aAsm;
         }
 
+        // ===============================================================
+        // Things that start with //
+
         [Emitter(typeof(OpLiteral), typeof(All))] // //! Literal NASM Output
         protected void Literal(string aOp, string aText) {
             Compiler.WriteLine(aText);
         }
-
         [Emitter(typeof(OpComment), typeof(All))] // // Comment text
         protected void Comment(string aOp, string aText) {
             if (Compiler.EmitUserComments) {
@@ -27,22 +29,31 @@ namespace XSharp
             }
         }
 
+        // ===============================================================
+        // Keywords
         [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
         protected void Namespace(string aNamespace, string aText) {
         }
+
+        // ===============================================================
+        // Register ops without data params (Inc, Dec, etc)
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
         protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement) {
         }
 
-        // These are temp hacks to test parser, need updated and expanded for actual use
+        // ===============================================================
+        // Reg =
+
+        // Some of these are temp hacks to test parser, need updated and expanded for actual use
         // Param args should be typed as well, just used objects to get this done
         // EAX = [EBX]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpCloseBracket))]
         protected void RegTest1(object a1, object a2, object a3, object a4, object a5) {
             int i = 4;
         }
+
         // EAX = [EBX + 1]
         // Using byte now for offset, dont remember what x86 actually supports
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpPlus), typeof(Int08u), typeof(OpCloseBracket))]
@@ -52,15 +63,31 @@ namespace XSharp
 
         // Don't use RegXX. This method ensures proper data sizes.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
+        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Reg08))] // AH = BH
+        //
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
+        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Reg16))] // AX = BX
+        //
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32))] // EAX = EBX
+        protected void RegAssigReg(Register aDestReg, string aEquals, Register aSrcReg) {
+            Asm.Emit(OpCode.Mov, aDestReg, aSrcReg);
+        }
+
+        // OLD to be deprecated in G2. Use EAX = [EBX + 4] instead
+        // EAX = EBX[4]
+        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
+        protected void RegTest3(object a1, object a2, object a3, object a4, object a5, object a6) {
+            int i = 4;
+        }
+
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
-        protected void RegAssignment(Register aReg, string aEquals, object aVal)
-        {
+        protected void RegAssigOther(Register aReg, string aEquals, object aVal) {
             Asm.Emit(OpCode.Mov, aReg, aVal);
         }
+        // ===============================================================
 
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int16u))]
@@ -175,7 +202,6 @@ namespace XSharp
         {
         }
 
-        // EAX = #constVal
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Const))]
         [Emitter(typeof(RegXX), typeof(OpMath), typeof(Variable))]
         [Emitter(typeof(Reg08), typeof(OpMath), typeof(Reg08))]
