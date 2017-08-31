@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C741BBD-6209-4240-9B96-59A4547152B5}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.DotNetCLI", "source\XSharp.DotNetCLI\XSharp.DotNetCLI.csproj", "{A281A1B1-C718-4BCB-A7BE-ED840A70449A}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Tests", "tests\XSharp.Tests\XSharp.Tests.csproj", "{8AC538DE-494C-482D-9E2C-67F0FA5211F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceDebugger", "source\SpruceDebugger\SpruceDebugger.csproj", "{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Build.Playground", "tests\XSharp.Build.Playground\XSharp.Build.Playground.csproj", "{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,12 +123,21 @@ Global
 		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|x86.ActiveCfg = Release|Any CPU
 		{5BB60B0B-2571-4C8F-AC06-4A22C3BC2CDE}.Release|x86.Build.0 = Release|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Debug|x86.Build.0 = Debug|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8AC538DE-494C-482D-9E2C-67F0FA5211F9} = {B402673F-8502-4632-8855-EB18B4C57D8E}
+		{4BB7EDA5-810D-43AC-B8B1-60AAAB92EAFC} = {B402673F-8502-4632-8855-EB18B4C57D8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38755867-AF61-45AC-AE52-521402F19E80}

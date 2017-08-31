@@ -1,0 +1,36 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <_XSharpBuildTasksAssembly>..\tools\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
+    </PropertyGroup>
+
+    <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+
+    <PropertyGroup>
+        <LaunchType Condition="'$(LaunchType)' == ''"></LaunchType>
+    </PropertyGroup>
+    
+    <!--
+    ================================================================================
+                                       DeployISO
+
+        [IN]
+        $(AssembleOutput) - an assembled file.
+
+        [OUT]
+        $(OutputISO) - a bootable ISO file.
+
+    ================================================================================
+    -->
+    <Target Name="DeployISO"
+            Inputs="$(AssembleOutput)"
+            Outputs="$(OutputISO)"
+            AfterTargets="Assemble"
+            Condition="'$(LaunchType)' == 'OS'">
+
+        <MakeIso InputFile="$(AssembleOutput)"
+                 OutputFile="$(OutputISO)" />
+    
+    </Target>
+
+</Project>

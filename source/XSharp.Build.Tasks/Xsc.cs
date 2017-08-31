@@ -16,14 +16,29 @@ namespace XSharp.Build.Tasks
 
         protected override string ToolName => "xsc.exe";
 
+        protected override bool ValidateParameters()
+        {
+            return true;
+        }
+
         protected override string GenerateFullPathToTool()
         {
-            if (String.IsNullOrWhiteSpace(ToolPath))
+            if (String.IsNullOrWhiteSpace(ToolExe))
             {
-                return Directory.GetCurrentDirectory();
+                return null;
             }
 
-            return Path.GetFullPath(ToolPath);
+            if (String.IsNullOrWhiteSpace(ToolPath))
+            {
+                if (ToolExe.Equals("dotnet", StringComparison.OrdinalIgnoreCase))
+                {
+                    return ToolExe;
+                }
+
+                return Path.Combine(Directory.GetCurrentDirectory(), ToolExe);
+            }
+
+            return Path.Combine(Path.GetFullPath(ToolPath), ToolExe);
         }
 
         protected override string GenerateCommandLineCommands()
