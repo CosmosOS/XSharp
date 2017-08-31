@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if HYPERV_ENABLED
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -99,3 +100,4 @@ namespace XSharp.Build.Launch
         }
     }
 }
+#endif
