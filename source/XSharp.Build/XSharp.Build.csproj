@@ -5,7 +5,7 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>$(XSharpDescription)</Description>
-        <EnableHyperV>False</EnableHyperV>
+        <EnableHyperV>True</EnableHyperV>
         <DefineConstants Condition="$(EnableHyperV)">HYPERV_ENABLED</DefineConstants>
     </PropertyGroup>
   
