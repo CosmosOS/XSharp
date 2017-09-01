@@ -6,11 +6,13 @@ namespace XSharp.Tokens
     public class OpComment : StringList
     {
         // Comments require a space after. Prevents future conflicts with 3 char ones like Literal
-        public OpComment() : base(@"//") {
+        public OpComment() : base(@"//")
+        {
         }
     }
 
-    public class OpLiteral : StringList {
+    public class OpLiteral : StringList
+    {
         public OpLiteral() : base(@"//!")
         {
         }
@@ -48,6 +50,13 @@ namespace XSharp.Tokens
     public class OpShift : StringList
     {
         public OpShift() : base("<< >>".Split(' '))
+        {
+        }
+    }
+
+    public class OpRotate : StringList
+    {
+        public OpRotate() : base("~> <~".Split(' '))
         {
         }
     }

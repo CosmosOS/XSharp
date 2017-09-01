@@ -262,10 +262,13 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(Reg08), typeof(OpShift), typeof(Int08u))]
-        [Emitter(typeof(Reg16), typeof(OpShift), typeof(Int16u))]
-        [Emitter(typeof(Reg32), typeof(OpShift), typeof(Int32u))]
+        [Emitter(typeof(RegXX), typeof(OpShift), typeof(Int08u))]
         protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
+        {
+        }
+
+        [Emitter(typeof(RegXX), typeof(OpRotate), typeof(Int08u))]
+        protected void RotateRegister(Register aRegister, object aOpRotate, object aNumBits)
         {
         }
 
