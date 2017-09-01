@@ -1,4 +1,5 @@
-﻿using Spruce.Attribs;
+﻿using System;
+using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
@@ -6,11 +7,13 @@ using XSharp.x86;
 namespace XSharp
 {
     // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
-    public class Emitters {
+    public class Emitters
+    {
         public readonly Compiler Compiler;
         public readonly x86.Assemblers.Assembler Asm;
 
-        public Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm) {
+        public Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm)
+        {
             Compiler = aCompiler;
             Asm = aAsm;
         }
@@ -19,12 +22,16 @@ namespace XSharp
         // Things that start with //
 
         [Emitter(typeof(OpLiteral), typeof(All))] // //! Literal NASM Output
-        protected void Literal(string aOp, string aText) {
+        protected void Literal(string aOp, string aText)
+        {
             Compiler.WriteLine(aText);
         }
+
         [Emitter(typeof(OpComment), typeof(All))] // // Comment text
-        protected void Comment(string aOp, string aText) {
-            if (Compiler.EmitUserComments) {
+        protected void Comment(string aOp, string aText)
+        {
+            if (Compiler.EmitUserComments)
+            {
                 Compiler.WriteLine("; " + aText);
             }
         }
@@ -32,7 +39,8 @@ namespace XSharp
         // ===============================================================
         // Keywords
         [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
-        protected void Namespace(string aNamespace, string aText) {
+        protected void Namespace(string aNamespace, string aText)
+        {
         }
 
         // ===============================================================
@@ -40,32 +48,47 @@ namespace XSharp
 
         // MUST be before RegXX,OpMath,... because of + vs ++
         [Emitter(typeof(RegXX), typeof(OpIncDec))]
-        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement) {
+        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement)
+        {
         }
 
         // ===============================================================
         // Reg =
 
-        // Some of these are temp hacks to test parser, need updated and expanded for actual use
-        // Param args should be typed as well, just used objects to get this done
         // EAX = [EBX]
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpCloseBracket))]
-        protected void RegTest1(object a1, object a2, object a3, object a4, object a5) {
-            int i = 4;
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(RegXX), typeof(OpCloseBracket))]
+        protected void RegAssignToMemory(Register aRegister, string aOpEquals, string aOpOpenBracket, Register aSourceRegister, string aOpCloseBracket)
+        {
         }
 
-        // EAX = [EBX + 1]
-        // Using byte now for offset, dont remember what x86 actually supports
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpPlus), typeof(Int08u), typeof(OpCloseBracket))]
-        protected void RegTest2(object a1, object a2, object a3, object a4, object a5, object a6, object a7) {
-            int i = 4;
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(Variable), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(Variable), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]
+        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void MemoryAssignToReg(Register aRegister, string aOpEquals, string aOpOpenBracket, object source, string opOperator, object aOffset, string aOpCloseBracket)
+        {
+        }
+
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpCloseBracket, string aOpEquals, object source)
+        {
+        }
+
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, object source)
+        {
         }
 
         // Don't use RegXX. This method ensures proper data sizes.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Reg08))] // AH = BH
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Reg16))] // AX = BX
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32))] // EAX = EBX
-        protected void RegAssigReg(Register aDestReg, string aEquals, Register aSrcReg) {
+        protected void RegAssigReg(Register aDestReg, string aEquals, Register aSrcReg)
+        {
             int i = 4;
             //Asm.Emit(OpCode.Mov, aDestReg, aSrcReg);
         }
@@ -75,7 +98,8 @@ namespace XSharp
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
-        protected void RegAssigNum(Register aDestReg, string aEquals, object aVal) {
+        protected void RegAssigNum(Register aDestReg, string aEquals, object aVal)
+        {
             int i = 4;
             //Asm.Emit(OpCode.Mov, aDestReg, aSrcReg);
         }
@@ -90,10 +114,12 @@ namespace XSharp
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
-        protected void RegAssigOther(Register aReg, string aEquals, object aVal) {
+        protected void RegAssigOther(Register aReg, string aEquals, object aVal)
+        {
             int i = 4;
             //Asm.Emit(OpCode.Mov, aReg, aVal);
         }
+
         // ===============================================================
 
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
@@ -162,17 +188,28 @@ namespace XSharp
         {
         }
 
+        [Emitter(typeof(While), typeof(Compare), typeof(OpOpenBrace))]
+        protected void WhileConditionBlockStart(string aOpWhile, object[] aCompareData, object aOpOpenBrace)
+        {
+        }
+
+        [Emitter(typeof(While), typeof(OpEquals), typeof(OpOpenBrace))]
+        protected void WhileConditionPureBlockStart(string aOpWhile, string aEquals, string aOpOpenBrace)
+        {
+        }
+
+        [Emitter(typeof(Repeat), typeof(Int32u), typeof(OpOpenBrace))]
+        protected void RepeatBlockStart(string aOpRepeat, int loops, string aOpOpenBrace)
+        {
+        }
+
         // const i = 0
-        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
         }
 
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int16u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Const))]
@@ -182,30 +219,13 @@ namespace XSharp
         {
         }
 
+        [Emitter(typeof(VarKeyword), typeof(Identifier))]
+        protected void VariableDefinition(string aVarKeyword, string aVariableName)
+        {
+        }
+
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
-        {
-        }
-
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
-        [Emitter(typeof(RegXX), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Const))]
-        [Emitter(typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(VariableAddress))]
-        protected void VariableArrayAssignment(string aVariableName, string aOpOpenBracket, object aIndex,
-            string aOpCloseBracket, string aOpEquals, object aValue)
-        {
-        }
-
-        [Emitter(typeof(RegXX), typeof(OpEquals), typeof(Variable), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
-        protected void AssignmentToVariable(Register aRegister, string aOpEquals, string aVariableName, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
         {
         }
 
@@ -246,6 +266,12 @@ namespace XSharp
         [Emitter(typeof(Reg16), typeof(OpShift), typeof(Int16u))]
         [Emitter(typeof(Reg32), typeof(OpShift), typeof(Int32u))]
         protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
+        {
+        }
+
+        // interrupt iNmae123 {
+        [Emitter(typeof(Interrupt), typeof(Identifier), typeof(OpOpenBrace))]
+        protected void InterruptDefinitionStart(string interruptKeyword, string functionName, string opOpenBraces)
         {
         }
 
