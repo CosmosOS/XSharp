@@ -6,13 +6,19 @@
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>Tasks to compile X# source code.
   $(XSharpDescription)</Description>
+        <IsTool>True</IsTool>
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="build\XSharp.Compiler.props">
+        <Content Include="build\**\*.props">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
-            <PackagePath>build/</PackagePath>
+            <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="build\**\*.targets">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>True</Pack>
+            <PackagePath>build\</PackagePath>
         </Content>
     </ItemGroup>
   

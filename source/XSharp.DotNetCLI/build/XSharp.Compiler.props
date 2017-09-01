@@ -1,0 +1,11 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <_XSharpCompilerTasksAssembly>$(MSBuildThisFileDirectory)..\tools\XSharp.Compiler.Tasks.dll</_XSharpCompilerTasksAssembly>
+        <XscToolPath>$(MSBuildThisFileDirectory)..\tools</XscToolPath>
+        <XscToolExe Condition="'$(MSBuildRuntimeType)' == 'Core'">dotnet</XscToolExe>
+    </PropertyGroup>
+
+    <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+
+</Project>

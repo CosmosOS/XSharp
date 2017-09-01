@@ -11,7 +11,21 @@
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
         <Description>X# dotnet CLI tool.
 $(XSharpDescription)</Description>
+        <IsTool>True</IsTool>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="build\**\*.props">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>True</Pack>
+            <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="build\**\*.targets">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>True</Pack>
+            <PackagePath>build\</PackagePath>
+        </Content>
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />

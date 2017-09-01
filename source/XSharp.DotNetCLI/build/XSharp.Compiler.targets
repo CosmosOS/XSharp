@@ -1,0 +1,33 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(MSBuildProjectName).asm</AssemblyFile>
+    </PropertyGroup>
+    
+    <!--
+    ================================================================================
+                                      CoreCompile
+
+        [IN]
+        @(Compile) - the list of X# files to compile.
+
+        [OUT]
+        $(AssemblyFile) - the file that results from compiling the .xs files.
+
+    ================================================================================
+    -->
+    <Target Name="CoreCompile"
+            Inputs="@(Compile)"
+            Outputs="$(AssemblyFile)">
+
+        <Message Importance="high" Text="Message From CoreCompile" />
+        
+        <Xsc InputFiles="@(Compile)"
+             OutputFile="$(AssemblyFile)"
+             Append="True"
+             ToolPath="$(XscToolPath)"
+             ToolExe="$(XscToolExe)" />
+
+    </Target>
+
+</Project>

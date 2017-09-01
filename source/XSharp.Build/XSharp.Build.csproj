@@ -5,10 +5,8 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>$(XSharpDescription)</Description>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <HardDiskResourceNamespace>HardDisk</HardDiskResourceNamespace>
+        <EnableHyperV>True</EnableHyperV>
+        <DefineConstants Condition="$(EnableHyperV)">HYPERV_ENABLED</DefineConstants>
     </PropertyGroup>
   
     <ItemGroup>
@@ -27,9 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
-      <PackageReference Include="System.IO.Ports" Version="4.4.0" />
-      <PackageReference Include="System.Management.Automation" Version="6.0.0-alpha17" />
+        <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
+        <PackageReference Include="System.IO.Ports" Version="4.4.0" />
+        <PackageReference Include="System.Management.Automation" Version="6.0.0-alpha17" Condition="$(EnableHyperV)" />
     </ItemGroup>
 
 </Project>
