@@ -3,7 +3,9 @@
     <PropertyGroup>
         <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(MSBuildProjectName).asm</AssemblyFile>
     </PropertyGroup>
-    
+
+    <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+
     <!--
     ================================================================================
                                       CoreCompile
@@ -20,7 +22,7 @@
             Inputs="@(Compile)"
             Outputs="$(AssemblyFile)">
 
-        <Message Importance="high" Text="Message From CoreCompile" />
+        <Message Importance="High" Text="Message From CoreCompile" />
         
         <Xsc InputFiles="@(Compile)"
              OutputFile="$(AssemblyFile)"

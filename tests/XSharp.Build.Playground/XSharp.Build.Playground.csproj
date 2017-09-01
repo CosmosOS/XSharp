@@ -3,20 +3,23 @@
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup>
         <_XSharpBuildTasksPath>..\..\source\XSharp.Build.Tasks\bin\Debug\netstandard1.3\</_XSharpBuildTasksPath>
     </PropertyGroup>
 
-    <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Compiler.props" Condition="Exists('$(_XSharpBuildTasksPath)build\XSharp.Compiler.props')" />
+    <Import Project="..\..\source\XSharp.DotNetCLI\bin\Debug\netcoreapp2.0\build\XSharp.Compiler.props" />
 
     <ItemGroup>
         <Compile Include="Test.xs" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\source\XSharp.DotNetCLI\XSharp.DotNetCLI.csproj">
+            <IncludeAssets>None</IncludeAssets>
+        </ProjectReference>
         <ProjectReference Include="..\..\source\XSharp.Build.Tasks\XSharp.Build.Tasks.csproj">
             <IncludeAssets>None</IncludeAssets>
         </ProjectReference>
@@ -24,11 +27,12 @@
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   
-    <ImportGroup Condition="Exists('$(_XSharpBuildTasksPath)tools\XSharp.Deploy.targets')">
-        <Import Project="$(_XSharpBuildTasksPath)tools\XSharp.Build.targets" />
-        <Import Project="$(_XSharpBuildTasksPath)tools\XSharp.Deploy.targets" />
+    <ImportGroup Condition="Exists('$(_XSharpBuildTasksPath)build\XSharp.Build.targets')">
+        <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Build.targets" />
+        <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Compiler.targets" />
+        <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Deploy.targets" />
     </ImportGroup>
-  
+      
     <!--<ItemGroup>
         <ProjectCapability Include="DiagnoseCapabilities" />
         <ProjectCapability Include="XSharp" />
