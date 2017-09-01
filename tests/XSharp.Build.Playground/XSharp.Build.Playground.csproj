@@ -10,7 +10,7 @@
         <_XSharpBuildTasksPath>..\..\source\XSharp.Build.Tasks\bin\Debug\netstandard1.3\</_XSharpBuildTasksPath>
     </PropertyGroup>
 
-    <Import Project="..\..\source\XSharp.DotNetCLI\bin\Debug\netcoreapp2.0\build\XSharp.Compiler.props" />
+    <Import Project="..\..\source\XSharp.DotNetCLI\bin\Debug\netcoreapp2.0\build\XSharp.Compiler.props" Condition="Exists('..\..\source\XSharp.DotNetCLI\bin\Debug\netcoreapp2.0\build\XSharp.Compiler.props')" />
 
     <ItemGroup>
         <Compile Include="Test.xs" />
@@ -27,7 +27,7 @@
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   
-    <ImportGroup Condition="Exists('$(_XSharpBuildTasksPath)build\XSharp.Build.targets')">
+    <ImportGroup Condition="Exists('$(_XSharpBuildTasksPath)build\XSharp.Build.targets') AND Exists('$(_XSharpBuildTasksPath)build\XSharp.Compiler.targets') AND Exists('$(_XSharpBuildTasksPath)build\XSharp.Deploy.targets')">
         <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Build.targets" />
         <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Compiler.targets" />
         <Import Project="$(_XSharpBuildTasksPath)build\XSharp.Deploy.targets" />
