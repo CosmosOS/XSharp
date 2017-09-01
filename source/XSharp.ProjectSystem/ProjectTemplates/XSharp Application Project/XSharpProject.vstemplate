@@ -1,0 +1,18 @@
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>X# Application Project</Name>
+        <Description>A project for creating an X# application.</Description>
+        <Icon>XSharpProject.ico</Icon>
+        <ProjectType>XSharp</ProjectType>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>XSharpProject</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <CreateInPlace>true</CreateInPlace>
+        <SortOrder>0</SortOrder>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="XSharpProject.xsproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" OpenInEditor="true">Program.xs</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>
