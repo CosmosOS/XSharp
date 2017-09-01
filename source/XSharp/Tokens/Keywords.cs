@@ -42,6 +42,13 @@
         }
     }
 
+    public class Times : Spruce.Tokens.AlphaNumList
+    {
+        public Times() : base("Times")
+        {
+        }
+    }
+
     public class ConstKeyword : Spruce.Tokens.AlphaNumList
     {
         public ConstKeyword() : base("Const")

@@ -198,8 +198,8 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(Repeat), typeof(Int32u), typeof(OpOpenBrace))]
-        protected void RepeatBlockStart(string aOpRepeat, int loops, string aOpOpenBrace)
+        [Emitter(typeof(Repeat), typeof(Int32u), typeof(Times), typeof(OpOpenBrace))]
+        protected void RepeatBlockStart(string aOpRepeat, UInt32 loops, string aOpTimes, string aOpOpenBrace)
         {
         }
 
