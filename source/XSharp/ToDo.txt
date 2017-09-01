@@ -1,4 +1,5 @@
 Kudzu
+// - no space or comment gives null ref
 EBP = ESP
 EBP + 12
 .varname = EBP
