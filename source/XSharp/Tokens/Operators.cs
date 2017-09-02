@@ -60,4 +60,11 @@ namespace XSharp.Tokens
         {
         }
     }
+
+    public class OpPureComparators : StringList
+    {
+        public OpPureComparators() : base("=0 !0 > < >= <= = !".Split(' '))
+        {
+        }
+    }
 }
