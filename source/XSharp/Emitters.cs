@@ -76,9 +76,13 @@ namespace XSharp
         }
 
         [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
         [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegXX))]
         [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(RegXX), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, object source)
         {
         }
@@ -287,6 +291,11 @@ namespace XSharp
         // }
         [Emitter(typeof(OpCloseBrace))]
         protected void BlockEnd(string opCloseBrace)
+        {
+        }
+
+        [Emitter(typeof(GotoKeyword), typeof(Identifier))]
+        protected void Goto(string aGotoKeyword, string aLabelName)
         {
         }
 

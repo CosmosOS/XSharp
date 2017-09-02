@@ -65,7 +65,7 @@ namespace Spruce.Tokens {
 
                 return xResult;
             } catch (Exception ex) {
-                throw new Exception("Parse Error." + aText, ex);
+                throw new Exception("Parse Error: " + aText, ex);
             }
         }
     }
