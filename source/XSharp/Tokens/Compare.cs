@@ -1,5 +1,6 @@
 ﻿using System;
 using Spruce.Attribs;
+using Spruce.Tokens;
 
 namespace XSharp.Tokens
 {
@@ -18,6 +19,11 @@ namespace XSharp.Tokens
     {
     }
 
+    [GroupToken(typeof(CompareMem<Reg32, OpCompare, Int32u>))]
+    public class CompareWithMem : Spruce.Tokens.Compound
+    {
+    }
+
     public abstract class Compare<TLeftValueType, TComparatorType, TRightValueType> : Compare
     {
         public Compare()
@@ -26,6 +32,23 @@ namespace XSharp.Tokens
             mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TComparatorType)));
             mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TRightValueType)));
         }
+    }
+
+    public class CompareMem<TLeftValueType, TComparatorType, TRightValueType> : Compare
+    {
+        public CompareMem()
+        {
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(OpOpenBracket)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TLeftValueType)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(OpCloseBracket)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TComparatorType)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TRightValueType)));
+        }
+    }
+
+    [GroupToken(typeof(CompareVarVar), typeof(CompareVarConst), typeof(CompareVarAddrInt32), typeof(CompareVarAddrVar))]
+    public class CompareVar
+    {
     }
 
     [GroupToken(typeof(CompareReg08Const), typeof(CompareReg16Const), typeof(CompareReg32Const))]

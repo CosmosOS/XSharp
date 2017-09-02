@@ -27,7 +27,7 @@ namespace XSharp.Tokens
 
     public class OpMath : StringList
     {
-        public OpMath() : base("+ - * / %".Split(' '))
+        public OpMath() : base("+= -= *= /= %=".Split(' '))
         {
         }
     }
@@ -63,7 +63,7 @@ namespace XSharp.Tokens
 
     public class OpPureComparators : StringList
     {
-        public OpPureComparators() : base("=0 !0 > < >= <= = !".Split(' '))
+        public OpPureComparators() : base("=0 !0 0 > < >= <= = !".Split(' '))
         {
         }
     }

@@ -76,4 +76,18 @@
         {
         }
     }
+
+    public class TestKeyword : Spruce.Tokens.AlphaNumList
+    {
+        public TestKeyword() : base("test")
+        {
+        }
+    }
+
+    public class PortKeyword : Spruce.Tokens.AlphaNumList
+    {
+        public PortKeyword() : base("port")
+        {
+        }
+    }
 }
