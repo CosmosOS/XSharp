@@ -21,7 +21,7 @@ Interrupt TracerEntry {
 // LockOrExit
 
 // First, disable interrupts, so debugging is much more stable
-! cli
+//! cli
 
 
 	+All
@@ -47,7 +47,7 @@ EBP + 12
 
 //Check whether this call is result of (i.e. after) INT1. If so, don't subtract 1!
 EBX = EAX
-! MOV EAX, DR6
+//! MOV EAX, DR6
 EAX & $4000
 if EAX != $4000 {
 	EBX--
@@ -62,7 +62,7 @@ EAX = EBX
 -All
 
 // restore interupts
-! sti
+//! sti
 
 // Temp disabled, see comment on LockOrExit above
 // Unlock

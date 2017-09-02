@@ -25,7 +25,7 @@ function SendFrame {
 
     ESI = .CallerEBP
     // Dont transmit EIP or old EBP
-    ESI + 8
+    ESI += 8
     ECX = 32
     ComWriteX()
 }
@@ -65,7 +65,7 @@ function SendStack {
     // Send size of bytes
     ESI = .CallerESP
     EAX = .CallerEBP
-    EAX - ESI
+    EAX -= ESI
     ComWriteAX()
 
     // Send actual bytes
@@ -92,7 +92,7 @@ function SendMethodContext {
     // offset relative to ebp
     // size of data to send
     ComReadEAX()
-    ESI + EAX
+    ESI += EAX
     ComReadEAX()
     ECX = EAX
 
@@ -166,12 +166,12 @@ EBP = ESP
 
     // Write Length
     ESI = EBP
-    ESI + 12
-    ECX = ESI[0]
+    ESI += 12
+    ECX = [ESI]
     ComWrite16()
 
     // Address of string
-    ESI = EBP[8]
+    ESI = [EBP + 8]
 WriteChar:
     if ECX = 0 goto Finalize
     ComWrite8()
@@ -181,14 +181,13 @@ WriteChar:
     ESI++
     goto WriteChar
 
-    ////test
     // Write Length
     //ESI = EBP
     //ESI + 12
-    //ECX = ESI[0]
+    //ECX = [ESI]
     //
-    //// Address of string
-    //ESI = EBP[8]
+    // // Address of string
+    //ESI = [EBP + 8]
 Finalize:
     -All
   -EBP
@@ -206,7 +205,7 @@ EBP = ESP
     ComWriteAL()
 
     // Write value
-    EAX = EBP[8]
+    EAX = [EBP + 8]
     ComWriteEAX()
 
     -All
@@ -225,7 +224,7 @@ EBP = ESP
     ComWriteAL()
 
     // Write value
-    EAX = EBP[8]
+    EAX = [EBP + 8]
     ComWriteEAX()
 
 	SendCoreDump()
@@ -246,9 +245,9 @@ function SendSimpleLongNumber {
   ComWriteAL()
 
   // Write value
-  EAX = EBP[8]
+  EAX = [EBP + 8]
   ComWriteEAX()
-  EAX = EBP[12]
+  EAX = [EBP + 12]
   ComWriteEAX()
 
   -All
@@ -268,7 +267,7 @@ function SendComplexNumber {
   ComWriteAL()
 
   // Write value
-  EAX = EBP[8]
+  EAX = [EBP+8]
   ComWriteEAX()
 
   -All
@@ -288,9 +287,9 @@ function SendComplexLongNumber {
   ComWriteAL()
 
   // Write value
-  EAX = EBP[8]
+  EAX = [EBP+8]
   ComWriteEAX()
-  EAX = EBP[12]
+  EAX = [EBP+12]
   ComWriteEAX()
 
   -All
@@ -306,7 +305,7 @@ function SendPtr {
     ComWriteAL()
 
     // pointer value
-    ESI = EBP[8]
+    ESI = [EBP+8]
     ComWrite32()
 }
 
@@ -373,12 +372,12 @@ function SendMessageBox {
 
     // Write Length
     ESI = EBP
-    ESI + 12
-    ECX = ESI[0]
+    ESI += 12
+    ECX = [ESI]
     ComWrite16()
 
     // Address of string
-    ESI = EBP[8]
+    ESI = [EBP+8]
 WriteChar:
     if ECX = 0 return
     ComWrite8()
@@ -405,9 +404,9 @@ function SendCoreDump {
     ECX = 36
     EAX = EBP
     while EAX != 0 {
-        EBX = EAX - 4
+        EAX -= 4
         +EAX
-        ECX = ECX + 4
+        ECX += 4
         EAX = [EAX]
     }
 

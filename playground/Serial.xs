@@ -38,7 +38,7 @@
 //
 // http://www.nondot.org/sabre/os/files/Communication/ser_port.txt
 
-! %ifndef Exclude_IOPort_Based_SerialInit
+//! %ifndef Exclude_IOPort_Based_SerialInit
 
 // Todo Auto params
 // Todo ebp frame ptr auto etc
@@ -94,7 +94,7 @@ function ComReadAL {
 	DX = 5
 Wait:
     ReadRegister()
-    AL ?& $01
+    AL test $01
     if 0 goto Wait
 
 	DX = 0
@@ -125,17 +125,17 @@ function ComWrite8 {
 	// Bit 5 (0x20) test for Transmit Holding Register to be empty.
 Wait:
     ReadRegister()
-	  AL ?& $20
+	  AL test $20
 	  if 0 goto Wait
 
   // Set address of port
 	DX = 0
 	// Get byte to send
-  AL = ESI[0]
+  AL = [ESI]
 	// Send the byte
 	WriteRegister()
 
 	ESI++
 }
 
-! %endif
+//! %endif

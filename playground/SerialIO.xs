@@ -5,7 +5,7 @@
 // optionally exclude this serial version
 
 
-! %ifndef Exclude_IOPort_Based_Serial
+//! %ifndef Exclude_IOPort_Based_Serial
 
 // mComPortAddresses = 0x3F8, 0x2F8, 0x3E8, 0x2E8;
 // Currently hardcoded to COM1.
@@ -20,7 +20,7 @@ var ComAddr = $03F8
 
 function WriteRegister {
   +EDX
-    DX + $03F8
+    DX += $03F8
     Port[DX] = AL
   -EDX
 }
@@ -32,9 +32,9 @@ function WriteRegister {
 //    AL -> value read
 function ReadRegister {
   +EDX
-    DX + $03F8
+    DX += $03F8
     AL = Port[DX]
   -EDX
 }
 
-! %endif
+//! %endif

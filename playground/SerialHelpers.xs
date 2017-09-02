@@ -16,8 +16,8 @@ function ComReadEAX {
 // Reads a byte into [EDI] and does EDI + 1
 function ComRead8  {
     ComReadAL()
-    EDI[0] = AL
-    EDI + 1
+    [EDI] = AL
+    EDI += 1
 }
 function ComRead16 {
 	repeat 2 times {

@@ -19,7 +19,7 @@ function ProcessCommand {
     .CommandID = EAX
 
     // Get AL back so we can compare it, but also leave it for later
-    EAX = ESP[0]
+    EAX = [ESP]
 
 	if AL = #Vs2Ds_TraceOff {
 		TraceOff()

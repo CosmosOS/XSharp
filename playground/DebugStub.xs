@@ -43,22 +43,22 @@ function BreakOnAddress {
     // Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
 	EBX = @.DebugBPs
     EAX << 2
-    EBX + EAX
+    EBX += EAX
 
 	if ECX = 0 {
 		//This is a BP removal
 
-		EDI = EBX[0]
+		EDI = [EBX]
 		AL = $90
-		EDI[0] = AL
+		[EDI] = AL
 
 		goto DontSetBP
 	}
 
-    EBX[0] = ECX
-	EDI = EBX[0]
+    [EBX] = ECX
+	EDI = [EBX]
 	AL = $CC
-	EDI[0] = AL
+	[EDI] = AL
 
 DontSetBP:
 
@@ -80,11 +80,11 @@ FindBPLoop:
 	EAX = ECX
 	//4 bytes per Id
 	EAX << 2
-	EBX + EAX
+	EBX += EAX
 
 	//Set EAX to be the value at the address stored by EAX
 	//I.e. the ASM address of the BP with BP Id of ECX (if there is one - it will be 0 if no BP at this BP Id)
-	EAX = EBX[0]
+	EAX = [EBX]
 	//If it isn't 0 there must be a BP at this address
 	if EAX != 0 {
 
@@ -119,7 +119,7 @@ function SetINT3 {
 	// Set to INT3 ($CC)
     EDI = EAX
 	AL = $CC
-	EDI[0] = AL
+	[EDI] = AL
 
 Exit:
 	-All
@@ -132,7 +132,7 @@ function ClearINT3 {
 	// Clear to NOP ($90)
     EDI = EAX
 	AL = $90
-	EDI[0] = AL
+	[EDI] = AL
 
 Exit:
 	-All
@@ -144,14 +144,14 @@ function Executing {
 	// Each of these checks a flag, and if it processes then it jumps to .Normal.
 
 	//Check whether this call is result of (i.e. after) INT1
-	 ! MOV EAX, DR6
+	 //! MOV EAX, DR6
 	 EAX & $4000
 	 if EAX = $4000 {
 	   //This was INT1
 
 	   //Reset the debug register
 	   EAX & $BFFF
-	   ! MOV DR6, EAX
+	   //! MOV DR6, EAX
 
 	   ResetINT1_TrapFLAG()
 
@@ -185,7 +185,7 @@ function Executing {
 	EAX = .CallerEIP
     EDI = @.DebugBPs
     ECX = .MaxBPId
-	! repne scasd
+	//! repne scasd
 	if = {
 		Break()
 		goto Normal
@@ -236,7 +236,7 @@ Normal:
 CheckForCmd:
 	  DX = 5
     ReadRegister()
-    AL ?& 1
+    AL test 1
     // If a command is waiting, process it and then check for another.
     // If no command waiting, break from loop.
 	if !0 {

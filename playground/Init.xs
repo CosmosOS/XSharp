@@ -58,7 +58,7 @@ function WaitForDbgHandshake {
 	Hook_OnHandshakeCompleted()
 }
 
-! %ifndef Exclude_Dummy_Hooks
+//! %ifndef Exclude_Dummy_Hooks
 function Hook_OnHandshakeCompleted {
 }
-! %endif
+//! %endif
