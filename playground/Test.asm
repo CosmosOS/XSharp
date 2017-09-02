@@ -1,3 +1,4 @@
+; ^ Empty comment test
     ; ClearAsmBreak()
 ; EAX = ESI[4] - Old way, see next line for new way
     ; EAX = [ESI + 4]

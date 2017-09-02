@@ -27,9 +27,11 @@ namespace XSharp
             Compiler.WriteLine(aText);
         }
 
+        [Emitter(typeof(OpComment))] // //
+        protected void CommentEmpty(string aOp) {
+        }
         [Emitter(typeof(OpComment), typeof(All))] // // Comment text
-        protected void Comment(string aOp, string aText)
-        {
+        protected void Comment(string aOp, string aText) {
             if (Compiler.EmitUserComments)
             {
                 Compiler.WriteLine("; " + aText);
