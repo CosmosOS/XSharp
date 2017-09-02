@@ -8,7 +8,7 @@ namespace XSharp.x86 {
         public class Names {
             public static readonly string[] Reg08 = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
             public static readonly string[] Reg16 = "AX,BX,CX,DX".Split(',');
-            public static readonly string[] Reg32 = "EAX,EBX,ECX,EDX,ESI,EDI".Split(',');
+            public static readonly string[] Reg32 = "EAX,EBX,ECX,EDX,ESP,EBP,ESI,EDI".Split(',');
         }
 
         // These statics are not used much now but will be used even with NASM
@@ -17,6 +17,8 @@ namespace XSharp.x86 {
         public static Register EBX = new Register("EBX");
         public static Register ECX = new Register("ECX");
         public static Register EDX = new Register("EDX");
+        public static Register ESP = new Register("ESP");
+        public static Register EBP = new Register("EBP");
         public static Register ESI = new Register("ESI");
         public static Register EDI = new Register("EDI");
         //

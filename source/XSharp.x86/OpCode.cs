@@ -11,8 +11,10 @@ namespace XSharp.x86
     // http://ref.x86asm.net/coder32.html
     // http://www.sandpile.org/
     // https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm
-    // https://www.codeproject.com/Articles/662301/x-Instruction-Encoding-Revealed-Bit-Twiddling-fo
     // http://www.felixcloutier.com/x86/
+    //
+    // x86 Instruction Encoding Revealed: Bit Twiddling for Fun and Profit
+    // https://www.codeproject.com/Articles/662301/x-Instruction-Encoding-Revealed-Bit-Twiddling-fo
     //
     // Mulitbyte NOPs
     // https://software.intel.com/en-us/forums/watercooler-catchall/topic/307174
