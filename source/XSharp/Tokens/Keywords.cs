@@ -69,4 +69,11 @@
         {
         }
     }
+
+    public class GotoKeyword : Spruce.Tokens.AlphaNumList
+    {
+        public GotoKeyword() : base("goto")
+        {
+        }
+    }
 }

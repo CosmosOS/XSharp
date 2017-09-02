@@ -4,6 +4,7 @@ using Spruce.Attribs;
 namespace XSharp.Tokens
 {
     [GroupToken(typeof(CompareReg08Const), typeof(CompareReg16Const), typeof(CompareReg32Const),
+        typeof(CompareReg08Reg08), typeof(CompareReg16Reg16), typeof(CompareReg32Reg32),
         typeof(CompareReg08Var), typeof(CompareReg16Var), typeof(CompareReg32Var),
         typeof(CompareRegVarAddr), typeof(CompareReg8Int8),
         typeof(CompareReg16Int16), typeof(CompareReg32Int32), typeof(CompareConstConst), typeof(CompareConstVar),
@@ -21,14 +22,26 @@ namespace XSharp.Tokens
     {
         public Compare()
         {
-            mInternals.Add((Spruce.Tokens.Token) Activator.CreateInstance(typeof(TLeftValueType)));
-            mInternals.Add((Spruce.Tokens.Token) Activator.CreateInstance(typeof(TComparatorType)));
-            mInternals.Add((Spruce.Tokens.Token) Activator.CreateInstance(typeof(TRightValueType)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TLeftValueType)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TComparatorType)));
+            mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TRightValueType)));
         }
     }
 
     [GroupToken(typeof(CompareReg08Const), typeof(CompareReg16Const), typeof(CompareReg32Const))]
     public class CompareRegConst
+    {
+    }
+
+    public class CompareReg08Reg08 : Compare<Reg08, OpCompare, Reg08>
+    {
+    }
+
+    public class CompareReg16Reg16 : Compare<Reg16, OpCompare, Reg16>
+    {
+    }
+
+    public class CompareReg32Reg32 : Compare<Reg32, OpCompare, Reg32>
     {
     }
 

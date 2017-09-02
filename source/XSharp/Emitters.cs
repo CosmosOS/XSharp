@@ -78,9 +78,13 @@ namespace XSharp
         }
 
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, object source)
         {
         }
@@ -179,14 +183,24 @@ namespace XSharp
         {
         }
 
-        // If = return
-        [Emitter(typeof(If), typeof(OpEquals), typeof(Return))]
-        protected void IfConditionPureReturn(string aOpIf, string aEquals, string aReturns)
+        [Emitter(typeof(If), typeof(Compare), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfConditionGoto(string aOpIf, object[] aCompareData, string aGotoKeyword, string aLabel)
         {
         }
 
-        [Emitter(typeof(If), typeof(OpEquals), typeof(OpOpenBrace))]
-        protected void IfConditionPureBlockStart(string aOpIf, string aEquals, string aOpOpenBrace)
+        // If = return
+        [Emitter(typeof(If), typeof(OpPureComparators), typeof(Return))]
+        protected void IfConditionPureReturn(string aOpIf, string aPureComparator, string aReturns)
+        {
+        }
+
+        [Emitter(typeof(If), typeof(OpPureComparators), typeof(OpOpenBrace))]
+        protected void IfConditionPureBlockStart(string aOpIf, string aOpPureComparators, string aOpOpenBrace)
+        {
+        }
+
+        [Emitter(typeof(If), typeof(OpPureComparators), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfConditionPureGoto(string aOpIf, string aOpPureComparators, string aGotoKeyword, string aLabel)
         {
         }
 
@@ -195,8 +209,8 @@ namespace XSharp
         {
         }
 
-        [Emitter(typeof(While), typeof(OpEquals), typeof(OpOpenBrace))]
-        protected void WhileConditionPureBlockStart(string aOpWhile, string aEquals, string aOpOpenBrace)
+        [Emitter(typeof(While), typeof(OpPureComparators), typeof(OpOpenBrace))]
+        protected void WhileConditionPureBlockStart(string aOpWhile, string aOpPureComparators, string aOpOpenBrace)
         {
         }
 
@@ -289,6 +303,11 @@ namespace XSharp
         // }
         [Emitter(typeof(OpCloseBrace))]
         protected void BlockEnd(string opCloseBrace)
+        {
+        }
+
+        [Emitter(typeof(GotoKeyword), typeof(Identifier))]
+        protected void Goto(string aGotoKeyword, string aLabelName)
         {
         }
 
