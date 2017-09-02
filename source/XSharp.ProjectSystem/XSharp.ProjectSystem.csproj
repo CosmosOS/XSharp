@@ -6,6 +6,7 @@
         <TargetFramework>net462</TargetFramework>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -24,18 +25,52 @@
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
     </ItemGroup>
-  
+
+    <!--<ItemGroup>
+        <None Include="BuildSystem\Rules\ProjectItemsSchema.xaml">
+            <SubType>Designer</SubType>
+        </None>
+        <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml">
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml">
+            <RuleInjection>None</RuleInjection>
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\General.xaml">
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml">
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml">
+            <RuleInjection>None</RuleInjection>
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\None.xaml">
+            <RuleInjection>None</RuleInjection>
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml">
+            <SubType>Designer</SubType>
+        </XamlPropertyRule>
+    </ItemGroup>-->
+
     <ItemGroup>
         <Reference Include="System.ComponentModel.Composition" />
+        <Reference Include="System.Xaml" />
     </ItemGroup>
-  
+
     <ItemGroup>
+        <PackageReference Include="Microsoft.Build" Version="15.3.409" />
+        <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.0.26606" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.0.26606" />
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
         <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
     </ItemGroup>
 
@@ -54,5 +89,14 @@
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
+
+    <Target Name="AfterBuild">
+        <ItemGroup>
+            <BuildSystemToCopy Include="BuildSystem\DeployedBuildSystem\**\*" />
+            <RulesToCopy Include="BuildSystem\Rules\**\*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
 
 </Project>

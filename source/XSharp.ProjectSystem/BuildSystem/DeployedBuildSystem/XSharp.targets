@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup Label="ProjectConfigurations">
         <ProjectConfiguration Include="Debug|AnyCPU">
             <Configuration>Debug</Configuration>
@@ -12,17 +12,17 @@
     </ItemGroup>
 
     <!-- Capabilities for this project. Conditions should be based on platform|configuration only. -->
-    <ItemGroup>
-        <ProjectCapability Include="XSharp" />
+    <!--<ItemGroup>
+        --><!--<ProjectCapability Include="XSharp" />--><!--
         <ProjectCapability Include="UseFileGlobs" />
         <ProjectCapability Include="OpenProjectFile" />
         <ProjectCapability Include="HandlesOwnReload" />
         <ProjectCapability Include="ProjectConfigurationsDeclaredAsItems" />
-    </ItemGroup>
+    </ItemGroup>-->
 
     <ItemGroup>
         <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\general.xaml;
+                            $(MSBuildThisFileDirectory)Rules\General.xaml;
                             ">
             <Context>Project</Context>
         </PropertyPageSchema>
@@ -30,32 +30,25 @@
                             $(MSBuildThisFileDirectory)Rules\ProjectItemsSchema.xaml;
                             "/>
         <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\debugger_general.xaml;
+                            $(MSBuildThisFileDirectory)Rules\DebuggerGeneral.xaml;
                             ">
             <Context>Project</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\general_file.xaml">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\GeneralFile.xaml">
             <Context>File</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\scc.xaml">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>
         </PropertyPageSchema>
 
         <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\folder.xaml;
-                            $(MSBuildThisFileDirectory)Rules\none.xaml;
+                            $(MSBuildThisFileDirectory)Rules\Folder.xaml;
+                            $(MSBuildThisFileDirectory)Rules\None.xaml;
                             ">
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\general.browseobject.xaml">
-            <Context>BrowseObject</Context>
-        </PropertyPageSchema>
-
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\script.xaml;">
-            <Context>File</Context>
-        </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\script.browseobject.xaml;">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\General.BrowseObject.xaml">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
     </ItemGroup>
@@ -63,8 +56,10 @@
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
     <Target Name="Run">
+        <!--
         <Message Text="$(RunCommandArguments)" />
         <Exec Command='$(RunCommand) "$(MSBuildProjectDirectory)\$(StartItem)" $(RunCommandArguments)' WorkingDirectory="$(RunWorkingDirectory)" />
+        -->
     </Target>
 
     <Target Name="Build" >
