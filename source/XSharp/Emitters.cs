@@ -65,7 +65,7 @@ namespace XSharp
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(Variable), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(RegXX), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]
         [Emitter(typeof(RegXX), typeof(OpEquals), typeof(OpOpenBracket), typeof(RegXX), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
-        protected void MemoryAssignToReg(Register aRegister, string aOpEquals, string aOpOpenBracket, object source, string opOperator, object aOffset, string aOpCloseBracket)
+        protected void MemoryAssignToReg(Register aDestReg, string aOpEquals, string aOpOpen, object aSrc, string aOp, UInt32 aOffset, string aOpClose)
         {
         }
 
