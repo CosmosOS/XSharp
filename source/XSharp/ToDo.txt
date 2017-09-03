@@ -1,6 +1,4 @@
 Kudzu
-AL = PORT[DX] is not being parsed properly
-AL is being taken as Reg08 rather than RegAL
 -xsharp.Eval("x = {aVal}")
 -Macros - ie inline functions of sort
 -Cosmos dev rules page

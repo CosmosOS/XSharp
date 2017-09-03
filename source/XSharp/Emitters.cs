@@ -58,26 +58,30 @@ namespace XSharp
         }
 
         // ===============================================================
-        // PORT types
+        // PORT
 
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegAL))]
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegAX))]
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegEAX))]
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegAL))]
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegAX))]
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket), typeof(OpEquals), typeof(RegEAX))]
-        protected void PortOut(string aPortKeyword, string aOpOpenBracket, object aIndex, string aOpCloseBracket, string aOpEquals, Register aReg)
-        {
+        // Port[x] = EAX/AX/AL
+        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        protected void PortOut(string aPortKeyword, string aOpOpenBracket, byte aPortNo, string aOpCloseBracket, string aOpEquals, Register aSrcReg) {
+            aSrcReg.CheckIs("EAX,AX,AL");
+        }
+        // Port[DX] = EAX/AX/AL
+        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Reg08), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        protected void PortOut(string aPortKeyword, string aOpOpenBracket, Register aPortReg, string aOpCloseBracket, string aOpEquals, Register aSrcReg) {
+            aPortReg.CheckIsDX();
+            aSrcReg.CheckIsAccumulator();
         }
 
-        [Emitter(typeof(RegAL), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket))]
-        [Emitter(typeof(RegAX), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket))]
-        [Emitter(typeof(RegEAX), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(RegDX), typeof(OpCloseBracket))]
-        [Emitter(typeof(RegAL), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        [Emitter(typeof(RegAX), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        [Emitter(typeof(RegEAX), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        protected void PortIn(Register aReg, string aOpEquals, string aPortKeyword, string aOpOpenBracket, object aIndex, string aOpCloseBracket)
-        {
+        // EAX/AX/AL = Port[x]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
+        protected void PortIn(Register aDestReg, string aOpEquals, string aPortKeyword, string aOpOpenBracket, byte aPortNo, string aOpCloseBracket) {
+            aDestReg.CheckIsAccumulator();
+        }
+        // EAX/AX/AL = Port[DX]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Reg08), typeof(OpCloseBracket))]
+        protected void PortIn(Register aDestReg, string aOpEquals, string aPortKeyword, string aOpOpenBracket, Register aPortReg, string aOpCloseBracket) {
+            aDestReg.CheckIsAccumulator();
+            aPortReg.CheckIsDX();
         }
 
         // ===============================================================

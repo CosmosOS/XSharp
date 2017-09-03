@@ -58,6 +58,18 @@ namespace XSharp.x86 {
             }
         }
 
+        public void CheckIs(string aValidRegs) {
+            if (!(aValidRegs + ",").Contains(Name + ",")) {
+                throw new Exception("Invalid register: {Name}.\r\nMust be one of: {aValidRegs}");
+            }
+        }
+        public void CheckIsDX() {
+            CheckIs("DX");
+        }
+        public void CheckIsAccumulator() {
+            CheckIs("EAX,AX,AL");
+        }
+
         public override string ToString() {
             return Name;
         }

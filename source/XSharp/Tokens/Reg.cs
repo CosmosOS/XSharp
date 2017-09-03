@@ -18,40 +18,12 @@ namespace XSharp.Tokens {
     public class Reg08 : Reg {
         public Reg08() : base(x86.Register.Names.Reg08) { }
     }
-    public class RegAL : Reg {
-        public RegAL() : base("AL") { }
-    }
-    public class RegAH : Reg {
-        public RegAH() : base("AH") { }
-    }
-    public class RegCL : Reg {
-        public RegCL() : base("CL") { }
-    }
-    public class RegDX : Reg {
-        public RegDX() : base("DX") { }
-    }
 
     public class Reg16 : Reg {
         public Reg16() : base(x86.Register.Names.Reg16) { }
-    }
-    public class RegAX : Reg {
-        public RegAX() : base("AX") { }
     }
 
     public class Reg32 : Reg {
         public Reg32() : base(x86.Register.Names.Reg32) { }
     }
-    public class RegEAX : Reg {
-        public RegEAX() : base("EAX") { }
-    }
-    public class RegECX : Reg {
-        public RegECX() : base("ECX") { }
-    }
-    public class RegEDX : Reg {
-        public RegEDX() : base("EDX") { }
-    }
-
-    // Section 6 - http://www.c-jump.com/CIS77/ASM/Addressing/lecture.html
-    //public class BaseReg - use group
-    //public class IndexReg - use group
 }
