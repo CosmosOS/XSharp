@@ -7,7 +7,8 @@ using Microsoft.VisualStudio.Shell;
 using XSharp.ProjectSystem;
 
 [assembly: ProjectTypeRegistration(XSharpProjectSystemPackage.ProjectTypeGuid, "#1", "#2", "xsproj", "XSharp",
-    XSharpProjectSystemPackage.PackageGuid, Capabilities = XSharpProjectSystemPackage.InitialCapabilities/*, DisplayProjectTypeVsTemplate = "#1"*/)]
+    XSharpProjectSystemPackage.PackageGuid, Capabilities = XSharpProjectSystemPackage.InitialCapabilities,
+    ProjectTemplatesDir = "ProjectTemplates"/*, DisplayProjectTypeVsTemplate = "#1"*/)]
 
 namespace XSharp.ProjectSystem
 {
@@ -18,19 +19,20 @@ namespace XSharp.ProjectSystem
         /// <summary>
         /// The GUID for this package.
         /// </summary>
-        public const string PackageGuid = "b184171f-9711-4627-be0f-0168fbaa746a";
+        public const string PackageGuid = "d9eacd85-6e48-4c5f-95a2-51f85a57b517";
 
         /// <summary>
         /// The GUID for this project type.  It is unique with the project file extension and
         /// appears under the VS registry hive's Projects key.
         /// </summary>
-        public const string ProjectTypeGuid = "b0fd1319-c5a1-4bf7-9ad9-63b47a426593";
+        public const string ProjectTypeGuid = "68a6f609-e61d-4b95-b063-dbb124f0f0ac";
 
-        public const string InitialCapabilities = ProjectCapabilities.Cps + ";" +
-                                                  ProjectCapability.OpenProjectFile + ";" +
+        public const string InitialCapabilities = //ProjectCapability.AppDesigner + ";" +
+                                                  ProjectCapabilities.Cps + ";" +
                                                   ProjectCapabilities.HandlesOwnReload + ";" +
-                                                  ProjectCapabilities.HostSetActiveProjectConfiguration + ";" +
+                                                  //ProjectCapabilities.HostSetActiveProjectConfiguration + ";" +
                                                   //ProjectCapabilities.LanguageService + ";" +
+                                                  ProjectCapability.OpenProjectFile + ";" +
                                                   //ProjectCapabilities.ProjectReferences + ";" +
                                                   ProjectCapabilities.RunningInVisualStudio + ";" +
                                                   //ProjectCapabilities.SdkReferences + ";" +

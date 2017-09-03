@@ -8,6 +8,7 @@ namespace XSharp.ProjectSystem
 {
     internal class ProjectCapability
     {
+        public const string AppDesigner = "AppDesigner";
         public const string OpenProjectFile = "OpenProjectFile";
         public const string UseFileGlobs = "UseFileGlobs";
         public const string XSharp = "XSharp";

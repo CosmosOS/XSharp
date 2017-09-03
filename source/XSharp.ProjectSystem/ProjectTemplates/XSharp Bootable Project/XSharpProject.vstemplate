@@ -2,12 +2,13 @@
     <TemplateData>
         <Name>X# Bootable Project</Name>
         <Description>A project for creating an X# bootable application.</Description>
-        <Icon>XSharpProject.ico</Icon>
+        <Icon Package="{D9EACD85-6E48-4C5F-95A2-51F85A57B517}" ID="3" />
         <ProjectType>XSharp</ProjectType>
         <CreateNewFolder>true</CreateNewFolder>
         <DefaultName>XSharpProject</DefaultName>
         <ProvideDefaultName>true</ProvideDefaultName>
         <CreateInPlace>true</CreateInPlace>
+        <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
         <SortOrder>1</SortOrder>
     </TemplateData>
     <TemplateContent>
