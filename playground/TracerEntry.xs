@@ -32,12 +32,12 @@ Interrupt TracerEntry {
 // Get current ESP and add 32. This will skip over the PushAll and point
 // us at the call data from Int3.
 EBP = ESP
-EBP + 32
+EBP += 32
 // Caller EIP
-EAX = EBP[0]
+EAX = [EBP]
 
 // 12 bytes for EFLAGS, CS, EIP
-EBP + 12
+EBP += 12
 .CallerESP = EBP
 
 // EIP is pointer to op after our call. Int3 is 1 byte so we subtract 1.
