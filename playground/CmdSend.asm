@@ -42,6 +42,7 @@
   PopAD 
 
   ; AL = BL
+  Mov AL, BL
 
   ; +All
   PushAD 
@@ -52,6 +53,7 @@
   ; +All
   PushAD 
     ; EAX = ECX
+    Mov EAX, ECX
     ; ComWriteEAX()
   ; -All
   PopAD 
@@ -102,6 +104,7 @@
     ; ESI += EAX
     ; ComReadEAX()
     ; ECX = EAX
+    Mov ECX, EAX
 
     ; now ECX contains size of data (count)
     ; ESI contains relative to EBP
@@ -133,8 +136,10 @@
 
     ; ComReadEAX()
     ; ESI = EAX
+    Mov ESI, EAX
     ; ComReadEAX()
     ; ECX = EAX
+    Mov ECX, EAX
 
     ; now ECX contains size of data (count)
     ; ESI contains address
@@ -171,6 +176,7 @@
 ; +EBP
 Push EBP
 ; EBP = ESP
+Mov EBP, ESP
     ; +All
     PushAD 
     ; Write the type
@@ -179,6 +185,7 @@ Push EBP
 
     ; Write Length
     ; ESI = EBP
+    Mov ESI, EBP
     ; ESI += 12
     ; ECX = [ESI]
     Mov ECX, [ESI]
@@ -217,6 +224,7 @@ Push EBP
 ; +EBP
 Push EBP
 ; EBP = ESP
+Mov EBP, ESP
     ; +All
     PushAD 
     ; Write the type
@@ -240,6 +248,7 @@ Push EBP
 ; +EBP
 Push EBP
 ; EBP = ESP
+Mov EBP, ESP
     ; +All
     PushAD 
     ; Write the type
@@ -264,6 +273,7 @@ Push EBP
   ; +EBP
   Push EBP
   ; EBP = ESP
+  Mov EBP, ESP
   ; +All
   PushAD 
 
@@ -290,6 +300,7 @@ Push EBP
   ; +EBP
   Push EBP
   ; EBP = ESP
+  Mov EBP, ESP
   ; +All
   PushAD 
 
@@ -314,6 +325,7 @@ Push EBP
   ; +EBP
   Push EBP
   ; EBP = ESP
+  Mov EBP, ESP
   ; +All
   PushAD 
 
@@ -411,6 +423,7 @@ Push EBP
 
     ; Write Length
     ; ESI = EBP
+    Mov ESI, EBP
     ; ESI += 12
     ; ECX = [ESI]
     Mov ECX, [ESI]
@@ -454,6 +467,7 @@ Push EBP
     Push EAX
     ; ECX = 36
     ; EAX = EBP
+    Mov EAX, EBP
     ; while EAX != 0 {
         ; EAX -= 4
         ; +EAX
@@ -467,6 +481,7 @@ Push EBP
 	; AL = #Ds2Vs_CoreDump
 	; ComWriteAL()
     ; EAX = ECX
+    Mov EAX, ECX
     ; ComWriteAX()
     ; while ECX != 0 {
         ; -EAX

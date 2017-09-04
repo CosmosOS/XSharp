@@ -6,3 +6,4 @@
 -@.testVar
 
 EAX = [EBX]
+AH = BH

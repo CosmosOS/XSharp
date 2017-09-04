@@ -30,6 +30,7 @@
     ; BP Address
     ; ComReadEAX()
     ; ECX = EAX
+    Mov ECX, EAX
 
     ; BP ID Number
     ; BP ID Number is sent after BP Address, because
@@ -84,6 +85,7 @@
 	; Load the current BP Id we are testing against
 	; EBX = @.DebugBPs
 	; EAX = ECX
+	Mov EAX, ECX
 	; 4 bytes per Id
 	; EAX << 2
 	; EBX += EAX
@@ -128,6 +130,7 @@
     ; ComReadEAX()
 	; Set to INT3 ($CC)
     ; EDI = EAX
+    Mov EDI, EAX
 	; AL = $CC
 	; [EDI] = AL
 
@@ -143,6 +146,7 @@
     ; ComReadEAX()
 	; Clear to NOP ($90)
     ; EDI = EAX
+    Mov EDI, EAX
 	; AL = $90
 	; [EDI] = AL
 

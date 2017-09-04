@@ -25,6 +25,7 @@
   ; Save EIP of the break
   ; .AsmBreakEIP = EAX
   ; EDI = EAX
+  Mov EDI, EAX
 
   ; Save the old byte
   ; AL = [EDI]

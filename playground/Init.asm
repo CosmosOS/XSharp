@@ -18,6 +18,7 @@
 	; while EBX != #Signature {
 		; ComReadAL()
 		; BL = AL
+		Mov BL, AL
 		; EBX ~> 8
 	; }
 ; }
@@ -41,6 +42,7 @@
 	; +#Signature
 	Push DebugStub_Const_Signature
     ; ESI = ESP
+    Mov ESI, ESP
 
     ; ComWrite32()
 

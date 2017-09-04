@@ -38,6 +38,7 @@
     ; +EAX
     Push EAX
 	; ESI = ESP
+	Mov ESI, ESP
     ; ComWrite8()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allows the function to preserve EAX.
@@ -53,6 +54,7 @@
     ; +EAX
     Push EAX
     ; ESI = ESP
+    Mov ESI, ESP
     ; ComWrite16()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allow the function to preserve EAX.
@@ -66,6 +68,7 @@
     ; +EAX
     Push EAX
     ; ESI = ESP
+    Mov ESI, ESP
     ; ComWrite32()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allow the function to preserve EAX.

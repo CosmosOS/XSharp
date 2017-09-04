@@ -34,6 +34,7 @@ cli
 ; Get current ESP and add 32. This will skip over the PushAll and point
 ; us at the call data from Int3.
 ; EBP = ESP
+Mov EBP, ESP
 ; EBP += 32
 ; Caller EIP
 ; EAX = [EBP]
@@ -50,6 +51,7 @@ Mov EAX, [EBP]
 
 ; Check whether this call is result of (i.e. after) INT1. If so, don't subtract 1!
 ; EBX = EAX
+Mov EBX, EAX
 ; //! MOV EAX, DR6
 MOV EAX, DR6
 ; EAX & $4000
@@ -58,6 +60,7 @@ MOV EAX, DR6
 	Dec EBX
 ; }
 ; EAX = EBX
+Mov EAX, EBX
 
 ; Store it for later use.
 ; .CallerEIP = EAX

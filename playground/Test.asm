@@ -10,3 +10,5 @@ Pop [DebugStub_Var_testVar]
 
 ; EAX = [EBX]
 Mov EAX, [EBX]
+; AH = BH
+Mov AH, BH

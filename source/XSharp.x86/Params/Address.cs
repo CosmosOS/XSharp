@@ -35,9 +35,14 @@
     {
         public object AddressOf { get; set; }
 
-        public Address(object addressOf)
+        public Address(Register addressOf)
         {
             AddressOf = addressOf;
+        }
+
+        public Address(string label)
+        {
+            AddressOf = label;
         }
     }
 }

@@ -35,6 +35,9 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Inc, "{0}", typeof(Reg16));
             Add(OpCode.Inc, "{0}", typeof(Reg32));
 
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg32), typeof(Reg32));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));

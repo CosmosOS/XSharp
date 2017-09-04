@@ -47,16 +47,6 @@ namespace XSharp.Emitters
         }
 
         // Don't use Reg. This method ensures proper data sizes.
-        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Reg08))] // AH = BH
-        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Reg16))] // AX = BX
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32))] // EAX = EBX
-        protected void RegAssigReg(Register aDestReg, string aEquals, Register aSrcReg)
-        {
-            int i = 4;
-            //Asm.Emit(OpCode.Mov, aDestReg, aSrcReg);
-        }
-
-        // Don't use Reg. This method ensures proper data sizes.
         // This could be combined with RegAssignReg by using object type for last arg, but this is a bit cleaner to separate.
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
