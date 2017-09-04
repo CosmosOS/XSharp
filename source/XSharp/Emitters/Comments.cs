@@ -4,8 +4,10 @@ using XSharp.Tokens;
 
 namespace XSharp.Emitters
 {
-    // ===============================================================
-    // Things that start with //
+    /// <summary>
+    /// Class that processes comments and literals for X#.
+    /// </summary>
+    /// <seealso cref="XSharp.Emitters.Emitters" />
     public class Comments : Emitters
     {
         public Comments(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

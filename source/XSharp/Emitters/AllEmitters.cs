@@ -30,39 +30,6 @@ namespace XSharp.Emitters
         }
 
         // ===============================================================
-        // PORT
-
-        // Port[x] = EAX/AX/AL
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        protected void PortOut(string aPortKeyword, string aOpOpenBracket, byte aPortNo, string aOpCloseBracket, string aOpEquals, Register aSrcReg)
-        {
-            aSrcReg.CheckIs("EAX,AX,AL");
-        }
-
-        // Port[DX] = EAX/AX/AL
-        [Emitter(typeof(PortKeyword), typeof(OpOpenBracket), typeof(Reg16), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        protected void PortOut(string aPortKeyword, string aOpOpenBracket, Register aPortReg, string aOpCloseBracket, string aOpEquals, Register aSrcReg)
-        {
-            aPortReg.CheckIsDX();
-            aSrcReg.CheckIsAccumulator();
-        }
-
-        // EAX/AX/AL = Port[x]
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        protected void PortIn(Register aDestReg, string aOpEquals, string aPortKeyword, string aOpOpenBracket, byte aPortNo, string aOpCloseBracket)
-        {
-            aDestReg.CheckIsAccumulator();
-        }
-
-        // EAX/AX/AL = Port[DX]
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(PortKeyword), typeof(OpOpenBracket), typeof(Reg16), typeof(OpCloseBracket))]
-        protected void PortIn(Register aDestReg, string aOpEquals, string aPortKeyword, string aOpOpenBracket, Register aPortReg, string aOpCloseBracket)
-        {
-            aDestReg.CheckIsAccumulator();
-            aPortReg.CheckIsDX();
-        }
-
-        // ===============================================================
         // Reg =
 
         // EAX = [EBX]

@@ -27,8 +27,10 @@ namespace XSharp.x86
     // Please add ops in alphabetical order
     public enum OpCode
     {
+        In,
         Mov,
         NOP,
+        Out,
         PopAD,
         PushAD,
         Ret

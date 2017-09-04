@@ -22,6 +22,7 @@ namespace XSharp
 
             mTokenMap = new Spruce.Tokens.Root();
             mTokenMap.AddEmitter(new Emitters.Comments(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.Ports(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 
