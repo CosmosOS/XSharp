@@ -26,8 +26,14 @@
 
 	const i = 'Test \'string\''
 	EAX = ~ECX
+
+// PORT Tests
+PORT[DX] = AL
+PORT[1] = EAX
+AL = PORT[1]
+AX = PORT[DX]
+
 // Above here is temp Test Area
-//END
 
 namespace DebugStub
 
@@ -50,7 +56,7 @@ function ProcessCommand {
     .CommandID = EAX
 
     // Get AL back so we can compare it, but also leave it for later
-    EAX = ESP[0]
+    EAX = [ESP]
 
 	if AL = #Vs2Ds_TraceOff {
 		TraceOff()
