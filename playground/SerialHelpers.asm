@@ -34,35 +34,43 @@
 ; Modifies: EDX
 ; function ComWriteAL {
 	; +ESI
+	Push ESI
     ; +EAX
+    Push EAX
 	; ESI = ESP
     ; ComWrite8()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allows the function to preserve EAX.
     ; -EAX
+    Pop EAX
 	; -ESI
+	Pop ESI
 ; }
 ; function ComWriteAX {
     ; Input: AX
     ; Output: None
     ; Modifies: EDX, ESI
     ; +EAX
+    Push EAX
     ; ESI = ESP
     ; ComWrite16()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allow the function to preserve EAX.
     ; -EAX
+    Pop EAX
 ; }
 ; function ComWriteEAX {
     ; Input: EAX
     ; Output: None
     ; Modifies: EDX, ESI
     ; +EAX
+    Push EAX
     ; ESI = ESP
     ; ComWrite32()
     ; Is a local var, cant use Return(4). X// issues the return.
     ; This also allow the function to preserve EAX.
     ; -EAX
+    Pop EAX
 ; }
 
 ; function ComWrite16 {

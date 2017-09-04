@@ -15,10 +15,6 @@ namespace XSharp.Emitters
 
         // ===============================================================
         // Keywords
-        [Emitter(typeof(Namespace), typeof(AlphaNum))] // namespace name
-        protected void Namespace(string aNamespace, string aText)
-        {
-        }
 
         // ===============================================================
         // Reg =
@@ -103,30 +99,6 @@ namespace XSharp.Emitters
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Reg))]
         protected void VariableAssignment(string aVariableName, string aOpEquals, object aValue)
-        {
-        }
-
-        // +Reg
-        [Emitter(typeof(OpPlus), typeof(Reg))]
-        [Emitter(typeof(OpPlus), typeof(Const))]
-        [Emitter(typeof(OpPlus), typeof(Variable))]
-        [Emitter(typeof(OpPlus), typeof(VariableAddress))]
-        [Emitter(typeof(OpPlus), typeof(Int08u))]
-        [Emitter(typeof(OpPlus), typeof(Int16u))]
-        [Emitter(typeof(OpPlus), typeof(Int32u))]
-        protected void RegPush(string aOp, object aReg)
-        {
-        }
-
-        // -Reg
-        [Emitter(typeof(OpMinus), typeof(Reg))]
-        [Emitter(typeof(OpMinus), typeof(Const))]
-        [Emitter(typeof(OpMinus), typeof(Variable))]
-        [Emitter(typeof(OpMinus), typeof(VariableAddress))]
-        [Emitter(typeof(OpMinus), typeof(Int08u))]
-        [Emitter(typeof(OpMinus), typeof(Int16u))]
-        [Emitter(typeof(OpMinus), typeof(Int32u))]
-        protected void RegPop(string aOp, object aReg)
         {
         }
 

@@ -1,8 +1,8 @@
 ﻿namespace XSharp.Tokens
 {
-    public class Namespace : Spruce.Tokens.AlphaNumList
+    public class NamespaceKeyword : Spruce.Tokens.AlphaNumList
     {
-        public Namespace() : base("Namespace")
+        public NamespaceKeyword() : base("Namespace")
         {
         }
     }

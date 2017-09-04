@@ -39,6 +39,7 @@
 
     ; Push EAX so we preserve it for later
 	; +EAX
+	Push EAX
 
 	; Calculate location in table
     ; Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
@@ -65,6 +66,7 @@
 
 	; Restore EAX - the BP Id
 	; -EAX
+	Pop EAX
 
 	; Re-scan for max BP Id
 	; We _could_ try and work it out based on what happened...but my attempts to do so

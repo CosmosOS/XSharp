@@ -8,6 +8,7 @@
     ; in case any commands modify AL.
     ; We push EAX to keep stack aligned.
     ; +EAX
+    Push EAX
 
     ; Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     ; Noop also does not send ACK.
@@ -101,6 +102,7 @@
     ; Restore AL for callers who check the command and do
     ; further processing, or for commands not handled by this function.
     ; -EAX
+    Pop EAX
 ; }
 
 ; function AckCommand {

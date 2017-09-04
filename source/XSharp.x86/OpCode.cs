@@ -33,7 +33,9 @@ namespace XSharp.x86
         Mov,    // Move operator
         NOP,    // No op
         Out,    // Out
+        Pop,    // Pop
         PopAD,  // Pop all
+        Push,   // Push
         PushAD, // Push all
         Ret,    // Return
         Test,   // Test - logical compare

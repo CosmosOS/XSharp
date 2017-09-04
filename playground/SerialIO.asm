@@ -21,10 +21,12 @@
 
 ; function WriteRegister {
   ; +EDX
+  Push EDX
     ; DX += $03F8
     ; Port[DX] = AL
     Out DX, AL
   ; -EDX
+  Pop EDX
 ; }
 
 ; reads from a UART register
@@ -34,10 +36,12 @@
 ; AL -> value read
 ; function ReadRegister {
   ; +EDX
+  Push EDX
     ; DX += $03F8
     ; AL = Port[DX]
     In AL, DX
   ; -EDX
+  Pop EDX
 ; }
 
 ; //! %endif

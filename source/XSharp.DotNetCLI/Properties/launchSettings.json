@@ -3,6 +3,10 @@
     "XSharp.XSC": {
       "commandName": "Project",
       "commandLineArgs": "..\\..\\playground\\ -Plugin:Cosmos.XSC -Gen2 -WaitOnError"
+    },
+    "Xsharp.XSC Gen1": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\playground\\Test.xs -Plugin:Cosmos.XSC -WaitOnError"
     }
   }
 }

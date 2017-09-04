@@ -48,7 +48,24 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Out, "0x{0:X}, {1}", typeof(i08u), typeof(Reg16));
             Add(OpCode.Out, "0x{0:X}, {1}", typeof(i08u), typeof(Reg32));
 
+            Add(OpCode.Push, "{0}", typeof(Reg08));
+            Add(OpCode.Push, "{0}", typeof(Reg16));
+            Add(OpCode.Push, "{0}", typeof(Reg32));
+            Add(OpCode.Push, "0x{0:X}", typeof(i08u));
+            Add(OpCode.Push, "0x{0:X}", typeof(i16u));
+            Add(OpCode.Push, "0x{0:X}", typeof(i32u));
+            Add(OpCode.Push, "{0}", typeof(SingleWord));
+
             Add(OpCode.PushAD);
+
+            Add(OpCode.Pop, "{0}", typeof(Reg08));
+            Add(OpCode.Pop, "{0}", typeof(Reg16));
+            Add(OpCode.Pop, "{0}", typeof(Reg32));
+            Add(OpCode.Pop, "0x{0:X}", typeof(i08u));
+            Add(OpCode.Pop, "0x{0:X}", typeof(i16u));
+            Add(OpCode.Pop, "0x{0:X}", typeof(i32u));
+            Add(OpCode.Pop, "{0}", typeof(SingleWord));
+
             Add(OpCode.PopAD);
             Add(OpCode.Ret);
 

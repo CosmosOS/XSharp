@@ -15,16 +15,34 @@ namespace XSharp
         public bool EmitUserComments = true;
         public bool EmitSourceCode = true;
 
+        private string _currentNamespace = null;
+
+        /// <summary>
+        /// Gets the current namespace.
+        /// </summary>
+        public string CurrentNamespace
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_currentNamespace))
+                    throw new Exception("Namespace not available. Make sure that the file begins with a namespace");
+                return _currentNamespace;
+            }
+            set => _currentNamespace = value;
+        }
+
         public Compiler(TextWriter aOut)
         {
             Out = aOut;
             mNASM = new NASM(aOut);
 
             mTokenMap = new Spruce.Tokens.Root();
+            mTokenMap.AddEmitter(new Emitters.Namespace(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Comments(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Ports(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.ZeroParamOps(this, mNASM)); // This should be above push/pop
             mTokenMap.AddEmitter(new Emitters.IncrementDecrement(this, mNASM)); // This should be above + operator
-            mTokenMap.AddEmitter(new Emitters.ZeroParamOps(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.PushPop(this, mNASM)); // This should be above + operator
             mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
@@ -76,5 +94,13 @@ namespace XSharp
                 throw new Exception("Generation error on line " + LineNo, e);
             }
         }
+
+        #region Helper methods for namspaces
+
+        public string GetPrefixForConst => $"{CurrentNamespace}_Const_";
+
+        public string GetPrefixForVar => $"{CurrentNamespace}_Var_";
+
+        #endregion Helper methods for namspaces
     }
 }

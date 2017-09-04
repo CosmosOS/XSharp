@@ -169,6 +169,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendText {
 ; +EBP
+Push EBP
 ; EBP = ESP
     ; +All
     PushAD 
@@ -205,6 +206,7 @@
     ; -All
     PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -212,6 +214,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendSimpleNumber {
 ; +EBP
+Push EBP
 ; EBP = ESP
     ; +All
     PushAD 
@@ -226,6 +229,7 @@
     ; -All
     PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -233,6 +237,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendKernelPanic {
 ; +EBP
+Push EBP
 ; EBP = ESP
     ; +All
     PushAD 
@@ -248,6 +253,7 @@
     ; -All
     PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -255,6 +261,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendSimpleLongNumber {
   ; +EBP
+  Push EBP
   ; EBP = ESP
   ; +All
   PushAD 
@@ -272,6 +279,7 @@
   ; -All
   PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -279,6 +287,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendComplexNumber {
   ; +EBP
+  Push EBP
   ; EBP = ESP
   ; +All
   PushAD 
@@ -294,6 +303,7 @@
   ; -All
   PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -301,6 +311,7 @@
 ; Modifies: EAX, ECX, EDX, ESI
 ; function SendComplexLongNumber {
   ; +EBP
+  Push EBP
   ; EBP = ESP
   ; +All
   PushAD 
@@ -318,6 +329,7 @@
   ; -All
   PopAD 
   ; -EBP
+  Pop EBP
 ; }
 
 ; Input: Stack
@@ -365,11 +377,13 @@
 ; function SendInterruptOccurred {
     ; Write the type
 	; +EAX
+	Push EAX
 
 		; AL = #Ds2Vs_InterruptOccurred
 		; ComWriteAL()
 
     ; -EAX
+    Pop EAX
 	; ComWriteEAX()
 ; }
 
@@ -416,22 +430,32 @@
 
 ; function SendCoreDump {
     ; +EAX
+    Push EAX
     ; +EBX
+    Push EBX
     ; +ECX
+    Push ECX
     ; +EDX
+    Push EDX
     ; +EDI
+    Push EDI
     ; +ESI
+    Push ESI
     ; EAX = @.CallerEBP
     ; +EAX
+    Push EAX
     ; EAX = @.CallerEIP
     ; +EAX
+    Push EAX
     ; EAX = @.CallerESP
     ; +EAX
+    Push EAX
     ; ECX = 36
     ; EAX = EBP
     ; while EAX != 0 {
         ; EAX -= 4
         ; +EAX
+        Push EAX
         ; ECX += 4
         ; EAX = [EAX]
     ; }
@@ -443,6 +467,7 @@
     ; ComWriteAX()
     ; while ECX != 0 {
         ; -EAX
+        Pop EAX
         ; ComWriteEAX()
         ; ECX--
         Dec ECX

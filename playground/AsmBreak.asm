@@ -51,7 +51,9 @@
 ; function SetINT1_TrapFLAG {
 	; Push EAX to make sure whatever we do below doesn't affect code afterwards
 	; +EBP
+	Push EBP
 	; +EAX
+	Push EAX
 
 	; Set base pointer to the caller ESP
 	; EBP = .CallerESP
@@ -69,13 +71,17 @@
 	
 	; Pop EAX - see +EAX at start of method
 	; -EAX
+	Pop EAX
 	; -EBP
+	Pop EBP
 ; }
 
 ; function ResetINT1_TrapFLAG {
 	; Push EAX to make sure whatever we do below doesn't affect code afterwards
 	; +EBP
+	Push EBP
 	; +EAX
+	Push EAX
 
 	; Set base pointer to the caller ESP
 	; EBP = .CallerESP
@@ -89,5 +95,7 @@
 	
 	; Pop EAX - see +EAX at start of method
 	; -EAX
+	Pop EAX
 	; -EBP
+	Pop EBP
 ; }

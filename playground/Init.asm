@@ -39,12 +39,14 @@
 
     ; Cosmos.Debug.Consts.Consts.SerialSignature
 	; +#Signature
+	Push DebugStub_Const_Signature
     ; ESI = ESP
 
     ; ComWrite32()
 
     ; Restore ESP, we actually dont care about EAX or the value on the stack anymore.
     ; -EAX
+    Pop EAX
 
     ; We could use the signature as the start signal, but I prefer
     ; to keep the logic separate, especially in DC.

@@ -15,7 +15,9 @@ namespace XSharp.Emitters
         {
         }
 
-        // MUST be before Reg,OpMath,... because of + vs ++
+        /// <summary>
+        /// Increments the decrement register.
+        /// </summary>
         [Emitter(typeof(Reg), typeof(OpIncDec))]
         protected void IncrementDecrementRegister(Register aRegister, string aOpIncrementDecrement)
         {
