@@ -1,8 +1,8 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name>X# Application Project</Name>
-        <Description>A project for creating an X# application.</Description>
-        <Icon Package="{D9EACD85-6E48-4C5F-95A2-51F85A57B517}" ID="3" />
+        <Name Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="3" />
+        <Description Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="4" />
+        <Icon Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="7" />
         <ProjectType>XSharp</ProjectType>
         <CreateNewFolder>true</CreateNewFolder>
         <DefaultName>XSharpProject</DefaultName>

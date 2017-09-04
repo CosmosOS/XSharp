@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.VS;
 using Microsoft.VisualStudio.Shell;
 
 using XSharp.ProjectSystem;
 
 [assembly: ProjectTypeRegistration(XSharpProjectSystemPackage.ProjectTypeGuid, "#1", "#2", "xsproj", "XSharp",
-    XSharpProjectSystemPackage.PackageGuid, Capabilities = XSharpProjectSystemPackage.InitialCapabilities,
+    XSharpProjectSystemPackage.PackageGuid, Capabilities = ProjectCapability.InitialCapabilities,
     ProjectTemplatesDir = "ProjectTemplates"/*, DisplayProjectTypeVsTemplate = "#1"*/)]
 
 namespace XSharp.ProjectSystem
 {
     [Guid(PackageGuid)]
-    [PackageRegistration(RegisterUsing = RegistrationMethod.CodeBase, UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true)]
     public sealed class XSharpProjectSystemPackage : Package
     {
         /// <summary>
@@ -26,18 +25,5 @@ namespace XSharp.ProjectSystem
         /// appears under the VS registry hive's Projects key.
         /// </summary>
         public const string ProjectTypeGuid = "68a6f609-e61d-4b95-b063-dbb124f0f0ac";
-
-        public const string InitialCapabilities = //ProjectCapability.AppDesigner + ";" +
-                                                  ProjectCapabilities.Cps + ";" +
-                                                  ProjectCapabilities.HandlesOwnReload + ";" +
-                                                  //ProjectCapabilities.HostSetActiveProjectConfiguration + ";" +
-                                                  //ProjectCapabilities.LanguageService + ";" +
-                                                  ProjectCapability.OpenProjectFile + ";" +
-                                                  //ProjectCapabilities.ProjectReferences + ";" +
-                                                  ProjectCapabilities.RunningInVisualStudio + ";" +
-                                                  //ProjectCapabilities.SdkReferences + ";" +
-                                                  //ProjectCapabilities.SingleFileGenerators + ";" +
-                                                  ProjectCapability.UseFileGlobs + ";" +
-                                                  ProjectCapability.XSharp;
     }
 }
