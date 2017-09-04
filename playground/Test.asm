@@ -7,3 +7,6 @@ Push DebugStub_Const_SomeConst
 Pop DebugStub_Var_testVar
 ; -@.testVar
 Pop [DebugStub_Var_testVar]
+
+; EAX = [EBX]
+Mov EAX, [EBX]

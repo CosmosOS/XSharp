@@ -4,3 +4,5 @@
 
 -.testVar
 -@.testVar
+
+EAX = [EBX]

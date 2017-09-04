@@ -38,6 +38,9 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg32), typeof(RegisterAddress));
 
             Add(OpCode.NOP);
 
@@ -56,6 +59,7 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Push, "0x{0:X}", typeof(i32u));
             Add(OpCode.Push, "{0}", typeof(Identifier));
             Add(OpCode.Push, "{0}", typeof(MemoryAddress));
+            Add(OpCode.Push, "{0}", typeof(RegisterAddress));
 
             Add(OpCode.PushAD);
 
@@ -67,6 +71,7 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Pop, "0x{0:X}", typeof(i32u));
             Add(OpCode.Pop, "{0}", typeof(Identifier));
             Add(OpCode.Pop, "{0}", typeof(MemoryAddress));
+            Add(OpCode.Pop, "{0}", typeof(RegisterAddress));
 
             Add(OpCode.PopAD);
             Add(OpCode.Ret);

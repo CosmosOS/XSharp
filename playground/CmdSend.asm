@@ -181,6 +181,7 @@ Push EBP
     ; ESI = EBP
     ; ESI += 12
     ; ECX = [ESI]
+    Mov ECX, [ESI]
     ; ComWrite16()
 
     ; Address of string
@@ -412,6 +413,7 @@ Push EBP
     ; ESI = EBP
     ; ESI += 12
     ; ECX = [ESI]
+    Mov ECX, [ESI]
     ; ComWrite16()
 
     ; Address of string
@@ -458,6 +460,7 @@ Push EBP
         Push EAX
         ; ECX += 4
         ; EAX = [EAX]
+        Mov EAX, [EAX]
     ; }
 
     ; Send command

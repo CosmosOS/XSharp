@@ -123,6 +123,7 @@
 	; DX = 0
 	; Get byte to send
   ; AL = [ESI]
+  Mov AL, [ESI]
 	; Send the byte
 	; WriteRegister()
 

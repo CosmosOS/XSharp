@@ -2,6 +2,8 @@
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
+using XSharp.x86.Params;
+using Reg = XSharp.Tokens.Reg;
 
 namespace XSharp.Emitters
 {
@@ -16,9 +18,10 @@ namespace XSharp.Emitters
         }
 
         // EAX = [EBX]
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket))]
-        protected void MemoryAssignToReg(Register aRegister, string aOpEquals, string aOpOpenBracket, Register aSourceRegister, string aOpCloseBracket)
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(RegAddr))]
+        protected void MemoryAssignToReg(Register aRegister, string aOpEquals, Address registerAddress)
         {
+            Asm.Emit(OpCode.Mov, aRegister, registerAddress);
         }
     }
 }

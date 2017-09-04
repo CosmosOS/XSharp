@@ -2,6 +2,8 @@
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
+using XSharp.x86.Params;
+using Reg = XSharp.Tokens.Reg;
 
 namespace XSharp.Emitters
 {
@@ -38,9 +40,10 @@ namespace XSharp.Emitters
         }
 
         [Emitter(typeof(OpPlus), typeof(VariableAddress))]
-        protected void PushVarAddr(string aOpPlus, object value)
+        protected void PushVarAddr(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Push, $"[{Compiler.GetPrefixForVar}{value}]");
+            value.AddressOf = $"{Compiler.GetPrefixForVar}{value.AddressOf}";
+            Asm.Emit(OpCode.Push, value);
         }
 
         // -Reg
@@ -66,9 +69,10 @@ namespace XSharp.Emitters
         }
 
         [Emitter(typeof(OpMinus), typeof(VariableAddress))]
-        protected void PopVarAddr(string aOpMinus, object value)
+        protected void PopVarAddr(string aOpMinus, Address value)
         {
-            Asm.Emit(OpCode.Pop, $"[{Compiler.GetPrefixForVar}{value}]");
+            value.AddressOf = $"{Compiler.GetPrefixForVar}{value.AddressOf}";
+            Asm.Emit(OpCode.Pop, value);
         }
     }
 }

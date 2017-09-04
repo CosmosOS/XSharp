@@ -21,6 +21,7 @@
 
     ; Get AL back so we can compare it, but also leave it for later
     ; EAX = [ESP]
+    Mov EAX, [ESP]
 
 	; if AL = #Vs2Ds_TraceOff {
 		; TraceOff()

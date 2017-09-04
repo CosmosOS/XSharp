@@ -35,6 +35,7 @@
     ; Read and copy string till 0 terminator
     ; while byte [ESI] != 0 {
 		; AL = [ESI]
+		Mov AL, [ESI]
 		; [EDI] = AL
 		; ESI++
 		Inc ESI

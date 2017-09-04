@@ -37,6 +37,7 @@ cli
 ; EBP += 32
 ; Caller EIP
 ; EAX = [EBP]
+Mov EAX, [EBP]
 
 ; 12 bytes for EFLAGS, CS, EIP
 ; EBP += 12

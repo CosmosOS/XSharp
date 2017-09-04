@@ -51,6 +51,7 @@
 		; This is a BP removal
 
 		; EDI = [EBX]
+		Mov EDI, [EBX]
 		; AL = $90
 		; [EDI] = AL
 
@@ -59,6 +60,7 @@
 
     ; [EBX] = ECX
 	; EDI = [EBX]
+	Mov EDI, [EBX]
 	; AL = $CC
 	; [EDI] = AL
 
@@ -89,6 +91,7 @@
 	; Set EAX to be the value at the address stored by EAX
 	; I.e. the ASM address of the BP with BP Id of ECX (if there is one - it will be 0 if no BP at this BP Id)
 	; EAX = [EBX]
+	Mov EAX, [EBX]
 	; If it isn't 0 there must be a BP at this address
 	; if EAX != 0 {
 

@@ -28,6 +28,7 @@
 
   ; Save the old byte
   ; AL = [EDI]
+  Mov AL, [EDI]
   ; .AsmOrigByte = AL
 
   ; Inject INT3
@@ -64,6 +65,7 @@
 	; - Therefore, ESP - 4 to get to the correct position
 	; EBP -= 4
 	; EAX = [EBP]
+	Mov EAX, [EBP]
 	; EAX | $0100
 	; [EBP] = EAX
 
@@ -90,6 +92,7 @@
 	; See comment in SetINT1_TrapFlag
 	; EBP -= 4
 	; EAX = [EBP]
+	Mov EAX, [EBP]
 	; EAX & $FEFF
 	; [EBP] = EAX
 	

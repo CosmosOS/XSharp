@@ -1,8 +1,11 @@
-﻿namespace XSharp.Tokens
+﻿using XSharp.x86.Params;
+
+namespace XSharp.Tokens
 {
     public class Variable : Identifier
     {
-        public Variable() {
+        public Variable()
+        {
             mFirstChars = ".";
         }
 
@@ -44,7 +47,7 @@
 
         protected override object Transform(string aText)
         {
-            return aText.Substring(2);
+            return new Address(aText.Substring(2));
         }
     }
 }
