@@ -54,6 +54,7 @@ MOV EAX, DR6
 ; EAX & $4000
 ; if EAX != $4000 {
 	; EBX--
+	Dec EBX
 ; }
 ; EAX = EBX
 

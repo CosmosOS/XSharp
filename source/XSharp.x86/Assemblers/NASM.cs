@@ -20,12 +20,20 @@ namespace XSharp.x86.Assemblers
 
             // Add in alphabetical order from here
 
+            Add(OpCode.Dec, "{0}", typeof(Reg08));
+            Add(OpCode.Dec, "{0}", typeof(Reg16));
+            Add(OpCode.Dec, "{0}", typeof(Reg32));
+
             Add(OpCode.In, "{0}, {1}", typeof(Reg08), typeof(Reg16));
             Add(OpCode.In, "{0}, {1}", typeof(Reg16), typeof(Reg16));
             Add(OpCode.In, "{0}, {1}", typeof(Reg32), typeof(Reg16));
             Add(OpCode.In, "{0}, {1}", typeof(Reg08), typeof(i08u));
             Add(OpCode.In, "{0}, {1}", typeof(Reg16), typeof(i08u));
             Add(OpCode.In, "{0}, {1}", typeof(Reg32), typeof(i08u));
+
+            Add(OpCode.Inc, "{0}", typeof(Reg08));
+            Add(OpCode.Inc, "{0}", typeof(Reg16));
+            Add(OpCode.Inc, "{0}", typeof(Reg32));
 
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));

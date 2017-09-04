@@ -21,15 +21,6 @@ namespace XSharp.Emitters
         }
 
         // ===============================================================
-        // Register ops without data params (Inc, Dec, etc)
-
-        // MUST be before Reg,OpMath,... because of + vs ++
-        [Emitter(typeof(Reg), typeof(OpIncDec))]
-        protected void IncrementDecrement(Register aRegister, object aOpIncrementDecrement)
-        {
-        }
-
-        // ===============================================================
         // Reg =
 
         // EAX = [EBX]

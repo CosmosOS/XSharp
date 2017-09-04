@@ -75,6 +75,7 @@
 	; Scan backwards to find the highest BP Id
 ; FindBPLoop:
 	; ECX--
+	Dec ECX
 
 	; Load the current BP Id we are testing against
 	; EBX = @.DebugBPs
@@ -93,6 +94,7 @@
 		; Add 1 to the Id because the old searching loop (see Executing()) started at 256 so i guess we should allow for that.
 		; Plus it means 0 can indicate no BPs
 		; ECX++
+		Inc ECX
 		; .MaxBPId = ECX
 		; goto Continue
 	; }

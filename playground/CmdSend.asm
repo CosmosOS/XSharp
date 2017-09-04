@@ -61,6 +61,7 @@
     ; while ECX != 0 {
         ; ComWrite8()
         ; ECX--
+        Dec ECX
     ; }
 ; }
 
@@ -108,6 +109,7 @@
     ; while ECX != 0 {
         ; ComWrite8()
         ; ECX--
+        Dec ECX
     ; }
 
 ; Exit:
@@ -139,6 +141,7 @@
     ; while ECX != 0 {
         ; ComWrite8()
         ; ECX--
+        Dec ECX
     ; }
 
 ; Exit:
@@ -185,9 +188,11 @@
     ; if ECX = 0 goto Finalize
     ; ComWrite8()
     ; ECX--
+    Dec ECX
     ; We are storing as 16 bits, but for now I will transmit 8 bits
     ; So we inc again to skip the 0
     ; ESI++
+    Inc ESI
     ; goto WriteChar
 
     ; Write Length
@@ -401,9 +406,11 @@
     ; if ECX = 0 return
     ; ComWrite8()
     ; ECX--
+    Dec ECX
     ; We are storing as 16 bits, but for now I will transmit 8 bits
     ; So we inc again to skip the 0
     ; ESI++
+    Inc ESI
     ; goto WriteChar
 ; }
 
@@ -438,5 +445,6 @@
         ; -EAX
         ; ComWriteEAX()
         ; ECX--
+        Dec ECX
     ; }
 ; }

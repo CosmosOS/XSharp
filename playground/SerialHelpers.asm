@@ -79,5 +79,6 @@
 ; More:
 	; ComWrite8()
 	; ECX--
+	Dec ECX
 	; if !0 goto More
 ; }

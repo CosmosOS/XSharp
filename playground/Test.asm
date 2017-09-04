@@ -11,6 +11,7 @@
     ; //! nop
     nop
 	; EAX++
+	Inc EAX
 
     ; AH = 0
     ; AH = $FF

@@ -16,10 +16,12 @@
 		; Text
 		; [ESI] = $00
 		; ESI++
+		Inc ESI
 
 		; Colour
 		; [ESI] = $0A
 		; ESI++
+		Inc ESI
 	; }
 ; }
 
@@ -35,6 +37,7 @@
 		; AL = [ESI]
 		; [EDI] = AL
 		; ESI++
+		Inc ESI
 		; EDI += 2
 	; }
 ; }

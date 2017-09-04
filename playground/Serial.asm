@@ -125,6 +125,7 @@
 	; WriteRegister()
 
 	; ESI++
+	Inc ESI
 ; }
 
 ; //! %endif
