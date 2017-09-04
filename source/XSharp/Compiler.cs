@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using XSharp.x86.Assemblers;
 
 namespace XSharp
@@ -22,8 +19,10 @@ namespace XSharp
         {
             Out = aOut;
             mNASM = new NASM(aOut);
-            var xEmitters = new Emitters.Emitters(this, mNASM);
-            mTokenMap = new Spruce.Tokens.Root(xEmitters);
+
+            mTokenMap = new Spruce.Tokens.Root();
+            mTokenMap.AddEmitter(new Emitters.Comments(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 
         public void WriteLine(string aText = "")

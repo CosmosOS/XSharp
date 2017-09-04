@@ -6,8 +6,12 @@ namespace XSharp.Emitters
 {
     // ===============================================================
     // Things that start with //
-    public partial class Emitters
+    public class Comments : Emitters
     {
+        public Comments(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)
+        {
+        }
+
         /// <summary>
         /// Literal NASM output. The text will be directly printed out by
         /// the compiler and will not be processed
