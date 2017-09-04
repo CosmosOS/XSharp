@@ -106,13 +106,6 @@ namespace XSharp.Emitters
         {
         }
 
-        [Emitter(typeof(Reg08), typeof(TestKeyword), typeof(Int08u))]
-        [Emitter(typeof(Reg16), typeof(TestKeyword), typeof(Int16u))]
-        [Emitter(typeof(Reg32), typeof(TestKeyword), typeof(Int32u))]
-        protected void Test(Register aRegister, string aTestKeyword, object aValue)
-        {
-        }
-
         // +Reg
         [Emitter(typeof(OpPlus), typeof(Reg))]
         [Emitter(typeof(OpPlus), typeof(Const))]

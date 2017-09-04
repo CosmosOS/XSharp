@@ -27,9 +27,9 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.In, "{0}, {1}", typeof(Reg08), typeof(Reg16));
             Add(OpCode.In, "{0}, {1}", typeof(Reg16), typeof(Reg16));
             Add(OpCode.In, "{0}, {1}", typeof(Reg32), typeof(Reg16));
-            Add(OpCode.In, "{0}, {1}", typeof(Reg08), typeof(i08u));
-            Add(OpCode.In, "{0}, {1}", typeof(Reg16), typeof(i08u));
-            Add(OpCode.In, "{0}, {1}", typeof(Reg32), typeof(i08u));
+            Add(OpCode.In, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.In, "{0}, 0x{1:X}", typeof(Reg16), typeof(i08u));
+            Add(OpCode.In, "{0}, 0x{1:X}", typeof(Reg32), typeof(i08u));
 
             Add(OpCode.Inc, "{0}", typeof(Reg08));
             Add(OpCode.Inc, "{0}", typeof(Reg16));
@@ -44,13 +44,17 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg08));
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg16));
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg32));
-            Add(OpCode.Out, "{0}, {1}", typeof(i08u), typeof(Reg08));
-            Add(OpCode.Out, "{0}, {1}", typeof(i08u), typeof(Reg16));
-            Add(OpCode.Out, "{0}, {1}", typeof(i08u), typeof(Reg32));
+            Add(OpCode.Out, "0x{0:X}, {1}", typeof(i08u), typeof(Reg08));
+            Add(OpCode.Out, "0x{0:X}, {1}", typeof(i08u), typeof(Reg16));
+            Add(OpCode.Out, "0x{0:X}, {1}", typeof(i08u), typeof(Reg32));
 
             Add(OpCode.PushAD);
             Add(OpCode.PopAD);
             Add(OpCode.Ret);
+
+            Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
         }
 
         protected void Add(OpCode aOpCode, string aOutput = null, params Type[] aParamTypes)

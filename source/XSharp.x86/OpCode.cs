@@ -35,6 +35,7 @@ namespace XSharp.x86
         Out,    // Out
         PopAD,  // Pop all
         PushAD, // Push all
-        Ret     //  Return
+        Ret,    // Return
+        Test,   // Test - logical compare
     }
 }

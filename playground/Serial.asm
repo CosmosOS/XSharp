@@ -87,6 +87,7 @@
 ; Wait:
     ; ReadRegister()
     ; AL test $01
+    Test AL, 0x1
     ; if 0 goto Wait
 
 	; DX = 0
@@ -115,6 +116,7 @@
 ; Wait:
     ; ReadRegister()
 	  ; AL test $20
+	  Test AL, 0x20
 	  ; if 0 goto Wait
 
   ; Set address of port

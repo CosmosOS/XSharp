@@ -248,6 +248,7 @@
 	  ; DX = 5
     ; ReadRegister()
     ; AL test 1
+    Test AL, 0x1
     ; If a command is waiting, process it and then check for another.
     ; If no command waiting, break from loop.
 	; if !0 {

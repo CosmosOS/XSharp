@@ -25,6 +25,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new Emitters.Ports(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.IncrementDecrement(this, mNASM)); // This should be above + operator
             mTokenMap.AddEmitter(new Emitters.ZeroParamOps(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 

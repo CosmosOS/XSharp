@@ -36,9 +36,9 @@
 ; PORT[DX] = AL
 Out DX, AL
 ; PORT[1] = EAX
-Out 1, EAX
+Out 0x1, EAX
 ; AL = PORT[1]
-In AL, 1
+In AL, 0x1
 ; AX = PORT[DX]
 In AX, DX
 
