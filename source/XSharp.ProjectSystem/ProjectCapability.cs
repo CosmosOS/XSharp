@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.ProjectSystem;
 
 namespace XSharp.ProjectSystem
 {
@@ -12,5 +8,18 @@ namespace XSharp.ProjectSystem
         public const string OpenProjectFile = "OpenProjectFile";
         public const string UseFileGlobs = "UseFileGlobs";
         public const string XSharp = "XSharp";
+        
+        public const string InitialCapabilities = //ProjectCapability.AppDesigner + ";" +
+                                                  ProjectCapabilities.Cps + ";" +
+                                                  ProjectCapabilities.HandlesOwnReload + ";" +
+                                                  //ProjectCapabilities.HostSetActiveProjectConfiguration + ";" +
+                                                  //ProjectCapabilities.LanguageService + ";" +
+                                                  ProjectCapability.OpenProjectFile + ";" +
+                                                  //ProjectCapabilities.ProjectReferences + ";" +
+                                                  ProjectCapabilities.RunningInVisualStudio + ";" +
+                                                  //ProjectCapabilities.SdkReferences + ";" +
+                                                  //ProjectCapabilities.SingleFileGenerators + ";" +
+                                                  ProjectCapability.UseFileGlobs + ";" +
+                                                  ProjectCapability.XSharp;
     }
 }
