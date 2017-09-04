@@ -106,15 +106,6 @@ namespace XSharp.Emitters
         {
         }
 
-        [Emitter(typeof(NOP))]
-        [Emitter(typeof(Return))]
-        [Emitter(typeof(PushAll))]
-        [Emitter(typeof(PopAll))]
-        protected void ZeroParamOp(OpCode aOpCode)
-        {
-            Asm.Emit(aOpCode);
-        }
-
         [Emitter(typeof(Reg08), typeof(TestKeyword), typeof(Int08u))]
         [Emitter(typeof(Reg16), typeof(TestKeyword), typeof(Int16u))]
         [Emitter(typeof(Reg32), typeof(TestKeyword), typeof(Int32u))]
