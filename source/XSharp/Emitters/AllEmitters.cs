@@ -19,12 +19,6 @@ namespace XSharp.Emitters
         // ===============================================================
         // Reg =
 
-        // EAX = [EBX]
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket))]
-        protected void MemoryAssignToReg(Register aRegister, string aOpEquals, string aOpOpenBracket, Register aSourceRegister, string aOpCloseBracket)
-        {
-        }
-
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Variable), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Variable), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]

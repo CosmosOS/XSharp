@@ -54,7 +54,8 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Push, "0x{0:X}", typeof(i08u));
             Add(OpCode.Push, "0x{0:X}", typeof(i16u));
             Add(OpCode.Push, "0x{0:X}", typeof(i32u));
-            Add(OpCode.Push, "{0}", typeof(SingleWord));
+            Add(OpCode.Push, "{0}", typeof(Identifier));
+            Add(OpCode.Push, "{0}", typeof(MemoryAddress));
 
             Add(OpCode.PushAD);
 
@@ -64,7 +65,8 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Pop, "0x{0:X}", typeof(i08u));
             Add(OpCode.Pop, "0x{0:X}", typeof(i16u));
             Add(OpCode.Pop, "0x{0:X}", typeof(i32u));
-            Add(OpCode.Pop, "{0}", typeof(SingleWord));
+            Add(OpCode.Pop, "{0}", typeof(Identifier));
+            Add(OpCode.Pop, "{0}", typeof(MemoryAddress));
 
             Add(OpCode.PopAD);
             Add(OpCode.Ret);
