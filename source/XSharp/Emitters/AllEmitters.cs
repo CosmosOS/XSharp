@@ -17,21 +17,6 @@ namespace XSharp.Emitters
         // Keywords
 
         // ===============================================================
-        // Reg =
-
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, object source)
-        {
-        }
-
-        // ===============================================================
 
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int16u))]

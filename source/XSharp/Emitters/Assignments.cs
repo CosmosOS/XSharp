@@ -100,5 +100,17 @@ namespace XSharp.Emitters
         {
             Asm.Emit(OpCode.Mov, aDestReg, aDestReg.RegSize, new Address(aSrc, aOffset, aOp == "-"));
         }
+
+        // [AX + 12] = EAX => mov dword [AX + 12], EAX
+        [Emitter(typeof(OpOpenBracket), typeof(Reg08), typeof(OpPlus), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg16), typeof(OpPlus), typeof(Int16u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg32), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg08), typeof(OpMinus), typeof(Int08u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg16), typeof(OpMinus), typeof(Int16u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(OpOpenBracket), typeof(Reg32), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
+        protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, Register source)
+        {
+            Asm.Emit(OpCode.Mov, source.RegSize, new Address(aTargetRegisterRoot, aOffset, aOpOperator == "-"), source);
+        }
     }
 }

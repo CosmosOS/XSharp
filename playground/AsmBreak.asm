@@ -15,6 +15,7 @@
 	; EAX = .AsmBreakEIP
 	Mov EAX, DWORD [DebugStub_Var_AsmBreakEIP]
 	; [ESI-12] = EAX
+	Mov DWORD [ESI - 12], EAX
 
 	; ClearAsmBreak()
   ; Break()

@@ -1,4 +1,3 @@
 ﻿namespace DebugStub
 
-ESI = [EBP-1]
-
+[AX + 12] = EAX
