@@ -36,6 +36,7 @@
     ; BP ID Number is sent after BP Address, because
     ; reading BP address uses AL (EAX).
     ; EAX = 0
+    Mov EAX, 0x0
     ; ComReadAL()
 
     ; Push EAX so we preserve it for later
@@ -45,6 +46,7 @@
 	; Calculate location in table
     ; Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
 	; EBX = @.DebugBPs
+	Mov EBX, DebugStub_Const_DebugBPs
     ; EAX << 2
     ; EBX += EAX
 
@@ -52,18 +54,23 @@
 		; This is a BP removal
 
 		; EDI = [EBX]
-		Mov EDI, [EBX]
+		Mov EDI, DWORD [EBX]
 		; AL = $90
+		Mov AL, 0x90
 		; [EDI] = AL
+		Mov BYTE [EDI], AL
 
 		; goto DontSetBP
 	; }
 
     ; [EBX] = ECX
+    Mov DWORD [EBX], ECX
 	; EDI = [EBX]
-	Mov EDI, [EBX]
+	Mov EDI, DWORD [EBX]
 	; AL = $CC
+	Mov AL, 0xCC
 	; [EDI] = AL
+	Mov BYTE [EDI], AL
 
 ; DontSetBP:
 
@@ -77,6 +84,7 @@
 
 	; Scan to find our highest BP Id
 	; ECX = 256
+	Mov ECX, 0x100
 	; Scan backwards to find the highest BP Id
 ; FindBPLoop:
 	; ECX--
@@ -84,6 +92,7 @@
 
 	; Load the current BP Id we are testing against
 	; EBX = @.DebugBPs
+	Mov EBX, DebugStub_Const_DebugBPs
 	; EAX = ECX
 	Mov EAX, ECX
 	; 4 bytes per Id
@@ -93,7 +102,7 @@
 	; Set EAX to be the value at the address stored by EAX
 	; I.e. the ASM address of the BP with BP Id of ECX (if there is one - it will be 0 if no BP at this BP Id)
 	; EAX = [EBX]
-	Mov EAX, [EBX]
+	Mov EAX, DWORD [EBX]
 	; If it isn't 0 there must be a BP at this address
 	; if EAX != 0 {
 
@@ -132,7 +141,9 @@
     ; EDI = EAX
     Mov EDI, EAX
 	; AL = $CC
+	Mov AL, 0xCC
 	; [EDI] = AL
+	Mov BYTE [EDI], AL
 
 ; Exit:
 	; -All
@@ -148,7 +159,9 @@
     ; EDI = EAX
     Mov EDI, EAX
 	; AL = $90
+	Mov AL, 0x90
 	; [EDI] = AL
+	Mov BYTE [EDI], AL
 
 ; Exit:
 	; -All
@@ -181,6 +194,7 @@
     ; CheckForAsmBreak must come before CheckForBreakpoint. They could exist for the same EIP.
 	; Check for asm break
     ; EAX = .CallerEIP
+    Mov EAX, DWORD [DebugStub_Var_CallerEIP]
     ; AsmBreakEIP is 0 when disabled, but EIP can never be 0 so we dont need a separate check.
 	; if EAX = .AsmBreakEIP {
 		; DoAsmBreak()
@@ -196,14 +210,18 @@
 
 	; If there are 0 BPs, skip scan - easy and should have a good increase
     ; EAX = .MaxBPId
+    Mov EAX, DWORD [DebugStub_Var_MaxBPId]
 	; if EAX = 0 {
 		; goto SkipBPScan
 	; }
 
 	; Only search backwards from the maximum BP Id - no point searching for before that
 	; EAX = .CallerEIP
+	Mov EAX, DWORD [DebugStub_Var_CallerEIP]
     ; EDI = @.DebugBPs
+    Mov EDI, DebugStub_Const_DebugBPs
     ; ECX = .MaxBPId
+    Mov ECX, DWORD [DebugStub_Var_MaxBPId]
 	; //! repne scasd
 	repne scasd
 	; if = {
@@ -223,6 +241,7 @@
 
 	; .CallerEBP is the stack on method entry.
 	; EAX = .CallerEBP
+	Mov EAX, DWORD [DebugStub_Var_CallerEBP]
 
 	; F10
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Over {
@@ -255,6 +274,7 @@
     ; if there isn't one already here. This is a non blocking check.
 ; CheckForCmd:
 	  ; DX = 5
+	  Mov DX, 0x5
     ; ReadRegister()
     ; AL test 1
     Test AL, 0x1
@@ -309,6 +329,7 @@
     ; if AL = #Vs2Ds_StepOver {
         ; .DebugBreakOnNextTrace = #StepTrigger_Over
         ; EAX = .CallerEBP
+        Mov EAX, DWORD [DebugStub_Var_CallerEBP]
         ; .BreakEBP = EAX
 	    ; goto Done
 	; }
@@ -316,6 +337,7 @@
     ; if AL = #Vs2Ds_StepOut {
         ; .DebugBreakOnNextTrace = #StepTrigger_Out
         ; EAX = .CallerEBP
+        Mov EAX, DWORD [DebugStub_Var_CallerEBP]
         ; .BreakEBP = EAX
 	    ; goto Done
 	; }

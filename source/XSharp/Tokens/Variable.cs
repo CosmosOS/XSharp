@@ -21,7 +21,7 @@ namespace XSharp.Tokens
 
         protected override object Transform(string aText)
         {
-            return aText.Substring(1);
+            return new Address(aText.Substring(1));
         }
     }
 
@@ -47,7 +47,7 @@ namespace XSharp.Tokens
 
         protected override object Transform(string aText)
         {
-            return new Address(aText.Substring(2));
+            return aText.Substring(2);
         }
     }
 }

@@ -38,12 +38,16 @@
 ; function InitSerial {
 	; Disable interrupts
   ; DX = 1
+  Mov DX, 0x1
 	; AL = 0
+	Mov AL, 0x0
   ; WriteRegister()
 
 	; Enable DLAB (set baud rate divisor)
 	; DX = 3
+	Mov DX, 0x3
 	; AL = $80
+	Mov AL, 0x80
 	; WriteRegister()
 
 	; 0x01, 0x00 - 115200
@@ -51,17 +55,23 @@
 	; 0x03, 0x00 - 38400
 	; Set divisor (lo byte)
 	; DX = 0
+	Mov DX, 0x0
 	; AL = $01
+	Mov AL, 0x1
 	; WriteRegister()
 
 	; hi byte
 	; DX = 1
+	Mov DX, 0x1
 	; AL = $00
+	Mov AL, 0x0
 	; WriteRegister()
 
 	; 8N1
 	; DX = 3
+	Mov DX, 0x3
 	; AL = $03
+	Mov AL, 0x3
 	; WriteRegister()
 
 	; Enable FIFO, clear them
@@ -69,7 +79,9 @@
 	; We dont use IRQ, but you cant set it to 0
 	; either. IRQ is enabled/disabled separately
   ; DX = 2
+  Mov DX, 0x2
 	; AL = $C7
+	Mov AL, 0xC7
 	; WriteRegister()
 
 	; 0x20 AFE Automatic Flow control Enable - 16550 (VMWare uses 16550A) is most common and does not support it
@@ -77,13 +89,16 @@
 	; 0x01 DTR
 	; Send 0x03 if no AFE
 	; DX = 4
+	Mov DX, 0x4
 	; AL = $03
+	Mov AL, 0x3
 	; WriteRegister()
 ; }
 
 ; Modifies: AL, DX
 ; function ComReadAL {
 	; DX = 5
+	Mov DX, 0x5
 ; Wait:
     ; ReadRegister()
     ; AL test $01
@@ -91,6 +106,7 @@
     ; if 0 goto Wait
 
 	; DX = 0
+	Mov DX, 0x0
   ; ReadRegister()
 ; }
 
@@ -110,6 +126,7 @@
 	; Sucks again to use DX just for this, but x86 only supports
 	; 8 bit address for literals on ports
 	; DX = 5
+	Mov DX, 0x5
 
 	; Wait for serial port to be ready
 	; Bit 5 (0x20) test for Transmit Holding Register to be empty.
@@ -121,9 +138,10 @@
 
   ; Set address of port
 	; DX = 0
+	Mov DX, 0x0
 	; Get byte to send
   ; AL = [ESI]
-  Mov AL, [ESI]
+  Mov AL, BYTE [ESI]
 	; Send the byte
 	; WriteRegister()
 

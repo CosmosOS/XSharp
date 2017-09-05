@@ -16,6 +16,7 @@
 ; function ComRead8  {
     ; ComReadAL()
     ; [EDI] = AL
+    Mov BYTE [EDI], AL
     ; EDI += 1
 ; }
 ; function ComRead16 {

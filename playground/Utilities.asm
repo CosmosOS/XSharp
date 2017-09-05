@@ -13,7 +13,7 @@
     ; if EBX != ESP {
         ; stack corruption.
         ; EAX = [ESP]
-        Mov EAX, [ESP]
+        Mov EAX, DWORD [ESP]
         ; .CallerEIP = EAX
         ; SendStackCorruptionOccurred()
       ; halt:

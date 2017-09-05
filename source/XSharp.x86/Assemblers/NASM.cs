@@ -41,9 +41,20 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Mov, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
-            Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(RegisterAddress));
-            Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(RegisterAddress));
-            Add(OpCode.Mov, "{0}, {1}", typeof(Reg32), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg08), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg16), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg32), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg08), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg16), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Mov, "{0}, {1} {2}", typeof(Reg32), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg08));
+            Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg16));
+            Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg32));
+            Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Identifier));
+            Add(OpCode.Mov, "{0} {1}, 0x{2:X}", typeof(Size), typeof(RegisterAddress), typeof(i32u));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(Identifier));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(Identifier));
+            Add(OpCode.Mov, "{0}, {1}", typeof(Reg32), typeof(Identifier));
 
             Add(OpCode.NOP);
 

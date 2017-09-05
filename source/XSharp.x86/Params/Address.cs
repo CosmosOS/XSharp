@@ -1,4 +1,6 @@
-﻿namespace XSharp.x86.Params
+﻿using System;
+
+namespace XSharp.x86.Params
 {
     public class MemoryAddress : Identifier
     {
@@ -33,7 +35,7 @@
     /// </summary>
     public class Address
     {
-        public object AddressOf { get; set; }
+        public object AddressOf { get; private set; }
 
         public Address(Register addressOf)
         {
@@ -43,6 +45,16 @@
         public Address(string label)
         {
             AddressOf = label;
+        }
+
+        public Address AddPrefix(string prefix)
+        {
+            if (!(AddressOf is string))
+            {
+                throw new Exception("Prefix can only be added to a string type.");
+            }
+            AddressOf = prefix + AddressOf;
+            return this;
         }
     }
 }

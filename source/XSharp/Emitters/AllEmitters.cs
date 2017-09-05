@@ -27,13 +27,6 @@ namespace XSharp.Emitters
         {
         }
 
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Int32u))]
-        protected void ValueAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpCloseBracket, string aOpEquals, object source)
-        {
-        }
-
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpPlus), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket), typeof(OpEquals), typeof(Reg))]
@@ -46,33 +39,6 @@ namespace XSharp.Emitters
         {
         }
 
-        // Don't use Reg. This method ensures proper data sizes.
-        // This could be combined with RegAssignReg by using object type for last arg, but this is a bit cleaner to separate.
-        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
-        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
-        protected void RegAssigNum(Register aDestReg, string aEquals, object aVal)
-        {
-            int i = 4;
-            //Asm.Emit(OpCode.Mov, aDestReg, aSrcReg);
-        }
-
-        // OLD to be deprecated in G2. Use EAX = [EBX + 4] instead
-        // EAX = EBX[4]
-        //[Emitter(typeof(Reg32), typeof(OpEquals), typeof(Reg32), typeof(OpOpenBracket), typeof(Int08u), typeof(OpCloseBracket))]
-        //protected void RegTest3(object a1, object a2, object a3, object a4, object a5, object a6) {
-        //    int i = 4;
-        //}
-
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(Const))]
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(VariableAddress))]
-        protected void RegAssigOther(Register aReg, string aEquals, object aVal)
-        {
-            int i = 4;
-            //Asm.Emit(OpCode.Mov, aReg, aVal);
-        }
-
         // ===============================================================
 
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
@@ -82,7 +48,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(VariableAddress))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Reg))]
-        protected void VariableAssignment(string aVariableName, string aOpEquals, object aValue)
+        protected void VariableAssignment(object aVariableName, string aOpEquals, object aValue)
         {
         }
 

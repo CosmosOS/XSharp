@@ -3,30 +3,39 @@
 ; function SendRegisters {
     ; Send the actual started signal
     ; AL = #Ds2Vs_Registers
+    Mov AL, DebugStub_Const_Ds2Vs_Registers
     ; ComWriteAL()
 
     ; ESI = .PushAllPtr
+    Mov ESI, DWORD [DebugStub_Var_PushAllPtr]
     ; ECX = 32
+    Mov ECX, 0x20
     ; ComWriteX()
 
     ; ESI = @.CallerESP
+    Mov ESI, DebugStub_Const_CallerESP
     ; ComWrite32()
 
     ; ESI = @.CallerEIP
+    Mov ESI, DebugStub_Const_CallerEIP
     ; ComWrite32()
 ; }
 
 ; function SendFrame {
     ; AL = #Ds2Vs_Frame
+    Mov AL, DebugStub_Const_Ds2Vs_Frame
     ; ComWriteAL()
 
     ; EAX = 32
+    Mov EAX, 0x20
     ; ComWriteAX()
 
     ; ESI = .CallerEBP
+    Mov ESI, DWORD [DebugStub_Var_CallerEBP]
     ; Dont transmit EIP or old EBP
     ; ESI += 8
     ; ECX = 32
+    Mov ECX, 0x20
     ; ComWriteX()
 ; }
 
@@ -69,17 +78,21 @@
 
 ; function SendStack {
     ; AL = #Ds2Vs_Stack
+    Mov AL, DebugStub_Const_Ds2Vs_Stack
     ; ComWriteAL()
 
     ; Send size of bytes
     ; ESI = .CallerESP
+    Mov ESI, DWORD [DebugStub_Var_CallerESP]
     ; EAX = .CallerEBP
+    Mov EAX, DWORD [DebugStub_Var_CallerEBP]
     ; EAX -= ESI
     ; ComWriteAX()
 
     ; Send actual bytes
     ; Need to reload ESI, WriteAXToCompPort modifies it
     ; ESI = .CallerESP
+    Mov ESI, DWORD [DebugStub_Var_CallerESP]
     ; while ESI != .CallerEBP {
         ; ComWrite8()
     ; }
@@ -94,9 +107,11 @@
     PushAD 
 
     ; AL = #Ds2Vs_MethodContext
+    Mov AL, DebugStub_Const_Ds2Vs_MethodContext
     ; ComWriteAL()
 
     ; ESI = .CallerEBP
+    Mov ESI, DWORD [DebugStub_Var_CallerEBP]
 
     ; offset relative to ebp
     ; size of data to send
@@ -132,6 +147,7 @@
     PushAD 
 
     ; AL = #Ds2Vs_MemoryData
+    Mov AL, DebugStub_Const_Ds2Vs_MemoryData
     ; ComWriteAL()
 
     ; ComReadEAX()
@@ -157,15 +173,18 @@
 ; Modifies: EAX, ESI
 ; function SendTrace {
     ; AL = #Ds2Vs_BreakPoint
+    Mov AL, DebugStub_Const_Ds2Vs_BreakPoint
     ; If we are running, its a tracepoint, not a breakpoint.
     ; In future, maybe separate these into 2 methods
     ; if dword .DebugStatus = #Status_Run {
         ; AL = #Ds2Vs_TracePoint
+        Mov AL, DebugStub_Const_Ds2Vs_TracePoint
     ; }
     ; ComWriteAL()
 
     ; Send Calling EIP.
     ; ESI = @.CallerEIP
+    Mov ESI, DebugStub_Const_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -181,6 +200,7 @@ Mov EBP, ESP
     PushAD 
     ; Write the type
     ; AL = #Ds2Vs_Message
+    Mov AL, DebugStub_Const_Ds2Vs_Message
     ; ComWriteAL()
 
     ; Write Length
@@ -188,7 +208,7 @@ Mov EBP, ESP
     Mov ESI, EBP
     ; ESI += 12
     ; ECX = [ESI]
-    Mov ECX, [ESI]
+    Mov ECX, DWORD [ESI]
     ; ComWrite16()
 
     ; Address of string
@@ -229,6 +249,7 @@ Mov EBP, ESP
     PushAD 
     ; Write the type
     ; AL = #Ds2Vs_SimpleNumber
+    Mov AL, DebugStub_Const_Ds2Vs_SimpleNumber
     ; ComWriteAL()
 
     ; Write value
@@ -253,6 +274,7 @@ Mov EBP, ESP
     PushAD 
     ; Write the type
     ; AL = #Ds2Vs_KernelPanic
+    Mov AL, DebugStub_Const_Ds2Vs_KernelPanic
     ; ComWriteAL()
 
     ; Write value
@@ -279,6 +301,7 @@ Mov EBP, ESP
 
   ; Write the type
   ; AL = #Ds2Vs_SimpleLongNumber
+  Mov AL, DebugStub_Const_Ds2Vs_SimpleLongNumber
   ; ComWriteAL()
 
   ; Write value
@@ -306,6 +329,7 @@ Mov EBP, ESP
 
   ; Write the type
   ; AL = #Ds2Vs_ComplexNumber
+  Mov AL, DebugStub_Const_Ds2Vs_ComplexNumber
   ; ComWriteAL()
 
   ; Write value
@@ -331,6 +355,7 @@ Mov EBP, ESP
 
   ; Write the type
   ; AL = #Ds2Vs_ComplexLongNumber
+  Mov AL, DebugStub_Const_Ds2Vs_ComplexLongNumber
   ; ComWriteAL()
 
   ; Write value
@@ -351,6 +376,7 @@ Mov EBP, ESP
 ; function SendPtr {
     ; Write the type
     ; AL = #Ds2Vs_Pointer
+    Mov AL, DebugStub_Const_Ds2Vs_Pointer
     ; ComWriteAL()
 
     ; pointer value
@@ -364,10 +390,12 @@ Mov EBP, ESP
 ; function SendStackCorruptionOccurred {
     ; Write the type
     ; AL = #Ds2Vs_StackCorruptionOccurred
+    Mov AL, DebugStub_Const_Ds2Vs_StackCorruptionOccurred
     ; ComWriteAL()
 
     ; pointer value
     ; ESI = @.CallerEIP
+    Mov ESI, DebugStub_Const_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -377,10 +405,12 @@ Mov EBP, ESP
 ; function SendStackOverflowOccurred {
     ; Write the type
     ; AL = #Ds2Vs_StackOverflowOccurred
+    Mov AL, DebugStub_Const_Ds2Vs_StackOverflowOccurred
     ; ComWriteAL()
 
     ; pointer value
     ; ESI = @.CallerEIP
+    Mov ESI, DebugStub_Const_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -393,6 +423,7 @@ Mov EBP, ESP
 	Push EAX
 
 		; AL = #Ds2Vs_InterruptOccurred
+		Mov AL, DebugStub_Const_Ds2Vs_InterruptOccurred
 		; ComWriteAL()
 
     ; -EAX
@@ -406,10 +437,12 @@ Mov EBP, ESP
 ; function SendNullReferenceOccurred {
     ; Write the type
     ; AL = #Ds2Vs_NullReferenceOccurred
+    Mov AL, DebugStub_Const_Ds2Vs_NullReferenceOccurred
     ; ComWriteAL()
 
     ; pointer value
     ; ESI = @.CallerEIP
+    Mov ESI, DebugStub_Const_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -419,6 +452,7 @@ Mov EBP, ESP
 ; function SendMessageBox {
     ; Write the type
     ; AL = #Ds2Vs_MessageBox
+    Mov AL, DebugStub_Const_Ds2Vs_MessageBox
     ; ComWriteAL()
 
     ; Write Length
@@ -426,7 +460,7 @@ Mov EBP, ESP
     Mov ESI, EBP
     ; ESI += 12
     ; ECX = [ESI]
-    Mov ECX, [ESI]
+    Mov ECX, DWORD [ESI]
     ; ComWrite16()
 
     ; Address of string
@@ -457,15 +491,19 @@ Mov EBP, ESP
     ; +ESI
     Push ESI
     ; EAX = @.CallerEBP
+    Mov EAX, DebugStub_Const_CallerEBP
     ; +EAX
     Push EAX
     ; EAX = @.CallerEIP
+    Mov EAX, DebugStub_Const_CallerEIP
     ; +EAX
     Push EAX
     ; EAX = @.CallerESP
+    Mov EAX, DebugStub_Const_CallerESP
     ; +EAX
     Push EAX
     ; ECX = 36
+    Mov ECX, 0x24
     ; EAX = EBP
     Mov EAX, EBP
     ; while EAX != 0 {
@@ -474,11 +512,12 @@ Mov EBP, ESP
         Push EAX
         ; ECX += 4
         ; EAX = [EAX]
-        Mov EAX, [EAX]
+        Mov EAX, DWORD [EAX]
     ; }
 
     ; Send command
 	; AL = #Ds2Vs_CoreDump
+	Mov AL, DebugStub_Const_Ds2Vs_CoreDump
 	; ComWriteAL()
     ; EAX = ECX
     Mov EAX, ECX

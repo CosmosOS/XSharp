@@ -3,6 +3,7 @@
 ; function Ping {
     ; Ds2Vs.Pong
     ; AL = 13
+    Mov AL, 0xD
     ; ComWriteAL()
 ; }
 

@@ -16,12 +16,13 @@
 
     ; Read Command ID
 	; EAX = 0
+	Mov EAX, 0x0
     ; ComReadAL()
     ; .CommandID = EAX
 
     ; Get AL back so we can compare it, but also leave it for later
     ; EAX = [ESP]
-    Mov EAX, [ESP]
+    Mov EAX, DWORD [ESP]
 
 	; if AL = #Vs2Ds_TraceOff {
 		; TraceOff()
@@ -120,9 +121,11 @@
     ; The buffer problem exists only to inbound data, not outbound data (relative to DebugStub).
 
 	; AL = #Ds2Vs_CmdCompleted
+	Mov AL, DebugStub_Const_Ds2Vs_CmdCompleted
     ; ComWriteAL()
     
     ; EAX = .CommandID
+    Mov EAX, DWORD [DebugStub_Var_CommandID]
     ; ComWriteAL()
 ; }
 

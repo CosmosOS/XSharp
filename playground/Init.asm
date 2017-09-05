@@ -15,6 +15,7 @@
 
 ; function WaitForSignature {
     ; EBX = 0
+    Mov EBX, 0x0
 	; while EBX != #Signature {
 		; ComReadAL()
 		; BL = AL
@@ -32,10 +33,13 @@
 ; function WaitForDbgHandshake {
     ; "Clear" the UART out
     ; AL = 0
+    Mov AL, 0x0
     ; ComWriteAL()
 	; AL = 0
+	Mov AL, 0x0
     ; ComWriteAL()
 	; AL = 0
+	Mov AL, 0x0
     ; ComWriteAL()
 
     ; Cosmos.Debug.Consts.Consts.SerialSignature
@@ -54,6 +58,7 @@
     ; to keep the logic separate, especially in DC.
 	; Send the actual started signal
     ; AL = #Ds2Vs_Started
+    Mov AL, DebugStub_Const_Ds2Vs_Started
     ; ComWriteAL()
 
     ; WaitForSignature()

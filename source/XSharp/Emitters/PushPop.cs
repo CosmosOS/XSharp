@@ -1,4 +1,5 @@
-﻿using Spruce.Attribs;
+﻿using System;
+using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
@@ -34,16 +35,15 @@ namespace XSharp.Emitters
         }
 
         [Emitter(typeof(OpPlus), typeof(Variable))]
-        protected void PushVar(string aOpPlus, object value)
+        protected void PushVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Push, Compiler.GetPrefixForVar + value);
+            Asm.Emit(OpCode.Push, value.AddPrefix(Compiler.GetPrefixForVar));
         }
 
         [Emitter(typeof(OpPlus), typeof(VariableAddress))]
-        protected void PushVarAddr(string aOpPlus, Address value)
+        protected void PushVarAddr(string aOpPlus, string value)
         {
-            value.AddressOf = $"{Compiler.GetPrefixForVar}{value.AddressOf}";
-            Asm.Emit(OpCode.Push, value);
+            Asm.Emit(OpCode.Push, Compiler.GetPrefixForVar + value);
         }
 
         // -Reg
@@ -63,16 +63,15 @@ namespace XSharp.Emitters
         }
 
         [Emitter(typeof(OpMinus), typeof(Variable))]
-        protected void PopVar(string aOpMinus, object value)
+        protected void PopVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Pop, Compiler.GetPrefixForVar + value);
+            Asm.Emit(OpCode.Pop, value.AddPrefix(Compiler.GetPrefixForVar));
         }
 
         [Emitter(typeof(OpMinus), typeof(VariableAddress))]
-        protected void PopVarAddr(string aOpMinus, Address value)
+        protected void PopAddr(string aOpPlus, string value)
         {
-            value.AddressOf = $"{Compiler.GetPrefixForVar}{value.AddressOf}";
-            Asm.Emit(OpCode.Pop, value);
+            Asm.Emit(OpCode.Pop, Compiler.GetPrefixForVar + value);
         }
     }
 }

@@ -38,7 +38,7 @@ Mov EBP, ESP
 ; EBP += 32
 ; Caller EIP
 ; EAX = [EBP]
-Mov EAX, [EBP]
+Mov EAX, DWORD [EBP]
 
 ; 12 bytes for EFLAGS, CS, EIP
 ; EBP += 12
