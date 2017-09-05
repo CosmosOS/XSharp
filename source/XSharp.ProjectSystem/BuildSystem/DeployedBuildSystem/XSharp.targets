@@ -13,7 +13,7 @@
 
     <!-- Capabilities for this project. Conditions should be based on platform|configuration only. -->
     <!--<ItemGroup>
-        --><!--<ProjectCapability Include="XSharp" />--><!--
+        <ProjectCapability Include="XSharp" />
         <ProjectCapability Include="UseFileGlobs" />
         <ProjectCapability Include="OpenProjectFile" />
         <ProjectCapability Include="HandlesOwnReload" />
@@ -56,6 +56,7 @@
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
     <Target Name="Run">
+        <Message Importance="High" Text="Run" />
         <!--
         <Message Text="$(RunCommandArguments)" />
         <Exec Command='$(RunCommand) "$(MSBuildProjectDirectory)\$(StartItem)" $(RunCommandArguments)' WorkingDirectory="$(RunWorkingDirectory)" />
@@ -63,6 +64,7 @@
     </Target>
 
     <Target Name="Build" >
+        <Message Importance="High" Text="Build" />
     </Target>
 
     <Target Name="Rebuild">

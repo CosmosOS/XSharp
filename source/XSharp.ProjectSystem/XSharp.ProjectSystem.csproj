@@ -28,7 +28,7 @@
         </None>
     </ItemGroup>
 
-    <!--<ItemGroup>
+    <ItemGroup>
         <None Include="BuildSystem\Rules\ProjectItemsSchema.xaml">
             <SubType>Designer</SubType>
         </None>
@@ -56,7 +56,7 @@
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml">
             <SubType>Designer</SubType>
         </XamlPropertyRule>
-    </ItemGroup>-->
+    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="System.ComponentModel.Composition" />
