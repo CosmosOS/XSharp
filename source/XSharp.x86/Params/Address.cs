@@ -24,7 +24,16 @@ namespace XSharp.x86.Params
 
         public override object Transform(object aValue)
         {
-            return $"[{((Address)aValue).AddressOf}]";
+            var addr = aValue as Address;
+            if (addr?.Offset == null)
+            {
+                return $"[{addr?.AddressOf}]";
+            }
+            else
+            {
+                var sign = addr.IsNegative ? "-" : "+";
+                return $"[{addr.AddressOf} {sign} {addr.Offset}]";
+            }
         }
     }
 
@@ -36,6 +45,8 @@ namespace XSharp.x86.Params
     public class Address
     {
         public object AddressOf { get; private set; }
+        public object Offset { get; }
+        public bool IsNegative { get; }
 
         public Address(Register addressOf)
         {
@@ -45,6 +56,21 @@ namespace XSharp.x86.Params
         public Address(string label)
         {
             AddressOf = label;
+        }
+
+        public Address(Register baseIndex, object offset, bool isNegative)
+        {
+            if ((baseIndex.IsReg08 && offset is byte) || (baseIndex.IsReg16 && offset is UInt16) ||
+                (baseIndex.IsReg32 && offset is UInt32))
+            {
+                AddressOf = baseIndex;
+                Offset = offset;
+                IsNegative = isNegative;
+            }
+            else
+            {
+                throw new Exception("Incompatible offset for the register type.");
+            }
         }
 
         public Address AddPrefix(string prefix)

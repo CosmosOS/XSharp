@@ -76,22 +76,25 @@ namespace XSharp.x86
             }
         }
 
-        public void CheckIs(string aValidRegs)
+        public bool CheckIs(string aValidRegs, bool throwException = false)
         {
             if (!(aValidRegs + ",").Contains(Name + ","))
             {
-                throw new Exception("Invalid register: {Name}.\r\nMust be one of: {aValidRegs}");
+                if (throwException)
+                    throw new Exception("Invalid register: {Name}.\r\nMust be one of: {aValidRegs}");
+                return false;
             }
+            return true;
         }
 
         public void CheckIsDX()
         {
-            CheckIs("DX");
+            CheckIs("DX", true);
         }
 
         public void CheckIsAccumulator()
         {
-            CheckIs("EAX,AX,AL");
+            CheckIs("EAX,AX,AL", true);
         }
 
         public bool IsReg08 => Names.Reg08.Contains(Name);

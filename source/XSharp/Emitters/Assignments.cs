@@ -88,5 +88,17 @@ namespace XSharp.Emitters
         {
             Asm.Emit(OpCode.Mov, aReg, $"{Compiler.GetPrefixForConst}{aVal}");
         }
+
+        // ESI = [EBP-1] => mov ESI, dword [EBP - 1]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg08), typeof(OpPlus), typeof(Int08u), typeof(OpCloseBracket))]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg16), typeof(OpPlus), typeof(Int16u), typeof(OpCloseBracket))]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpPlus), typeof(Int32u), typeof(OpCloseBracket))]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg08), typeof(OpMinus), typeof(Int08u), typeof(OpCloseBracket))]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg16), typeof(OpMinus), typeof(Int16u), typeof(OpCloseBracket))]
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(OpOpenBracket), typeof(Reg32), typeof(OpMinus), typeof(Int32u), typeof(OpCloseBracket))]
+        protected void MemoryAssignToReg(Register aDestReg, string aOpEquals, string aOpOpen, Register aSrc, string aOp, object aOffset, string aOpClose)
+        {
+            Asm.Emit(OpCode.Mov, aDestReg, aDestReg.RegSize, new Address(aSrc, aOffset, aOp == "-"));
+        }
     }
 }

@@ -213,6 +213,7 @@ Mov EBP, ESP
 
     ; Address of string
     ; ESI = [EBP + 8]
+    Mov ESI, DWORD [EBP + 8]
 ; WriteChar:
     ; if ECX = 0 goto Finalize
     ; ComWrite8()
@@ -254,6 +255,7 @@ Mov EBP, ESP
 
     ; Write value
     ; EAX = [EBP + 8]
+    Mov EAX, DWORD [EBP + 8]
     ; ComWriteEAX()
 
     ; -All
@@ -279,6 +281,7 @@ Mov EBP, ESP
 
     ; Write value
     ; EAX = [EBP + 8]
+    Mov EAX, DWORD [EBP + 8]
     ; ComWriteEAX()
 
 	; SendCoreDump()
@@ -306,8 +309,10 @@ Mov EBP, ESP
 
   ; Write value
   ; EAX = [EBP + 8]
+  Mov EAX, DWORD [EBP + 8]
   ; ComWriteEAX()
   ; EAX = [EBP + 12]
+  Mov EAX, DWORD [EBP + 12]
   ; ComWriteEAX()
 
   ; -All
@@ -334,6 +339,7 @@ Mov EBP, ESP
 
   ; Write value
   ; EAX = [EBP+8]
+  Mov EAX, DWORD [EBP + 8]
   ; ComWriteEAX()
 
   ; -All
@@ -360,8 +366,10 @@ Mov EBP, ESP
 
   ; Write value
   ; EAX = [EBP+8]
+  Mov EAX, DWORD [EBP + 8]
   ; ComWriteEAX()
   ; EAX = [EBP+12]
+  Mov EAX, DWORD [EBP + 12]
   ; ComWriteEAX()
 
   ; -All
@@ -381,6 +389,7 @@ Mov EBP, ESP
 
     ; pointer value
     ; ESI = [EBP+8]
+    Mov ESI, DWORD [EBP + 8]
     ; ComWrite32()
 ; }
 
@@ -465,6 +474,7 @@ Mov EBP, ESP
 
     ; Address of string
     ; ESI = [EBP+8]
+    Mov ESI, DWORD [EBP + 8]
 ; WriteChar:
     ; if ECX = 0 return
     ; ComWrite8()
