@@ -7,13 +7,13 @@ namespace XSharp.ProjectSystem
     {
         private static readonly Guid ManifestGuid = new Guid("574acd99-2695-4bc8-80ba-3d69c894ab63");
 
-        private const int ProjectIcon = 0;
+        private const int ProjectTreeIconID = 0;
 
-        public static ImageMoniker ProjectIconImageMoniker
+        public static ImageMoniker ProjectTreeIcon
         {
             get
             {
-                return new ImageMoniker { Guid = ManifestGuid, Id = ProjectIcon };
+                return new ImageMoniker { Guid = ManifestGuid, Id = ProjectTreeIconID };
             }
         }
     }

@@ -12,7 +12,7 @@ namespace XSharp.ProjectSystem
         {
             if (propertyValues.Flags.Contains(ProjectTreeFlags.Common.ProjectRoot))
             {
-                propertyValues.Icon = XSharpImagesMonikers.ProjectIconImageMoniker.ToProjectSystemType();
+                propertyValues.Icon = XSharpImagesMonikers.ProjectTreeIcon.ToProjectSystemType();
             }
         }
     }

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright, Microsoft Corporation, All rights reserved.-->
-<ProjectSchemaDefinitions
-    xmlns="http://schemas.microsoft.com/build/2009/properties">
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
 
-    <ContentType
-        Name="XSharpFile"
-        DisplayName="X# file"
-        ItemType="Compile">
-    </ContentType>
+    <ItemType Name="Compile"
+              DisplayName="X# Compile"/>
+    
+    <ItemType Name="None"
+              DisplayName="Does not participate in build"/>
 
-    <ItemType Name="Compile" DisplayName="X# Compile"/>
-    <ItemType Name="None" DisplayName="Does not participate in build"/>
+    <ContentType Name="XSharpFile"
+                 DisplayName="X# file"
+                 ItemType="Compile" />
 
     <FileExtension Name=".xs" ContentType="XSharpFile"/>
+    
 </ProjectSchemaDefinitions>

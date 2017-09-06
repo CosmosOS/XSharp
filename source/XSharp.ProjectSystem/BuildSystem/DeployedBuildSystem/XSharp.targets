@@ -51,6 +51,17 @@
         <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\General.BrowseObject.xaml">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\Compile.xaml">
+            <Context>File</Context>
+        </PropertyPageSchema>
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\Compile.BrowseObject.xaml">
+            <Context>BrowseObject</Context>
+        </PropertyPageSchema>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="**\*.xs" />
     </ItemGroup>
 
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />

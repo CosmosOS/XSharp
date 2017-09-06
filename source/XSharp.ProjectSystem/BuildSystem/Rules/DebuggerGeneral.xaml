@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright, Microsoft Corporation, All rights reserved.-->
 <Rule Name="DebuggerGeneralProperties"
       DisplayName="Debugger General Properties"
       Description="General Debugger options"
