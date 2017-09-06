@@ -1,25 +1,25 @@
-﻿using Microsoft.VisualStudio.ProjectSystem;
+﻿using static Microsoft.VisualStudio.ProjectSystem.ProjectCapabilities;
 
 namespace XSharp.ProjectSystem
 {
     internal class ProjectCapability
     {
-        public const string AppDesigner = "AppDesigner";
-        public const string OpenProjectFile = "OpenProjectFile";
-        public const string UseFileGlobs = "UseFileGlobs";
-        public const string XSharp = "XSharp";
+        public const string AppDesigner = nameof(AppDesigner);
+        public const string OpenProjectFile = nameof(OpenProjectFile);
+        public const string UseFileGlobs = nameof(UseFileGlobs);
+        public const string XSharp = nameof(XSharp);
         
-        public const string InitialCapabilities = //ProjectCapability.AppDesigner + ";" +
-                                                  ProjectCapabilities.Cps + ";" +
-                                                  ProjectCapabilities.HandlesOwnReload + ";" +
-                                                  //ProjectCapabilities.HostSetActiveProjectConfiguration + ";" +
-                                                  //ProjectCapabilities.LanguageService + ";" +
-                                                  ProjectCapability.OpenProjectFile + ";" +
-                                                  //ProjectCapabilities.ProjectReferences + ";" +
-                                                  ProjectCapabilities.RunningInVisualStudio + ";" +
-                                                  //ProjectCapabilities.SdkReferences + ";" +
-                                                  //ProjectCapabilities.SingleFileGenerators + ";" +
-                                                  ProjectCapability.UseFileGlobs + ";" +
-                                                  ProjectCapability.XSharp;
+        public const string InitialCapabilities = //AppDesigner + ";" +
+                                                  Cps + ";" +
+                                                  HandlesOwnReload + ";" +
+                                                  //HostSetActiveProjectConfiguration + ";" +
+                                                  OpenProjectFile + ";" +
+                                                  ProjectReferences + ";" +
+                                                  //ReferencesFolder + ";" +
+                                                  RunningInVisualStudio + ";" +
+                                                  //SdkReferences + ";" +
+                                                  //SingleFileGenerators + ";" +
+                                                  UseFileGlobs + ";" +
+                                                  XSharp;
     }
 }

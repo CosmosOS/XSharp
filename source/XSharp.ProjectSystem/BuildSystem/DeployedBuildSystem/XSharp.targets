@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
     <ItemGroup Label="ProjectConfigurations">
         <ProjectConfiguration Include="Debug|AnyCPU">
             <Configuration>Debug</Configuration>
@@ -11,52 +12,43 @@
         </ProjectConfiguration>
     </ItemGroup>
 
-    <!-- Capabilities for this project. Conditions should be based on platform|configuration only. -->
-    <!--<ItemGroup>
-        <ProjectCapability Include="XSharp" />
-        <ProjectCapability Include="UseFileGlobs" />
-        <ProjectCapability Include="OpenProjectFile" />
-        <ProjectCapability Include="HandlesOwnReload" />
-        <ProjectCapability Include="ProjectConfigurationsDeclaredAsItems" />
-    </ItemGroup>-->
+    <PropertyGroup>
+        <_XSharpRulesXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpRulesXamlResourcesDirectory>
+    </PropertyGroup>
 
     <ItemGroup>
-        <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\General.xaml;
-                            ">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\ProjectItemsSchema.xaml;
-                            "/>
-        <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\DebuggerGeneral.xaml;
-                            ">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\ProjectItemsSchema.xaml" />
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\DebuggerGeneral.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\GeneralFile.xaml">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\GeneralFile.xaml">
             <Context>File</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\SourceControl.xaml">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="
-                            $(MSBuildThisFileDirectory)Rules\Folder.xaml;
-                            $(MSBuildThisFileDirectory)Rules\None.xaml;
-                            ">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Folder.xaml;
+                                     $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\General.BrowseObject.xaml">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\Compile.xaml">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.xaml">
             <Context>File</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\Compile.BrowseObject.xaml">
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.BrowseObject.xaml">
             <Context>BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
+            <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
     </ItemGroup>
 
@@ -68,10 +60,6 @@
 
     <Target Name="Run">
         <Message Importance="High" Text="Run" />
-        <!--
-        <Message Text="$(RunCommandArguments)" />
-        <Exec Command='$(RunCommand) "$(MSBuildProjectDirectory)\$(StartItem)" $(RunCommandArguments)' WorkingDirectory="$(RunWorkingDirectory)" />
-        -->
     </Target>
 
     <Target Name="Build" >
@@ -80,4 +68,5 @@
 
     <Target Name="Rebuild">
     </Target>
+
 </Project>

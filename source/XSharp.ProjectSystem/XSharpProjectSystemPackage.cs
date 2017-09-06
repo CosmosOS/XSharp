@@ -7,8 +7,7 @@ using XSharp.ProjectSystem;
 
 [assembly: ProjectTypeRegistration(XSharpProjectSystemPackage.ProjectTypeGuid, "#1", "#2", "xsproj", "XSharp",
     XSharpProjectSystemPackage.PackageGuid, Capabilities = ProjectCapability.InitialCapabilities,
-    PossibleProjectExtensions = "xsproj", ProjectTemplatesDir = @"ProjectTemplates",
-    DisplayProjectTypeVsTemplate = "X#")]
+    PossibleProjectExtensions = "xsproj", DisplayProjectTypeVsTemplate = "X#")]
 
 namespace XSharp.ProjectSystem
 {

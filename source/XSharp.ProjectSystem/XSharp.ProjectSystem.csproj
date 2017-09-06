@@ -29,22 +29,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
-        <XamlPropertyRuleNoCodeBehind Include="BuildSystem\Rules\Compile.BrowseObject.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\Compile.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml" />
-        <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml">
-            <RuleInjection>None</RuleInjection>
-        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\General.xaml" />
-        <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml">
-            <RuleInjection>None</RuleInjection>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\None.xaml">
-            <RuleInjection>None</RuleInjection>
-        </XamlPropertyRule>
+        <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
+        <XamlPropertyRuleNoCodeBehind Include="BuildSystem\Rules\Compile.BrowseObject.xaml" />
+        <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
     </ItemGroup>
 
     <ItemGroup>
