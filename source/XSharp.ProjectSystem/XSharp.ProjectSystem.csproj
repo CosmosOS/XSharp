@@ -20,6 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Content Include="ItemTemplates\**\*.*">
+            <IncludeInVSIX>True</IncludeInVSIX>
+        </Content>
         <Content Include="ProjectTemplates\**\*.*">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
@@ -38,6 +41,7 @@
         <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\XSharpDebugger.xaml" />
         <XamlPropertyRuleNoCodeBehind Include="BuildSystem\Rules\Compile.BrowseObject.xaml" />
         <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
     </ItemGroup>

@@ -5,10 +5,12 @@
 	PageTemplate="generic"
 	Description="General"
 	xmlns="http://schemas.microsoft.com/build/2009/properties">
+    
 	<Rule.DataSource>
 		<DataSource Persistence="ProjectFile" Label="Globals" HasConfigurationCondition="False" />
 	</Rule.DataSource>
-	<StringProperty Name="SccProjectName" />
+
+    <StringProperty Name="SccProjectName" />
 	<StringProperty Name="SccProvider" />
 	<StringProperty Name="SccAuxPath" />
 	<StringProperty Name="SccLocalPath" />

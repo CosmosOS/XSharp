@@ -16,7 +16,6 @@ namespace XSharp.ProjectSystem
                                                   OpenProjectFile + ";" +
                                                   ProjectReferences + ";" +
                                                   //ReferencesFolder + ";" +
-                                                  RunningInVisualStudio + ";" +
                                                   //SdkReferences + ";" +
                                                   //SingleFileGenerators + ";" +
                                                   UseFileGlobs + ";" +

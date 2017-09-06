@@ -11,6 +11,7 @@
                  DisplayName="X# file"
                  ItemType="Compile" />
 
-    <FileExtension Name=".xs" ContentType="XSharpFile"/>
+    <FileExtension Name=".xs"
+                   ContentType="XSharpFile"/>
     
 </ProjectSchemaDefinitions>

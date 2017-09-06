@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Rule
-    Name="ProjectReference"
-    DisplayName="Project Reference"
-    PageTemplate="generic"
-    Description="Reference Properties"
-    xmlns="http://schemas.microsoft.com/build/2009/properties">
+<Rule Name="ProjectReference"
+      DisplayName="Project Reference"
+      PageTemplate="generic"
+      Description="Reference Properties"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
 
     <Rule.DataSource>
         <DataSource Persistence="ProjectFile" 
@@ -75,10 +74,6 @@
     <StringProperty Name="Project" 
                     Visible="False"
                     Description="the Guid the solution tracks an individual project reference target with" />
-
-    <StringProperty Name="ReferencedProjectIdentifier"
-                    Visible="False"
-                    Description="The old (VS2010 beta) way to store the Guid the solution tracks an individual project reference target with" />
 
     <BoolProperty Name="UseLibraryDependencyInputs"
                   Visible="False" />

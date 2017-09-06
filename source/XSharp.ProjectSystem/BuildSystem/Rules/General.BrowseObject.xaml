@@ -1,26 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Rule
-	Name="ConfigurationGeneralBrowseObject"
-	DisplayName="General"
-	PageTemplate="generic"
-	Description="General"
-	xmlns="http://schemas.microsoft.com/build/2009/properties">
-    <Rule.Categories>
-        <Category Name="General" DisplayName="General" Description="General" />
-    </Rule.Categories>
+<Rule Name="ConfigurationGeneralBrowseObject"
+      DisplayName="General"
+      PageTemplate="generic"
+      Description="General"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+
     <Rule.DataSource>
-        <DataSource Persistence="ProjectFile" Label="Configuration" HasConfigurationCondition="false" />
+        <DataSource Persistence="ProjectFile"
+                    Label="Configuration"
+                    HasConfigurationCondition="False" />
     </Rule.DataSource>
+    <Rule.Categories>
+        <Category Name="General"
+                  DisplayName="General"
+                  Description="General" />
+    </Rule.Categories>
 
-    <StringProperty Name="FileName" DisplayName="Project File" ReadOnly="True">
+    <StringProperty Name="FileName"
+                    DisplayName="Project File"
+                    ReadOnly="True">
         <StringProperty.DataSource>
-            <DataSource Persistence="ProjectFile" PersistedName="MSBuildProjectFile" />
+            <DataSource Persistence="ProjectFile"
+                        PersistedName="MSBuildProjectFile" />
         </StringProperty.DataSource>
     </StringProperty>
 
-    <StringProperty Name="FullPath" ReadOnly="True">
+    <StringProperty Name="FullPath"
+                    ReadOnly="True">
         <StringProperty.DataSource>
-            <DataSource Persistence="ProjectFile" PersistedName="MSBuildProjectFullPath" />
+            <DataSource Persistence="ProjectFile"
+                        PersistedName="MSBuildProjectFullPath" />
         </StringProperty.DataSource>
     </StringProperty>
+    
 </Rule>

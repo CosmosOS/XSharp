@@ -31,22 +31,16 @@
             <Context>Invisible</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Folder.xaml;
-                                     $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
-            <Context>File;BrowseObject</Context>
-        </PropertyPageSchema>
-
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
-
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.xaml">
-            <Context>File</Context>
+        
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.xaml;
+                                     $(_XSharpRulesXamlResourcesDirectory)Rules\Folder.xaml;
+                                     $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
+            <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.BrowseObject.xaml">
-            <Context>BrowseObject</Context>
-        </PropertyPageSchema>
-
+        
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
             <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
@@ -58,15 +52,28 @@
 
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
-    <Target Name="Run">
-        <Message Importance="High" Text="Run" />
-    </Target>
-
-    <Target Name="Build" >
+    <Target Name="Compile" />
+    <Target Name="Assemble" />
+    
+    <PropertyGroup>
+        <BuildDependsOn>
+            Compile;
+            Assemble;
+        </BuildDependsOn>
+    </PropertyGroup>
+    
+    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)">
         <Message Importance="High" Text="Build" />
     </Target>
 
-    <Target Name="Rebuild">
+    <Target Name="Clean">
+        <Message Importance="High" Text="Clean" />
+    </Target>
+    
+    <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+
+    <Target Name="Run">
+        <Message Importance="High" Text="Run" />
     </Target>
 
 </Project>

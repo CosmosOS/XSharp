@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="XSharpDebugger"
+      DisplayName="X# Debugger"
+      PageTemplate="debugger"
+      Description="XSharp Debugger Options."
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="UserFileWithXamlDefaults"
+                    HasConfigurationCondition="True"/>
+    </Rule.DataSource>
+    <Rule.Categories>
+        <Category Name="General"
+                  DisplayName="General"/>
+    </Rule.Categories>
+
+    <StringProperty Name="RunCommandArguments"
+                    DisplayName="Command Arguments"
+                    Description="The command line arguments to pass to the application.">
+        <Argument Property="ScriptDebuggerCommand" />
+    </StringProperty>
+    
+    <StringProperty Name="RunWorkingDirectory"
+                    DisplayName="Working Directory"
+                    Default="$(MSBuildProjectDirectory)"  
+                    Description="The application's working directory. By default, the directory containing the project file."
+                    Subtype="folder" />
+    
+</Rule>
