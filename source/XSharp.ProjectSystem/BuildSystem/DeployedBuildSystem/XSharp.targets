@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <ItemGroup Label="ProjectConfigurations">
+    <!--<ItemGroup Label="ProjectConfigurations">
         <ProjectConfiguration Include="Debug|AnyCPU">
             <Configuration>Debug</Configuration>
             <Platform>AnyCPU</Platform>
@@ -10,7 +10,7 @@
             <Configuration>Release</Configuration>
             <Platform>AnyCPU</Platform>
         </ProjectConfiguration>
-    </ItemGroup>
+    </ItemGroup>-->
 
     <PropertyGroup>
         <_XSharpRulesXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpRulesXamlResourcesDirectory>
@@ -44,6 +44,9 @@
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
             <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
+        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ResolvedProjectReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
     </ItemGroup>
 
     <ItemGroup>
@@ -52,6 +55,15 @@
 
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
+    <Target Name="ResolveProjectReferences" Returns="@(_ResolvedProjectReference)">
+        <ItemGroup>
+            <_ResolvedProjectReference Include="@(ProjectReference)" />
+            <!--
+            <_ResolvedProjectReference Include="@(ProjectReference)" Condition="Exists('%(ProjectReference.FullPath)')" />
+            -->
+        </ItemGroup>
+    </Target>
+    
     <Target Name="Compile" />
     <Target Name="Assemble" />
     

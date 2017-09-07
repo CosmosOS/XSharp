@@ -17,7 +17,7 @@
     <StringProperty Name="RunCommandArguments"
                     DisplayName="Command Arguments"
                     Description="The command line arguments to pass to the application.">
-        <Argument Property="ScriptDebuggerCommand" />
+        <Argument Property="XSharpDebuggerCommand" />
     </StringProperty>
     
     <StringProperty Name="RunWorkingDirectory"

@@ -40,6 +40,7 @@
         <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ResolvedProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\XSharpDebugger.xaml" />
         <XamlPropertyRuleNoCodeBehind Include="BuildSystem\Rules\Compile.BrowseObject.xaml" />

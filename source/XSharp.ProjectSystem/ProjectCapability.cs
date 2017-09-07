@@ -8,14 +8,14 @@ namespace XSharp.ProjectSystem
         public const string OpenProjectFile = nameof(OpenProjectFile);
         public const string UseFileGlobs = nameof(UseFileGlobs);
         public const string XSharp = nameof(XSharp);
-        
+
         public const string InitialCapabilities = //AppDesigner + ";" +
                                                   Cps + ";" +
                                                   HandlesOwnReload + ";" +
                                                   //HostSetActiveProjectConfiguration + ";" +
                                                   OpenProjectFile + ";" +
                                                   ProjectReferences + ";" +
-                                                  //ReferencesFolder + ";" +
+                                                  ReferencesFolder + ";" +
                                                   //SdkReferences + ";" +
                                                   //SingleFileGenerators + ";" +
                                                   UseFileGlobs + ";" +

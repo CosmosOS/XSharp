@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Rule Name="ProjectReference"
-      DisplayName="Project Reference"
+<Rule Name="ResolvedProjectReference"
+      DisplayName="Resolved Project Reference"
       PageTemplate="generic"
-      Description="Reference Properties"
+      Description="Resolved reference"
       xmlns="http://schemas.microsoft.com/build/2009/properties">
 
     <Rule.DataSource>
-        <DataSource Persistence="ProjectFile" 
-                    ItemType="ProjectReference" 
+        <DataSource Persistence="ResolvedReference"
+                    ItemType="ProjectReference"
                     HasConfigurationCondition="False" 
-                    SourceOfDefaultValue="AfterContext" />
+                    SourceType="TargetResults"
+                    MSBuildTarget="ResolveProjectReferences" />
     </Rule.DataSource>
 
     <StringListProperty Name="Aliases"
@@ -19,8 +20,7 @@
         <StringListProperty.DataSource>
             <DataSource Persistence="ProjectFile"
                         ItemType="ProjectReference"
-                        HasConfigurationCondition="False"
-                        SourceOfDefaultValue="AfterContext" />
+                        HasConfigurationCondition="False" />
         </StringListProperty.DataSource>
     </StringListProperty>
 
@@ -31,8 +31,7 @@
             <DataSource Persistence="ProjectFile"
                         ItemType="ProjectReference"
                         HasConfigurationCondition="False"
-                        PersistedName="Private" 
-                        SourceOfDefaultValue="AfterContext" />
+                        PersistedName="Private" />
         </BoolProperty.DataSource>
     </BoolProperty>
 
@@ -47,8 +46,7 @@
                     DisplayName="Identity"
                     Description="Security identity of the referenced assembly (see System.Reflection.Assembly.Evidence or System.Security.Policy.Evidence).">
         <StringProperty.DataSource>
-            <DataSource PersistedName="{}{Identity}"
-                        SourceOfDefaultValue="AfterContext" />
+            <DataSource PersistedName="{}{Identity}" />
         </StringProperty.DataSource>
     </StringProperty>
 
@@ -57,8 +55,7 @@
                     DisplayName="Path"
                     Description="Location of the file being referenced.">
         <StringProperty.DataSource>
-            <DataSource PersistedName="Identity"
-                        SourceOfDefaultValue="AfterContext" />
+            <DataSource PersistedName="Identity" />
         </StringProperty.DataSource>
     </StringProperty>
 
@@ -68,18 +65,13 @@
                     Description="Version of reference.">
     </StringProperty>
 
-    <BoolProperty Name="LinkLibraryDependencies"
-                  Visible="False" />
-
-    <StringProperty Name="Project" 
+    <StringProperty Name="OriginalItemSpec"
                     Visible="False"
-                    Description="the Guid the solution tracks an individual project reference target with" />
+                    ReadOnly="True"
+                    Description="The evaluated item name of the original reference item whose resolution resulted in this resolved reference item." />
 
-    <BoolProperty Name="UseLibraryDependencyInputs"
-                  Visible="False" />
+    <StringProperty Name="Name"
+                    Visible="false"
+                    ReadOnly="True" />
 
-    <BoolProperty Name="Visible"
-                  Visible="False"
-                  ReadOnly="True" />
-    
 </Rule>
