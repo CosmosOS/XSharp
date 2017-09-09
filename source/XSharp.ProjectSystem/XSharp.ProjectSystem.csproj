@@ -51,13 +51,41 @@
         <Resource Include="Resources\XSharpProjectTreeIcon.png" />
     </ItemGroup>
 
+    <!--
+        WPF Workarounds
+    -->
+
+    <!--
+    <PropertyGroup>
+        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Page Include="VS\PropertyPages\**\*.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Compile Update="VS\PropertyPages\**\*.xaml.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    -->
+
+    <!--
+        End WPF Workarounds
+    -->
+
     <ItemGroup>
         <Reference Include="System.ComponentModel.Composition" />
-        <Reference Include="System.Windows.Forms" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
         <Reference Include="System.Xaml" />
+        <Reference Include="WindowsBase" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="EnvDTE" Version="8.0.1" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
