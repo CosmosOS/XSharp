@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,12 +12,48 @@ using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
+using IServiceProvider = System.IServiceProvider;
 using Message = System.Windows.Interop.MSG;
 using Task = System.Threading.Tasks.Task;
 using VsMsg = Microsoft.VisualStudio.OLE.Interop.MSG;
 
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
+    #region Designer Support
+
+    // code from: https://stackoverflow.com/a/17661386/4647866
+
+    public class AbstractControlDescriptionProvider<TAbstract, TBase> : TypeDescriptionProvider
+    {
+        public AbstractControlDescriptionProvider()
+            : base(TypeDescriptor.GetProvider(typeof(TAbstract)))
+        {
+        }
+
+        public override Type GetReflectionType(Type objectType, object instance)
+        {
+            if (objectType == typeof(TAbstract))
+            {
+                return typeof(TBase);
+            }
+
+            return base.GetReflectionType(objectType, instance);
+        }
+
+        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes, object[] args)
+        {
+            if (objectType == typeof(TAbstract))
+            {
+                objectType = typeof(TBase);
+            }
+
+            return base.CreateInstance(provider, objectType, argTypes, args);
+        }
+    }
+
+    #endregion
+
+    [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<PropertyPage, UserControl>))]
     internal abstract class PropertyPage : UserControl, IPropertyPage
     {
         private const int WS_CHILD = 0x40000000;
@@ -122,25 +158,23 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
 #pragma warning restore VSTHRD200
 
-        public void SetObjects(uint cObjects, object[] ppunk)
+        public void SetObjects(uint cObjects, object[] ppUnk)
         {
             if (cObjects == 0)
             {
                 return;
             }
 
-            if (ppunk.Length < cObjects)
+            if (ppUnk.Length < cObjects)
             {
                 throw new ArgumentOutOfRangeException(nameof(cObjects));
             }
-
-            List<string> configurations = new List<string>();
 
             ThreadHelper.ThrowIfNotOnUIThread();
 
             for (int i = 0; i < cObjects; ++i)
             {
-                var xBrowseObject = ppunk[i] as IVsBrowseObject;
+                var xBrowseObject = ppUnk[i] as IVsBrowseObject;
 
                 if (xBrowseObject != null)
                 {
