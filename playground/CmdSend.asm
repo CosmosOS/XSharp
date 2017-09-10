@@ -13,11 +13,11 @@
     ; ComWriteX()
 
     ; ESI = @.CallerESP
-    Mov ESI, DebugStub_Const_CallerESP
+    Mov ESI, DebugStub_Var_CallerESP
     ; ComWrite32()
 
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Const_CallerEIP
+    Mov ESI, DebugStub_Var_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -184,7 +184,7 @@
 
     ; Send Calling EIP.
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Const_CallerEIP
+    Mov ESI, DebugStub_Var_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -404,7 +404,7 @@ Mov EBP, ESP
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Const_CallerEIP
+    Mov ESI, DebugStub_Var_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -419,7 +419,7 @@ Mov EBP, ESP
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Const_CallerEIP
+    Mov ESI, DebugStub_Var_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -451,7 +451,7 @@ Mov EBP, ESP
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Const_CallerEIP
+    Mov ESI, DebugStub_Var_CallerEIP
     ; ComWrite32()
 ; }
 
@@ -501,15 +501,15 @@ Mov EBP, ESP
     ; +ESI
     Push ESI
     ; EAX = @.CallerEBP
-    Mov EAX, DebugStub_Const_CallerEBP
+    Mov EAX, DebugStub_Var_CallerEBP
     ; +EAX
     Push EAX
     ; EAX = @.CallerEIP
-    Mov EAX, DebugStub_Const_CallerEIP
+    Mov EAX, DebugStub_Var_CallerEIP
     ; +EAX
     Push EAX
     ; EAX = @.CallerESP
-    Mov EAX, DebugStub_Const_CallerESP
+    Mov EAX, DebugStub_Var_CallerESP
     ; +EAX
     Push EAX
     ; ECX = 36

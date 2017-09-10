@@ -1,5 +1,4 @@
-﻿using System;
-using Spruce.Attribs;
+﻿using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
@@ -8,7 +7,6 @@ using Reg = XSharp.Tokens.Reg;
 using Reg08 = XSharp.Tokens.Reg08;
 using Reg16 = XSharp.Tokens.Reg16;
 using Reg32 = XSharp.Tokens.Reg32;
-using Size = XSharp.x86.Params.Size;
 
 namespace XSharp.Emitters
 {
@@ -86,7 +84,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(VariableAddress))]
         protected void RegAssignVarAddr(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.GetPrefixForConst}{aVal}");
+            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.GetPrefixForVar}{aVal}");
         }
 
         // ESI = [EBP-1] => mov ESI, dword [EBP - 1]
@@ -111,6 +109,33 @@ namespace XSharp.Emitters
         protected void RegAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpOperator, object aOffset, string aOpCloseBracket, string aOpEquals, Register source)
         {
             Asm.Emit(OpCode.Mov, source.RegSize, new Address(aTargetRegisterRoot, aOffset, aOpOperator == "-"), source);
+        }
+
+        // .v1 = 1 => mov dword [v1], 0x1
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int32u))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Reg))]
+        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
+        protected void VariableAssignment(Address aVariableName, string aOpEquals, object aValue)
+        {
+            string size;
+            switch (aValue)
+            {
+                case uint _:
+                    size = "dword";
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    break;
+
+                case Register aValueReg:
+                    size = aValueReg.RegSize;
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    break;
+
+                case string _:
+                    //TODO: verify this
+                    aValue = $"{Compiler.GetPrefixForConst}{aValue}";
+                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    break;
+            }
         }
     }
 }
