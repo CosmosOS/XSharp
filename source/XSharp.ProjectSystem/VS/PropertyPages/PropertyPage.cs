@@ -18,7 +18,7 @@ using VsMsg = Microsoft.VisualStudio.OLE.Interop.MSG;
 
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
-    public abstract class PropertyPage : UserControl, IPropertyPage
+    internal abstract class PropertyPage : UserControl, IPropertyPage
     {
         private const int WS_CHILD = 0x40000000;
         private const int WS_VISIBLE = 0x10000000;
@@ -47,10 +47,10 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         private void Move(RECT aRect)
         {
-            Canvas.SetLeft(this, aRect.left);
-            Canvas.SetTop(this, aRect.top);
-            Canvas.SetRight(this, aRect.right);
-            Canvas.SetBottom(this, aRect.bottom);
+            // todo: is this needed? it looks like left and top are always 0
+            //VisualOffset = new Vector(aRect.left, aRect.top);
+            Width = aRect.right - aRect.left;
+            Height = aRect.bottom - aRect.top;
         }
 
         #endregion
@@ -82,9 +82,6 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             mHwndSource = new HwndSource(xParams);
             mHwndSource.RootVisual = this;
             mHwndSource.SizeToContent = SizeToContent.WidthAndHeight;
-
-            //InvalidateVisual();
-            //UpdateLayout();
 
             mIsActivated = true;
         }
