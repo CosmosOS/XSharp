@@ -4,6 +4,8 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        
+        <DebuggerFlavor>XSharpDebugger</DebuggerFlavor>
     </PropertyGroup>
 
 </Project>
