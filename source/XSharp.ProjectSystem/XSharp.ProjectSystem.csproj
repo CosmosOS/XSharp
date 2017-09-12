@@ -55,7 +55,6 @@
         WPF Workarounds
     -->
 
-    <!--
     <PropertyGroup>
         <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
     </PropertyGroup>
@@ -70,7 +69,6 @@
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
     </ItemGroup>
-    -->
 
     <!--
         End WPF Workarounds
@@ -122,6 +120,12 @@
         </ItemGroup>
         <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
         <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
+  
+    <Target Name="FixRulesCompile" BeforeTargets="CoreCompile">
+        <ItemGroup>
+            <Compile Include="@(XamlPropertyRule->'$(IntermediateOutputPath)%(Filename).cs')" Exclude="@(Compile)" />
+        </ItemGroup>
     </Target>
 
 </Project>

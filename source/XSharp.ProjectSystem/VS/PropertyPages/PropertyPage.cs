@@ -54,31 +54,33 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
     #endregion
 
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<PropertyPage, UserControl>))]
-    internal abstract class PropertyPage : UserControl, IPropertyPage
+    public abstract class PropertyPage : UserControl, IPropertyPage
     {
         private const int WS_CHILD = 0x40000000;
         private const int WS_VISIBLE = 0x10000000;
 
         private IPropertyPageSite mPropertyPageSite;
         private bool mIsActivated = false;
-        private bool mIsDirty = false;
         private HwndSource mHwndSource;
 
-        protected IProjectThreadingService ThreadHandling;
+        protected IProjectThreadingService ProjectThreadingService;
         protected UnconfiguredProject UnconfiguredProject;
 
         protected abstract string PageName { get; }
+        protected abstract PropertyPageViewModel ViewModel { get; }
+
+        protected abstract void SetObjects(UnconfiguredProject aUnconfiguredProject);
 
         #region Private Methods
 
         private void WaitForAsync(Func<Task> aAsyncFunc)
         {
-            ThreadHandling.ExecuteSynchronously(aAsyncFunc);
+            ProjectThreadingService.ExecuteSynchronously(aAsyncFunc);
         }
 
         private T WaitForAsync<T>(Func<Task<T>> aAsyncFunc)
         {
-            return ThreadHandling.ExecuteSynchronously(aAsyncFunc);
+            return ProjectThreadingService.ExecuteSynchronously(aAsyncFunc);
         }
 
         private void Move(RECT aRect)
@@ -88,9 +90,9 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             Width = aRect.right - aRect.left;
             Height = aRect.bottom - aRect.top;
         }
-
+        
         #endregion
-
+        
         #region IPropertyPage
 
         public void SetPageSite(IPropertyPageSite pPageSite)
@@ -118,7 +120,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             mHwndSource = new HwndSource(xParams);
             mHwndSource.RootVisual = this;
             mHwndSource.SizeToContent = SizeToContent.WidthAndHeight;
-
+            
             mIsActivated = true;
         }
 
@@ -126,11 +128,11 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
         {
             if (mIsActivated)
             {
-                WaitForAsync(OnDeactivate);
+                mHwndSource.Dispose();
+                ViewModel.Dispose();
             }
 
             mIsActivated = false;
-            mHwndSource.Dispose();
         }
 
         public void GetPageInfo(PROPPAGEINFO[] pPageInfo)
@@ -150,14 +152,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
                 pPageInfo[0] = xInfo;
             }
         }
-
-#pragma warning disable VSTHRD200
-
-        protected abstract Task OnApply();
-        protected abstract Task OnDeactivate();
-
-#pragma warning restore VSTHRD200
-
+        
         public void SetObjects(uint cObjects, object[] ppUnk)
         {
             if (cObjects == 0)
@@ -172,15 +167,15 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            for (int i = 0; i < cObjects; ++i)
+            for (int i = 0; i < cObjects; i++)
             {
                 var xBrowseObject = ppUnk[i] as IVsBrowseObject;
 
                 if (xBrowseObject != null)
                 {
-                    int xHR = xBrowseObject.GetProjectItem(out var xHierarchy, out uint itemid);
+                    int xHR = xBrowseObject.GetProjectItem(out var xHierarchy, out uint xItemId);
                     
-                    if (xHR == VSConstants.S_OK && itemid == VSConstants.VSITEMID_ROOT)
+                    if (xHR == VSConstants.S_OK && xItemId == VSConstants.VSITEMID_ROOT)
                     {
                         if (xHierarchy != null)
                         {
@@ -202,12 +197,15 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
                                 }
 
                                 UnconfiguredProject = xContext.UnconfiguredProject;
-                                ThreadHandling = UnconfiguredProject.Services.ExportProvider.GetExportedValue<IProjectThreadingService>();
+                                ProjectThreadingService = UnconfiguredProject.ProjectService.Services.ThreadingPolicy;
                             }
                         }
                     }
                 }
             }
+
+            SetObjects(UnconfiguredProject);
+            DataContext = ViewModel;
         }
 
         public void Show(uint nCmdShow)
@@ -233,14 +231,11 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             Move(xRect);
         }
 
-        public int IsPageDirty()
-        {
-            return mIsDirty ? VSConstants.S_OK : VSConstants.S_FALSE;
-        }
+        public int IsPageDirty() => (ViewModel?.PropertiesChanged).GetValueOrDefault(false) ? VSConstants.S_OK : VSConstants.S_FALSE;
 
         public int Apply()
         {
-            WaitForAsync(OnApply);
+            WaitForAsync(ViewModel.ApplyAsync);
             return VSConstants.S_OK;
         }
 
@@ -281,7 +276,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             int xResult = 0;
             if (mPropertyPageSite != null)
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                ProjectThreadingService.SwitchToUIThread();
                 xResult = mPropertyPageSite.TranslateAccelerator(pMsg);
             }
 

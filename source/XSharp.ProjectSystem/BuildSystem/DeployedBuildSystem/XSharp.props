@@ -6,6 +6,9 @@
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         
         <DebuggerFlavor>XSharpDebugger</DebuggerFlavor>
+
+        <OutputType Condition="'$(OutputType)' == ''">Application</OutputType>
+        <OutputName Condition="'$(OutputName)' == ''">$(MSBuildProjectName)</OutputName>
     </PropertyGroup>
 
 </Project>
