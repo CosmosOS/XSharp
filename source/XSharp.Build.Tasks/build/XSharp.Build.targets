@@ -2,12 +2,17 @@
 
     <PropertyGroup>
         <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
-        <AssembleOutputExt Condition="'$(AssembleOutputExt)' == ''">.o</AssembleOutputExt>
-        <AssembleOutput Condition="'$(AssembleOutput)' == ''">$(ProjectName)$(AssembleOutputExt)</AssembleOutput>
+        
+        <AssembleOutputExt Condition="'$(AssembleOutputExt)' == ''">.obj</AssembleOutputExt>
+        <AssembleOutput Condition="'$(AssembleOutput)' == ''">$(OutputName)$(AssembleOutputExt)</AssembleOutput>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
+
+        <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
     </PropertyGroup>
 
     <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="Ld" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
 
     <!--
     ================================================================================
@@ -33,6 +38,54 @@
                     Assembler="NASM"
                     OutputFormat="$(AssemblerOutputFormat)" />
     
+    </Target>
+
+    <!--
+    ================================================================================
+                                       Link
+
+        [IN]
+        $(AssembleOutput) - an assembled file.
+
+        [OUT]
+        $(LinkOutput) - a linked file.
+
+    ================================================================================
+    -->
+    <Target Name="Link"
+            Inputs="$(AssembleOutput)"
+            Outputs="$(LinkOutput)"
+            AfterTargets="Assemble">
+        
+        <Ld InputFile="$(AssembleOutput)"
+            OutputFile="$(LinkOutput)"
+            TextAddress="0x2000000"
+            DataAddress="0x1000000"
+            Entry="$(Entry)" />
+
+    </Target>
+
+    <!--
+    ================================================================================
+                                       DeployISO
+
+        [IN]
+        $(LinkOutput) - a linked file.
+
+        [OUT]
+        $(OutputISO) - a bootable ISO file.
+
+    ================================================================================
+    -->
+    <Target Name="DeployISO"
+            Inputs="$(LinkOutput)"
+            Outputs="$(OutputISO)"
+            AfterTargets="Link"
+            Condition="'$(OutputType)' == 'Bootable'">
+
+        <MakeIso InputFile="$(LinkOutput)"
+                 OutputFile="$(OutputISO)" />
+
     </Target>
 
 </Project>

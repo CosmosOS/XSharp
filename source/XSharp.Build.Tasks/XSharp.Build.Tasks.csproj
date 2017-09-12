@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard1.3</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>Tasks to compile X# source code.
@@ -19,6 +19,11 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="tools\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>True</Pack>
+            <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
   

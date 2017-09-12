@@ -1,7 +1,7 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(MSBuildProjectName).asm</AssemblyFile>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName).asm</AssemblyFile>
     </PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />

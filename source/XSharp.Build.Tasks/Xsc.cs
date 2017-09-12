@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -18,6 +19,39 @@ namespace XSharp.Build.Tasks
 
         protected override bool ValidateParameters()
         {
+            if (InputFiles.Length == 0)
+            {
+                Log.LogError("No input files specified!");
+                return false;
+            }
+
+            bool xInvalidFile = false;
+
+            foreach (var xFile in InputFiles)
+            {
+                var xFullPath = xFile.GetMetadata("FullPath");
+
+                if (String.IsNullOrWhiteSpace(xFullPath))
+                {
+                    Log.LogError($"Input file is empty! Input files: '${String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
+                }
+                else if (!File.Exists(xFullPath))
+                {
+                    Log.LogError($"Input file '${xFullPath}' doesn't exist!");
+                }
+            }
+
+            if (xInvalidFile)
+            {
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(OutputFile))
+            {
+                Log.LogError("No output file specified!");
+                return false;
+            }
+
             return true;
         }
 

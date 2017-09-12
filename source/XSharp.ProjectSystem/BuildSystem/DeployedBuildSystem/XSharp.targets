@@ -40,7 +40,7 @@
                                      $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
-
+        
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
             <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
@@ -66,11 +66,15 @@
 
     <Target Name="Compile" />
     <Target Name="Assemble" />
+    <Target Name="Link" />
+    <Target Name="PrepareForRun" />
 
     <PropertyGroup>
         <BuildDependsOn>
             Compile;
             Assemble;
+            Link;
+            PrepareForRun;
         </BuildDependsOn>
     </PropertyGroup>
 
@@ -85,9 +89,7 @@
     <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
 
     <Target Name="Run">
-        <!--
-        <Error Condition="'$(OutputType)' != 'Exe'" Text="The Run target only supports Exe projects." />
-        -->
+        <Error Condition="'$(OutputType)' != 'Application'" Text="The Run target only supports Application projects." />
         <Message Importance="High" Text="Run" />
     </Target>
 

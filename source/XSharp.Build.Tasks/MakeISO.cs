@@ -6,7 +6,6 @@ using Microsoft.Build.Utilities;
 namespace XSharp.Build.Tasks
 {
     // Cross Platform, without external tool: https://www.nuget.org/packages/DiscUtils.Iso9660
-    // MSBuild doesn't support netstandard1.5 tasks, should we use multitargeting?
     public class MakeISO : ToolTask
     {
         [Required]
@@ -16,11 +15,6 @@ namespace XSharp.Build.Tasks
         public string OutputFile { get; set; }
 
         protected override string ToolName => "mkisofs.exe";
-
-        protected override string GenerateFullPathToTool()
-        {
-            return Path.GetFullPath(ToolExe);
-        }
 
         protected override bool ValidateParameters()
         {
@@ -47,6 +41,21 @@ namespace XSharp.Build.Tasks
             }
 
             return true;
+        }
+
+        protected override string GenerateFullPathToTool()
+        {
+            if (String.IsNullOrWhiteSpace(ToolExe))
+            {
+                return null;
+            }
+
+            if (String.IsNullOrWhiteSpace(ToolPath))
+            {
+                return Path.Combine(Directory.GetCurrentDirectory(), ToolExe);
+            }
+
+            return Path.Combine(Path.GetFullPath(ToolPath), ToolExe);
         }
 
         protected override string GenerateCommandLineCommands()
