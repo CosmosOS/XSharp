@@ -2,17 +2,51 @@
 
     <PropertyGroup>
         <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
-        
+
+        <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFile>
+
         <AssembleOutputExt Condition="'$(AssembleOutputExt)' == ''">.obj</AssembleOutputExt>
         <AssembleOutput Condition="'$(AssembleOutput)' == ''">$(OutputName)$(AssembleOutputExt)</AssembleOutput>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
 
         <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
+
+        <LdToolPath Condition="'$(LdToolPath)' == ''">..\tools\</LdToolPath>
+
+        <OutputISO Condition="'$(OutputISO)' == ''">$(OutputName).iso</OutputISO>
     </PropertyGroup>
 
+    <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="Ld" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+
+    <!--
+    ================================================================================
+                                        Compile
+
+        [IN]
+        @(Compile) - the list of X# files to compile.
+
+        [OUT]
+        $(AssemblyFile) - the file that results from compiling the .xs files.
+
+    ================================================================================
+    -->
+    <Target Name="Compile"
+            Inputs="@(Compile)"
+            Outputs="$(AssemblyFile)">
+
+        <Message Importance="High" Text="Message From CoreCompile" />
+
+        <Xsc InputFiles="@(Compile)"
+             OutputFile="$(AssemblyFile)"
+             Append="True"
+             ToolPath="$(XscToolPath)"
+             ToolExe="$(XscToolExe)" />
+
+    </Target>
 
     <!--
     ================================================================================

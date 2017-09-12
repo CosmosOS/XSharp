@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
 
 namespace XSharp.DotNetCLI
 {
@@ -78,7 +77,7 @@ namespace XSharp.DotNetCLI
               }
               else if (xExt == ".DLL")
               {
-                xAssemblies.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(xVal));
+                xAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(xVal));
               }
               else
               {

@@ -1,9 +1,5 @@
 ﻿<Project>
 
-    <PropertyGroup>
-        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
-    </PropertyGroup>
-
     <Choose>
         <When Condition="'$(MSBuildRuntimeType)' == 'Core'">
             <PropertyGroup>
