@@ -4,14 +4,13 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
         <OutputType>Exe</OutputType>
         <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
-        <AssemblyName>dotnet-xsharp</AssemblyName>
+        <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.XSC</RootNamespace>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
-        <Description>X# dotnet CLI tool.
+        <Description>X# compiler.
 $(XSharpDescription)</Description>
-        <IsTool>True</IsTool>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,15 +19,6 @@ $(XSharpDescription)</Description>
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
         </Content>
-        <Content Include="build\**\*.targets">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <Pack>True</Pack>
-            <PackagePath>build\</PackagePath>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     </ItemGroup>
 
     <ItemGroup>
