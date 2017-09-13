@@ -26,10 +26,14 @@
             <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
-  
+
     <ItemGroup>
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
     </ItemGroup>
+
+    <Target Name="CopyDllToTools" AfterTargets="Build">
+        <Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(OutDir)tools\" />
+    </Target>
 
 </Project>

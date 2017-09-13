@@ -61,11 +61,13 @@ namespace XSharp.Build.Tasks
 
                 if (String.IsNullOrWhiteSpace(xFullPath))
                 {
-                    Log.LogError($"Input file is empty! Input files: '${String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
+                    Log.LogError($"Input file is an empty string! Input files: '{String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
+                    xInvalidFile = true;
                 }
                 else if (!File.Exists(xFullPath))
                 {
-                    Log.LogError($"Input file '${xFullPath}' doesn't exist!");
+                    Log.LogError($"Input file '{xFullPath}' doesn't exist!");
+                    xInvalidFile = true;
                 }
             }
 

@@ -33,11 +33,11 @@ namespace XSharp.Build.Tasks
 
                 if (String.IsNullOrWhiteSpace(xFullPath))
                 {
-                    Log.LogError($"Input file is empty! Input files: '${String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
+                    Log.LogError($"Input file is empty! Input files: '{String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
                 }
                 else if (!File.Exists(xFullPath))
                 {
-                    Log.LogError($"Input file '${xFullPath}' doesn't exist!");
+                    Log.LogError($"Input file '{xFullPath}' doesn't exist!");
                 }
             }
 
@@ -64,11 +64,6 @@ namespace XSharp.Build.Tasks
 
             if (String.IsNullOrWhiteSpace(ToolPath))
             {
-                if (ToolExe.Equals("dotnet", StringComparison.OrdinalIgnoreCase))
-                {
-                    return ToolExe;
-                }
-
                 return Path.Combine(Directory.GetCurrentDirectory(), ToolExe);
             }
 
@@ -78,12 +73,7 @@ namespace XSharp.Build.Tasks
         protected override string GenerateCommandLineCommands()
         {
             var xBuilder = new CommandLineBuilder();
-
-            if (ToolExe.Equals("dotnet", StringComparison.OrdinalIgnoreCase))
-            {
-                xBuilder.AppendSwitch("xsc.dll");
-            }
-
+            
             xBuilder.AppendFileNamesIfNotNull(InputFiles, " ");
             
             if (Append)
@@ -93,7 +83,7 @@ namespace XSharp.Build.Tasks
 
             if (OutputFile != null)
             {
-                xBuilder.AppendSwitch($"-Out:\"${OutputFile}\"");
+                xBuilder.AppendSwitch($"-Out:\"{OutputFile}\"");
             }
 
             return xBuilder.ToString();
