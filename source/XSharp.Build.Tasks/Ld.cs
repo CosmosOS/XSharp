@@ -136,13 +136,24 @@ namespace XSharp.Build.Tasks
         {
             var xBuilder = new CommandLineBuilder();
 
-            xBuilder.AppendSwitchIfNotNull("-Ttext", TextAddress);
-            xBuilder.AppendSwitchIfNotNull("-Tdata", DataAddress);
-            xBuilder.AppendSwitchIfNotNull("-Tbss", BssAddress);
-            xBuilder.AppendSwitchIfNotNull("-e", Entry);
+            xBuilder.AppendSwitch("-Ttext");
+            xBuilder.AppendSwitch(TextAddress);
+
+            xBuilder.AppendSwitch("-Tdata");
+            xBuilder.AppendSwitch(DataAddress);
+
+            xBuilder.AppendSwitch("-Tbss");
+            xBuilder.AppendSwitch(BssAddress);
+
+            xBuilder.AppendSwitch("-e");
+            xBuilder.AppendSwitch(Entry);
+
             xBuilder.AppendSwitch("-o");
             xBuilder.AppendFileNameIfNotNull(OutputFile);
+
             xBuilder.AppendFileNamesIfNotNull(InputFiles, " ");
+
+            Log.LogMessage(MessageImportance.High, xBuilder.ToString());
 
             return xBuilder.ToString();
         }
