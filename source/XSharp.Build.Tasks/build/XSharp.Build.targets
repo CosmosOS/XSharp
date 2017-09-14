@@ -1,20 +1,38 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
+        <ToolsPath Condition = "'$(ToolsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\</ToolsPath>
+
+        <LdToolPath Condition = "'$(LdToolPath)' == ''">$(ToolsPath)ld\</LdToolPath>
+        <LdToolExe Condition = "'$(LdToolExe)' == ''">ld.exe</LdToolExe>
+
+        <MkisofsToolPath Condition = "'$(MkisofsToolPath)' == ''">$(ToolsPath)mkisofs\</MkisofsToolPath>
+        <MkisofsToolExe Condition = "'$(MkisofsToolExe)' == ''">mkisofs.exe</MkisofsToolExe>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
 
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
         <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFile>
 
-        <AssembleOutputExt Condition="'$(AssembleOutputExt)' == ''">.obj</AssembleOutputExt>
-        <AssembleOutput Condition="'$(AssembleOutput)' == ''">$(OutputName)$(AssembleOutputExt)</AssembleOutput>
+        <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
+        <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
+        <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.obj</AssemblerOutputExt>
+        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
 
+        <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' == 'Elf'">True</Link>
+        <Link Condition="'$(Link)' == ''">False</Link>
         <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
 
-        <LdToolPath Condition="'$(LdToolPath)' == ''">..\tools\</LdToolPath>
+        <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
+        <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
 
+        <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
         <OutputISO Condition="'$(OutputISO)' == ''">$(OutputName).iso</OutputISO>
+
+        <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">ISO</IntermediateIsoDirectory>
     </PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
@@ -38,8 +56,6 @@
             Inputs="@(Compile)"
             Outputs="$(AssemblyFile)">
 
-        <Message Importance="High" Text="Message From CoreCompile" />
-
         <Xsc InputFiles="@(Compile)"
              OutputFile="$(AssemblyFile)"
              Append="True"
@@ -56,21 +72,22 @@
         $(AssemblyFile) - the file to assemble.
 
         [OUT]
-        $(AssembleOutput) - the file that results from assembling the assembly
-                            file.
+        $(AssemblerOutput) - the file that results from assembling the assembly
+                             file.
 
     ================================================================================
     -->
     <Target Name="Assemble"
             Inputs="$(AssemblyFile)"
-            Outputs="$(AssembleOutput)"
-            AfterTargets="CoreCompile"
-            Condition="$(Assemble) == 'True'">
+            Outputs="$(AssemblerOutput)"
+            DependsOnTargets="Compile"
+            Condition="'$(Assemble)' == 'True'">
 
         <XsAssemble InputFile="$(AssemblyFile)"
-                    OutputFile="$(AssembleOutput)"
-                    Assembler="NASM"
-                    OutputFormat="$(AssemblerOutputFormat)" />
+                    OutputFile="$(AssemblerOutput)"
+                    Assembler="$(Assembler)"
+                    OutputFormat="$(AssemblerOutputFormat)"
+                    ToolsPath="$(ToolsPath)"/>
     
     </Target>
 
@@ -79,7 +96,7 @@
                                        Link
 
         [IN]
-        $(AssembleOutput) - an assembled file.
+        $(AssemblerOutput) - an assembled file.
 
         [OUT]
         $(LinkOutput) - a linked file.
@@ -87,18 +104,28 @@
     ================================================================================
     -->
     <Target Name="Link"
-            Inputs="$(AssembleOutput)"
+            Inputs="$(AssemblerOutput)"
             Outputs="$(LinkOutput)"
-            AfterTargets="Assemble">
+            DependsOnTargets="Assemble"
+            Condition="'$(Link)' == 'True'">
         
-        <Ld InputFile="$(AssembleOutput)"
+        <Ld InputFiles="$(AssemblerOutput)"
             OutputFile="$(LinkOutput)"
             TextAddress="0x2000000"
             DataAddress="0x1000000"
-            Entry="$(Entry)" />
+            Entry="$(Entry)"
+            ToolPath="$(LdToolPath)"
+            ToolExe="$(LdToolExe)" />
 
     </Target>
 
+    <!--
+    ================================================================================
+                                      PrepareForRun
+    ================================================================================
+    -->
+    <Target Name="PrepareForRun" DependsOnTargets="DeployISO" />
+    
     <!--
     ================================================================================
                                        DeployISO
@@ -114,11 +141,21 @@
     <Target Name="DeployISO"
             Inputs="$(LinkOutput)"
             Outputs="$(OutputISO)"
-            AfterTargets="Link"
+            DependsOnTargets="Assemble;Link"
             Condition="'$(OutputType)' == 'Bootable'">
 
-        <MakeIso InputFile="$(LinkOutput)"
-                 OutputFile="$(OutputISO)" />
+        <ItemGroup>
+            <_ISOLINUX Include="$(ISOLINUX)**" />
+        </ItemGroup>
+        
+        <MakeDir Directories="$(IntermediateIsoDirectory)" />
+        <Copy SourceFiles="@(_ISOLINUX)" DestinationFolder="$(IntermediateIsoDirectory)" />
+        
+        <MakeIso InputFile="$(BinaryOutput)"
+                 OutputFile="$(OutputISO)"
+                 ToolPath="$(MkisofsToolPath)"
+                 ToolExe="$(MkisofsToolExe)"
+                 IsoDirectory="$(IntermediateIsoDirectory)"/>
 
     </Target>
 

@@ -14,19 +14,22 @@ namespace XSharp.Build.Tasks
         [Required]
         public string OutputFile { get; set; }
 
+        [Required]
+        public string IsoDirectory { get; set; }
+
         protected override string ToolName => "mkisofs.exe";
 
         protected override bool ValidateParameters()
         {
             if (InputFile == null || !File.Exists(InputFile))
             {
-                Log.LogError("InputFile is null or doesn't exist!");
+                Log.LogError(nameof(InputFile) + " is null or doesn't exist!");
                 return false;
             }
 
             if (String.IsNullOrEmpty(OutputFile))
             {
-                Log.LogError("OutputFile is null or empty!");
+                Log.LogError(nameof(OutputFile) + " is null or empty!");
                 return false;
             }
 
@@ -36,7 +39,23 @@ namespace XSharp.Build.Tasks
             }
             catch
             {
-                Log.LogError("OutputFile is an invalid path!");
+                Log.LogError($"{nameof(OutputFile)} is an invalid path! {nameof(OutputFile)}: '{OutputFile}'");
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(IsoDirectory))
+            {
+                Log.LogError(nameof(IsoDirectory) + " is null or empty!");
+                return false;
+            }
+
+            try
+            {
+                Path.GetFullPath(IsoDirectory);
+            }
+            catch
+            {
+                Log.LogError($"{nameof(IsoDirectory)} is an invalid path! {nameof(IsoDirectory)}: '{IsoDirectory}'");
                 return false;
             }
 
@@ -61,7 +80,6 @@ namespace XSharp.Build.Tasks
         protected override string GenerateCommandLineCommands()
         {
             var xBuilder = new CommandLineBuilder();
-            var xIsoDirectory = Path.Combine(Path.GetDirectoryName(InputFile), "ISO");
 
             xBuilder.AppendSwitch("-relaxed-filenames");
             xBuilder.AppendSwitch("-J");
@@ -72,7 +90,7 @@ namespace XSharp.Build.Tasks
             xBuilder.AppendSwitch("-no-emul-boot");
             xBuilder.AppendSwitch("-boot-load-size 4");
             xBuilder.AppendSwitch("-boot-info-table");
-            xBuilder.AppendFileNameIfNotNull(xIsoDirectory);
+            xBuilder.AppendFileNameIfNotNull(IsoDirectory);
 
             return xBuilder.ToString();
         }

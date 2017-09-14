@@ -96,7 +96,12 @@ namespace XSharp.DotNetCLI
             {
               using (var xIn = File.OpenText(xFile))
               {
-                using (var xOut = File.CreateText(Path.ChangeExtension(xFile, ".asm")))
+                if (!xAppend)
+                {
+                  xOutputPath = Path.ChangeExtension(xFile, ".asm");
+                }
+
+                using (var xOut = File.CreateText(xOutputPath))
                 {
                   Console.WriteLine("Processing file: " + xFile);
                   Compiler xCompiler;

@@ -173,7 +173,10 @@ namespace XSharp.Build.Launch
             {
                 using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XSharp.Build.Resources.Cosmos.nvram"))
                 {
-                    using (var xFile = File.Create(xNvramFile)) ;
+                    using (var xFile = File.Create(xNvramFile))
+                    {
+                        xStream.CopyTo(xFile);
+                    }
                 }
             }
 

@@ -2,11 +2,12 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>b2646df5-b718-4547-8dc0-79f1a240af58</ProjectGuid>
+    <OutputType>Bootable</OutputType>
   </PropertyGroup>
   <PropertyGroup>
     <CustomProjectExtensionsPath>$(LocalAppData)\CustomProjectSystems\XSharp\</CustomProjectExtensionsPath>
   </PropertyGroup>
-  <Import Project="..\XSharp.Build.Tasks\bin\Debug\net462\build\XSharp.Build.targets" />
+  <Import Project="..\XSharp.Compiler\obj\Debug\package\build\XSharp.Compiler.props" />
   <Import Project="$(CustomProjectExtensionsPath)XSharp.props" />
   <Import Project="$(CustomProjectExtensionsPath)XSharp.targets" />
   <Import Project="..\XSharp.Build.Tasks\bin\Debug\net462\build\XSharp.Build.targets" />

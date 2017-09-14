@@ -75,7 +75,9 @@ namespace XSharp.Build.Tasks
             var xBuilder = new CommandLineBuilder();
             
             xBuilder.AppendFileNamesIfNotNull(InputFiles, " ");
-            
+
+            xBuilder.AppendSwitch("-Gen2");
+
             if (Append)
             {
                 xBuilder.AppendSwitch("-Append");

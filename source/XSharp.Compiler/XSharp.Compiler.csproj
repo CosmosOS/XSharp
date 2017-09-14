@@ -1,21 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
+        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
         <OutputType>Exe</OutputType>
-        <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.XSC</RootNamespace>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
+        <PackageId>XSharp.Compiler</PackageId>
         <Description>X# compiler.
 $(XSharpDescription)</Description>
+      
+        <!-- Package Properties -->
+        <InnerTargets>Publish</InnerTargets>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
+        <CompilerPackageDir>obj\$(Configuration)\package\</CompilerPackageDir>
+        <PublishDir>$(CompilerPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
         <Content Include="build\**\*.props">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
         </Content>
@@ -26,5 +32,25 @@ $(XSharpDescription)</Description>
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
+  
+    <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
+        <RemoveDir Directories="$(CompilerPackageDir)" />
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(Content.PackagePath)" />
+    </Target>
 
+    <Target Name="IncludeToolsInPackage" AfterTargets="DispatchToInnerBuilds">
+        <ItemGroup>
+            <Content Include="$(IntermediateOutputPath)package\tools\**">
+                <Pack>True</Pack>
+                <PackagePath>tools\</PackagePath>
+            </Content>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="RemovePackageLibContents" BeforeTargets="GenerateNuspec">
+        <ItemGroup>
+            <_BuildOutputInPackage Remove="@(_BuildOutputInPackage)" />
+        </ItemGroup>
+    </Target>
+  
 </Project>

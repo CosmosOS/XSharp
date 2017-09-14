@@ -13,7 +13,7 @@ namespace XSharp.Build.Tasks
 
         [Required]
         public ITaskItem[] InputFiles { get; set; }
-        
+
         [Required]
         public string OutputFile { get; set; }
 
