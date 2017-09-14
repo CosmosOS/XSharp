@@ -8,6 +8,12 @@
         <EnableHyperV>True</EnableHyperV>
         <DefineConstants Condition="$(EnableHyperV)">HYPERV_ENABLED</DefineConstants>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Deploy\**" />
+      <EmbeddedResource Remove="Deploy\**" />
+      <None Remove="Deploy\**" />
+    </ItemGroup>
   
     <ItemGroup>
         <EmbeddedResource Include="Resources\Cosmos.bxrc" />
@@ -18,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Deploy\" />
         <Folder Include="Tools\NASM\" />
         <Folder Include="Tools\ISO\" />
         <Folder Include="Tools\TFTP\" />
