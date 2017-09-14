@@ -126,8 +126,12 @@ namespace XSharp.Build.Tasks
             switch (mAssembler)
             {
                 case AssemblerEnum.NASM:
-                    xBuilder.AppendSwitchIfNotNull("-f", OutputFormat);
-                    xBuilder.AppendSwitchIfNotNull("-o", OutputFile);
+                    xBuilder.AppendSwitch("-f");
+                    xBuilder.AppendSwitch(OutputFormat);
+
+                    xBuilder.AppendSwitch("-o ");
+                    xBuilder.AppendSwitch(OutputFile);
+
                     xBuilder.AppendFileNameIfNotNull(InputFile);
                     break;
                 default:
