@@ -13,26 +13,28 @@
     <PropertyGroup>
         <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
 
+        <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
+
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
-        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFile>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(IntermediateOutputPath)$(OutputName)$(AssemblyFileExt)</AssemblyFile>
 
         <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
         <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
         <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.obj</AssemblerOutputExt>
-        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
+        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(IntermediateOutputPath)$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
 
-        <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' == 'Elf'">True</Link>
+        <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
         <Link Condition="'$(Link)' == ''">False</Link>
-        <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
+        <LinkOutput Condition="'$(LinkOutput)' == ''">$(IntermediateOutputPath)$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
 
         <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
         <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
 
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
-        <OutputISO Condition="'$(OutputISO)' == ''">$(OutputName).iso</OutputISO>
+        <OutputISO Condition="'$(OutputISO)' == ''">$(IntermediateOutputPath)$(OutputName).iso</OutputISO>
 
-        <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">ISO</IntermediateIsoDirectory>
+        <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
     </PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
@@ -88,7 +90,7 @@
                     Assembler="$(Assembler)"
                     OutputFormat="$(AssemblerOutputFormat)"
                     ToolsPath="$(ToolsPath)"/>
-    
+
     </Target>
 
     <!--
@@ -108,7 +110,7 @@
             Outputs="$(LinkOutput)"
             DependsOnTargets="Assemble"
             Condition="'$(Link)' == 'True'">
-        
+
         <Ld InputFiles="$(AssemblerOutput)"
             OutputFile="$(LinkOutput)"
             TextAddress="0x2000000"
@@ -125,13 +127,13 @@
     ================================================================================
     -->
     <Target Name="PrepareForRun" DependsOnTargets="DeployISO" />
-    
+
     <!--
     ================================================================================
                                        DeployISO
 
         [IN]
-        $(LinkOutput) - a linked file.
+        $(BinaryOutput) - a binary file.
 
         [OUT]
         $(OutputISO) - a bootable ISO file.
@@ -139,7 +141,7 @@
     ================================================================================
     -->
     <Target Name="DeployISO"
-            Inputs="$(LinkOutput)"
+            Inputs="$(BinaryOutput)"
             Outputs="$(OutputISO)"
             DependsOnTargets="Assemble;Link"
             Condition="'$(OutputType)' == 'Bootable'">
@@ -147,10 +149,10 @@
         <ItemGroup>
             <_ISOLINUX Include="$(ISOLINUX)**" />
         </ItemGroup>
-        
+
         <MakeDir Directories="$(IntermediateIsoDirectory)" />
         <Copy SourceFiles="@(_ISOLINUX)" DestinationFolder="$(IntermediateIsoDirectory)" />
-        
+
         <MakeIso InputFile="$(BinaryOutput)"
                  OutputFile="$(OutputISO)"
                  ToolPath="$(MkisofsToolPath)"
