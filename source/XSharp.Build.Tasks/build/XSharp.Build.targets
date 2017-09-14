@@ -16,24 +16,28 @@
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
-        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(IntermediateOutputPath)$(OutputName)$(AssemblyFileExt)</AssemblyFile>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFile>
+        <_AssemblyFile>$(IntermediateOutputPath)$(AssemblyFile)</_AssemblyFile>
 
         <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
         <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
         <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.obj</AssemblerOutputExt>
-        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(IntermediateOutputPath)$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
-        <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
+        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
+        <_AssemblerOutput>$(IntermediateOutputPath)$(AssemblerOutput)</_AssemblerOutput>
+        <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Elf</AssemblerOutputFormat>
 
         <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
         <Link Condition="'$(Link)' == ''">False</Link>
-        <LinkOutput Condition="'$(LinkOutput)' == ''">$(IntermediateOutputPath)$(OutputName).$(AssemblerOutputFormat.ToLower())</LinkOutput>
+        <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).bin</LinkOutput>
+        <_LinkOutput>$(IntermediateOutputPath)$(LinkOutput)</_LinkOutput>
 
-        <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
-        <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
+        <BinaryOutput>$(_AssemblerOutput)</BinaryOutput>
+        <BinaryOutput Condition="'$(Link)' == 'True'">$(_LinkOutput)</BinaryOutput>
 
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
-        <OutputISO Condition="'$(OutputISO)' == ''">$(IntermediateOutputPath)$(OutputName).iso</OutputISO>
-
+        <OutputISO Condition="'$(OutputISO)' == ''">$(OutputName).iso</OutputISO>
+        <_OutputISO>$(IntermediateOutputPath)$(OutputISO)</_OutputISO>
+        
         <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
     </PropertyGroup>
 
@@ -44,22 +48,36 @@
 
     <!--
     ================================================================================
+                                     PrepareForBuild
+
+        Creates the needed directories used by build targets.
+
+    ================================================================================
+    -->
+    <Target Name="PrepareForBuild">
+        
+        <MakeDir Directories="$(IntermediateOutputPath)" Condition="!Exists('$(IntermediateOutputPath)')" />
+        
+    </Target>
+    
+    <!--
+    ================================================================================
                                         Compile
 
         [IN]
         @(Compile) - the list of X# files to compile.
 
         [OUT]
-        $(AssemblyFile) - the file that results from compiling the .xs files.
+        $(_AssemblyFile) - the file that results from compiling the .xs files.
 
     ================================================================================
     -->
     <Target Name="Compile"
             Inputs="@(Compile)"
-            Outputs="$(AssemblyFile)">
+            Outputs="$(_AssemblyFile)">
 
         <Xsc InputFiles="@(Compile)"
-             OutputFile="$(AssemblyFile)"
+             OutputFile="$(_AssemblyFile)"
              Append="True"
              ToolPath="$(XscToolPath)"
              ToolExe="$(XscToolExe)" />
@@ -71,22 +89,21 @@
                                         Assemble
 
         [IN]
-        $(AssemblyFile) - the file to assemble.
+        $(_AssemblyFile) - the file to assemble.
 
         [OUT]
-        $(AssemblerOutput) - the file that results from assembling the assembly
-                             file.
+        $(_AssemblerOutput) - the file that results from assembling the assembly
+                              file.
 
     ================================================================================
     -->
     <Target Name="Assemble"
-            Inputs="$(AssemblyFile)"
-            Outputs="$(AssemblerOutput)"
-            DependsOnTargets="Compile"
+            Inputs="$(_AssemblyFile)"
+            Outputs="$(_AssemblerOutput)"
             Condition="'$(Assemble)' == 'True'">
 
-        <XsAssemble InputFile="$(AssemblyFile)"
-                    OutputFile="$(AssemblerOutput)"
+        <XsAssemble InputFile="$(_AssemblyFile)"
+                    OutputFile="$(_AssemblerOutput)"
                     Assembler="$(Assembler)"
                     OutputFormat="$(AssemblerOutputFormat)"
                     ToolsPath="$(ToolsPath)"/>
@@ -98,21 +115,20 @@
                                        Link
 
         [IN]
-        $(AssemblerOutput) - an assembled file.
+        $(_AssemblerOutput) - an assembled file.
 
         [OUT]
-        $(LinkOutput) - a linked file.
+        $(_LinkOutput) - a linked file.
 
     ================================================================================
     -->
     <Target Name="Link"
-            Inputs="$(AssemblerOutput)"
-            Outputs="$(LinkOutput)"
-            DependsOnTargets="Assemble"
+            Inputs="$(_AssemblerOutput)"
+            Outputs="$(_LinkOutput)"
             Condition="'$(Link)' == 'True'">
 
-        <Ld InputFiles="$(AssemblerOutput)"
-            OutputFile="$(LinkOutput)"
+        <Ld InputFiles="$(_AssemblerOutput)"
+            OutputFile="$(_LinkOutput)"
             TextAddress="0x2000000"
             DataAddress="0x1000000"
             Entry="$(Entry)"
@@ -136,14 +152,13 @@
         $(BinaryOutput) - a binary file.
 
         [OUT]
-        $(OutputISO) - a bootable ISO file.
+        $(_OutputISO) - a bootable ISO file.
 
     ================================================================================
     -->
     <Target Name="DeployISO"
             Inputs="$(BinaryOutput)"
-            Outputs="$(OutputISO)"
-            DependsOnTargets="Assemble;Link"
+            Outputs="$(_OutputISO)"
             Condition="'$(OutputType)' == 'Bootable'">
 
         <ItemGroup>
@@ -154,7 +169,7 @@
         <Copy SourceFiles="@(_ISOLINUX)" DestinationFolder="$(IntermediateIsoDirectory)" />
 
         <MakeIso InputFile="$(BinaryOutput)"
-                 OutputFile="$(OutputISO)"
+                 OutputFile="$(_OutputISO)"
                  ToolPath="$(MkisofsToolPath)"
                  ToolExe="$(MkisofsToolExe)"
                  IsoDirectory="$(IntermediateIsoDirectory)"/>

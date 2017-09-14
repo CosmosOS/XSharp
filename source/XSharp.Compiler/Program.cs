@@ -191,6 +191,7 @@ namespace XSharp.DotNetCLI
           {
             Console.WriteLine();
             Console.WriteLine("Waiting on error. Press Enter to exit.");
+            Console.WriteLine("Exception: " + ex.ToString());
             Console.ReadLine();
           }
           Environment.Exit(-1);
