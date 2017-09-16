@@ -2,7 +2,7 @@
 <Rule Name="XSharpDebugger"
       DisplayName="X# Debugger"
       PageTemplate="debugger"
-      Description="XSharp Debugger Options."
+      Description="X# Debugger Options."
       xmlns="http://schemas.microsoft.com/build/2009/properties">
 
     <Rule.DataSource>
@@ -14,16 +14,22 @@
                   DisplayName="General"/>
     </Rule.Categories>
 
+    <StringProperty Name="RunCommand"
+                    DisplayName="Command"
+                    Default="msbuild /t:Run"
+                    Description="The debug command to execute." />
+
+
     <StringProperty Name="RunCommandArguments"
                     DisplayName="Command Arguments"
                     Description="The command line arguments to pass to the application.">
         <Argument Property="XSharpDebuggerCommand" />
     </StringProperty>
-    
+
     <StringProperty Name="RunWorkingDirectory"
                     DisplayName="Working Directory"
                     Default="$(MSBuildProjectDirectory)"  
                     Description="The application's working directory. By default, the directory containing the project file."
-                    Subtype="folder" />
-    
+                    Subtype="Folder" />
+
 </Rule>

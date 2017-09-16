@@ -7,6 +7,10 @@
         
         <DebuggerFlavor>XSharpDebugger</DebuggerFlavor>
 
+        <RunCommand>msbuild /t:Run</RunCommand>
+        <RunArguments></RunArguments>
+        <RunWorkingDirectory></RunWorkingDirectory>
+        
         <OutputType Condition="'$(OutputType)' == ''">Application</OutputType>
         <OutputName Condition="'$(OutputName)' == ''">$(MSBuildProjectName)</OutputName>
     </PropertyGroup>

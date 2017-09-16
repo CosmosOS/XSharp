@@ -21,10 +21,10 @@
 
         <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
         <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
-        <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.obj</AssemblerOutputExt>
+        <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
+        <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.bin</AssemblerOutputExt>
         <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
         <_AssemblerOutput>$(IntermediateOutputPath)$(AssemblerOutput)</_AssemblerOutput>
-        <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Elf</AssemblerOutputFormat>
 
         <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
         <Link Condition="'$(Link)' == ''">False</Link>
@@ -166,13 +166,12 @@
         </ItemGroup>
 
         <MakeDir Directories="$(IntermediateIsoDirectory)" />
-        <Copy SourceFiles="@(_ISOLINUX)" DestinationFolder="$(IntermediateIsoDirectory)" />
+        <Copy SourceFiles="@(_ISOLINUX);$(BinaryOutput)" DestinationFolder="$(IntermediateIsoDirectory)" />
 
-        <MakeIso InputFile="$(BinaryOutput)"
+        <MakeIso IsoDirectory="$(IntermediateIsoDirectory)"
                  OutputFile="$(_OutputISO)"
                  ToolPath="$(MkisofsToolPath)"
-                 ToolExe="$(MkisofsToolExe)"
-                 IsoDirectory="$(IntermediateIsoDirectory)"/>
+                 ToolExe="$(MkisofsToolExe)" />
 
     </Target>
 

@@ -9,24 +9,15 @@ namespace XSharp.Build.Tasks
     public class MakeISO : ToolTask
     {
         [Required]
-        public string InputFile { get; set; }
+        public string IsoDirectory { get; set; }
 
         [Required]
         public string OutputFile { get; set; }
-
-        [Required]
-        public string IsoDirectory { get; set; }
 
         protected override string ToolName => "mkisofs.exe";
 
         protected override bool ValidateParameters()
         {
-            if (InputFile == null || !File.Exists(InputFile))
-            {
-                Log.LogError(nameof(InputFile) + " is null or doesn't exist!");
-                return false;
-            }
-
             if (String.IsNullOrEmpty(OutputFile))
             {
                 Log.LogError(nameof(OutputFile) + " is null or empty!");
@@ -84,13 +75,14 @@ namespace XSharp.Build.Tasks
             xBuilder.AppendSwitch("-relaxed-filenames");
             xBuilder.AppendSwitch("-J");
             xBuilder.AppendSwitch("-R");
-            xBuilder.AppendSwitch("-o");
-            xBuilder.AppendFileNameIfNotNull(OutputFile);
+            xBuilder.AppendSwitchIfNotNull("-o ", OutputFile);
             xBuilder.AppendSwitch("-b isolinux.bin");
             xBuilder.AppendSwitch("-no-emul-boot");
             xBuilder.AppendSwitch("-boot-load-size 4");
             xBuilder.AppendSwitch("-boot-info-table");
-            xBuilder.AppendFileNameIfNotNull(IsoDirectory);
+            xBuilder.AppendFileNameIfNotNull(IsoDirectory.TrimEnd('\\', '/'));
+
+            Log.LogMessage(MessageImportance.High, xBuilder.ToString());
 
             return xBuilder.ToString();
         }
