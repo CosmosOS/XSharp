@@ -19,6 +19,10 @@ namespace XSharp.ProjectSystem
         /// </summary>
         public const string DependenciesTree = nameof(DependenciesTree);
         /// <summary>
+        /// Indicates that the project supports the edit and continue debugging feature.
+        /// </summary>
+        public const string EditAndContinue = nameof(EditAndContinue);
+        /// <summary>
         /// Indicates that the project is capable of handling the project file being edited live in an IDE while the project is already loaded.
         /// </summary>
         public const string OpenProjectFile = nameof(OpenProjectFile);
@@ -27,25 +31,23 @@ namespace XSharp.ProjectSystem
         /// </summary>
         public const string UseFileGlobs = nameof(UseFileGlobs);
         /// <summary>
+        /// Indicates that the user is allowed to add arbitrary files to their project.
+        /// </summary>
+        public const string UserSourceItems = nameof(UserSourceItems);
+        /// <summary>
         /// Project may contain or compile X# source files.
         /// </summary>
         public const string XSharp = nameof(XSharp);
 
         #endregion
 
-        public const string InitialCapabilities = //AppDesigner + ";" +
-                                                  Cps + ";" +
-                                                  DeclaredSourceItems + ";" +
-                                                  DependenciesTree + ";" +
+        public const string InitialCapabilities = // is this needed for property pages?
+                                                  //AppDesigner + ";" +
+                                                  // todo: implement
+                                                  //EditAndContinue + ";" +
                                                   HandlesOwnReload + ";" +
-                                                  //HostSetActiveProjectConfiguration + ";" +
                                                   OpenProjectFile + ";" +
-                                                  PackageReferences + ";" +
-                                                  ProjectReferences + ";" +
-                                                  //ReferencesFolder + ";" +
-                                                  //SdkReferences + ";" +
-                                                  //SingleFileGenerators + ";" +
-                                                  UseFileGlobs + ";" +
+                                                  PreserveFormatting + ";" +
                                                   XSharp;
     }
 }
