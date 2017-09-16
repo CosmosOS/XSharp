@@ -41,8 +41,7 @@ namespace XSharp.ProjectSystem
 
         #endregion
 
-        public const string InitialCapabilities = // is this needed for property pages?
-                                                  //AppDesigner + ";" +
+        public const string InitialCapabilities = AppDesigner + ";" +
                                                   // todo: implement
                                                   //EditAndContinue + ";" +
                                                   HandlesOwnReload + ";" +
