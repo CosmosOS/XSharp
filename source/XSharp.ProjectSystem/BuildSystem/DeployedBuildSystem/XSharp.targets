@@ -16,6 +16,29 @@
         <_XSharpRulesXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpRulesXamlResourcesDirectory>
     </PropertyGroup>
 
+    <ItemGroup>        
+        <ProjectCapability Include="AllTargetOutputGroups;
+                                    AssemblyReferences;
+                                    DeclaredSourceItems;
+                                    DependenciesTree;
+                                    HandlesOwnReload;
+                                    LaunchProfiles;
+                                    NoGeneralDependentFileIcon;
+                                    ProjectReferences;
+                                    PackageReferences;
+                                    OutputGroups;
+                                    SingleFileGenerators;
+                                    UseFileGlobs;
+                                    UserSourceItems;
+                                    VisualStudioWellKnownOutputGroups;" />
+
+        <ProjectCapability Include="ReferenceManagerAssemblies" />
+        <ProjectCapability Include="ReferenceManagerBrowse" />
+        <ProjectCapability Include="ReferenceManagerProjects" />
+
+        <ProjectCapability Include="XSharp"/>
+    </ItemGroup>
+
     <ItemGroup>
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.xaml">
             <Context>Project</Context>
@@ -40,7 +63,7 @@
                                      $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
-        
+
         <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
             <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
