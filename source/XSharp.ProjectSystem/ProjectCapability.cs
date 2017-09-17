@@ -4,7 +4,7 @@ namespace XSharp.ProjectSystem
 {
     internal class ProjectCapability
     {
-        #region Capabilities
+        #region CPS Capabilities
 
         /// <summary>
         /// Indicates that the project uses the app designer for managing project properties.
@@ -34,10 +34,21 @@ namespace XSharp.ProjectSystem
         /// Indicates that the user is allowed to add arbitrary files to their project.
         /// </summary>
         public const string UserSourceItems = nameof(UserSourceItems);
+
+        #endregion
+
+        #region New Capabilities
+
         /// <summary>
         /// Project may contain or compile X# source files.
         /// </summary>
         public const string XSharp = nameof(XSharp);
+
+        #endregion
+
+        #region Combined Capabilities
+
+        public const string XSharpAppDesigner = XSharp + " & " + AppDesigner;
 
         #endregion
 

@@ -5,6 +5,7 @@ using System.Composition;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.Debug;
+using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.ProjectSystem.VS.Debug;
 using Microsoft.VisualStudio.Threading;
 
@@ -16,6 +17,10 @@ namespace XSharp.ProjectSystem.VS
     {
         [Import]
         private ProjectProperties ProjectProperties { get; set; }
+
+        [ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
+        [AppliesTo(ProjectCapability.XSharp)]
+        private object DebuggerXaml { get { throw new NotImplementedException(); } }
 
         [ImportingConstructor]
         public DebugLaunchProvider(ConfiguredProject configuredProject)

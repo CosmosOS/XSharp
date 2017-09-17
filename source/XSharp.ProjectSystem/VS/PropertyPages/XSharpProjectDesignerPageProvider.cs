@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.ProjectSystem.VS.Properties;
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
     [Export(typeof(IVsProjectDesignerPageProvider))]
-    [AppliesTo(ProjectCapability.XSharp)]
+    [AppliesTo(ProjectCapability.XSharpAppDesigner)]
     internal class XSharpProjectDesignerPageProvider : IVsProjectDesignerPageProvider
     {
         private readonly IPageMetadata CompilePage = new PropertyPageMetadata("Compile", new Guid(CompilePropertyPage.PageGuid), 0, false);

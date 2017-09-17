@@ -1,75 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <!--<ItemGroup Label="ProjectConfigurations">
+    <ItemGroup Label="ProjectConfigurations">
         <ProjectConfiguration Include="Debug|AnyCPU">
             <Configuration>Debug</Configuration>
             <Platform>AnyCPU</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x86">
+            <Configuration>Debug</Configuration>
+            <Platform>x86</Platform>
         </ProjectConfiguration>
         <ProjectConfiguration Include="Release|AnyCPU">
             <Configuration>Release</Configuration>
             <Platform>AnyCPU</Platform>
         </ProjectConfiguration>
-    </ItemGroup>-->
+        <ProjectConfiguration Include="Release|x86">
+            <Configuration>Release</Configuration>
+            <Platform>x86</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
 
     <PropertyGroup>
-        <_XSharpRulesXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpRulesXamlResourcesDirectory>
+        <_XSharpXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpXamlResourcesDirectory>
     </PropertyGroup>
 
-    <ItemGroup>        
+    <PropertyGroup>
+        <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
+        <AppDesignerFolderContentsVisibleOnlyInShowAllFiles Condition="'$(AppDesignerFolderContentsVisibleOnlyInShowAllFiles)' == ''">False</AppDesignerFolderContentsVisibleOnlyInShowAllFiles>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectCapability Include="DeclaredSourceItems;
+                                    HandlesOwnReload;
+                                    NoGeneralDependentFileIcon;
+                                    PackageReferences;
+                                    ProjectConfigurationsDeclaredAsItems;
+                                    ProjectReferences;
+                                    OutputGroups;
+                                    UseFileGlobs;
+                                    UserSourceItems;" />
+
+        <!--
         <ProjectCapability Include="AllTargetOutputGroups;
                                     AssemblyReferences;
-                                    DeclaredSourceItems;
                                     DependenciesTree;
-                                    HandlesOwnReload;
                                     LaunchProfiles;
-                                    NoGeneralDependentFileIcon;
-                                    ProjectReferences;
-                                    PackageReferences;
-                                    OutputGroups;
                                     SingleFileGenerators;
-                                    UseFileGlobs;
-                                    UserSourceItems;
                                     VisualStudioWellKnownOutputGroups;" />
+        -->
 
+        <!--
         <ProjectCapability Include="ReferenceManagerAssemblies" />
         <ProjectCapability Include="ReferenceManagerBrowse" />
         <ProjectCapability Include="ReferenceManagerProjects" />
+        -->
 
         <ProjectCapability Include="XSharp"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.xaml">
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\ProjectItemsSchema.xaml" />
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\DebuggerGeneral.xaml">
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\ProjectItemsSchema.xaml" />
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\DebuggerGeneral.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\GeneralFile.xaml">
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\GeneralFile.xaml">
             <Context>File</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\SourceControl.xaml">
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)Rules\Compile.xaml;
-                                     $(_XSharpRulesXamlResourcesDirectory)Rules\Folder.xaml;
-                                     $(_XSharpRulesXamlResourcesDirectory)Rules\None.xaml;">
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\Compile.xaml;
+                                     $(_XSharpXamlResourcesDirectory)Rules\Folder.xaml;
+                                     $(_XSharpXamlResourcesDirectory)Rules\None.xaml;">
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ProjectReference.xaml">
+        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)AssemblyReference.xaml">
             <Context>Project;BrowseObject</Context>
         </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpRulesXamlResourcesDirectory)ResolvedProjectReference.xaml">
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedAssemblyReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>-->
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)PackageReference.xaml">
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedPackageReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ProjectReference.xaml">
+            <Context>Project;BrowseObject</Context>
+        </PropertyPageSchema>
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedProjectReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <!--
+        <PropertyPageSchema Include="$(ManagedXamlResourcesDirectory)SdkReference.xaml">
+            <Context>Project;ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(ManagedXamlResourcesDirectory)ResolvedSdkReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+        -->
     </ItemGroup>
 
     <ItemGroup>
@@ -78,12 +125,21 @@
 
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
-    <Target Name="ResolveProjectReferences" Returns="@(_ResolvedProjectReference)">
+    <Target Name="ResolveAssemblyReferencesDesignTime" Returns="@(_ResolvedAssemblyReference)">
+        <ItemGroup>
+            <_ResolvedAssemblyReference Include="@(AssemblyReference)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="ResolvePackageReferencesDesignTime" Returns="@(_ResolvedPackageReference)">
+        <ItemGroup>
+            <_ResolvedPackageReference Include="@(PackageReference)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="ResolveProjectReferencesDesignTime" Returns="@(_ResolvedProjectReference)">
         <ItemGroup>
             <_ResolvedProjectReference Include="@(ProjectReference)" />
-            <!--
-            <_ResolvedProjectReference Include="@(ProjectReference)" Condition="Exists('%(ProjectReference.FullPath)')" />
-            -->
         </ItemGroup>
     </Target>
 
