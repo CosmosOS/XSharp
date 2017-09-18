@@ -23,8 +23,8 @@ namespace XSharp.ProjectSystem.VS
         private object DebuggerXaml { get { throw new NotImplementedException(); } }
 
         [ImportingConstructor]
-        public DebugLaunchProvider(ConfiguredProject configuredProject)
-            : base(configuredProject)
+        public DebugLaunchProvider(ConfiguredProject aConfiguredProject)
+            : base(aConfiguredProject)
         {
         }
 

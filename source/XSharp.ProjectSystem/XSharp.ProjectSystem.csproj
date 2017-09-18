@@ -2,6 +2,8 @@
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <SignAssembly>True</SignAssembly>
@@ -20,10 +22,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="ItemTemplates\**\*.*">
+        <Content Include="ItemTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
-        <Content Include="ProjectTemplates\**\*.*">
+        <Content Include="ProjectTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
         <Content Include="**\*.imagemanifest">
@@ -90,6 +92,7 @@
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.12" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.0.26606" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.0.26606" />
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
@@ -108,7 +111,7 @@
             </Content>
         </ItemGroup>
     </Target>
-
+  
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 
@@ -124,10 +127,6 @@
         <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
     </Target>
 
-    <Target Name="FixRulesCompile" BeforeTargets="CoreCompile">
-        <ItemGroup>
-            <Compile Include="@(XamlPropertyRule->'$(IntermediateOutputPath)%(Filename).cs')" Exclude="@(Compile)" />
-        </ItemGroup>
-    </Target>
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
 </Project>

@@ -4,9 +4,11 @@
       PageTemplate="generic"
       Description="Non-build items"
       xmlns="http://schemas.microsoft.com/build/2009/properties">
-    
+
     <Rule.DataSource>
-        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False" ItemType="None" />
+        <DataSource Persistence="ProjectFile"
+                    ItemType="None"
+                    HasConfigurationCondition="False" />
     </Rule.DataSource>
 
     <StringProperty Name="Identity"
@@ -33,10 +35,11 @@
 
     <BoolProperty Name="Visible"
                   Visible="false" />
-    
+
     <StringProperty Name="DependentUpon"
                     Visible="false" />
-    
+
     <StringProperty Name="Link"
                     Visible="false" />
+
 </Rule>

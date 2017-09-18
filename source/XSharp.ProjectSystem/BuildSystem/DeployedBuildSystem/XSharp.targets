@@ -94,12 +94,12 @@
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>-->
 
-        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)PackageReference.xaml">
+        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)PackageReference.xaml">
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedPackageReference.xaml">
             <Context>ProjectSubscriptionService;BrowseObject</Context>
-        </PropertyPageSchema>
+        </PropertyPageSchema>-->
 
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ProjectReference.xaml">
             <Context>Project;BrowseObject</Context>
@@ -107,16 +107,6 @@
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedProjectReference.xaml">
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>
-
-        <!--
-        <PropertyPageSchema Include="$(ManagedXamlResourcesDirectory)SdkReference.xaml">
-            <Context>Project;ProjectSubscriptionService;BrowseObject</Context>
-        </PropertyPageSchema>
-
-        <PropertyPageSchema Include="$(ManagedXamlResourcesDirectory)ResolvedSdkReference.xaml">
-            <Context>ProjectSubscriptionService;BrowseObject</Context>
-        </PropertyPageSchema>
-        -->
     </ItemGroup>
 
     <ItemGroup>
