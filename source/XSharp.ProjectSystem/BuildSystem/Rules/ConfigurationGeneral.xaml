@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="ConfigurationGeneral"
+      DisplayName="General"
+      PageTemplate="generic"
+      Description="General"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+    
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile"
+                    Label="Configuration" />
+    </Rule.DataSource>
+    <Rule.Categories>
+        <Category Name="General"
+                  DisplayName="General"
+                  Description="General" />
+    </Rule.Categories>
+
+    <EnumProperty Name="OutputType">
+        <EnumValue Name="Application" DisplayName="Application" />
+        <EnumValue Name="Bootable" DisplayName="Bootable" />
+        <EnumValue Name="Library" DisplayName="Library" />
+    </EnumProperty>
+
+</Rule>

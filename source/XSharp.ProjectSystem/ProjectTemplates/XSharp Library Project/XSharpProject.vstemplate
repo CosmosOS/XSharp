@@ -1,0 +1,19 @@
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="9" />
+        <Description Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="10" />
+        <Icon Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="11" />
+        <ProjectType>XSharp</ProjectType>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>XSharpProject</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <CreateInPlace>true</CreateInPlace>
+        <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
+        <SortOrder>2</SortOrder>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="XSharpProject.xsproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" OpenInEditor="true">Module.xs</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>
