@@ -6,7 +6,7 @@ using System.Text;
 
 using Microsoft.Win32;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
     /// <summary>
     /// An helper class that is used from both Cosmos.VS.ProjectSystem and Cosmos.VS.DebugEngine for

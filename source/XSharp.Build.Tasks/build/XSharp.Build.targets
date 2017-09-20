@@ -11,7 +11,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
+        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\win\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
+        <_XSharpBuildTasksAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)..\tools\netcoreapp\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
 
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
@@ -39,12 +40,16 @@
         <_OutputISO>$(IntermediateOutputPath)$(OutputISO)</_OutputISO>
         
         <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
+
+        <LaunchType Condition="'$(LaunchType)' == ''">Bochs</LaunchType>
+        <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)LaunchConfig.bxrc</LaunchConfigurationFile>
     </PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="Ld" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="Launch" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
 
     <!--
     ================================================================================
@@ -174,5 +179,21 @@
                  ToolExe="$(MkisofsToolExe)" />
 
     </Target>
+
+    <!--
+    ================================================================================
+                                           Run
+    ================================================================================
+    -->
+    <Target Name="Run"
+            DependsOnTargets="DeployISO">
+
+        <Launch LaunchType="$(LaunchType)"
+                ISO="$(OutputISO)"
+                ConfigurationFile="$(LaunchConfigurationFile)"
+                Condition="'$(OutputType)' == 'Bootable'"/>
+        
+    </Target>
+            
 
 </Project>

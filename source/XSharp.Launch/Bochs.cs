@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
     /// <summary>This class handles interactions with the Bochs emulation environment.</summary>
-    public partial class Bochs : Host
+    public partial class Bochs : IHost
     {
         [Flags]
         public enum DisplayLibraryOptions
@@ -91,17 +91,17 @@ namespace XSharp.Build.Launch
             {
                 if (mDisplayLibrary == null)
                 {
-                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    if (RuntimeHelper.IsWindows)
                     {
                         return "win32";
                     }
-                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    else if (RuntimeHelper.IsOSX)
                     {
                         // from Bochs docs:
                         // "gui_debug" - use GTK debugger gui (sdl, x) / Win32 debugger gui (sdl, sdl2, win32)
                         return "x";
                     }
-                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    else if (RuntimeHelper.IsLinux)
                     {
                         return "x";
                     }
@@ -126,11 +126,10 @@ namespace XSharp.Build.Launch
         /// mode. Bochs process will eventually be launched later when debugging engine is instructed to
         /// Attach to the debugged process.
         /// </summary>
-        public Bochs(bool aUseGDB, string aConfigurationFile, string aIsoFile, string aPipeServerName,
+        public Bochs(string aConfigurationFile, string aIsoFile, string aPipeServerName,
             bool aUseDebugVersion, bool aStartDebugGui, string aHardDisk = null, string aBochsDirectory = null,
             string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None,
             bool aRedirectOutput = false, Action<string> aLogOutput = null, Action<string> aLogError = null)
-            : base(aUseGDB)
         {
             mBochsConfigurationFile = aConfigurationFile ?? throw new ArgumentNullException(nameof(aConfigurationFile));
             mIsoFile = aIsoFile ?? throw new ArgumentNullException(nameof(aIsoFile));
@@ -151,7 +150,7 @@ namespace XSharp.Build.Launch
 
             if (String.IsNullOrWhiteSpace(aBochsDirectory) || !Directory.Exists(aBochsDirectory))
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                if (RuntimeHelper.IsWindows)
                 {
                     mBochsDirectory = BochsSupport.BochsDirectory;
                 }
@@ -162,7 +161,7 @@ namespace XSharp.Build.Launch
             }
             else
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                if (RuntimeHelper.IsWindows)
                 {
                     mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg.exe" : "bochs.exe");
                 }
@@ -207,7 +206,7 @@ namespace XSharp.Build.Launch
         }
 
         /// <summary>Initialize and start the Bochs process.</summary>
-        public override void Start()
+        public void Start()
         {
             BochsSupport.ExtractBochsDebugSymbols(Path.ChangeExtension(mIsoFile, "map"), mDebugSymbolsPath);
             mBochsProcess = new Process();
@@ -247,7 +246,6 @@ namespace XSharp.Build.Launch
             // Register for process completion event so that we can funnel it to any code that
             // subscribed to this event in our base class.
             mBochsProcess.EnableRaisingEvents = true;
-            mBochsProcess.Exited += ExitCallback;
             mBochsProcess.Start();
 
             if (RedirectOutput)
@@ -259,21 +257,7 @@ namespace XSharp.Build.Launch
             return;
         }
 
-        private void ExitCallback(object sender, EventArgs e)
-        {
-            if (null != OnShutDown)
-            {
-                try
-                {
-                    OnShutDown(sender, e);
-                }
-                catch
-                {
-                }
-            }
-        }
-
-        public override void Stop()
+        public void Stop()
         {
             if (null != mBochsProcess)
             {
@@ -285,14 +269,6 @@ namespace XSharp.Build.Launch
                 {
                 }
             }
-            CleanUp();
-        }
-
-        private void CleanUp()
-        {
-            OnShutDown(this, null);
-            mBochsProcess.Exited -= ExitCallback;
-            // TODO BlueSkeye : What kind of garbage may Bochs have left for us to clean ?
         }
     }
 }

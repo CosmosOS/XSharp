@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
     public partial class Bochs
     {
@@ -55,7 +53,7 @@ namespace XSharp.Build.Launch
         {
             var xConfiguration = "";
 
-            using (var xStream = GetType().Assembly.GetManifestResourceStream("XSharp.Build.Resources.Cosmos.bxrc"))
+            using (var xStream = GetType().Assembly.GetManifestResourceStream(typeof(Bochs), "Resources.Cosmos.bxrc"))
             {
                 using (var xReader = new StreamReader(xStream))
                 {

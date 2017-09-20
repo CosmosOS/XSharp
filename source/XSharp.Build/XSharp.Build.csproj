@@ -5,34 +5,12 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>$(XSharpDescription)</Description>
-        <EnableHyperV>True</EnableHyperV>
-        <DefineConstants Condition="$(EnableHyperV)">HYPERV_ENABLED</DefineConstants>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Compile Remove="Deploy\**" />
-      <EmbeddedResource Remove="Deploy\**" />
-      <None Remove="Deploy\**" />
-    </ItemGroup>
-  
-    <ItemGroup>
-        <EmbeddedResource Include="Resources\Cosmos.bxrc" />
-        <EmbeddedResource Include="Resources\Cosmos.nvram" />
-        <EmbeddedResource Include="Resources\Cosmos.vmx" />
-        <EmbeddedResource Include="Resources\FileSystem.vmdk" />
-        <EmbeddedResource Include="Resources\FileSystem.vhdx" />
-    </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Tools\NASM\" />
         <Folder Include="Tools\ISO\" />
         <Folder Include="Tools\TFTP\" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
-        <PackageReference Include="System.IO.Ports" Version="4.4.0" />
-        <PackageReference Include="System.Management.Automation" Version="6.0.0-alpha17" Condition="$(EnableHyperV)" />
     </ItemGroup>
 
 </Project>

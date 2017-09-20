@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -7,9 +6,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
-    public class VMware : Host
+    public enum VMwareEdition
+    {
+        Workstation,
+        Player
+    }
+
+    public class VMware : IHost
     {
         protected Process mProcess;
 
@@ -21,13 +26,16 @@ namespace XSharp.Build.Launch
         protected string mWorkstationPath;
         protected string mPlayerPath;
 
-        public VMware(bool aUseGDB, VMwareEdition aVMwareEdition, string aIsoFile, string aHardDisk = null) : base(aUseGDB)
+        protected bool mUseGDB;
+
+        public VMware(VMwareEdition aVMwareEdition, string aIsoFile, string aHardDisk = null, bool aUseGDB = false)
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeHelper.IsWindows)
             {
                 throw new PlatformNotSupportedException();
             }
 
+            mUseGDB = aUseGDB;
             mIsoFile = aIsoFile ?? throw new ArgumentNullException(nameof(aIsoFile));
 
             mHardDiskFile = aHardDisk;
@@ -74,7 +82,7 @@ namespace XSharp.Build.Launch
             }
         }
 
-        public override void Start()
+        public void Start()
         {
             Cleanup();
             CreateVmx();
@@ -106,14 +114,11 @@ namespace XSharp.Build.Launch
             }
             xPSI.UseShellExecute = false;  //must be true to allow elevate the process, sometimes needed if vmware only runs with admin rights
             mProcess.EnableRaisingEvents = true;
-            mProcess.Exited += delegate (Object aSender, EventArgs e)
-            {
-                OnShutDown?.Invoke(aSender, e);
-            };
+
             mProcess.Start();
         }
 
-        public override void Stop()
+        public void Stop()
         {
             if (mProcess != null)
             {
@@ -171,7 +176,7 @@ namespace XSharp.Build.Launch
 
             if (!File.Exists(xNvramFile))
             {
-                using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XSharp.Build.Resources.Cosmos.nvram"))
+                using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Resources.Cosmos.nvram"))
                 {
                     using (var xFile = File.Create(xNvramFile))
                     {
@@ -184,7 +189,7 @@ namespace XSharp.Build.Launch
             // We also need to make changes based on project / debug settings.
             // Finally we do not want to create VCS checkins based on local user changes.
             // Because of this we use Cosmos.vmx as a template and output a Debug.vmx on every run.
-            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("XSharp.Build.Resources.Cosmos.vmx")))
+            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Resources.Cosmos.vmx")))
             {
                 try
                 {
@@ -241,10 +246,10 @@ namespace XSharp.Build.Launch
                 }
                 catch (IOException ex)
                 {
-                    //if (ex.Message.Contains(Path.GetFileName(mDir)))
-                    //{
-                    //    throw new Exception("The VMware image " + mDir + " is still in use. Please exit current VMware session with Cosmos and try again.", ex);
-                    //}
+                    if (ex.Message.Contains(Path.GetFileName(mVmxFile)))
+                    {
+                        throw new Exception($"The VMware image '{Path.GetFullPath(mVmxFile)}' is still in use. Please exit current VMware session with Cosmos and try again.", ex);
+                    }
                     throw;
                 }
             }

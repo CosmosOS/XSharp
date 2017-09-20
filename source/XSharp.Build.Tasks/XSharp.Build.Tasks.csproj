@@ -5,23 +5,27 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>Tasks to compile X# source code.
-  $(XSharpDescription)</Description>
-        <IsTool>True</IsTool>
+$(XSharpDescription)</Description>
+        <!--<IsTool>True</IsTool>-->
+        
+        <!-- Package Properties -->
+        <InnerTargets>Publish</InnerTargets>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
+        <TasksPackageDir>obj\$(Configuration)\package\</TasksPackageDir>
+        <PublishDir>$(TasksPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
         <Content Include="build\**\*.props">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
         </Content>
         <Content Include="build\**\*.targets">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
         </Content>
         <Content Include="tools\**">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>True</Pack>
             <PackagePath>tools\</PackagePath>
         </Content>
@@ -32,8 +36,28 @@
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
     </ItemGroup>
 
-    <Target Name="CopyDllToTools" AfterTargets="Build">
-        <Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(OutDir)tools\" />
+    <ItemGroup>
+      <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj" />
+    </ItemGroup>
+  
+    <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
+        <RemoveDir Directories="$(TasksPackageDir)" />
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(TasksPackageDir)%(Content.PackagePath)%(Content.RecursiveDir)" />
+    </Target>
+
+    <Target Name="IncludeToolsInPackage" AfterTargets="DispatchToInnerBuilds">
+        <ItemGroup>
+            <Content Include="$(IntermediateOutputPath)package\tools\**">
+                <Pack>True</Pack>
+                <PackagePath>tools\</PackagePath>
+            </Content>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="RemovePackageLibContents" BeforeTargets="GenerateNuspec">
+        <ItemGroup>
+            <_BuildOutputInPackage Remove="@(_BuildOutputInPackage)" />
+        </ItemGroup>
     </Target>
 
 </Project>

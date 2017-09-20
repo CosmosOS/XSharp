@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
     internal static class HardDiskHelpers
     {
@@ -15,8 +15,8 @@ namespace XSharp.Build.Launch
 
         private static Dictionary<HardDiskType, string> HardDiskFileExtensions = new Dictionary<HardDiskType, string>()
         {
-            { HardDiskType.Vmdk, "vmdk" },
-            { HardDiskType.Vmdk, "vhdx" }
+            { HardDiskType.Vmdk, ".vmdk" },
+            { HardDiskType.Vmdk, ".vhdx" }
         };
 
         public static string CreateDiskOnRequestedPathOrDefault(string aPath, string aDefaultPath, HardDiskType aHardDiskType)
@@ -50,9 +50,9 @@ namespace XSharp.Build.Launch
             }
 
             var xHardDiskExtension = HardDiskFileExtensions[aHardDiskType];
-            var xHardDiskResource = $"XSharp.Build.Resources.FileSystem." + xHardDiskExtension;
+            var xHardDiskResource = $"Resources.FileSystem" + xHardDiskExtension;
 
-            using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(xHardDiskResource))
+            using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(HardDiskHelpers), xHardDiskResource))
             {
                 using (var xFile = File.Create(aPath))
                 {

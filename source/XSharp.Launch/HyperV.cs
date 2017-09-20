@@ -1,5 +1,4 @@
-﻿#if HYPERV_ENABLED
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -8,9 +7,9 @@ using System.Management.Automation.Runspaces;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 
-namespace XSharp.Build.Launch
+namespace XSharp.Launch
 {
-    public class HyperV : Host
+    public class HyperV : IHost
     {
         protected string mIsoFile;
         protected string mHardDiskFile;
@@ -18,9 +17,9 @@ namespace XSharp.Build.Launch
         
         private static bool IsProcessAdministrator => (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
         
-        public HyperV(bool aUseGDB, string aIsoFile, string aHardDisk = null) : base(aUseGDB)
+        public HyperV(string aIsoFile, string aHardDisk = null)
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeHelper.IsWindows)
             {
                 throw new PlatformNotSupportedException();
             }
@@ -36,7 +35,7 @@ namespace XSharp.Build.Launch
                 Path.ChangeExtension(mIsoFile, ".vhdx"), HardDiskHelpers.HardDiskType.Vhdx);
         }
         
-        public override void Start()
+        public void Start()
         {
             CreateVirtualMachine();
 
@@ -49,16 +48,13 @@ namespace XSharp.Build.Launch
             mProcess = new Process();
             mProcess.StartInfo = info;
             mProcess.EnableRaisingEvents = true;
-            mProcess.Exited += (Object aSender, EventArgs e) =>
-            {
-                OnShutDown?.Invoke(aSender, e);
-            };
+
             mProcess.Start();
 
             RunPowershellScript("Start-VM -Name Cosmos");
         }
         
-        public override void Stop()
+        public void Stop()
         {
             RunPowershellScript("Stop-VM -Name Cosmos -TurnOff -ErrorAction Ignore");
             mProcess.Kill();
@@ -100,4 +96,3 @@ namespace XSharp.Build.Launch
         }
     }
 }
-#endif
