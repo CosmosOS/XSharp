@@ -16,7 +16,7 @@
                   Description="General" />
     </Rule.Categories>
 
-    <StringProperty Name="FileName"
+    <StringProperty Name="ProjectFile"
                     DisplayName="Project File"
                     ReadOnly="True">
         <StringProperty.DataSource>
@@ -25,12 +25,13 @@
         </StringProperty.DataSource>
     </StringProperty>
 
-    <StringProperty Name="FullPath"
+    <StringProperty Name="ProjectDirectory"
+                    DisplayName="Project Directory"
                     ReadOnly="True">
         <StringProperty.DataSource>
             <DataSource Persistence="ProjectFile"
-                        PersistedName="MSBuildProjectFullPath" />
+                        PersistedName="MSBuildProjectDirectory" />
         </StringProperty.DataSource>
     </StringProperty>
-    
+
 </Rule>

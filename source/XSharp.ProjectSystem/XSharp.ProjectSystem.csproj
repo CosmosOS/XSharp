@@ -39,8 +39,7 @@
         <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml" />
-        <XamlPropertyRule Include="BuildSystem\Rules\General.xaml" />
-        <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ConfigurationGeneral.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ResolvedProjectReference.xaml" />
@@ -98,6 +97,12 @@
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.0.26606" />
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
         <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
+            <AdditionalProperties>TargetFramework=net462</AdditionalProperties>
+        </ProjectReference>
     </ItemGroup>
 
     <Target Name="CheckMSBuildRuntimeType">
