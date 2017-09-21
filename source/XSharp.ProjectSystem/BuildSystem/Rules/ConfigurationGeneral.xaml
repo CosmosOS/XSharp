@@ -21,4 +21,13 @@
         <EnumValue Name="Library" DisplayName="Library" />
     </EnumProperty>
 
+    <StringProperty Name="BinaryOutput" />
+
+    <!-- only valid for Bootable projects -->
+    <EnumProperty Name="LaunchHost">
+        <EnumValue Name="Bochs" DisplayName="Bochs" />
+        <EnumValue Name="VMware" DisplayName="VMware" />
+        <EnumValue Name="HyperV" DisplayName="Hyper-V" />
+    </EnumProperty>
+
 </Rule>
