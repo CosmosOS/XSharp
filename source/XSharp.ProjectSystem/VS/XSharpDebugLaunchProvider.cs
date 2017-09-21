@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
-using System.Linq;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,17 +16,17 @@ namespace XSharp.ProjectSystem.VS
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
     [AppliesTo(ProjectCapability.XSharp)]
-    public class DebugLaunchProvider : DebugLaunchProviderBase
+    public class XSharpDebugLaunchProvider : DebugLaunchProviderBase
     {
         [ImportingConstructor]
-        public DebugLaunchProvider(ConfiguredProject aConfiguredProject)
+        public XSharpDebugLaunchProvider(ConfiguredProject aConfiguredProject)
             : base(aConfiguredProject)
         {
         }
 
-        //[ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
-        //[AppliesTo(ProjectCapability.XSharp)]
-        //private object DebuggerXaml { get { throw new NotImplementedException(); } }
+        [ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
+        [AppliesTo(ProjectCapability.XSharp)]
+        private object DebuggerXaml { get { throw new NotImplementedException(); } }
 
         [Import]
         private ProjectProperties ProjectProperties { get; set; }

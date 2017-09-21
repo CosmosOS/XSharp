@@ -73,6 +73,10 @@
             <Context>Project</Context>
         </PropertyPageSchema>
 
+        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\XSharpDebugger.xaml">
+            <Context>Project</Context>
+        </PropertyPageSchema>-->
+
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>
         </PropertyPageSchema>
