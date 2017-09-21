@@ -126,7 +126,7 @@ namespace XSharp.Launch
         /// mode. Bochs process will eventually be launched later when debugging engine is instructed to
         /// Attach to the debugged process.
         /// </summary>
-        public Bochs(string aConfigurationFile, string aIsoFile, string aPipeServerName,
+        public Bochs(bool aDebug, string aConfigurationFile, string aIsoFile, string aPipeServerName,
             bool aUseDebugVersion, bool aStartDebugGui, string aHardDisk = null, string aBochsDirectory = null,
             string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None,
             bool aRedirectOutput = false, Action<string> aLogOutput = null, Action<string> aLogError = null)
@@ -137,7 +137,7 @@ namespace XSharp.Launch
                 Path.ChangeExtension(mIsoFile, ".vmdk"), HardDiskHelpers.HardDiskType.Vmdk);
             mDebugSymbolsPath = Path.ChangeExtension(mIsoFile, ".sym");
 
-            mPipeServerName = aPipeServerName ?? throw new ArgumentNullException(nameof(aPipeServerName));
+            mPipeServerName = aPipeServerName ?? (aDebug ? throw new ArgumentNullException(nameof(aPipeServerName)) : String.Empty) ;
 
             mUseDebugVersion = aUseDebugVersion;
 
@@ -159,17 +159,15 @@ namespace XSharp.Launch
                     throw new ArgumentException(aBochsDirectory);
                 }
             }
+
+            if (RuntimeHelper.IsWindows)
+            {
+                mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg.exe" : "bochs.exe");
+            }
             else
             {
-                if (RuntimeHelper.IsWindows)
-                {
-                    mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg.exe" : "bochs.exe");
-                }
-                else
-                {
-                    // TODO - what's the extension of bochs exe on other platforms?
-                    mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg" : "bochs");
-                }
+                // TODO - what's the extension of bochs exe on other platforms?
+                mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg" : "bochs");
             }
             
             GenerateConfiguration(mBochsConfigurationFile);
@@ -208,7 +206,7 @@ namespace XSharp.Launch
         /// <summary>Initialize and start the Bochs process.</summary>
         public void Start()
         {
-            BochsSupport.ExtractBochsDebugSymbols(Path.ChangeExtension(mIsoFile, "map"), mDebugSymbolsPath);
+            BochsSupport.TryExtractBochsDebugSymbols(Path.ChangeExtension(mIsoFile, "map"), mDebugSymbolsPath);
             mBochsProcess = new Process();
             ProcessStartInfo xBochsStartInfo = mBochsProcess.StartInfo;
             xBochsStartInfo.FileName = mBochsExe;

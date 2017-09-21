@@ -27,32 +27,41 @@ namespace XSharp.Launch
             }
         }
 
-        public static void ExtractBochsDebugSymbols(string xInputFile, string xOutputFile)
+        public static bool TryExtractBochsDebugSymbols(string xInputFile, string xOutputFile)
         {
-            int i = 0;
-            using (var reader = new StreamReader(File.Open(xInputFile, FileMode.Open)))
+            try
             {
-                using (var writer = new StreamWriter(File.Open(xOutputFile, FileMode.OpenOrCreate)))
+                int i = 0;
+                using (var reader = new StreamReader(File.Open(xInputFile, FileMode.Open)))
                 {
-                    bool startSymbolTable = false;
-                    while (!reader.EndOfStream)
+                    using (var writer = new StreamWriter(File.Open(xOutputFile, FileMode.OpenOrCreate)))
                     {
-                        string line = reader.ReadLine();
-                        if (startSymbolTable)
+                        bool startSymbolTable = false;
+                        while (!reader.EndOfStream)
                         {
-                            string[] items = line.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                            if (items.Length > 1)
+                            string line = reader.ReadLine();
+                            if (startSymbolTable)
                             {
-                                writer.WriteLine($"{items.First()} {items.Last()}");
-                                i++;
+                                string[] items = line.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                                if (items.Length > 1)
+                                {
+                                    writer.WriteLine($"{items.First()} {items.Last()}");
+                                    i++;
+                                }
                             }
-                        }
-                        else if (line.Trim().ToUpper().Contains("SYMBOL TABLE"))
-                        {
-                            startSymbolTable = true;
+                            else if (line.Trim().ToUpper().Contains("SYMBOL TABLE"))
+                            {
+                                startSymbolTable = true;
+                            }
                         }
                     }
                 }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

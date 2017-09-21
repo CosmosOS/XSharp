@@ -16,7 +16,7 @@ namespace XSharp.Launch
         private static Dictionary<HardDiskType, string> HardDiskFileExtensions = new Dictionary<HardDiskType, string>()
         {
             { HardDiskType.Vmdk, ".vmdk" },
-            { HardDiskType.Vmdk, ".vhdx" }
+            { HardDiskType.Vhdx, ".vhdx" }
         };
 
         public static string CreateDiskOnRequestedPathOrDefault(string aPath, string aDefaultPath, HardDiskType aHardDiskType)

@@ -34,20 +34,23 @@
 
         <BinaryOutput>$(_AssemblerOutput)</BinaryOutput>
         <BinaryOutput Condition="'$(Link)' == 'True'">$(_LinkOutput)</BinaryOutput>
+        <BinName Condition="'$(BinName)' == ''">$([System.IO.Path]::GetFileName('$(BinaryOutput)'))</BinName>
 
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
-        <OutputISO Condition="'$(OutputISO)' == ''">$(OutputName).iso</OutputISO>
-        <_OutputISO>$(IntermediateOutputPath)$(OutputISO)</_OutputISO>
+        <OutputIsoFileName Condition="'$(OutputIsoFileName)' == ''">$(OutputName).iso</OutputIsoFileName>
+        <OutputIso Condition="'$(OutputIso)' == ''">$(IntermediateOutputPath)$(OutputIsoFileName)</OutputIso>
         
         <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
 
         <LaunchType Condition="'$(LaunchType)' == ''">Bochs</LaunchType>
-        <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)LaunchConfig.bxrc</LaunchConfigurationFile>
-    </PropertyGroup>
+        <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
+    
+</PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="Ld" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="CreateSyslinuxConfig" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="Launch" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
 
@@ -61,7 +64,8 @@
     -->
     <Target Name="PrepareForBuild">
         
-        <MakeDir Directories="$(IntermediateOutputPath)" Condition="!Exists('$(IntermediateOutputPath)')" />
+        <MakeDir Directories="$(IntermediateOutputPath)"
+                 Condition="!Exists('$(IntermediateOutputPath)')" />
         
     </Target>
     
@@ -157,13 +161,15 @@
         $(BinaryOutput) - a binary file.
 
         [OUT]
-        $(_OutputISO) - a bootable ISO file.
+        $(OutputIso) - a bootable ISO file.
+        $(IntermediateIsoDirectory)syslinux.cfg - the syslinux configuration
+                                                  file.
 
     ================================================================================
     -->
     <Target Name="DeployISO"
             Inputs="$(BinaryOutput)"
-            Outputs="$(_OutputISO)"
+            Outputs="$(OutputIso);$(IntermediateIsoDirectory)syslinux.cfg"
             Condition="'$(OutputType)' == 'Bootable'">
 
         <ItemGroup>
@@ -171,10 +177,14 @@
         </ItemGroup>
 
         <MakeDir Directories="$(IntermediateIsoDirectory)" />
-        <Copy SourceFiles="@(_ISOLINUX);$(BinaryOutput)" DestinationFolder="$(IntermediateIsoDirectory)" />
+        <Copy SourceFiles="@(_ISOLINUX);$(BinaryOutput)"
+              DestinationFolder="$(IntermediateIsoDirectory)" />
+
+        <CreateSyslinuxConfig IsoDirectory="$(IntermediateIsoDirectory)"
+                              BinName="$(BinName)" />
 
         <MakeIso IsoDirectory="$(IntermediateIsoDirectory)"
-                 OutputFile="$(_OutputISO)"
+                 OutputFile="$(OutputIso)"
                  ToolPath="$(MkisofsToolPath)"
                  ToolExe="$(MkisofsToolExe)" />
 
@@ -188,12 +198,17 @@
     <Target Name="Run"
             DependsOnTargets="DeployISO">
 
+        <Error Text="Output type '$(OutputType)' cannot be run!"
+               Condition="'$(OutputType)' != 'Application' AND '$(OutputType)' != 'Bootable'" />
+
+        <Exec Command="$(BinaryOutput)"
+              Condition="'$(OutputType)' == 'Application'" />
+        
         <Launch LaunchType="$(LaunchType)"
-                ISO="$(OutputISO)"
+                ISO="$(OutputIso)"
                 ConfigurationFile="$(LaunchConfigurationFile)"
                 Condition="'$(OutputType)' == 'Bootable'"/>
         
     </Target>
-            
 
 </Project>

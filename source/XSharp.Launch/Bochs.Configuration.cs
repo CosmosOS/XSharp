@@ -32,16 +32,18 @@ namespace XSharp.Launch
             xConfiguration = xConfiguration.Replace("$DEBUG_SYMBOLS_PATH$", mDebugSymbolsPath);
             xConfiguration = xConfiguration.Replace("$ROM_IMAGE$", Path.Combine(mBochsDirectory, "BIOS-bochs-latest"));
             xConfiguration = xConfiguration.Replace("$VGA_ROM_IMAGE$", Path.Combine(mBochsDirectory, "VGABIOS-lgpl-latest"));
-            xConfiguration = xConfiguration.Replace("$CDROM_BOOT_PATH", mIsoFile);
-            xConfiguration = xConfiguration.Replace("$HARD_DISK_PATH", mHardDiskFile);
-            xConfiguration = xConfiguration.Replace("$PIPE_SERVER_NAME", mPipeServerName);
+            xConfiguration = xConfiguration.Replace("$CDROM_BOOT_PATH$", mIsoFile);
+            xConfiguration = xConfiguration.Replace("$HARD_DISK_PATH$", mHardDiskFile);
+            xConfiguration = xConfiguration.Replace("$PIPE_SERVER_NAME$", mPipeServerName);
 
-            using (var xStream = File.Create(aFilePath))
+            if (mUseDebugVersion)
             {
-                using (var xWriter = new StreamWriter(xStream))
-                {
-                    xWriter.WriteAsync(xConfiguration);
-                }
+                xConfiguration = xConfiguration + Environment.NewLine + "magic_break: enabled = 1";
+            }
+
+            using (var xWriter = File.CreateText(aFilePath))
+            {
+                xWriter.Write(xConfiguration);
             }
         }
 

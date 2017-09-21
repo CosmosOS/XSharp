@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -48,12 +48,12 @@ namespace XSharp.Build.Tasks
 
         public override bool Execute()
         {
-            IHost xHost;
+            IHost xHost = null;
 
             switch (mLaunchType)
             {
                 case LaunchTypeEnum.Bochs:
-                    xHost = new Bochs(ConfigurationFile, ISO, null, false, false);
+                    xHost = new Bochs(false, Path.GetFullPath(ConfigurationFile), Path.GetFullPath(ISO), null, false, false);
                     break;
                 case LaunchTypeEnum.VMware:
                     //xHost = new VMware();
@@ -68,7 +68,7 @@ namespace XSharp.Build.Tasks
 
             Log.LogMessage(MessageImportance.High, "LAUNCHING");
 
-            //xHost.Start();
+            xHost.Start();
 
             return true;
         }
