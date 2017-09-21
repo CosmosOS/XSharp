@@ -48,15 +48,20 @@ namespace XSharp.ProjectSystem.VS
                 throw new Exception($"Project cannot be launched! Output type: '{xOutputType}'.");
             }
 
-            await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Run"), CancellationToken.None, true);
+            if (xOutputType == "Bootable")
+            {
+                // todo: using debugger for this would be better
+                await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Run"), CancellationToken.None, true);
+            }
 
             if (!aLaunchOptions.HasFlag(DebugLaunchOptions.NoDebug))
             {
                 var xBinaryOutput = await xConfiguration.BinaryOutput.GetEvaluatedValueAtEndAsync();
+                xBinaryOutput = Path.GetFullPath(xBinaryOutput);
 
                 var xDebugSettings = new DebugLaunchSettings(aLaunchOptions);
                 xDebugSettings.LaunchOperation = DebugLaunchOperation.AlreadyRunning;
-                xDebugSettings.CurrentDirectory = Path.GetFullPath(Path.GetDirectoryName(xBinaryOutput));
+                xDebugSettings.CurrentDirectory = Path.GetDirectoryName(xBinaryOutput);
 
                 if (xOutputType == "Bootable")
                 {
@@ -67,10 +72,7 @@ namespace XSharp.ProjectSystem.VS
                 }
                 else
                 {
-                    var xProcessId = Process.GetProcessesByName(Path.GetFileName(xBinaryOutput)).OrderBy(p => p.StartTime).Last().Id;
-
-                    xDebugSettings.ProcessId = xProcessId;
-                    xDebugSettings.LaunchDebugEngineGuid = DebuggerEngines.NativeOnlyEngine;
+                    xDebugSettings.Executable = xBinaryOutput;
                 }
 
                 return ImmutableArray.Create(xDebugSettings);

@@ -59,8 +59,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.xaml">
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\ConfigurationGeneral.xaml">
             <Context>Project</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
+            <Context>BrowseObject</Context>
         </PropertyPageSchema>
 
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\ProjectItemsSchema.xaml" />
@@ -69,16 +73,8 @@
             <Context>Project</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\GeneralFile.xaml">
-            <Context>File</Context>
-        </PropertyPageSchema>
-
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>
-        </PropertyPageSchema>
-
-        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
-            <Context>BrowseObject</Context>
         </PropertyPageSchema>
 
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\Compile.xaml;
@@ -149,19 +145,10 @@
         </BuildDependsOn>
     </PropertyGroup>
 
-    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)">
-        <Message Importance="High" Text="Build" />
-    </Target>
-
-    <Target Name="Clean">
-        <Message Importance="High" Text="Clean" />
-    </Target>
-
+    <Target Name="Restore" />
+    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+    <Target Name="Clean" />
     <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
-
-    <Target Name="Run">
-        <Error Condition="'$(OutputType)' != 'Application'" Text="The Run target only supports Application projects." />
-        <Message Importance="High" Text="Run" />
-    </Target>
+    <Target Name="Run" />
 
 </Project>
