@@ -126,11 +126,20 @@ namespace XSharp.Build.Tasks
             switch (mAssembler)
             {
                 case AssemblerEnum.NASM:
+                    xBuilder.AppendSwitch("-g");
+
                     xBuilder.AppendSwitch("-f");
                     xBuilder.AppendSwitch(OutputFormat);
 
                     xBuilder.AppendSwitch("-o ");
                     xBuilder.AppendSwitch(OutputFile);
+
+                    if (mOutputFormat == OutputFormatEnum.elf)
+                    {
+                        xBuilder.AppendSwitch("-dELF_COMPILATION");
+                    }
+
+                    xBuilder.AppendSwitch("-O0");
 
                     xBuilder.AppendFileNameIfNotNull(InputFile);
                     break;

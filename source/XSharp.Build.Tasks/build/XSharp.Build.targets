@@ -17,35 +17,35 @@
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
-        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFile>
-        <_AssemblyFile>$(IntermediateOutputPath)$(AssemblyFile)</_AssemblyFile>
+        <AssemblyFileName Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFileName>
+        <AssemblyFile>$(IntermediateOutputPath)$(AssemblyFileName)</AssemblyFile>
 
         <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
         <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
         <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.bin</AssemblerOutputExt>
-        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutput>
-        <_AssemblerOutput>$(IntermediateOutputPath)$(AssemblerOutput)</_AssemblerOutput>
+        <AssemblerOutputFileName Condition="'$(AssemblerOutputFileName)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutputFileName>
+        <AssemblerOutput>$(IntermediateOutputPath)$(AssemblerOutputFileName)</AssemblerOutput>
 
         <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
         <Link Condition="'$(Link)' == ''">False</Link>
-        <LinkOutput Condition="'$(LinkOutput)' == ''">$(OutputName).bin</LinkOutput>
-        <_LinkOutput>$(IntermediateOutputPath)$(LinkOutput)</_LinkOutput>
+        <LinkOutputFileName Condition="'$(LinkOutput)' == ''">$(OutputName).bin</LinkOutputFileName>
+        <LinkOutput>$(IntermediateOutputPath)$(LinkOutputFileName)</LinkOutput>
 
-        <BinaryOutput>$(_AssemblerOutput)</BinaryOutput>
-        <BinaryOutput Condition="'$(Link)' == 'True'">$(_LinkOutput)</BinaryOutput>
+        <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
+        <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
         <BinName Condition="'$(BinName)' == ''">$([System.IO.Path]::GetFileName('$(BinaryOutput)'))</BinName>
 
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
         <OutputIsoFileName Condition="'$(OutputIsoFileName)' == ''">$(OutputName).iso</OutputIsoFileName>
         <OutputIso Condition="'$(OutputIso)' == ''">$(IntermediateOutputPath)$(OutputIsoFileName)</OutputIso>
-        
+
         <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
 
         <LaunchType Condition="'$(LaunchType)' == ''">Bochs</LaunchType>
         <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
-    
-</PropertyGroup>
+
+    </PropertyGroup>
 
     <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
@@ -63,12 +63,12 @@
     ================================================================================
     -->
     <Target Name="PrepareForBuild">
-        
+
         <MakeDir Directories="$(IntermediateOutputPath)"
                  Condition="!Exists('$(IntermediateOutputPath)')" />
-        
+
     </Target>
-    
+
     <!--
     ================================================================================
                                         Compile
@@ -77,16 +77,16 @@
         @(Compile) - the list of X# files to compile.
 
         [OUT]
-        $(_AssemblyFile) - the file that results from compiling the .xs files.
+        $(AssemblyFile) - the file that results from compiling the .xs files.
 
     ================================================================================
     -->
     <Target Name="Compile"
             Inputs="@(Compile)"
-            Outputs="$(_AssemblyFile)">
+            Outputs="$(AssemblyFile)">
 
         <Xsc InputFiles="@(Compile)"
-             OutputFile="$(_AssemblyFile)"
+             OutputFile="$(AssemblyFile)"
              Append="True"
              ToolPath="$(XscToolPath)"
              ToolExe="$(XscToolExe)" />
@@ -98,24 +98,24 @@
                                         Assemble
 
         [IN]
-        $(_AssemblyFile) - the file to assemble.
+        $(AssemblyFile) - the file to assemble.
 
         [OUT]
-        $(_AssemblerOutput) - the file that results from assembling the assembly
-                              file.
+        $(AssemblerOutput) - the file that results from assembling the assembly
+                             file.
 
     ================================================================================
     -->
     <Target Name="Assemble"
-            Inputs="$(_AssemblyFile)"
-            Outputs="$(_AssemblerOutput)"
+            Inputs="$(AssemblyFile)"
+            Outputs="$(AssemblerOutput)"
             Condition="'$(Assemble)' == 'True'">
 
-        <XsAssemble InputFile="$(_AssemblyFile)"
-                    OutputFile="$(_AssemblerOutput)"
+        <XsAssemble InputFile="$(AssemblyFile)"
+                    OutputFile="$(AssemblerOutput)"
                     Assembler="$(Assembler)"
                     OutputFormat="$(AssemblerOutputFormat)"
-                    ToolsPath="$(ToolsPath)"/>
+                    ToolsPath="$(ToolsPath)" />
 
     </Target>
 
@@ -124,20 +124,20 @@
                                        Link
 
         [IN]
-        $(_AssemblerOutput) - an assembled file.
+        $(AssemblerOutput) - an assembled file.
 
         [OUT]
-        $(_LinkOutput) - a linked file.
+        $(LinkOutput) - a linked file.
 
     ================================================================================
     -->
     <Target Name="Link"
-            Inputs="$(_AssemblerOutput)"
-            Outputs="$(_LinkOutput)"
+            Inputs="$(AssemblerOutput)"
+            Outputs="$(LinkOutput)"
             Condition="'$(Link)' == 'True'">
 
-        <Ld InputFiles="$(_AssemblerOutput)"
-            OutputFile="$(_LinkOutput)"
+        <Ld InputFiles="$(AssemblerOutput)"
+            OutputFile="$(LinkOutput)"
             TextAddress="0x2000000"
             DataAddress="0x1000000"
             Entry="$(Entry)"
@@ -203,12 +203,12 @@
 
         <Exec Command="$(BinaryOutput)"
               Condition="'$(OutputType)' == 'Application'" />
-        
+
         <Launch LaunchType="$(LaunchType)"
                 ISO="$(OutputIso)"
                 ConfigurationFile="$(LaunchConfigurationFile)"
                 Condition="'$(OutputType)' == 'Bootable'"/>
-        
+
     </Target>
 
 </Project>

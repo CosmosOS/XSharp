@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Composition;
+using System.ComponentModel.Composition;
+using System.Diagnostics;
+using System.Linq;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
+using Microsoft.VisualStudio.ProjectSystem.Build;
 using Microsoft.VisualStudio.ProjectSystem.Debug;
 using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.ProjectSystem.VS.Debug;
@@ -13,20 +18,20 @@ namespace XSharp.ProjectSystem.VS
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
     [AppliesTo(ProjectCapability.XSharp)]
-    internal class DebugLaunchProvider : DebugLaunchProviderBase
+    public class DebugLaunchProvider : DebugLaunchProviderBase
     {
-        [Import]
-        private ProjectProperties ProjectProperties { get; set; }
-
-        [ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
-        [AppliesTo(ProjectCapability.XSharp)]
-        private object DebuggerXaml { get { throw new NotImplementedException(); } }
-
         [ImportingConstructor]
         public DebugLaunchProvider(ConfiguredProject aConfiguredProject)
             : base(aConfiguredProject)
         {
         }
+
+        //[ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
+        //[AppliesTo(ProjectCapability.XSharp)]
+        //private object DebuggerXaml { get { throw new NotImplementedException(); } }
+
+        [Import]
+        private ProjectProperties ProjectProperties { get; set; }
 
         public override Task<bool> CanLaunchAsync(DebugLaunchOptions aLaunchOptions)
         {
@@ -35,26 +40,43 @@ namespace XSharp.ProjectSystem.VS
 
         public override async Task<IReadOnlyList<IDebugLaunchSettings>> QueryDebugTargetsAsync(DebugLaunchOptions aLaunchOptions)
         {
-            var xDebugSettings = new DebugLaunchSettings(aLaunchOptions);
+            var xConfiguration = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
+            var xOutputType = await xConfiguration.OutputType.GetEvaluatedValueAtEndAsync();
 
-            var xDebuggerProperties = await ProjectProperties.GetXSharpDebuggerPropertiesAsync();
-            xDebugSettings.CurrentDirectory = await xDebuggerProperties.RunWorkingDirectory.GetEvaluatedValueAtEndAsync();
-
-            if (aLaunchOptions.HasFlag(DebugLaunchOptions.NoDebug))
+            if (xOutputType != "Application" && xOutputType != "Bootable")
             {
-
-            }
-            else
-            {
-
+                throw new Exception($"Project cannot be launched! Output type: '{xOutputType}'.");
             }
 
-            xDebugSettings.Executable = "cmd";
+            await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Run"), CancellationToken.None, true);
 
-            xDebugSettings.LaunchOperation = DebugLaunchOperation.CreateProcess;
-            xDebugSettings.LaunchDebugEngineGuid = DebuggerEngines.NativeOnlyEngine;
+            if (!aLaunchOptions.HasFlag(DebugLaunchOptions.NoDebug))
+            {
+                var xBinaryOutput = await xConfiguration.BinaryOutput.GetEvaluatedValueAtEndAsync();
 
-            return ImmutableArray.Create(xDebugSettings);
+                var xDebugSettings = new DebugLaunchSettings(aLaunchOptions);
+                xDebugSettings.LaunchOperation = DebugLaunchOperation.AlreadyRunning;
+                xDebugSettings.CurrentDirectory = Path.GetFullPath(Path.GetDirectoryName(xBinaryOutput));
+
+                if (xOutputType == "Bootable")
+                {
+                    // todo: implement
+                    //xDebugSettings.LaunchDebugEngineGuid = XSharpDebuggerGuid;
+
+                    return new DebugLaunchSettings[0];
+                }
+                else
+                {
+                    var xProcessId = Process.GetProcessesByName(Path.GetFileName(xBinaryOutput)).OrderBy(p => p.StartTime).Last().Id;
+
+                    xDebugSettings.ProcessId = xProcessId;
+                    xDebugSettings.LaunchDebugEngineGuid = DebuggerEngines.NativeOnlyEngine;
+                }
+
+                return ImmutableArray.Create(xDebugSettings);
+            }
+
+            return new DebugLaunchSettings[0];
         }
     }
 }
