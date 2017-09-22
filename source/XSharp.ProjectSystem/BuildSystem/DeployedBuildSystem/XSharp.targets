@@ -73,9 +73,12 @@
             <Context>Project</Context>
         </PropertyPageSchema>
 
-        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\XSharpDebugger.xaml">
+        <!--
+            This should be registered in XSharpDebugLaunchProvider.cs, but there's a bug
+        -->
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\XSharpDebugger.xaml">
             <Context>Project</Context>
-        </PropertyPageSchema>-->
+        </PropertyPageSchema>
 
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\SourceControl.xaml">
             <Context>Invisible</Context>

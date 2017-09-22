@@ -24,9 +24,9 @@ namespace XSharp.ProjectSystem.VS
         {
         }
 
-        [ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
-        [AppliesTo(ProjectCapability.XSharp)]
-        private object DebuggerXaml { get { throw new NotImplementedException(); } }
+        //[ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
+        //[AppliesTo(ProjectCapability.XSharp)]
+        //private object DebuggerXaml { get { throw new NotImplementedException(); } }
 
         [Import]
         private ProjectProperties ProjectProperties { get; set; }
