@@ -69,6 +69,14 @@
             <SubType>Code</SubType>
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
+        <Page Include="VS\Build\**\*.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Compile Update="VS\Build\**\*.xaml.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <!--
