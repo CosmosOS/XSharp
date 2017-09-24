@@ -25,6 +25,8 @@ namespace XSharp.ProjectSystem.VS.Build
         [Import]
         private IProjectThreadingService ProjectThreadingService { get; set; }
 
+        private PublishSettings mPublishSettings;
+
         public async Task<bool> IsPublishSupportedAsync()
         {
             // todo: when does this method get called? on load or on project changed too?
@@ -34,6 +36,25 @@ namespace XSharp.ProjectSystem.VS.Build
 
         public async Task PublishAsync(CancellationToken aCancellationToken, TextWriter aOutputPaneWriter)
         {
+            if (mPublishSettings == null)
+            {
+                await aOutputPaneWriter.WriteAsync("Publish settings are null!");
+                return;
+            }
+
+            switch (mPublishSettings.PublishType)
+            {
+                case PublishType.USB:
+                    await aOutputPaneWriter.WriteLineAsync("Publishing USB!");
+                    break;
+                case PublishType.PXE:
+                    await aOutputPaneWriter.WriteLineAsync("Publishing PXE!");
+                    break;
+                default:
+                    await aOutputPaneWriter.WriteLineAsync("Unknown publish type! Publish type: '{mPublishSettings.PublishType}'");
+                    break;
+            }
+
             await aOutputPaneWriter.WriteLineAsync("Publish successful!");
         }
 
@@ -42,9 +63,9 @@ namespace XSharp.ProjectSystem.VS.Build
             ProjectThreadingService.SwitchToUIThread();
 
             var xPublishWindow = new PublishWindow();
-            var xResult = xPublishWindow.ShowModal();
+            mPublishSettings = xPublishWindow.ShowModal();
 
-            return Task.FromResult(xResult.GetValueOrDefault(false));
+            return Task.FromResult(mPublishSettings != null);
         }
     }
 }

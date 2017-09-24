@@ -50,6 +50,8 @@
 
     <ItemGroup>
         <Resource Include="Resources\XSharpProjectTreeIcon.png" />
+        <Resource Include="VS\Build\Resources\PXE.png" />
+        <Resource Include="VS\Build\Resources\USB.png" />
     </ItemGroup>
 
     <!--
@@ -79,6 +81,12 @@
         </Compile>
     </ItemGroup>
 
+    <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+        <PropertyGroup>
+            <BuildingProject>false</BuildingProject>
+        </PropertyGroup>
+    </Target>
+
     <!--
         End WPF Workarounds
     -->
@@ -87,7 +95,9 @@
         <Reference Include="System.ComponentModel.Composition" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
+        <Reference Include="System.Management" />
         <Reference Include="System.Xaml" />
+        <Reference Include="System.Windows.Forms" />
         <Reference Include="WindowsBase" />
     </ItemGroup>
 

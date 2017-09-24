@@ -7,8 +7,10 @@
                          xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
                          mc:Ignorable="d"
                          HasMinimizeButton="False"
-                         HasMaximizeButton="False">
-
+                         HasMaximizeButton="False"
+                         Title="Publish"
+                         WindowStartupLocation="CenterOwner">
+    
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -31,13 +33,15 @@
                                                  Rows="1"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Stretch"
+                                                 Margin="8"
                                                  IsItemsHost="true" />
 
                                     <Border BorderThickness="0, 1" BorderBrush="#D0CEBF" Grid.Row="1">
                                         <Border BorderThickness="{TemplateBinding BorderThickness}" 
                                                 BorderBrush="{TemplateBinding BorderBrush}">
                                             <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter ContentSource="SelectedContent" />
+                                                <ContentPresenter Margin="8"
+                                                                  ContentSource="SelectedContent" />
                                             </Border>
                                         </Border>
                                     </Border>
@@ -50,39 +54,63 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
-                                <ToggleButton Name="ToggleButton"
-                                              Margin="4"
-                                              Padding="4"
-                                              IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                <RadioButton Margin="4"
+                                             Padding="4"
+                                             Style="{StaticResource {x:Type ToggleButton}}"
+                                             IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                     <ContentPresenter x:Name="ContentSite"
                                                       VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"
-                                                      ContentSource="Header" />
-                                </ToggleButton>
+                                                      ContentSource="Header">
+                                    </ContentPresenter>
+                                </RadioButton>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
             </Grid.Resources>
 
-            <TabControl x:Name="tabPublishTypeSelector">
+            <TabControl SelectedIndex="{Binding PublishType, Mode=OneWayToSource}">
+                <TabControl.Resources>
+                    <Style TargetType="Image">
+                        <Setter Property="Margin" Value="4" />
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Padding" Value="4" />
+                    </Style>
+                </TabControl.Resources>
+                
                 <TabItem>
                     <TabItem.Header>
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">USB</TextBlock>
-                            <Image Source="../../Resources/XSharpProjectTreeIcon.png" />
+                            <Image Source="Resources/USB.png" />
                         </DockPanel>
                     </TabItem.Header>
-                    <RadioButton>TestA</RadioButton>
+                    <StackPanel>
+                        <TextBlock Text="Drive:" />
+                        <ComboBox HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Drives, Mode=OneWay}"
+                                  SelectedIndex="0"
+                                  Text="{Binding PublishPath}" />
+                    </StackPanel>
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">PXE</TextBlock>
-                            <Image Source="../../Resources/XSharpProjectTreeIcon.png" />
+                            <Image Source="Resources/PXE.png" />
                         </DockPanel>
                     </TabItem.Header>
-                    <RadioButton>TestB</RadioButton>
+                    <StackPanel>
+                        <DockPanel Margin="0, 4">
+                            <Button DockPanel.Dock="Right"
+                                    Margin="4, 0"
+                                    Click="BrowsePublishPath">Browse</Button>
+                            <TextBox Margin="4, 0"
+                                     Text="{Binding PublishPath}" />
+                        </DockPanel>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
@@ -99,8 +127,8 @@
                 </Style>
             </StackPanel.Resources>
 
-            <platformUI:DialogButton>OK</platformUI:DialogButton>
-            <platformUI:DialogButton>Cancel</platformUI:DialogButton>
+            <platformUI:DialogButton Click="ReturnPublishSettings">OK</platformUI:DialogButton>
+            <platformUI:DialogButton Click="Cancel">Cancel</platformUI:DialogButton>
         </StackPanel>
     </Grid>
 </platformUI:DialogWindow>
