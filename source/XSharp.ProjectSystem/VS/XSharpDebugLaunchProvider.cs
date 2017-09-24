@@ -38,8 +38,8 @@ namespace XSharp.ProjectSystem.VS
 
         public override async Task<IReadOnlyList<IDebugLaunchSettings>> QueryDebugTargetsAsync(DebugLaunchOptions aLaunchOptions)
         {
-            var xConfiguration = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
-            var xOutputType = await xConfiguration.OutputType.GetEvaluatedValueAtEndAsync();
+            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
+            var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync();
 
             if (xOutputType != "Application" && xOutputType != "Bootable")
             {
@@ -54,7 +54,7 @@ namespace XSharp.ProjectSystem.VS
 
             if (!aLaunchOptions.HasFlag(DebugLaunchOptions.NoDebug))
             {
-                var xBinaryOutput = await xConfiguration.BinaryOutput.GetEvaluatedValueAtEndAsync();
+                var xBinaryOutput = await xProjectProperties.BinaryOutput.GetEvaluatedValueAtEndAsync();
                 xBinaryOutput = Path.GetFullPath(xBinaryOutput);
 
                 var xDebugSettings = new DebugLaunchSettings(aLaunchOptions);

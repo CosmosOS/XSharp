@@ -74,6 +74,7 @@
                 <TabControl.Resources>
                     <Style TargetType="Image">
                         <Setter Property="Margin" Value="4" />
+                        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Padding" Value="4" />
@@ -88,11 +89,24 @@
                         </DockPanel>
                     </TabItem.Header>
                     <StackPanel>
-                        <TextBlock Text="Drive:" />
-                        <ComboBox HorizontalAlignment="Left"
-                                  ItemsSource="{Binding Drives, Mode=OneWay}"
-                                  SelectedIndex="0"
-                                  Text="{Binding PublishPath}" />
+                        <TextBlock>Drive:</TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox Grid.Column="0"
+                                      HorizontalAlignment="Left"
+                                      MinWidth="96"
+                                      Margin="4, 0"
+                                      ItemsSource="{Binding Drives, Mode=OneWay}"
+                                      SelectedIndex="0"
+                                      Text="{Binding PublishPath}" />
+                            <CheckBox Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      IsChecked="{Binding FormatUsbDrive}">Format USB Drive</CheckBox>
+                        </Grid>
                     </StackPanel>
                 </TabItem>
                 <TabItem>
@@ -103,6 +117,7 @@
                         </DockPanel>
                     </TabItem.Header>
                     <StackPanel>
+                        <TextBlock>Publish Path:</TextBlock>
                         <DockPanel Margin="0, 4">
                             <Button DockPanel.Dock="Right"
                                     Margin="4, 0"

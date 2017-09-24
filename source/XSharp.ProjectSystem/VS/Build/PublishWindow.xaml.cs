@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Windows;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.PlatformUI;
+using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace XSharp.ProjectSystem.VS.Build
 {
@@ -45,6 +45,12 @@ namespace XSharp.ProjectSystem.VS.Build
 
         private void ReturnPublishSettings(object aSender, RoutedEventArgs aEventArgs)
         {
+            if (mViewModel.PublishType == PublishType.USB && mViewModel.FormatUsbDrive)
+            {
+                MessageBox.Show($"The selected USB drive ({mViewModel.PublishPath}) will be formatted and its contents will be destroyed!{Environment.NewLine}Do you want to continue?",
+                    "Publish", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            }
+
             DialogResult = true;
             Close();
         }
@@ -96,6 +102,14 @@ namespace XSharp.ProjectSystem.VS.Build
             }
         }
 
+        public IEnumerable<string> Drives
+        {
+            get
+            {
+                return DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Removable).Select(d => d.RootDirectory.FullName);
+            }
+        }
+
         private PublishType mPublishType;
         public PublishType PublishType
         {
@@ -122,11 +136,16 @@ namespace XSharp.ProjectSystem.VS.Build
             }
         }
 
-        public IEnumerable<string> Drives
+        private bool mFormatUsbDrive = true;
+        public bool FormatUsbDrive
         {
             get
             {
-                return DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Removable).Select(d => d.RootDirectory.FullName);
+                return mFormatUsbDrive;
+            }
+            set
+            {
+                SetProperty(ref mFormatUsbDrive, value, nameof(FormatUsbDrive));
             }
         }
         
