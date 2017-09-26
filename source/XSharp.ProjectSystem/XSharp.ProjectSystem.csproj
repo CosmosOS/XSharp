@@ -50,6 +50,7 @@
 
     <ItemGroup>
         <Resource Include="Resources\XSharpProjectTreeIcon.png" />
+        <Resource Include="VS\Build\Resources\ISO.png" />
         <Resource Include="VS\Build\Resources\PXE.png" />
         <Resource Include="VS\Build\Resources\USB.png" />
     </ItemGroup>

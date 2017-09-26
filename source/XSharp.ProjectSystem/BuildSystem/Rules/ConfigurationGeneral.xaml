@@ -30,4 +30,8 @@
         <EnumValue Name="HyperV" DisplayName="Hyper-V" />
     </EnumProperty>
 
+    <BoolProperty Name="DeployISO" DisplayName="Deploy ISO" />
+
+    <StringProperty Name="OutputISO" DisplayName="Output ISO Path" />
+
 </Rule>

@@ -49,11 +49,52 @@ namespace XSharp.ProjectSystem.VS.Build
 
                 switch (mPublishSettings.PublishType)
                 {
+                    case PublishType.ISO:
+                        await aOutputPaneWriter.WriteLineAsync("Publishing ISO!");
+
+                        if (String.IsNullOrWhiteSpace(mPublishSettings.PublishPath))
+                        {
+                            throw new Exception($"Invalid publish path! Publish path: '{mPublishSettings.PublishPath}'");
+                        }
+
+                        var xDeployISO = await xProjectProperties.DeployISO.GetEvaluatedValueAtEndAsync();
+                        var xOutputISO = await xProjectProperties.OutputISO.GetEvaluatedValueAtEndAsync();
+
+                        if (!Boolean.TryParse(xDeployISO, out var xBoolDeployISO) || !xBoolDeployISO)
+                        {
+                            var xTargets = ImmutableArray.Create("DeployISO");
+                            var xProperties = ImmutableDictionary.Create<string, string>().Add("OutputISO", xOutputISO);
+                            await ConfiguredProject.Services.Build.BuildAsync(xTargets, CancellationToken.None, true, xProperties);
+                        }
+                        else
+                        {
+                            File.Copy(xOutputISO, mPublishSettings.PublishPath, true);
+                        }
+
+                        break;
                     case PublishType.USB:
                         await aOutputPaneWriter.WriteLineAsync("Publishing USB!");
+
+                        DriveInfo xDriveInfo;
+
+                        try
+                        {
+                            xDriveInfo = new DriveInfo(mPublishSettings.PublishPath);
+                        }
+                        catch (ArgumentException)
+                        {
+                            throw new Exception($"Invalid drive letter! Drive letter: '{mPublishSettings.PublishPath}'");
+                        }
+
+                        // todo: USB publish
+                        // todo: format USB drive if requested?
+
                         break;
                     case PublishType.PXE:
                         await aOutputPaneWriter.WriteLineAsync("Publishing PXE!");
+
+                        // todo: PXE publish
+
                         break;
                     default:
                         await aOutputPaneWriter.WriteLineAsync($"Unknown publish type! Publish type: '{mPublishSettings.PublishType}'");

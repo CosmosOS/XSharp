@@ -72,15 +72,39 @@
 
             <TabControl SelectedIndex="{Binding PublishType, Mode=OneWayToSource}">
                 <TabControl.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Padding" Value="4, 2" />
+                    </Style>
                     <Style TargetType="Image">
-                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="Margin" Value="8" />
                         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Padding" Value="4" />
                     </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
                 </TabControl.Resources>
-                
+
+                <TabItem>
+                    <TabItem.Header>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">ISO</TextBlock>
+                            <Image Source="Resources/ISO.png" />
+                        </DockPanel>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <TextBlock>Publish Path:</TextBlock>
+                        <DockPanel Margin="0, 4">
+                            <Button DockPanel.Dock="Right"
+                                    Margin="4, 0"
+                                    Click="BrowsePxePublishPath">Browse</Button>
+                            <TextBox Margin="4, 0"
+                                     Text="{Binding IsoPublishPath}" />
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
                 <TabItem>
                     <TabItem.Header>
                         <DockPanel>
@@ -102,14 +126,15 @@
                                       Margin="4, 0"
                                       ItemsSource="{Binding Drives, Mode=OneWay}"
                                       SelectedIndex="0"
-                                      Text="{Binding PublishPath}" />
+                                      Text="{Binding UsbPublishDrive}" />
                             <CheckBox Grid.Column="1"
                                       VerticalAlignment="Center"
-                                      IsChecked="{Binding FormatUsbDrive}">Format USB Drive</CheckBox>
+                                      IsEnabled="False"
+                                      IsChecked="{Binding FormatUsbDrive}">Format USB Drive (not implemented)</CheckBox>
                         </Grid>
                     </StackPanel>
                 </TabItem>
-                <TabItem>
+                <!--<TabItem>
                     <TabItem.Header>
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">PXE</TextBlock>
@@ -121,12 +146,12 @@
                         <DockPanel Margin="0, 4">
                             <Button DockPanel.Dock="Right"
                                     Margin="4, 0"
-                                    Click="BrowsePublishPath">Browse</Button>
+                                    Click="BrowsePxePublishPath">Browse</Button>
                             <TextBox Margin="4, 0"
-                                     Text="{Binding PublishPath}" />
+                                     Text="{Binding PxePublishPath}" />
                         </DockPanel>
                     </StackPanel>
-                </TabItem>
+                </TabItem>-->
             </TabControl>
         </Grid>
 

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Management;
 using System.Windows;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.Win32;
+using WinFormsDialogResult = System.Windows.Forms.DialogResult;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace XSharp.ProjectSystem.VS.Build
@@ -16,9 +18,6 @@ namespace XSharp.ProjectSystem.VS.Build
     public partial class PublishWindow : DialogWindow
     {
         private PublishWindowViewModel mViewModel;
-
-        private ManagementEventWatcher mDeviceInsertedWatcher;
-        private ManagementEventWatcher mDeviceRemovedWatcher;
 
         public PublishWindow()
         {
@@ -47,7 +46,7 @@ namespace XSharp.ProjectSystem.VS.Build
         {
             if (mViewModel.PublishType == PublishType.USB && mViewModel.FormatUsbDrive)
             {
-                MessageBox.Show($"The selected USB drive ({mViewModel.PublishPath}) will be formatted and its contents will be destroyed!{Environment.NewLine}Do you want to continue?",
+                MessageBox.Show($"The selected USB drive ({mViewModel.UsbPublishDrive}) will be formatted and its contents will be destroyed!{Environment.NewLine}Do you want to continue?",
                     "Publish", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             }
 
@@ -60,21 +59,38 @@ namespace XSharp.ProjectSystem.VS.Build
             Close();
         }
 
-        private void BrowsePublishPath(object aSender, RoutedEventArgs aEventArgs)
+        private void BrowseIsoPublishPath(object aSender, RoutedEventArgs aEventArgs)
+        {
+            var xSaveFileDialog = new SaveFileDialog();
+
+            xSaveFileDialog.Filter = "ISO Image (*.iso) | *.iso";
+            xSaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+
+            if (xSaveFileDialog.ShowDialog().GetValueOrDefault(false))
+            {
+                mViewModel.IsoPublishPath = xSaveFileDialog.FileName;
+            }
+        }
+
+        private void BrowsePxePublishPath(object aSender, RoutedEventArgs aEventArgs)
         {
             var xFolderBrowserDialog = new FolderBrowserDialog();
 
             xFolderBrowserDialog.SelectedPath = Directory.GetCurrentDirectory();
             xFolderBrowserDialog.ShowDialog();
 
-            mViewModel.PublishPath = xFolderBrowserDialog.SelectedPath;
+            if (xFolderBrowserDialog.ShowDialog() == WinFormsDialogResult.OK)
+            {
+                mViewModel.PxePublishPath = xFolderBrowserDialog.SelectedPath;
+            }
         }
     }
 
     public class PublishWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        // todo: get default property values from project?
         public PublishWindowViewModel()
         {
             WqlEventQuery xDeviceInsertedQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
@@ -113,45 +129,60 @@ namespace XSharp.ProjectSystem.VS.Build
         private PublishType mPublishType;
         public PublishType PublishType
         {
-            get
-            {
-                return mPublishType;
-            }
-            set
-            {
-                SetProperty(ref mPublishType, value, nameof(PublishType));
-            }
+            get => mPublishType;
+            set => SetProperty(ref mPublishType, value, nameof(PublishType));
         }
 
-        private string mPublishPath;
-        public string PublishPath
+        // todo: use project properties
+        private string mIsoPublishPath = Path.Combine(Directory.GetCurrentDirectory(), "Publish.iso");
+        public string IsoPublishPath
         {
-            get
-            {
-                return mPublishPath;
-            }
-            set
-            {
-                SetProperty(ref mPublishPath, value, nameof(PublishPath));
-            }
+            get => mIsoPublishPath;
+            set => SetProperty(ref mIsoPublishPath, value, nameof(IsoPublishPath));
         }
 
-        private bool mFormatUsbDrive = true;
+        private string mUsbPublishDrive;
+        public string UsbPublishDrive
+        {
+            get => mUsbPublishDrive;
+            set => SetProperty(ref mUsbPublishDrive, value, nameof(UsbPublishDrive));
+        }
+
+        private string mPxePublishPath;
+        public string PxePublishPath
+        {
+            get => mPxePublishPath;
+            set => SetProperty(ref mPxePublishPath, value, nameof(PxePublishPath));
+        }
+
+        // todo: format usb drive should be true by default?
+        private bool mFormatUsbDrive = false;
         public bool FormatUsbDrive
         {
-            get
-            {
-                return mFormatUsbDrive;
-            }
-            set
-            {
-                SetProperty(ref mFormatUsbDrive, value, nameof(FormatUsbDrive));
-            }
+            get => mFormatUsbDrive;
+            set => SetProperty(ref mFormatUsbDrive, value, nameof(FormatUsbDrive));
         }
-        
+
         public PublishSettings ToPublishSettings()
         {
-            return new PublishSettings(PublishType);
+            string xPublishPath;
+
+            switch (PublishType)
+            {
+                case PublishType.ISO:
+                    xPublishPath = IsoPublishPath;
+                    break;
+                case PublishType.USB:
+                    xPublishPath = UsbPublishDrive;
+                    break;
+                case PublishType.PXE:
+                    xPublishPath = PxePublishPath;
+                    break;
+                default:
+                    throw new NotImplementedException($"Publish type '{PublishType}' not implemented!");
+            }
+
+            return new PublishSettings(PublishType, xPublishPath, FormatUsbDrive);
         }
     }
 }

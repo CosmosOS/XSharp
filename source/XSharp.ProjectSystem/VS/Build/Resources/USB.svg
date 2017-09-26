@@ -1,57 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="512"
-   height="512"
-   viewBox="0 0 512 512"
-   version="1.1"
    id="svg8"
-   inkscape:version="0.92.1 r15371"
-   sodipodi:docname="USB.svg">
+   version="1.1"
+   viewBox="0 0 512 512"
+   height="512"
+   width="512">
   <defs
-     id="defs2">
-    <inkscape:path-effect
-       effect="bspline"
-       id="path-effect4560"
-       is_visible="true"
-       weight="33.333333"
-       steps="2"
-       helper_size="0"
-       apply_no_weight="true"
-       apply_with_weight="true"
-       only_selected="false" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="470.4266"
-     inkscape:cy="250.11459"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer2"
-     showgrid="false"
-     units="px"
-     viewbox-width="512"
-     inkscape:measure-start="245.013,418.961"
-     inkscape:measure-end="207.889,422"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     showguides="false" />
+     id="defs2" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -65,52 +25,46 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Background"
-     inkscape:groupmode="layer"
-     id="layer1"
+     style="display:inline"
      transform="translate(0,-161.53192)"
-     style="display:inline">
+     id="layer1">
     <circle
-       style="fill:#008080;fill-opacity:1;stroke:none;stroke-width:7.05644608;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="path4489"
-       cx="256"
+       r="256"
        cy="417.53192"
-       r="256" />
+       cx="256"
+       id="path4489"
+       style="fill:#008080;fill-opacity:1;stroke:none;stroke-width:7.05644608;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none" />
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="USB"
-     style="display:inline">
+     style="display:inline"
+     id="layer2">
     <rect
-       transform="rotate(45)"
-       style="display:inline;fill:#808080;fill-opacity:1;stroke:none;stroke-width:4.48135424;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4507"
-       width="96"
-       height="64"
+       y="-191.99998"
        x="314.03867"
-       y="-191.99998" />
+       height="64"
+       width="96"
+       id="rect4507"
+       style="display:inline;fill:#808080;fill-opacity:1;stroke:none;stroke-width:4.48135424;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="rotate(45)" />
     <rect
-       transform="rotate(45)"
-       style="display:inline;fill:#404040;fill-opacity:1;stroke:none;stroke-width:4.05502081;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4509"
-       width="20"
-       height="16"
-       x="328.03867"
-       y="-167.99998" />
-    <rect
-       transform="rotate(45)"
-       style="display:inline;fill:#404040;fill-opacity:1;stroke:none;stroke-width:4.05502081;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4509-9"
-       width="20"
-       height="16"
-       x="376.03867"
        y="-167.99998"
-       inkscape:label="rect4509-9" />
+       x="328.03867"
+       height="16"
+       width="20"
+       id="rect4509"
+       style="display:inline;fill:#404040;fill-opacity:1;stroke:none;stroke-width:4.05502081;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="rotate(45)" />
+    <rect
+       y="-167.99998"
+       x="376.03867"
+       height="16"
+       width="20"
+       id="rect4509-9"
+       style="display:inline;fill:#404040;fill-opacity:1;stroke:none;stroke-width:4.05502081;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="rotate(45)" />
     <path
-       id="path4495"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:4.30252075;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 210.74518,391.76445 a 64,64 0 0 1 -90.50967,0 64,64 0 0 1 0,-90.50967 l 45.25483,45.25483 z m 90.50964,-271.52894 90.50967,90.50967 -181.01934,181.01933 -90.50967,-90.50966 z"
-       inkscape:connector-curvature="0" />
+       style="display:inline;fill:#dd0000;fill-opacity:1;stroke:none;stroke-width:4.30252075;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path4495" />
   </g>
 </svg>
