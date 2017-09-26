@@ -36,7 +36,7 @@
         <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
         <BinName Condition="'$(BinName)' == ''">$([System.IO.Path]::GetFileName('$(BinaryOutput)'))</BinName>
 
-        <DeployISO Conditon="'$(DeployISO)' == ''">True</DeployISO>
+        <DeployISO Condition="'$(DeployISO)' == ''">True</DeployISO>
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
         <OutputIsoFileName Condition="'$(OutputIsoFileName)' == ''">$(OutputName).iso</OutputIsoFileName>
         <OutputISO Condition="'$(OutputIso)' == ''">$(IntermediateOutputPath)$(OutputIsoFileName)</OutputISO>

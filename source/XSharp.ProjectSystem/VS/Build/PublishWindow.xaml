@@ -36,7 +36,9 @@
                                                  Margin="8"
                                                  IsItemsHost="true" />
 
-                                    <Border BorderThickness="0, 1" BorderBrush="#D0CEBF" Grid.Row="1">
+                                    <Border BorderThickness="0, 1"
+                                            BorderBrush="#D0CEBF"
+                                            Grid.Row="1">
                                         <Border BorderThickness="{TemplateBinding BorderThickness}" 
                                                 BorderBrush="{TemplateBinding BorderBrush}">
                                             <Border Background="{TemplateBinding Background}">
@@ -70,7 +72,8 @@
                 </Style>
             </Grid.Resources>
 
-            <TabControl SelectedIndex="{Binding PublishType, Mode=OneWayToSource}">
+            <TabControl Margin="8, 0"
+                        SelectedIndex="{Binding PublishType, Mode=OneWayToSource}">
                 <TabControl.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Padding" Value="4, 2" />
