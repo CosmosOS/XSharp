@@ -36,7 +36,6 @@
         <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
         <BinName Condition="'$(BinName)' == ''">$([System.IO.Path]::GetFileName('$(BinaryOutput)'))</BinName>
 
-        <DeployISO Condition="'$(DeployISO)' == ''">True</DeployISO>
         <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
         <OutputIsoFileName Condition="'$(OutputIsoFileName)' == ''">$(OutputName).iso</OutputIsoFileName>
         <OutputISO Condition="'$(OutputIso)' == ''">$(IntermediateOutputPath)$(OutputIsoFileName)</OutputISO>
@@ -170,7 +169,7 @@
     <Target Name="DeployISO"
             Inputs="$(BinaryOutput)"
             Outputs="$(OutputISO);$(IntermediateIsoDirectory)syslinux.cfg"
-            Condition="'$(OutputType)' == 'Bootable' AND '$(DeployISO)' == 'True'">
+            Condition="'$(OutputType)' == 'Bootable'">
 
         <ItemGroup>
             <_ISOLINUX Include="$(ISOLINUX)**" />
