@@ -8,6 +8,7 @@
                          mc:Ignorable="d"
                          HasMinimizeButton="False"
                          HasMaximizeButton="False"
+                         ResizeMode="NoResize"
                          Title="Publish"
                          WindowStartupLocation="CenterOwner">
     
@@ -102,9 +103,9 @@
                         <DockPanel Margin="0, 4">
                             <Button DockPanel.Dock="Right"
                                     Margin="4, 0"
-                                    Click="BrowsePxePublishPath">Browse</Button>
+                                    Command="{Binding BrowseIsoPublishPathCommand}">Browse</Button>
                             <TextBox Margin="4, 0"
-                                     Text="{Binding IsoPublishPath}" />
+                                     Text="{Binding IsoPublishPath, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                     </StackPanel>
                 </TabItem>
@@ -149,9 +150,9 @@
                         <DockPanel Margin="0, 4">
                             <Button DockPanel.Dock="Right"
                                     Margin="4, 0"
-                                    Click="BrowsePxePublishPath">Browse</Button>
+                                    Command="{Binding BrowsePxePublishPathCommand}">Browse</Button>
                             <TextBox Margin="4, 0"
-                                     Text="{Binding PxePublishPath}" />
+                                     Text="{Binding PxePublishPath, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                     </StackPanel>
                 </TabItem>-->
@@ -170,7 +171,8 @@
                 </Style>
             </StackPanel.Resources>
 
-            <platformUI:DialogButton Click="ReturnPublishSettings">OK</platformUI:DialogButton>
+            <platformUI:DialogButton Click="ReturnPublishSettings"
+                                     IsEnabled="{Binding EnableOK}">OK</platformUI:DialogButton>
             <platformUI:DialogButton Click="Cancel">Cancel</platformUI:DialogButton>
         </StackPanel>
     </Grid>

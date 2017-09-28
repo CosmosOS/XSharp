@@ -14,6 +14,7 @@
         <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\win\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
         <_XSharpBuildTasksAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)..\tools\netcoreapp\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
 
+        <BinOutputPath Condition="'$(IntermediateOutputPath)' == ''">bin\$(Configuration)\</BinOutputPath>
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
@@ -63,6 +64,9 @@
     -->
     <Target Name="PrepareForBuild">
 
+        <MakeDir Directories="$(BinOutputPath)"
+                 Condition="!Exists('$(BinOutputPath)')" />
+
         <MakeDir Directories="$(IntermediateOutputPath)"
                  Condition="!Exists('$(IntermediateOutputPath)')" />
 
@@ -108,6 +112,7 @@
     <Target Name="Assemble"
             Inputs="$(AssemblyFile)"
             Outputs="$(AssemblerOutput)"
+            DependsOnTargets="Compile"
             Condition="'$(Assemble)' == 'True'">
 
         <XsAssemble InputFile="$(AssemblyFile)"
@@ -133,6 +138,7 @@
     <Target Name="Link"
             Inputs="$(AssemblerOutput)"
             Outputs="$(LinkOutput)"
+            DependsOnTargets="Assemble"
             Condition="'$(Link)' == 'True'">
 
         <Ld InputFiles="$(AssemblerOutput)"
@@ -169,6 +175,7 @@
     <Target Name="DeployISO"
             Inputs="$(BinaryOutput)"
             Outputs="$(OutputISO);$(IntermediateIsoDirectory)syslinux.cfg"
+            DependsOnTargets="Link"
             Condition="'$(OutputType)' == 'Bootable'">
 
         <ItemGroup>
