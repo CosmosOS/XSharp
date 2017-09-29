@@ -46,7 +46,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
         private void Initialize(DefaultPublishProperties aDefaultProperties)
         {
-            mViewModel = new PublishWindowViewModel(aDefaultProperties);
+            mViewModel = new PublishWindowViewModel(this, aDefaultProperties);
             DataContext = mViewModel;
         }
 
@@ -55,7 +55,13 @@ namespace XSharp.ProjectSystem.VS.Build
             return base.ShowModal().GetValueOrDefault(false) ? mViewModel.ToPublishSettings() : null;
         }
 
-        private void ReturnPublishSettings(object aSender, RoutedEventArgs aEventArgs)
+        private void Cancel(object aSender, RoutedEventArgs aEventArgs)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        public void ReturnPublishSettings()
         {
             if (mViewModel.PublishType == PublishType.USB && mViewModel.FormatUsbDrive)
             {
@@ -66,25 +72,25 @@ namespace XSharp.ProjectSystem.VS.Build
             DialogResult = true;
             Close();
         }
-
-        private void Cancel(object aSender, RoutedEventArgs aEventArgs)
-        {
-            DialogResult = false;
-            Close();
-        }
     }
 
     internal class PublishWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        public PublishWindowViewModel(DefaultPublishProperties aDefaultProperties)
+
+        private PublishWindow mPublishWindow;
+
+        public PublishWindowViewModel(PublishWindow aPublishWindow, DefaultPublishProperties aDefaultProperties)
         {
+            mPublishWindow = aPublishWindow;
+
             mIsoPublishPath = aDefaultProperties.IsoPublishPath;
             mPxePublishPath = aDefaultProperties.PxePublishPath;
 
-            mBrowseIsoPublishPathCommand = new BrowseIsoPublishPathCommand(this, Path.GetDirectoryName(aDefaultProperties.IsoPublishPath));
+            mBrowseIsoPublishPathCommand = new BrowseIsoPublishPathCommand(this, IsoPublishPath);
             mBrowsePxePublishPathCommand = new BrowsePxePublishPathCommand(this, Path.GetDirectoryName(aDefaultProperties.PxePublishPath));
+
+            mReturnPublishSettingsCommand = new ReturnPublishSettingsCommand(this);
 
             WqlEventQuery xDeviceInsertedQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
             var xDeviceInsertedWatcher = new ManagementEventWatcher(xDeviceInsertedQuery);
@@ -108,24 +114,6 @@ namespace XSharp.ProjectSystem.VS.Build
             {
                 aPropertyRef = aNewValue;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(aPropertyName));
-            }
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableOK)));
-        }
-
-        private bool ValidateInput()
-        {
-            switch (PublishType)
-            {
-                case PublishType.ISO:
-                    return Directory.Exists(Path.GetDirectoryName(mIsoPublishPath));
-                case PublishType.USB:
-                    return !String.IsNullOrWhiteSpace(mUsbPublishDrive);
-                case PublishType.PXE:
-                    return Directory.Exists(Path.GetDirectoryName(mPxePublishPath));
-                default:
-                    return false;
-
             }
         }
 
@@ -170,6 +158,19 @@ namespace XSharp.ProjectSystem.VS.Build
             }
         }
 
+        private ICommand mReturnPublishSettingsCommand;
+        public ICommand ReturnPublishSettingsCommand
+        {
+            get
+            {
+                return mReturnPublishSettingsCommand;
+            }
+            set
+            {
+                SetProperty(ref mReturnPublishSettingsCommand, value, nameof(ReturnPublishSettingsCommand));
+            }
+        }
+
         private string mIsoPublishPath;
         public string IsoPublishPath
         {
@@ -198,9 +199,7 @@ namespace XSharp.ProjectSystem.VS.Build
             get => mFormatUsbDrive;
             set => SetProperty(ref mFormatUsbDrive, value, nameof(FormatUsbDrive));
         }
-
-        public bool EnableOK => ValidateInput();
-
+        
         public PublishSettings ToPublishSettings()
         {
             string xPublishPath;
@@ -221,6 +220,11 @@ namespace XSharp.ProjectSystem.VS.Build
             }
 
             return new PublishSettings(PublishType, xPublishPath, FormatUsbDrive);
+        }
+
+        public void ReturnPublishSettings()
+        {
+            mPublishWindow.ReturnPublishSettings();
         }
     }
 
@@ -244,10 +248,11 @@ namespace XSharp.ProjectSystem.VS.Build
 
         public void Execute(object parameter)
         {
-            var xSaveFileDialog = new SaveFileDialog();
-
-            xSaveFileDialog.Filter = "ISO Image (*.iso) | *.iso";
-            xSaveFileDialog.InitialDirectory = mInitialPath;
+            var xSaveFileDialog = new SaveFileDialog
+            {
+                FileName = mInitialPath,
+                Filter = "ISO Image (*.iso) | *.iso",
+            };
 
             if (xSaveFileDialog.ShowDialog().GetValueOrDefault(false))
             {
@@ -276,15 +281,52 @@ namespace XSharp.ProjectSystem.VS.Build
 
         public void Execute(object parameter)
         {
-            var xFolderBrowserDialog = new FolderBrowserDialog();
-
-            xFolderBrowserDialog.SelectedPath = mInitialPath;
-            xFolderBrowserDialog.ShowDialog();
+            var xFolderBrowserDialog = new FolderBrowserDialog
+            {
+                SelectedPath = mInitialPath
+            };
 
             if (xFolderBrowserDialog.ShowDialog() == WinFormsDialogResult.OK)
             {
                 mViewModel.PxePublishPath = xFolderBrowserDialog.SelectedPath;
             }
+        }
+    }
+
+    internal class ReturnPublishSettingsCommand : ICommand
+    {
+        private PublishWindowViewModel mViewModel;
+
+        public ReturnPublishSettingsCommand(PublishWindowViewModel aViewModel)
+        {
+            mViewModel = aViewModel;
+            mViewModel.PropertyChanged += delegate (object aSender, PropertyChangedEventArgs aEventArgs)
+            {
+                CanExecuteChanged(this, EventArgs.Empty);
+            };
+        }
+        
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            switch (mViewModel.PublishType)
+            {
+                case PublishType.ISO:
+                    return Directory.Exists(Path.GetDirectoryName(mViewModel.IsoPublishPath));
+                case PublishType.USB:
+                    return !String.IsNullOrWhiteSpace(mViewModel.UsbPublishDrive);
+                case PublishType.PXE:
+                    return Directory.Exists(Path.GetDirectoryName(mViewModel.PxePublishPath));
+                default:
+                    return false;
+
+            }
+        }
+
+        public void Execute(object parameter)
+        {
+            mViewModel.ReturnPublishSettings();
         }
     }
 }

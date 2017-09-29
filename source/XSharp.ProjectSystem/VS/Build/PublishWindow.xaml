@@ -171,8 +171,7 @@
                 </Style>
             </StackPanel.Resources>
 
-            <platformUI:DialogButton Click="ReturnPublishSettings"
-                                     IsEnabled="{Binding EnableOK}">OK</platformUI:DialogButton>
+            <platformUI:DialogButton Command="{Binding ReturnPublishSettingsCommand}">OK</platformUI:DialogButton>
             <platformUI:DialogButton Click="Cancel">Cancel</platformUI:DialogButton>
         </StackPanel>
     </Grid>
