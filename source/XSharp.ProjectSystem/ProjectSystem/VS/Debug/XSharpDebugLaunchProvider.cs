@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.ProjectSystem.VS.Debug;
 using Microsoft.VisualStudio.Threading;
 
-namespace XSharp.ProjectSystem.VS
+namespace XSharp.ProjectSystem.VS.Debug
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
     [AppliesTo(ProjectCapability.XSharp)]

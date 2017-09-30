@@ -15,6 +15,18 @@
                   Description="General" />
     </Rule.Categories>
 
+    <StringProperty Name="ProjectGuid"
+                    Visible="False">
+        <StringProperty.DataSource>
+            <DataSource Persistence="ImplicitProjectFile"
+                        Label="Globals"
+                        HasConfigurationCondition="False"
+                        SourceOfDefaultValue="AfterContext" />
+        </StringProperty.DataSource>
+    </StringProperty>
+
+    <StringProperty Name="BinOutputPath" />
+
     <EnumProperty Name="OutputType">
         <EnumValue Name="Application" DisplayName="Application" />
         <EnumValue Name="Bootable" DisplayName="Bootable" />
@@ -30,6 +42,6 @@
         <EnumValue Name="HyperV" DisplayName="Hyper-V" />
     </EnumProperty>
 
-    <StringProperty Name="OutputISO" DisplayName="Output ISO Path" />
+    <StringProperty Name="OutputISO" />
 
 </Rule>

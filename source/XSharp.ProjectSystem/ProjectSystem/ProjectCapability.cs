@@ -54,6 +54,7 @@ namespace XSharp.ProjectSystem
 
         public const string InitialCapabilities = AppDesigner + ";" +
                                                   // todo: implement
+                                                  DiagnoseCapabilities + ";" +
                                                   //EditAndContinue + ";" +
                                                   HandlesOwnReload + ";" +
                                                   OpenProjectFile + ";" +

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.References;
 
-namespace XSharp.ProjectSystem
+namespace XSharp.ProjectSystem.References
 {
     [Export(typeof(IValidProjectReferenceChecker))]
     [AppliesTo(ProjectCapability.XSharp)]

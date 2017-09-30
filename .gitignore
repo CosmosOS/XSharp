@@ -10,9 +10,7 @@
 # Build results
 
 [Oo]bj/
-[Bb]in
-[Dd]ebug/
-[Rr]elease/
+[Bb]in/
 [Pp]ackages/
 
 *.[Oo]bj

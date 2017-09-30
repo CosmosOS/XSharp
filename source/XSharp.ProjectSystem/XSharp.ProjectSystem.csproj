@@ -50,9 +50,9 @@
 
     <ItemGroup>
         <Resource Include="Resources\XSharpProjectTreeIcon.png" />
-        <Resource Include="VS\Build\Resources\ISO.png" />
-        <Resource Include="VS\Build\Resources\PXE.png" />
-        <Resource Include="VS\Build\Resources\USB.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\ISO.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\PXE.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\USB.png" />
     </ItemGroup>
 
     <!--
@@ -64,19 +64,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Page Include="VS\PropertyPages\**\*.xaml">
+        <Page Include="ProjectSystem\VS\PropertyPages\**\*.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Compile Update="VS\PropertyPages\**\*.xaml.cs">
+        <Compile Update="ProjectSystem\VS\PropertyPages\**\*.xaml.cs">
             <SubType>Code</SubType>
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
-        <Page Include="VS\Build\**\*.xaml">
+        <Page Include="ProjectSystem\VS\Build\**\*.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Compile Update="VS\Build\**\*.xaml.cs">
+        <Compile Update="ProjectSystem\VS\Build\**\*.xaml.cs">
             <SubType>Code</SubType>
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
