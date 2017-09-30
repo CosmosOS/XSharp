@@ -10,6 +10,10 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using Task = System.Threading.Tasks.Task;
 
+using DiscUtils.Iso9660;
+
+using static XSharp.ProjectSystem.ConfigurationGeneral;
+
 namespace XSharp.ProjectSystem.VS.Build
 {
     [Export(typeof(IPublishProvider))]
@@ -39,7 +43,10 @@ namespace XSharp.ProjectSystem.VS.Build
         {
             var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
 
-            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == "Bootable")
+            var xOutputISO = await xProjectProperties.OutputISO.GetEvaluatedValueAtEndAsync();
+            xOutputISO = ConfiguredProject.UnconfiguredProject.MakeRooted(xOutputISO);
+
+            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == OutputTypeValues.Bootable)
             {
                 if (mPublishSettings == null)
                 {
@@ -57,19 +64,7 @@ namespace XSharp.ProjectSystem.VS.Build
                             throw new Exception($"Invalid publish path! Publish path: '{mPublishSettings.PublishPath}'");
                         }
 
-                        var xDeployISO = await xProjectProperties.DeployISO.GetEvaluatedValueAtEndAsync();
-                        var xOutputISO = await xProjectProperties.OutputISO.GetEvaluatedValueAtEndAsync();
-
-                        if (!Boolean.TryParse(xDeployISO, out var xBoolDeployISO) || !xBoolDeployISO)
-                        {
-                            var xTargets = ImmutableArray.Create("DeployISO");
-                            var xProperties = ImmutableDictionary.Create<string, string>().Add("OutputISO", xOutputISO);
-                            await ConfiguredProject.Services.Build.BuildAsync(xTargets, CancellationToken.None, true, xProperties);
-                        }
-                        else
-                        {
-                            File.Copy(xOutputISO, mPublishSettings.PublishPath, true);
-                        }
+                        File.Copy(xOutputISO, mPublishSettings.PublishPath, true);
 
                         break;
                     case PublishType.USB:
@@ -86,8 +81,26 @@ namespace XSharp.ProjectSystem.VS.Build
                             throw new Exception($"Invalid drive letter! Drive letter: '{mPublishSettings.PublishPath}'");
                         }
 
-                        // todo: USB publish
-                        // todo: format USB drive if requested?
+                        // todo: format USB drive if requested? how?
+
+                        var xDrivePath = xDriveInfo.RootDirectory.FullName;
+
+                        using (var xStream = File.OpenRead(xOutputISO))
+                        {
+                            using (var xReader = new CDReader(xStream, true))
+                            {
+                                foreach (var xFile in xReader.GetFiles(""))
+                                {
+                                    using (var xFileStream = xReader.OpenFile(xFile, FileMode.Open))
+                                    {
+                                        using (var xNewFile = File.Create(Path.Combine(xDrivePath, Path.GetFileName(xFile))))
+                                        {
+                                            await xFileStream.CopyToAsync(xNewFile);
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         break;
                     case PublishType.PXE:
@@ -113,11 +126,18 @@ namespace XSharp.ProjectSystem.VS.Build
         {
             var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
 
-            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == "Bootable")
+            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == OutputTypeValues.Bootable)
             {
                 await ProjectThreadingService.SwitchToUIThread();
 
-                var xPublishWindow = new PublishWindow();
+                var xBinOutputPath = await xProjectProperties.BinOutputPath.GetEvaluatedValueAtEndAsync();
+                var xDefaultIsoPublishPath = ConfiguredProject.UnconfiguredProject.MakeRooted(
+                    Path.Combine(xBinOutputPath, Path.ChangeExtension(Path.GetFileName(ConfiguredProject.UnconfiguredProject.FullPath), "iso")));
+                var xDefaultPxePublishPath = ConfiguredProject.UnconfiguredProject.MakeRooted(Path.Combine(xBinOutputPath, "PXE Publish"));
+
+                var xDefaultPublishProperties = new DefaultPublishProperties(xDefaultIsoPublishPath, xDefaultPxePublishPath);
+
+                var xPublishWindow = new PublishWindow(xDefaultPublishProperties);
                 mPublishSettings = xPublishWindow.ShowModal();
 
                 return mPublishSettings != null;

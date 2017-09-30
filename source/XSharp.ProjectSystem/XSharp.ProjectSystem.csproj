@@ -103,6 +103,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
         <PackageReference Include="EnvDTE" Version="8.0.1" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
@@ -130,10 +131,16 @@
 
     <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
         <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="%(Filename) == 'netstandard'">
+            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
                 <IncludeInVSIX>True</IncludeInVSIX>
                 <VSIXSubPath>/</VSIXSubPath>
             </Content>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">
+        <ItemGroup>
+            <VSIXSourceItem Include="@(ReferencePath)" Condition="$([System.String]::new('%(Filename)').StartsWith('DiscUtils'))" />
         </ItemGroup>
     </Target>
   

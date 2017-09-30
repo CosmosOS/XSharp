@@ -33,6 +33,10 @@
         <EnumValue Name="Library" DisplayName="Library" />
     </EnumProperty>
 
+    <EnumProperty Name="Assembler">
+        <EnumValue Name="NASM" />
+    </EnumProperty>
+    
     <StringProperty Name="BinaryOutput" />
 
     <!-- only valid for Bootable projects -->
