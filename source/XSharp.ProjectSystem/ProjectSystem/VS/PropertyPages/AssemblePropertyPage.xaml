@@ -10,7 +10,7 @@
 
     <local:PropertyPage.Resources>
         <Style x:Key="FieldName" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0, 0, 0, 4" />
+            <Setter Property="Margin" Value="0, 0, 0, 8" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="2" />
@@ -21,23 +21,26 @@
         <StackPanel Margin="8">
             <StackPanel.Resources>
                 <Style TargetType="StackPanel">
-                    <Setter Property="Margin" Value="8, 0" />
+                    <Setter Property="Margin" Value="8" />
                 </Style>
             </StackPanel.Resources>
 
             <StackPanel>
-                <CheckBox Margin="0, 8"
-                          IsChecked="{Binding Assemble}">Assemble</CheckBox>
+                <CheckBox IsChecked="{Binding Assemble}">Assemble</CheckBox>
             </StackPanel>
 
-            <Grid Margin="0, 8"
-                  IsEnabled="{Binding Assemble}">
+            <Grid IsEnabled="{Binding Assemble}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0">
+                <StackPanel Grid.Column="0"
+                            Grid.Row="0">
                     <TextBlock Style="{StaticResource FieldName}">Assembler:</TextBlock>
                     <ComboBox IsEditable="False" Text="{Binding Assembler}">
                         <ComboBoxItem>NASM</ComboBoxItem>
@@ -46,19 +49,22 @@
 
                 <StackPanel Grid.Column="1">
                     <TextBlock Style="{StaticResource FieldName}">Output Format:</TextBlock>
-                    <ComboBox IsEditable="False" Text="{Binding OutputFormat}" ItemsSource="{Binding AvailableOutputFormats}" />
+                    <ComboBox ItemsSource="{Binding AvailableOutputFormats}"
+                              Text="{Binding OutputFormat}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2">
+                    <TextBlock Style="{StaticResource FieldName}">Output File:</TextBlock>
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right"
+                            Command="{Binding BrowseAssemblerOutputCommand}">Browse</Button>
+                        <TextBox Margin="0, 0, 8, 0"
+                             Text="{Binding AssemblerOutput}"></TextBox>
+                    </DockPanel>
                 </StackPanel>
             </Grid>
-
-            <StackPanel>
-                <TextBlock Style="{StaticResource FieldName}">Output File:</TextBlock>
-                <DockPanel>
-                    <Button DockPanel.Dock="Right"
-                            Command="{Binding BrowseAssemblerOutputCommand}">Browse</Button>
-                    <TextBox Margin="0, 0, 8, 0"
-                             Text="{Binding AssemblerOutput}"></TextBox>
-                </DockPanel>
-            </StackPanel>
         </StackPanel>
     </Grid>
 

@@ -27,12 +27,12 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
         private IProjectLockService mProjectLockService;
         private IDisposable mSubscriptionDisposable;
 
-        private ImmutableDictionary<string, string> ProjectFileProperties;
-        private Dictionary<string, string> Properties;
+        private ImmutableDictionary<string, string> mProjectFileProperties;
+        private Dictionary<string, string> mProperties;
 
         public PropertyManager(UnconfiguredProject aUnconfiguredProject)
         {
-            Properties = new Dictionary<string, string>();
+            mProperties = new Dictionary<string, string>();
 
             mUnconfiguredProject = aUnconfiguredProject;
             mProjectLockService = mUnconfiguredProject.ProjectService.Services.ProjectLockService;
@@ -41,28 +41,31 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             var xReceivingBlock = new ActionBlock<IProjectVersionedValue<IProjectSnapshot>>(ProjectUpdateAsync);
             mSubscriptionDisposable = xSubscriptionService.ProjectSource.SourceBlock.LinkTo(
                 xReceivingBlock, new DataflowLinkOptions() { PropagateCompletion = true });
+
+            // wait before binds
+            while (mProjectFileProperties == null) ;
         }
 
         private Task ProjectUpdateAsync(IProjectVersionedValue<IProjectSnapshot> aUpdate)
         {
-            var xOldDefaultProperties = ProjectFileProperties;
+            var xOldDefaultProperties = mProjectFileProperties;
 
             var xProjectInstance = aUpdate.Value.ProjectInstance;
-            ProjectFileProperties = xProjectInstance.Properties.ToImmutableDictionary(p => p.Name, p => p.EvaluatedValue);
+            mProjectFileProperties = xProjectInstance.Properties.ToImmutableDictionary(p => p.Name, p => p.EvaluatedValue);
             
             if (xOldDefaultProperties != null)
             {
-                foreach (var xPropertyName in Properties.Keys.ToList())
+                foreach (var xPropertyName in mProperties.Keys.ToList())
                 {
                     if (xOldDefaultProperties.ContainsKey(xPropertyName))
                     {
                         var xOldValue = xOldDefaultProperties[xPropertyName];
-                        var xNewValue = ProjectFileProperties[xPropertyName];
+                        var xNewValue = mProjectFileProperties[xPropertyName];
 
-                        if (xOldValue == Properties[xPropertyName] && xOldValue != xNewValue)
+                        if (xOldValue == mProperties[xPropertyName] && xOldValue != xNewValue)
                         {
                             // value wasn't changed in the property page, but it was updated in the project file
-                            Properties[xPropertyName] = xNewValue;
+                            mProperties[xPropertyName] = xNewValue;
                         }
                     }
                 }
@@ -73,7 +76,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         private bool PropertyChanged(KeyValuePair<string, string> aProperty)
         {
-            if (ProjectFileProperties.TryGetValue(aProperty.Key, out var xDefaultValue))
+            if (mProjectFileProperties.TryGetValue(aProperty.Key, out var xDefaultValue))
             {
                 if (xDefaultValue == aProperty.Value)
                 {
@@ -95,9 +98,9 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
         {
             get
             {
-                if (ProjectFileProperties != null)
+                if (mProjectFileProperties != null)
                 {
-                    foreach (var xProperty in Properties)
+                    foreach (var xProperty in mProperties)
                     {
                         if (PropertyChanged(xProperty))
                         {
@@ -117,24 +120,26 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         public string GetProperty(string aPropertyName)
         {
-            Properties.TryGetValue(aPropertyName, out var xValue);
-
-            if (xValue == null)
+            if (!mProperties.TryGetValue(aPropertyName, out var xValue))
             {
-                ProjectFileProperties.TryGetValue(aPropertyName, out xValue);
+                mProjectFileProperties.TryGetValue(aPropertyName, out xValue);
             }
 
             return xValue ?? String.Empty;
         }
 
+        public string GetPathProperty(string aPropertyName) => mUnconfiguredProject.MakeRooted(GetProperty(aPropertyName));
+
         public void SetProperty(string aPropertyName, string aValue)
         {
-            Properties[aPropertyName] = aValue; 
+            mProperties[aPropertyName] = aValue; 
         }
+
+        public void SetPathProperty(string aPropertyName, string aValue) => SetProperty(aPropertyName, mUnconfiguredProject.MakeRelative(aValue));
 
         public ImmutableDictionary<string, string> GetProperties()
         {
-            return Properties.ToImmutableDictionary();
+            return mProperties.ToImmutableDictionary();
         }
 
         public async Task ApplyChangesAsync()
@@ -146,7 +151,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
                 var xProject = await xAccess.GetProjectAsync(xConfiguredProject);
                 await xAccess.CheckoutAsync(xConfiguredProject.UnconfiguredProject.FullPath);
 
-                foreach (var xProperty in Properties)
+                foreach (var xProperty in mProperties)
                 {
                     if (PropertyChanged(xProperty))
                     {

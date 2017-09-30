@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -10,15 +11,11 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private UnconfiguredProject mUnconfiguredProject;
         private PropertyManager mPropertyManager;
-
-        protected UnconfiguredProject UnconfiguredProject => mUnconfiguredProject;
 
         public PropertyPageViewModel(UnconfiguredProject aUnconfiguredProject)
         {
-            mUnconfiguredProject = aUnconfiguredProject;
-            mPropertyManager = new PropertyManager(mUnconfiguredProject);
+            mPropertyManager = new PropertyManager(aUnconfiguredProject);
         }
 
         private void OnPropertyChanged(string aPropertyName)
@@ -28,7 +25,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         private void OnPropertyChanged<T>(T aPropertyValue, T aValue, string aPropertyName)
         {
-            if (!aPropertyValue.Equals(aValue))
+            if (EqualityComparer<T>.Default.Equals(aPropertyValue, aValue))
             {
                 OnPropertyChanged(aPropertyName);
             }
@@ -40,11 +37,26 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         protected string GetProperty(string aPropertyName) => mPropertyManager.GetProperty(aPropertyName);
 
-        protected void SetProperty(string aPropertyName, string aValue)
+        protected string GetPathProperty(string aPropertyName) => mPropertyManager.GetPathProperty(aPropertyName);
+
+        protected void SetProperty(string aPropertyName, string aValue, params string[] aChangedProperties)
         {
             if (mPropertyManager.GetProperty(aPropertyName) != aValue)
             {
                 mPropertyManager.SetProperty(aPropertyName, aValue);
+
+                foreach (var xChangedProperty in aChangedProperties)
+                {
+                    OnPropertyChanged(aPropertyName);
+                }
+            }
+        }
+
+        protected void SetPathProperty(string aPropertyName, string aValue, params string[] aChangedProperties)
+        {
+            if (mPropertyManager.GetPathProperty(aPropertyName) != aValue)
+            {
+                mPropertyManager.SetPathProperty(aPropertyName, aValue);
                 OnPropertyChanged(aPropertyName);
             }
         }

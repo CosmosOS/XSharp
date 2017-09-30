@@ -44,27 +44,27 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
         public bool Assemble
         {
             get => Boolean.Parse(GetProperty("Assemble"));
-            set => SetProperty("Assemble", value.ToString());
+            set => SetProperty("Assemble", value.ToString(), nameof(Assemble));
         }
 
         public string Assembler
         {
             get => GetProperty("Assembler");
-            set => SetProperty("Assembler", value);
+            set => SetProperty("Assembler", value, nameof(Assembler), nameof(AvailableOutputFormats));
         }
 
         public string AssemblerOutput
         {
-            get => UnconfiguredProject.MakeRooted(GetProperty("AssemblerOutput"));
-            set => SetProperty("AssemblerOutput", UnconfiguredProject.MakeRelative(value));
+            get => GetPathProperty("AssemblerOutput");
+            set => SetPathProperty("AssemblerOutput", value, nameof(AssemblerOutput));
         }
 
         public IReadOnlyList<string> AvailableOutputFormats => GetAvailableOutputFormats(Assembler);
 
         public string OutputFormat
         {
-            get => GetProperty("OutputFormat");
-            set => SetProperty("OutputFormat", value);
+            get => GetProperty("AssemblerOutputFormat");
+            set => SetProperty("AssemblerOutputFormat", value, nameof(OutputFormat));
         }
 
         public ICommand BrowseAssemblerOutputCommand => new BrowseAssemblerOutputCommand(this, AssemblerOutput);
@@ -74,7 +74,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             switch (aAssembler)
             {
                 case AssemblerValues.NASM:
-                    return ImmutableArray.Create<string>("Bin", "COFF", "ELF32", "ELF64", "Win32", "Win64");
+                    return ImmutableArray.Create("Bin", "COFF", "ELF32", "ELF64", "Win32", "Win64");
                 default:
                     return new string[0];
             }
