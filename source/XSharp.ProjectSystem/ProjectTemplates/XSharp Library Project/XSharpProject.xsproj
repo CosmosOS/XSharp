@@ -9,7 +9,7 @@
         <CustomProjectExtensionsPath>$(LocalAppData)\CustomProjectSystems\XSharp\</CustomProjectExtensionsPath>
     </PropertyGroup>
 
-    <!--<Import Project="$(CustomProjectExtensionsPath)XSharp.props"/>-->
+    <Import Project="$(CustomProjectExtensionsPath)XSharp.props"/>
 
     <Import Project="$(CustomProjectExtensionsPath)XSharp.targets"/>
 
