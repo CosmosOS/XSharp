@@ -13,10 +13,11 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
     internal class XSharpProjectDesignerPageProvider : IVsProjectDesignerPageProvider
     {
         private readonly IPageMetadata CompilePage = new PropertyPageMetadata("Compile", new Guid(CompilePropertyPage.PageGuid), 0, false);
+        private readonly IPageMetadata AssemblePage = new PropertyPageMetadata("Assemble", new Guid(AssemblePropertyPage.PageGuid), 1, false);
 
         public Task<IReadOnlyCollection<IPageMetadata>> GetPagesAsync()
         {
-            var xPages = ImmutableArray.Create(CompilePage);
+            var xPages = ImmutableArray.Create(CompilePage, AssemblePage);
             return Task.FromResult<IReadOnlyCollection<IPageMetadata>>(xPages);
         }
     }

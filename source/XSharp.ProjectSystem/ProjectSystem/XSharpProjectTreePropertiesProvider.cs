@@ -6,7 +6,7 @@ namespace XSharp.ProjectSystem
 {
     [Export(typeof(IProjectTreePropertiesProvider))]
     [AppliesTo(ProjectCapability.XSharp)]
-    internal class ProjectTreePropertiesProvider : IProjectTreePropertiesProvider
+    internal class XSharpProjectTreePropertiesProvider : IProjectTreePropertiesProvider
     {
         public void CalculatePropertyValues(IProjectTreeCustomizablePropertyContext propertyContext, IProjectTreeCustomizablePropertyValues propertyValues)
         {

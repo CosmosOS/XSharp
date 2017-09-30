@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
-using Microsoft.VisualStudio.Threading;
 
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
@@ -11,11 +10,15 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private UnconfiguredProject mUnconfiguredProject;
         private PropertyManager mPropertyManager;
+
+        protected UnconfiguredProject UnconfiguredProject => mUnconfiguredProject;
 
         public PropertyPageViewModel(UnconfiguredProject aUnconfiguredProject)
         {
-            mPropertyManager = new PropertyManager(aUnconfiguredProject);
+            mUnconfiguredProject = aUnconfiguredProject;
+            mPropertyManager = new PropertyManager(mUnconfiguredProject);
         }
 
         private void OnPropertyChanged(string aPropertyName)

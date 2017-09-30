@@ -18,20 +18,20 @@
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
-        <AssemblyFileName Condition="'$(AssemblyFile)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFileName>
-        <AssemblyFile>$(IntermediateOutputPath)$(AssemblyFileName)</AssemblyFile>
+        <AssemblyFileName Condition="'$(AssemblyFileName)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFileName>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(IntermediateOutputPath)$(AssemblyFileName)</AssemblyFile>
 
         <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
         <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
         <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
         <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.bin</AssemblerOutputExt>
         <AssemblerOutputFileName Condition="'$(AssemblerOutputFileName)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutputFileName>
-        <AssemblerOutput>$(IntermediateOutputPath)$(AssemblerOutputFileName)</AssemblerOutput>
+        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(IntermediateOutputPath)$(AssemblerOutputFileName)</AssemblerOutput>
 
         <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
         <Link Condition="'$(Link)' == ''">False</Link>
-        <LinkOutputFileName Condition="'$(LinkOutput)' == ''">$(OutputName).bin</LinkOutputFileName>
-        <LinkOutput>$(IntermediateOutputPath)$(LinkOutputFileName)</LinkOutput>
+        <LinkOutputFileName Condition="'$(LinkOutputFileName)' == ''">$(OutputName).bin</LinkOutputFileName>
+        <LinkOutput Condition="'$(LinkOutput)' == ''">$(IntermediateOutputPath)$(LinkOutputFileName)</LinkOutput>
 
         <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
         <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>

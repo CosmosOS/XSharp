@@ -12,6 +12,8 @@ using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.ProjectSystem.VS.Debug;
 using Microsoft.VisualStudio.Threading;
 
+using static XSharp.ProjectSystem.ConfigurationGeneral;
+
 namespace XSharp.ProjectSystem.VS.Debug
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
@@ -41,12 +43,12 @@ namespace XSharp.ProjectSystem.VS.Debug
             var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
             var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync();
 
-            if (xOutputType != "Application" && xOutputType != "Bootable")
+            if (xOutputType != OutputTypeValues.Application && xOutputType != OutputTypeValues.Bootable)
             {
                 throw new Exception($"Project cannot be launched! Output type: '{xOutputType}'.");
             }
 
-            if (xOutputType == "Bootable")
+            if (xOutputType == OutputTypeValues.Bootable)
             {
                 // todo: using debugger for this would be better
                 await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Run"), CancellationToken.None, true);
@@ -61,7 +63,7 @@ namespace XSharp.ProjectSystem.VS.Debug
                 xDebugSettings.LaunchOperation = DebugLaunchOperation.AlreadyRunning;
                 xDebugSettings.CurrentDirectory = Path.GetDirectoryName(xBinaryOutput);
 
-                if (xOutputType == "Bootable")
+                if (xOutputType == OutputTypeValues.Bootable)
                 {
                     // todo: implement
                     //xDebugSettings.LaunchDebugEngineGuid = XSharpDebuggerGuid;

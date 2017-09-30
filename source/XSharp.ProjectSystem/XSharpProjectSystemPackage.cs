@@ -14,6 +14,7 @@ namespace XSharp.ProjectSystem
     [Guid(PackageGuid)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [ProvideObject(typeof(VS.PropertyPages.CompilePropertyPage))]
+    [ProvideObject(typeof(VS.PropertyPages.AssemblePropertyPage))]
     public sealed class XSharpProjectSystemPackage : Package
     {
         /// <summary>
