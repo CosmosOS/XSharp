@@ -9,12 +9,6 @@ namespace XSharp.ProjectSystem
 
         private const int ProjectTreeIconID = 0;
 
-        public static ImageMoniker ProjectTreeIcon
-        {
-            get
-            {
-                return new ImageMoniker { Guid = ManifestGuid, Id = ProjectTreeIconID };
-            }
-        }
+        public static ImageMoniker ProjectTreeIcon => new ImageMoniker { Guid = ManifestGuid, Id = ProjectTreeIconID };
     }
 }

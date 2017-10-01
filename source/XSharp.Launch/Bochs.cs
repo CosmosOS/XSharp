@@ -244,6 +244,21 @@ namespace XSharp.Launch
             // Register for process completion event so that we can funnel it to any code that
             // subscribed to this event in our base class.
             mBochsProcess.EnableRaisingEvents = true;
+            mBochsProcess.Exited += delegate
+            {
+                var xLockFile = mHardDiskFile + ".lock";
+                if (File.Exists(xLockFile))
+                {
+                    try
+                    {
+                        File.Delete(xLockFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"The lock file couldn't be deleted! You have to delete it manually. Lock file location: '{xLockFile}'.{Environment.NewLine}Exception:{Environment.NewLine}{ex.ToString()}")
+                    }
+            };
+
             mBochsProcess.Start();
 
             if (RedirectOutput)
