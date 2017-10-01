@@ -28,6 +28,7 @@ namespace XSharp.Build.Tasks
         #endregion
 
         protected override string ToolName => "ld.exe";
+        protected override MessageImportance StandardErrorLoggingImportance => MessageImportance.High;
 
         private bool IsValidAddress(string aAddress)
         {

@@ -16,6 +16,7 @@ namespace XSharp.Build.Tasks
         public string OutputFile { get; set; } = null;
 
         protected override string ToolName => "xsc.exe";
+        protected override MessageImportance StandardErrorLoggingImportance => MessageImportance.High;
 
         protected override bool ValidateParameters()
         {

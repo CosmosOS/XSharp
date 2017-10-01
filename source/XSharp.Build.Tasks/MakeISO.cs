@@ -15,6 +15,7 @@ namespace XSharp.Build.Tasks
         public string OutputFile { get; set; }
 
         protected override string ToolName => "mkisofs.exe";
+        protected override MessageImportance StandardErrorLoggingImportance => MessageImportance.High;
 
         protected override bool ValidateParameters()
         {

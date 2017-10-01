@@ -16,8 +16,12 @@ namespace XSharp.Build.Tasks
 
         enum OutputFormatEnum
         {
-            bin,
-            elf
+            Bin,
+            COFF,
+            ELF32,
+            ELF64,
+            Win32,
+            Win64
         }
 
         #region Task Parameters
@@ -71,6 +75,7 @@ namespace XSharp.Build.Tasks
         private OutputFormatEnum mOutputFormat;
 
         protected override string ToolName => Assemblers[mAssembler];
+        protected override MessageImportance StandardErrorLoggingImportance => MessageImportance.High;
 
         private static Dictionary<AssemblerEnum, string> Assemblers = new Dictionary<AssemblerEnum, string>()
         {
@@ -134,7 +139,7 @@ namespace XSharp.Build.Tasks
                     xBuilder.AppendSwitch("-o ");
                     xBuilder.AppendSwitch(OutputFile);
 
-                    if (mOutputFormat == OutputFormatEnum.elf)
+                    if (mOutputFormat == OutputFormatEnum.ELF32 || mOutputFormat == OutputFormatEnum.ELF64)
                     {
                         xBuilder.AppendSwitch("-dELF_COMPILATION");
                     }
