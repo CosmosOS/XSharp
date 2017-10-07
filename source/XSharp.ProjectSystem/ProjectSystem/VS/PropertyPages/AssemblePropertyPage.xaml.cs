@@ -11,7 +11,7 @@ using static XSharp.ProjectSystem.ConfigurationGeneral;
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
     /// <summary>
-    /// Interaction logic for CompilePropertyPage.xaml
+    /// Interaction logic for AssemblePropertyPage.xaml
     /// </summary>
     [Guid(PageGuid)]
     internal partial class AssemblePropertyPage : PropertyPage

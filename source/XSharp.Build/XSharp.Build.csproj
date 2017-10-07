@@ -7,10 +7,4 @@
         <Description>$(XSharpDescription)</Description>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Folder Include="Tools\NASM\" />
-        <Folder Include="Tools\ISO\" />
-        <Folder Include="Tools\TFTP\" />
-    </ItemGroup>
-
 </Project>
