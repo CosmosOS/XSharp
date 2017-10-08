@@ -5,7 +5,7 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>Property pages implementation for Visual Studio CPS-based project systems.</Description>
-        <PackageTags>VS Visual Studio Property Pages CPS X# XSharp Cosmos</PackageTags>
+        <PackageTags>VS Visual Studio Property Pages CPS WPF Windows Forms WinForms X# XSharp Cosmos</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

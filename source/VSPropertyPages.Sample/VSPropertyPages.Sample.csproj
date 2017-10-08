@@ -1,0 +1,109 @@
+﻿<Project InitialTargets="CheckMSBuildRuntimeType">
+
+    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+
+    <PropertyGroup>
+        <TargetFramework>net462</TargetFramework>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <UseCodebase>True</UseCodebase>
+        <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
+        <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
+        <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
+        <CopyBuildOutputToOutputDirectory>True</CopyBuildOutputToOutputDirectory>
+        <CopyOutputSymbolsToOutputDirectory>False</CopyOutputSymbolsToOutputDirectory>
+        <DeployExtension>True</DeployExtension>
+    </PropertyGroup>
+
+    <!--
+        WinForms Items
+    -->
+    <ItemGroup>
+        <Compile Update="PropertyPages\Views\WinFormsPropertyPageControl.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Update="PropertyPages\Views\WinFormsPropertyPageControl.Designer.cs">
+            <DependentUpon>PropertyPages\Views\WinFormsPropertyPageControl.cs</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+        <EmbeddedResource Update="WinFormsPropertyPageControl.resx">
+            <DependentUpon>PropertyPages\Views\WinFormsPropertyPageControl.cs</DependentUpon>
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>PropertyPages\Views\WinFormsPropertyPageControl.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <!--
+        WPF Workarounds
+    -->
+
+    <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
+        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Page Include="PropertyPages\**\*.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Compile Update="PropertyPages\**\*.xaml.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+        <PropertyGroup>
+            <BuildingProject>false</BuildingProject>
+        </PropertyGroup>
+    </Target>
+
+    <!--
+        End WPF Workarounds
+    -->
+
+    <ItemGroup>
+        <Reference Include="System.ComponentModel.Composition" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Xaml" />
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EnvDTE" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Build" Version="15.3.409" />
+        <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
+        <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.12" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.0.26606" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.0.26606" />
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
+    </ItemGroup>
+
+    <Target Name="CheckMSBuildRuntimeType">
+        <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
+    </Target>
+  
+    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
+
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+
+</Project>

@@ -30,9 +30,9 @@ namespace VSPropertyPages
         private PropertyPageViewModel _propertyPageViewModel;
 
         public abstract string PageName { get; }
-        public abstract IPropertyPageUI CreatePropertyPageUI();
 
-        public abstract PropertyPageViewModel InitializePropertyPageViewModel(
+        public abstract IPropertyPageUI CreatePropertyPageUI();
+        public abstract PropertyPageViewModel CreatePropertyPageViewModel(
             UnconfiguredProject unconfiguredProject, IProjectThreadingService projectThreadingService);
 
         public PropertyPage()
@@ -158,7 +158,7 @@ namespace VSPropertyPages
                 throw new Exception("Couldn't find UnconfiguredProject!");
             }
 
-            _propertyPageViewModel = InitializePropertyPageViewModel(_unconfiguredProject, _projectThreadingService);
+            _propertyPageViewModel = CreatePropertyPageViewModel(_unconfiguredProject, _projectThreadingService);
             
             _propertyPageViewModel.ProjectPropertyChanged += PropertyChanged;
             _propertyPageViewModel.ProjectPropertyChanging += PropertyChanging;
