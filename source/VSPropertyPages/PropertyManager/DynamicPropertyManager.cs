@@ -38,7 +38,6 @@ namespace VSPropertyPages
             _unconfiguredProject = unconfiguredProject;
             _projectLockService = _unconfiguredProject.ProjectService.Services.ProjectLockService;
 
-            _persistedProperties = new Dictionary<string, string>();
             _properties = new Dictionary<string, string>();
 
             var subscriptionService = _unconfiguredProject.Services.ActiveConfiguredProjectSubscription;

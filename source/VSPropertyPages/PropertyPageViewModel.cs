@@ -41,7 +41,7 @@ namespace VSPropertyPages
                 }
                 else
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Property"));
+                    PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
                 }
             }
         }
