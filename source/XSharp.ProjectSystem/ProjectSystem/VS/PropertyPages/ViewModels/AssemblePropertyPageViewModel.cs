@@ -1,43 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.Win32;
+
+using VSPropertyPages;
 
 using static XSharp.ProjectSystem.ConfigurationGeneral;
 
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
-    /// <summary>
-    /// Interaction logic for AssemblePropertyPage.xaml
-    /// </summary>
-    [Guid(PageGuid)]
-    internal partial class AssemblePropertyPage : PropertyPage
-    {
-        public const string PageGuid = "3e3ca5b3-60f0-4e28-9973-3b77b32f742b";
-
-        protected override string PageName => "Assemble";
-
-        private AssemblePropertyPageViewModel mViewModel;
-        protected override PropertyPageViewModel ViewModel => mViewModel;
-
-        public AssemblePropertyPage()
-        {
-            InitializeComponent();
-        }
-
-        protected override void SetObjects(UnconfiguredProject aUnconfiguredProject)
-        {
-            mViewModel = new AssemblePropertyPageViewModel(aUnconfiguredProject);
-        }
-    }
-
     internal class AssemblePropertyPageViewModel : PropertyPageViewModel
     {
-        public AssemblePropertyPageViewModel(UnconfiguredProject aUnconfiguredProject)
-            : base(aUnconfiguredProject)
+        public AssemblePropertyPageViewModel(IPropertyManager aPropertyManager, IProjectThreadingService aProjectThreadingService)
+            : base(aPropertyManager, aProjectThreadingService)
         {
         }
 
@@ -55,8 +32,13 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         public string AssemblerOutput
         {
+#if false
             get => GetPathProperty("AssemblerOutput");
             set => SetPathProperty("AssemblerOutput", value, nameof(AssemblerOutput));
+#else
+            get => GetProperty("AssemblerOutput");
+            set => SetProperty("AssemblerOutput", value, nameof(AssemblerOutput));
+#endif
         }
 
         public IReadOnlyList<string> AvailableOutputFormats => GetAvailableOutputFormats(Assembler);
@@ -80,7 +62,7 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             }
         }
     }
-    
+
     internal class BrowseAssemblerOutputCommand : ICommand
     {
         private AssemblePropertyPageViewModel mViewModel;
