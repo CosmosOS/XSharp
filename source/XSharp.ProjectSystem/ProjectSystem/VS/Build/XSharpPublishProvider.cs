@@ -25,10 +25,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
         [Import]
         private ProjectProperties ProjectProperties { get; set; }
-
-        [Import]
-        private SVsServiceProvider ServiceProvider { get; set; }
-
+        
         [Import]
         private IProjectThreadingService ProjectThreadingService { get; set; }
 
