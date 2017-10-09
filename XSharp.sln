@@ -37,7 +37,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceDebugger", "source\Sp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.ProjectSystem", "source\XSharp.ProjectSystem\XSharp.ProjectSystem.csproj", "{E7F63CFE-3A8A-489C-B81D-73DD5D6FD9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSharp.Launch", "source\XSharp.Launch\XSharp.Launch.csproj", "{C54CC2E9-E881-4942-8771-3A08520B56D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Launch", "source\XSharp.Launch\XSharp.Launch.csproj", "{C54CC2E9-E881-4942-8771-3A08520B56D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSPropertyPages", "source\VSPropertyPages\VSPropertyPages.csproj", "{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,14 @@ Global
 		{C54CC2E9-E881-4942-8771-3A08520B56D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C54CC2E9-E881-4942-8771-3A08520B56D5}.Release|x86.ActiveCfg = Release|Any CPU
 		{C54CC2E9-E881-4942-8771-3A08520B56D5}.Release|x86.Build.0 = Release|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Debug|x86.Build.0 = Debug|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
