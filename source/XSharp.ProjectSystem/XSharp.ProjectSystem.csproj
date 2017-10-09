@@ -120,6 +120,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
             <AdditionalProperties>TargetFramework=net462</AdditionalProperties>
         </ProjectReference>
