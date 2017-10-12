@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
+using System.IO;
 using System.Management;
-using System.Windows;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.Win32;
+
 using WinFormsDialogResult = System.Windows.Forms.DialogResult;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace XSharp.ProjectSystem.VS.Build
 {
-    public class DefaultPublishProperties
+    internal class DefaultPublishProperties
     {
         public string IsoPublishPath { get; }
         public string PxePublishPath { get; }
@@ -22,55 +22,6 @@ namespace XSharp.ProjectSystem.VS.Build
         {
             IsoPublishPath = aIsoPublishPath;
             PxePublishPath = aPxePublishPath;
-        }
-    }
-
-    /// <summary>
-    /// Interaction logic for PublishWindow.xaml
-    /// </summary>
-    public partial class PublishWindow : DialogWindow
-    {
-        private PublishWindowViewModel mViewModel;
-
-        public PublishWindow(DefaultPublishProperties aDefaultProperties)
-        {
-            InitializeComponent();
-            Initialize(aDefaultProperties);
-        }
-
-        public PublishWindow(DefaultPublishProperties aDefaultProperties, string aHelpTopic) : base(aHelpTopic)
-        {
-            InitializeComponent();
-            Initialize(aDefaultProperties);
-        }
-
-        private void Initialize(DefaultPublishProperties aDefaultProperties)
-        {
-            mViewModel = new PublishWindowViewModel(this, aDefaultProperties);
-            DataContext = mViewModel;
-        }
-
-        public new PublishSettings ShowModal()
-        {
-            return base.ShowModal().GetValueOrDefault(false) ? mViewModel.ToPublishSettings() : null;
-        }
-
-        private void Cancel(object aSender, RoutedEventArgs aEventArgs)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        public void ReturnPublishSettings()
-        {
-            if (mViewModel.PublishType == PublishType.USB && mViewModel.FormatUsbDrive)
-            {
-                MessageBox.Show($"The selected USB drive ({mViewModel.UsbPublishDrive}) will be formatted and its contents will be destroyed!{Environment.NewLine}Do you want to continue?",
-                    "Publish", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            }
-
-            DialogResult = true;
-            Close();
         }
     }
 
@@ -108,7 +59,7 @@ namespace XSharp.ProjectSystem.VS.Build
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Drives)));
         }
 
-        private void SetProperty<T>(ref T aPropertyRef, T aNewValue, string aPropertyName)
+        private void SetProperty<T>(ref T aPropertyRef, T aNewValue, [CallerMemberName]string aPropertyName = null)
         {
             if (!EqualityComparer<T>.Default.Equals(aPropertyRef, aNewValue))
             {
@@ -117,79 +68,56 @@ namespace XSharp.ProjectSystem.VS.Build
             }
         }
 
-        public IEnumerable<string> Drives
-        {
-            get
-            {
-                return DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Removable).Select(d => d.RootDirectory.FullName);
-            }
-        }
+        public IEnumerable<string> Drives => DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Removable)
+                                                                  .Select(d => d.RootDirectory.FullName);
 
         private PublishType mPublishType;
         public PublishType PublishType
         {
             get => mPublishType;
-            set => SetProperty(ref mPublishType, value, nameof(PublishType));
+            set => SetProperty(ref mPublishType, value);
         }
 
         private ICommand mBrowseIsoPublishPathCommand;
         public ICommand BrowseIsoPublishPathCommand
         {
-            get
-            {
-                return mBrowseIsoPublishPathCommand;
-            }
-            set
-            {
-                SetProperty(ref mBrowseIsoPublishPathCommand, value, nameof(BrowseIsoPublishPathCommand));
-            }
+            get => mBrowseIsoPublishPathCommand;
+            set => SetProperty(ref mBrowseIsoPublishPathCommand, value);
         }
 
         private ICommand mBrowsePxePublishPathCommand;
         public ICommand BrowsePxePublishPathCommand
         {
-            get
-            {
-                return mBrowsePxePublishPathCommand;
-            }
-            set
-            {
-                SetProperty(ref mBrowsePxePublishPathCommand, value, nameof(BrowsePxePublishPathCommand));
-            }
+            get => mBrowsePxePublishPathCommand;
+            set => SetProperty(ref mBrowsePxePublishPathCommand, value, nameof(BrowsePxePublishPathCommand));
         }
 
         private ICommand mReturnPublishSettingsCommand;
         public ICommand ReturnPublishSettingsCommand
         {
-            get
-            {
-                return mReturnPublishSettingsCommand;
-            }
-            set
-            {
-                SetProperty(ref mReturnPublishSettingsCommand, value, nameof(ReturnPublishSettingsCommand));
-            }
+            get => mReturnPublishSettingsCommand;
+            set => SetProperty(ref mReturnPublishSettingsCommand, value);
         }
 
         private string mIsoPublishPath;
         public string IsoPublishPath
         {
             get => mIsoPublishPath;
-            set => SetProperty(ref mIsoPublishPath, value, nameof(IsoPublishPath));
+            set => SetProperty(ref mIsoPublishPath, value);
         }
 
         private string mUsbPublishDrive;
         public string UsbPublishDrive
         {
             get => mUsbPublishDrive;
-            set => SetProperty(ref mUsbPublishDrive, value, nameof(UsbPublishDrive));
+            set => SetProperty(ref mUsbPublishDrive, value);
         }
 
         private string mPxePublishPath;
         public string PxePublishPath
         {
             get => mPxePublishPath;
-            set => SetProperty(ref mPxePublishPath, value, nameof(PxePublishPath));
+            set => SetProperty(ref mPxePublishPath, value);
         }
 
         // todo: format usb drive should be true by default?
@@ -199,7 +127,7 @@ namespace XSharp.ProjectSystem.VS.Build
             get => mFormatUsbDrive;
             set => SetProperty(ref mFormatUsbDrive, value, nameof(FormatUsbDrive));
         }
-        
+
         public PublishSettings ToPublishSettings()
         {
             string xPublishPath;
@@ -309,7 +237,7 @@ namespace XSharp.ProjectSystem.VS.Build
                 CanExecuteChanged(this, EventArgs.Empty);
             };
         }
-        
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
