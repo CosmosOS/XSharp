@@ -7,7 +7,7 @@
         PXE
     }
 
-    public class PublishSettings
+    internal class PublishSettings
     {
         public PublishType PublishType { get; }
         public string PublishPath { get; }
