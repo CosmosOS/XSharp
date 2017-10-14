@@ -30,6 +30,8 @@ namespace VSPropertyPages
         private Dictionary<string, string> _persistedProperties;
         private Dictionary<string, string> _properties;
 
+        private TaskCompletionSource<bool> _firstProjectUpdateCompletionSource = new TaskCompletionSource<bool>();
+
         public event EventHandler<ProjectPropertyChangingEventArgs> PropertyChanging;
         public event EventHandler<ProjectPropertyChangedEventArgs> PropertyChanged;
 
@@ -45,14 +47,16 @@ namespace VSPropertyPages
             _projectSubscriptionDisposable = subscriptionService.ProjectSource.SourceBlock.LinkTo(
                 receivingBlock, new DataflowLinkOptions() { PropagateCompletion = true });
 
-            // todo: is there a better way of waiting for first source block update?
-            while (_persistedProperties == null) ;
+            _unconfiguredProject.ProjectService.Services.ThreadingPolicy.ExecuteSynchronously(
+                () => _firstProjectUpdateCompletionSource.Task);
         }
 
         private Task ProjectUpdateAsync(IProjectVersionedValue<IProjectSnapshot> update)
         {
             var project = update.Value.ProjectInstance;
             _persistedProperties = project.Properties.ToDictionary(p => p.Name, p => p.EvaluatedValue);
+
+            _firstProjectUpdateCompletionSource.TrySetResult(true);
 
             return TplExtensions.CompletedTask;
         }
