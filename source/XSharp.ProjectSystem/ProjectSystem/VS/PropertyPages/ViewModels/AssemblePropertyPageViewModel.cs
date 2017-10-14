@@ -32,13 +32,8 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
 
         public string AssemblerOutput
         {
-#if false
-            get => GetPathProperty("AssemblerOutput");
-            set => SetPathProperty("AssemblerOutput", value, nameof(AssemblerOutput));
-#else
-            get => GetProperty("AssemblerOutput");
-            set => SetProperty("AssemblerOutput", value, nameof(AssemblerOutput));
-#endif
+            get => GetPathProperty("AssemblerOutput", false);
+            set => SetPathProperty("AssemblerOutput", value, false, nameof(AssemblerOutput));
         }
 
         public IReadOnlyList<string> AvailableOutputFormats => GetAvailableOutputFormats(Assembler);

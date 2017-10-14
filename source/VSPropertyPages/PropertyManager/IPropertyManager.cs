@@ -11,6 +11,9 @@ namespace VSPropertyPages
         Task<string> GetPropertyAsync(string propertyName);
         Task SetPropertyAsync(string propertyName, string value);
 
+        Task<string> GetPathPropertyAsync(string propertyName, bool isRelative);
+        Task SetPathPropertyAsync(string propertyName, string value, bool isRelative);
+
         Task<bool> IsDirtyAsync();
         Task<bool> ApplyAsync();
     }

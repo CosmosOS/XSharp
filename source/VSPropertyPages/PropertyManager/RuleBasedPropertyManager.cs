@@ -36,6 +36,32 @@ namespace VSPropertyPages
             }
         }
 
+        public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative)
+        {
+            var value = await GetPropertyAsync(propertyName);
+
+            if (isRelative)
+            {
+                return _unconfiguredProject.MakeRelative(value);
+            }
+            else
+            {
+                return _unconfiguredProject.MakeRooted(value);
+            }
+        }
+
+        public async Task SetPathPropertyAsync(string propertyName, string value, bool isRelative)
+        {
+            if (isRelative)
+            {
+                await SetPropertyAsync(propertyName, _unconfiguredProject.MakeRelative(value));
+            }
+            else
+            {
+                await SetPropertyAsync(propertyName, _unconfiguredProject.MakeRooted(value));
+            }
+        }
+
         public async Task<bool> IsDirtyAsync() => await _unconfiguredProject.GetIsDirtyAsync();
 
         public async Task<bool> ApplyAsync()

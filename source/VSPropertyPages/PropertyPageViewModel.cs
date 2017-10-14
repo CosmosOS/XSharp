@@ -55,7 +55,12 @@ namespace VSPropertyPages
         public async Task<string> GetPropertyAsync(string propertyName) =>
             await _propertyManager.GetPropertyAsync(propertyName);
 
+        public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative) =>
+            await _propertyManager.GetPathPropertyAsync(propertyName, isRelative);
+
         /// <summary>
+        /// Sets a project property.
+        /// <para />
         /// If no <paramref name="changedProperties"/> are specified, all properties will be considered as changed.
         /// </summary>
         /// <param name="propertyName">The property name.</param>
@@ -71,12 +76,33 @@ namespace VSPropertyPages
             }
         }
 
+        /// <summary>
+        /// Sets a project property.
+        /// <para />
+        /// If no <paramref name="changedProperties"/> are specified, all properties will be considered as changed.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="changedProperties">The names of properties that may change after setting the project property.</param>
+        /// <returns>An awaitable <seealso cref="Task"/>.</returns>
+        public async Task SetPathPropertyAsync(string propertyName, string value, bool isRelative, params string[] changedProperties)
+        {
+            if (await _propertyManager.GetPathPropertyAsync(propertyName, false) != value)
+            {
+                await _propertyManager.SetPathPropertyAsync(propertyName, value, isRelative);
+                OnPropertyChanged(changedProperties);
+            }
+        }
+
         public async Task<bool> IsDirtyAsync() => await _propertyManager.IsDirtyAsync();
 
         public async Task<bool> ApplyAsync() => await _propertyManager.ApplyAsync();
 
         protected string GetProperty(string propertyName) =>
             WaitForAsync(() => GetPropertyAsync(propertyName));
+
+        protected string GetPathProperty(string propertyName, bool isRelative) =>
+            WaitForAsync(() => GetPathPropertyAsync(propertyName, isRelative));
 
         /// <summary>
         /// If no <paramref name="changedProperties"/> are specified, all properties will be considered as changed.
@@ -87,5 +113,8 @@ namespace VSPropertyPages
         /// <returns>An awaitable <seealso cref="Task"/>.</returns>
         protected void SetProperty(string propertyName, string value, params string[] changedProperties) =>
             WaitForAsync(() => SetPropertyAsync(propertyName, value, changedProperties));
+
+        protected void SetPathProperty(string propertyName, string value, bool isRelative, params string[] changedProperties) =>
+            WaitForAsync(() => SetPathPropertyAsync(propertyName, value, isRelative, changedProperties));
     }
 }
