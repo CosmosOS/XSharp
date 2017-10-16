@@ -16,7 +16,7 @@ using static XSharp.ProjectSystem.ConfigurationGeneral;
 namespace XSharp.ProjectSystem.VS.Build
 {
     [Export(typeof(IPublishProvider))]
-    [AppliesTo(ProjectCapability.XSharp)]
+    [AppliesTo(ProjectCapability.XSharpAndRunningInVisualStudio)]
     internal class XSharpPublishProvider : IPublishProvider
     {
         [Import]
@@ -30,10 +30,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
         private PublishSettings mPublishSettings;
 
-        public Task<bool> IsPublishSupportedAsync()
-        {
-            return TplExtensions.TrueTask;
-        }
+        public Task<bool> IsPublishSupportedAsync() => TplExtensions.TrueTask;
 
         public async Task PublishAsync(CancellationToken aCancellationToken, TextWriter aOutputPaneWriter)
         {

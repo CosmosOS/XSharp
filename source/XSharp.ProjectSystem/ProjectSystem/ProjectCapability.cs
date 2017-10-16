@@ -48,7 +48,9 @@ namespace XSharp.ProjectSystem
 
         #region Combined Capabilities
 
-        public const string XSharpAppDesigner = XSharp + " & " + AppDesigner;
+        public const string XSharpAndAppDesigner = XSharp + " & " + AppDesigner;
+
+        public const string XSharpAndRunningInVisualStudio = XSharp + " & " + RunningInVisualStudio;
 
         #endregion
 

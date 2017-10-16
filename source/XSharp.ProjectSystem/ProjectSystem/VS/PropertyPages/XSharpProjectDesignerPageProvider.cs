@@ -11,7 +11,7 @@ using VSPropertyPages;
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
     [Export(typeof(IVsProjectDesignerPageProvider))]
-    [AppliesTo(ProjectCapability.XSharpAppDesigner)]
+    [AppliesTo(ProjectCapability.XSharpAndAppDesigner)]
     internal class XSharpProjectDesignerPageProvider : IVsProjectDesignerPageProvider
     {
         private readonly IPageMetadata CompilePage = new PropertyPageMetadata("Compile", CompilePropertyPage.PageGuid, 0, false);
