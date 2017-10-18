@@ -92,24 +92,18 @@ namespace XSharp.Assembler
             return xName;
         }
 
-        // Compat shim
         public static string GetFullName(Type aType)
         {
-            return GetFullName(aType.GetTypeInfo());
-        }
-
-        public static string GetFullName(TypeInfo aTypeInfo)
-        {
-            if (aTypeInfo.IsGenericParameter)
+            if (aType.IsGenericParameter)
             {
-                return aTypeInfo.FullName;
+                return aType.FullName;
             }
             StringBuilder xSB = new StringBuilder(256);
-            if (aTypeInfo.IsArray)
+            if (aType.IsArray)
             {
-                xSB.Append(GetFullName(aTypeInfo.GetElementType()));
+                xSB.Append(GetFullName(aType.GetElementType()));
                 xSB.Append("[");
-                int xRank = aTypeInfo.GetArrayRank();
+                int xRank = aType.GetArrayRank();
                 while (xRank > 1)
                 {
                     xSB.Append(",");
@@ -118,22 +112,22 @@ namespace XSharp.Assembler
                 xSB.Append("]");
                 return xSB.ToString();
             }
-            if (aTypeInfo.IsByRef && aTypeInfo.HasElementType)
+            if (aType.IsByRef && aType.HasElementType)
             {
-                return "&" + GetFullName(aTypeInfo.GetElementType());
+                return "&" + GetFullName(aType.GetElementType());
             }
-            if (aTypeInfo.IsGenericType && !aTypeInfo.IsGenericTypeDefinition)
+            if (aType.IsGenericType && !aType.IsGenericTypeDefinition)
             {
-                xSB.Append(GetFullName(aTypeInfo.GetGenericTypeDefinition()));
+                xSB.Append(GetFullName(aType.GetGenericTypeDefinition()));
             }
             else
             {
-                xSB.Append(aTypeInfo.FullName);
+                xSB.Append(aType.FullName);
             }
-            if (aTypeInfo.IsGenericType)
+            if (aType.IsGenericType)
             {
                 xSB.Append("<");
-                var xArgs = aTypeInfo.GetGenericArguments();
+                var xArgs = aType.GetGenericArguments();
                 for (int i = 0; i < xArgs.Length - 1; i++)
                 {
                     xSB.Append(GetFullName(xArgs[i]));
@@ -176,7 +170,8 @@ namespace XSharp.Assembler
             {
                 xBuilder.Append(GetFullName(aMethod.DeclaringType));
             }
-            else {
+            else
+            {
                 xBuilder.Append("dynamic_method");
             }
             xBuilder.Append(".");

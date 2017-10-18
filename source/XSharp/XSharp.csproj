@@ -1,16 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-        <Description>$(XSharpDescription)</Description>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\XSharp.x86\XSharp.x86.csproj" />
-        <ProjectReference Include="..\Spruce\Spruce.csproj" />
-        <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
-    </ItemGroup>
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+    <Description>$(XSharpDescription)</Description>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XSharp.x86\XSharp.x86.csproj" />
+    <ProjectReference Include="..\Spruce\Spruce.csproj" />
+    <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
+  </ItemGroup>
 </Project>
