@@ -11,7 +11,7 @@ namespace XSharp.ProjectSystem.References
 {
     [Export(typeof(IValidProjectReferenceChecker))]
     [AppliesTo(ProjectCapability.XSharp)]
-    internal class ValidProjectReferenceChecker : IValidProjectReferenceChecker
+    internal class XSharpValidProjectReferenceChecker : IValidProjectReferenceChecker
     {
         public Task<SupportedCheckResult> CanAddProjectReferenceAsync(object aReferencedProject)
         {
@@ -27,7 +27,7 @@ namespace XSharp.ProjectSystem.References
             var xBuilder = ImmutableDictionary.CreateBuilder<object, SupportedCheckResult>();
             var xErrors = new List<string>();
 
-            foreach(var xReferencedProject in aReferencedProjects)
+            foreach (var xReferencedProject in aReferencedProjects)
             {
                 var xCanAddProjectReference = await CanAddProjectReferenceAsync(xReferencedProject);
 
@@ -45,9 +45,7 @@ namespace XSharp.ProjectSystem.References
             return new CanAddProjectReferencesResult(xIndividualResults, String.Join(Environment.NewLine, xErrors));
         }
 
-        public Task<SupportedCheckResult> CanBeReferencedAsync(object aReferencingProject)
-        {
-            return Task.FromResult(SupportedCheckResult.Supported);
-        }
+        public Task<SupportedCheckResult> CanBeReferencedAsync(object aReferencingProject) =>
+            Task.FromResult(SupportedCheckResult.Supported);
     }
 }
