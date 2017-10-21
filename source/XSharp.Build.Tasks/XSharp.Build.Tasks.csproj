@@ -6,7 +6,7 @@
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>Tasks to compile X# source code.
 $(XSharpDescription)</Description>
-        <!--<IsTool>True</IsTool>-->
+        <IsPackable>False</IsPackable>
         
         <!-- Package Properties -->
         <InnerTargets>Publish</InnerTargets>
@@ -15,21 +15,6 @@ $(XSharpDescription)</Description>
         <TasksPackageDir>obj\$(Configuration)\package\</TasksPackageDir>
         <PublishDir>$(TasksPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Content Include="build\**\*.props">
-            <Pack>True</Pack>
-            <PackagePath>build\</PackagePath>
-        </Content>
-        <Content Include="build\**\*.targets">
-            <Pack>True</Pack>
-            <PackagePath>build\</PackagePath>
-        </Content>
-        <Content Include="tools\**">
-            <Pack>True</Pack>
-            <PackagePath>tools\</PackagePath>
-        </Content>
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
@@ -57,6 +42,12 @@ $(XSharpDescription)</Description>
     <Target Name="RemovePackageLibContents" BeforeTargets="GenerateNuspec">
         <ItemGroup>
             <_BuildOutputInPackage Remove="@(_BuildOutputInPackage)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="GetPackageContent" Returns="@(PackageContent)" DependsOnTargets="Build">
+        <ItemGroup>
+            <PackageContent Include="@(Content -> '$(MSBuildThisFileDirectory)%(Identity)')" PackageDir="%(RecursiveDir)" Condition="'%(Content.PackagePath)' != ''" />
         </ItemGroup>
     </Target>
 

@@ -35,7 +35,16 @@ $(XSharpDescription)</Description>
   
     <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
         <RemoveDir Directories="$(CompilerPackageDir)" />
-        <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(Content.PackagePath)" />
+
+        <!--
+            Include XSharp.Compiler.Tasks.
+        -->
+        <MSBuild Projects="..\XSharp.Build.Tasks\XSharp.Build.Tasks.csproj" Targets="GetPackageContent">
+            <Output TaskParameter="TargetOutputs" ItemName="TasksPackageContent" />
+        </MSBuild>
+      
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
+        <Copy SourceFiles="@(TasksPackageContent)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(PackageDir)" />
     </Target>
 
     <Target Name="IncludeToolsInPackage" AfterTargets="DispatchToInnerBuilds">

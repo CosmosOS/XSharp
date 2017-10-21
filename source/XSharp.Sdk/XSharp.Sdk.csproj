@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard1.3</TargetFramework>
+        <AssemblyName>XSharp.Build.Tasks</AssemblyName>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <Description>SDK for X# projects.
+$(XSharpDescription)</Description>
+        <IsTool>True</IsTool>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="build\**">
+            <Pack>True</Pack>
+            <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="Sdk\*">
+            <Pack>True</Pack>
+            <PackagePath>Sdk\</PackagePath>
+        </Content>
+        <Content Include="tools\**">
+            <Pack>True</Pack>
+            <PackagePath>tools\</PackagePath>
+        </Content>
+    </ItemGroup>
+
+</Project>
