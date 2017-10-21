@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace XSharp.Launch
+namespace XSharp.Build.Tasks
 {
     public class CreateSyslinuxConfig : Task
     {

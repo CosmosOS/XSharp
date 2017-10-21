@@ -90,13 +90,6 @@
             <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
 
-        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)AssemblyReference.xaml">
-            <Context>Project;BrowseObject</Context>
-        </PropertyPageSchema>
-        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedAssemblyReference.xaml">
-            <Context>ProjectSubscriptionService;BrowseObject</Context>
-        </PropertyPageSchema>-->
-
         <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)PackageReference.xaml">
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>
@@ -117,12 +110,6 @@
     </ItemGroup>
 
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
-
-    <Target Name="ResolveAssemblyReferencesDesignTime" Returns="@(_ResolvedAssemblyReference)">
-        <ItemGroup>
-            <_ResolvedAssemblyReference Include="@(AssemblyReference)" />
-        </ItemGroup>
-    </Target>
 
     <Target Name="ResolvePackageReferencesDesignTime" Returns="@(_ResolvedPackageReference)">
         <ItemGroup>
