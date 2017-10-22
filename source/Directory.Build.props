@@ -1,0 +1,7 @@
+<Project>
+
+    <PropertyGroup>
+        <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly.</XSharpDescription>
+    </PropertyGroup>
+    
+</Project>
