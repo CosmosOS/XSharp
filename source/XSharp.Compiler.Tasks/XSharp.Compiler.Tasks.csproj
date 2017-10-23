@@ -12,6 +12,4 @@
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
     </ItemGroup>
 
-    <Target Name="GetBuildOutput" Returns="@(IntermediateAssembly -> '%(FullPath)')" DependsOnTargets="Build" />
-
 </Project>

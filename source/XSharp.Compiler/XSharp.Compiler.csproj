@@ -11,7 +11,11 @@
         <PackageId>XSharp.Compiler</PackageId>
         <Description>X# compiler.
 $(XSharpDescription)</Description>
-      
+        <DevelopmentDependency>True</DevelopmentDependency>
+
+        <NuspecFile>..\XSharp.Compiler.nuspec</NuspecFile>
+        <NuspecBasePath>..\</NuspecBasePath>
+
         <!-- Package Properties -->
         <InnerTargets>Publish</InnerTargets>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
@@ -26,7 +30,7 @@ $(XSharpDescription)</Description>
             <PackagePath>build\</PackagePath>
         </Content>
         <Content Include="tools\**">
-            <Pack>False</Pack>
+            <Pack>True</Pack>
             <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
@@ -36,41 +40,13 @@ $(XSharpDescription)</Description>
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
-  
+    
     <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
         <RemoveDir Directories="$(CompilerPackageDir)" />
     </Target>
 
-    <Target Name="IncludeToolsInPackage" AfterTargets="DispatchToInnerBuilds">
-        <!--
-            Include XSharp.Compiler.Tasks.
-        -->
-        <MSBuild Projects="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Targets="GetBuildOutput" Properties="TargetFramework=netstandard1.3">
-            <Output TaskParameter="TargetOutputs" ItemName="TasksAssembly" />
-        </MSBuild>
-      
+    <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">      
         <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
-        <Copy SourceFiles="@(TasksAssembly)" DestinationFolder="$(CompilerPackageDir)tools\" />
-      
-        <ItemGroup>
-            <Content Include="$(IntermediateOutputPath)package\tools\**" Exclude="$(IntermediateOutputPath)package\tools\netcoreapp\RunXsc">
-                <Pack>True</Pack>
-                <PackagePath>tools\</PackagePath>
-            </Content>
-            <!--
-                https://github.com/NuGet/Home/issues/5898
-            -->
-            <Content Include="$(IntermediateOutputPath)package\tools\netcoreapp\RunXsc">
-                <Pack>True</Pack>
-                <PackagePath>tools\netcoreapp\</PackagePath>
-            </Content>
-        </ItemGroup>
-    </Target>
-
-    <Target Name="RemovePackageLibContents" BeforeTargets="GenerateNuspec">
-        <ItemGroup>
-            <_BuildOutputInPackage Remove="@(_BuildOutputInPackage)" />
-        </ItemGroup>
     </Target>
   
 </Project>

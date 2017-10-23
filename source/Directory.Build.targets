@@ -15,6 +15,8 @@
         <PackageLicenseUrl>https://github.com/CosmosOS/XSharp/blob/master/LICENSE.txt</PackageLicenseUrl>
         <PackageTags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
         <RepositoryUrl>https://github.com/CosmosOS/XSharp</RepositoryUrl>
+
+        <NuspecProperties>version=$(PackageVersion);configuration=$(Configuration)</NuspecProperties>
     </PropertyGroup>
     
 </Project>
