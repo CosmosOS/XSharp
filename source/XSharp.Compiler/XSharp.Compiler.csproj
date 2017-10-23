@@ -16,14 +16,18 @@ $(XSharpDescription)</Description>
         <InnerTargets>Publish</InnerTargets>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
-        <CompilerPackageDir>obj\$(Configuration)\package\</CompilerPackageDir>
+        <CompilerPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</CompilerPackageDir>
         <PublishDir>$(CompilerPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="build\**\*.props">
+        <Content Include="build\**">
             <Pack>True</Pack>
             <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="tools\**">
+            <Pack>True</Pack>
+            <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
 

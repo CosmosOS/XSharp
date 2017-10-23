@@ -4,7 +4,8 @@
         <When Condition="'$(MSBuildRuntimeType)' == 'Core'">
             <PropertyGroup>
                 <XscToolPath>$(MSBuildThisFileDirectory)..\tools\netcoreapp\</XscToolPath>
-                <XscToolExe>xsc.dll</XscToolExe>
+                <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunCsc.cmd</XscToolExe>
+                <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunCsc</XscToolExe>
             </PropertyGroup>
         </When>
         <Otherwise>
