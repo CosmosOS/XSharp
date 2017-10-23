@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace XSharp.Build.Tasks
+namespace XSharp.Compiler.Tasks
 {
     public class Xsc : ToolTask
     {
