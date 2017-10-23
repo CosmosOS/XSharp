@@ -26,7 +26,7 @@ $(XSharpDescription)</Description>
             <PackagePath>build\</PackagePath>
         </Content>
         <Content Include="tools\**">
-            <Pack>True</Pack>
+            <Pack>False</Pack>
             <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
@@ -53,9 +53,16 @@ $(XSharpDescription)</Description>
 
     <Target Name="IncludeToolsInPackage" AfterTargets="DispatchToInnerBuilds">
         <ItemGroup>
-            <Content Include="$(IntermediateOutputPath)package\tools\**">
+            <Content Include="$(IntermediateOutputPath)package\tools\**" Exclude="$(IntermediateOutputPath)package\tools\netcoreapp\RunXsc">
                 <Pack>True</Pack>
                 <PackagePath>tools\</PackagePath>
+            </Content>
+            <!--
+                https://github.com/NuGet/Home/issues/5898
+            -->
+            <Content Include="$(IntermediateOutputPath)package\tools\netcoreapp\RunXsc">
+                <Pack>True</Pack>
+                <PackagePath>tools\netcoreapp\</PackagePath>
             </Content>
         </ItemGroup>
     </Target>
