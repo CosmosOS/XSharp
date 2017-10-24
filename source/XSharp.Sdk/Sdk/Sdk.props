@@ -1,5 +1,6 @@
 ﻿<Project>
 
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+    <Import Project="$(MSBuildThisFileDirectory)..\build\Microsoft.NET.Sdk.props"  />
 
 </Project>

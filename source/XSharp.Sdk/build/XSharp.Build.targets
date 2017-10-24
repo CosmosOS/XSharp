@@ -1,6 +1,12 @@
 ﻿<Project>
 
     <PropertyGroup>
+        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="$(XSharpCoreTargetsPath)" />
+    
+    <PropertyGroup>
         <ToolsPath Condition = "'$(ToolsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\</ToolsPath>
 
         <LdToolPath Condition = "'$(LdToolPath)' == ''">$(ToolsPath)ld\</LdToolPath>
@@ -11,9 +17,6 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <_XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\win\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
-        <_XSharpBuildTasksAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)..\tools\netcoreapp\XSharp.Build.Tasks.dll</_XSharpBuildTasksAssembly>
-
         <BinOutputPath Condition="'$(IntermediateOutputPath)' == ''">bin\$(Configuration)\</BinOutputPath>
         <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
 
@@ -47,12 +50,12 @@
         <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
     </PropertyGroup>
 
-    <UsingTask TaskName="Xsc" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XsAssemble" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="Ld" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="CreateSyslinuxConfig" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="MakeISO" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="Launch" AssemblyFile="$(_XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="Xsc" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
 
     <!--
     ================================================================================

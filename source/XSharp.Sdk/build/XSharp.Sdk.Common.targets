@@ -1,0 +1,8 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\win\XSharp.Build.Tasks.dll</XSharpBuildTasksAssembly>
+        <XSharpBuildTasksAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)..\tools\netcoreapp\XSharp.Build.Tasks.dll</XSharpBuildTasksAssembly>
+    </PropertyGroup>
+
+</Project>

@@ -1,13 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard1.3</TargetFramework>
+        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
         <AssemblyName>XSharp.Build.Tasks</AssemblyName>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <PackageId>XSharp.Sdk</PackageId>
         <Description>SDK for X# projects.
 $(XSharpDescription)</Description>
-        <IsTool>True</IsTool>
+
+        <NuspecFile>XSharp.Sdk.nuspec</NuspecFile>
+        <NuspecBasePath>..\</NuspecBasePath>
+
+        <!-- Package Properties -->
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
+        <SdkPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</SdkPackageDir>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,5 +32,22 @@ $(XSharpDescription)</Description>
             <PackagePath>tools\</PackagePath>
         </Content>
     </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj" />
+    </ItemGroup>
+
+    <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
+        <RemoveDir Directories="$(SdkPackageDir)" />
+    </Target>
+
+    <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(SdkPackageDir)%(PackagePath)%(RecursiveDir)" />
+    </Target>
 
 </Project>

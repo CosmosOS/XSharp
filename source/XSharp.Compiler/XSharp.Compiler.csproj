@@ -13,7 +13,7 @@
 $(XSharpDescription)</Description>
         <DevelopmentDependency>True</DevelopmentDependency>
 
-        <NuspecFile>..\XSharp.Compiler.nuspec</NuspecFile>
+        <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>
         <NuspecBasePath>..\</NuspecBasePath>
 
         <!-- Package Properties -->

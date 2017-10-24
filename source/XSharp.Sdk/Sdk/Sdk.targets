@@ -1,11 +1,5 @@
 ﻿<Project>
 
-    <PropertyGroup>
-        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
-    </PropertyGroup>
-
-    <Import Project="$(XSharpCoreTargetsPath)" />
-    
-    <Import Project="$(MSBuildThisFileDirectory)..\build\XSharp.Build.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)..\build\Microsoft.NET.Sdk.targets" />
 
 </Project>

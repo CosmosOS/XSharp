@@ -1,0 +1,14 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <OutputType Condition="'$(OutputType)' == ''">Application</OutputType>
+        <OutputName Condition="'$(OutputName)' == ''">$(MSBuildProjectName)</OutputName>
+        <RootNamespace Condition=" '$(RootNamespace)' == '' ">$(MSBuildProjectName)</RootNamespace>
+    </PropertyGroup>
+
+</Project>
