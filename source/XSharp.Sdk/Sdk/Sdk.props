@@ -1,6 +1,6 @@
 ﻿<Project>
 
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
-    <Import Project="$(MSBuildThisFileDirectory)..\build\Microsoft.NET.Sdk.props"  />
+    <Import Project="$(MSBuildThisFileDirectory)..\build\XSharp.Sdk.props"  />
 
 </Project>

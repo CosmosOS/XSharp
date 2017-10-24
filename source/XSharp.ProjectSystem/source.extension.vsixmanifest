@@ -5,7 +5,7 @@
         <DisplayName>X# Project System</DisplayName>
         <Description xml:space="preserve">X# Project System for Visual Studio</Description>
     </Metadata>
-    <Installation>
+    <Installation AllUsers="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
     </Installation>
     <Prerequisites>

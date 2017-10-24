@@ -21,12 +21,13 @@
     </ItemGroup>
 
     <PropertyGroup>
-        <_XSharpXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpXamlResourcesDirectory>
+        <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
+        <AppDesignerFolderContentsVisibleOnlyInShowAllFiles Condition="'$(AppDesignerFolderContentsVisibleOnlyInShowAllFiles)' == ''">False</AppDesignerFolderContentsVisibleOnlyInShowAllFiles>
     </PropertyGroup>
 
     <PropertyGroup>
-        <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
-        <AppDesignerFolderContentsVisibleOnlyInShowAllFiles Condition="'$(AppDesignerFolderContentsVisibleOnlyInShowAllFiles)' == ''">False</AppDesignerFolderContentsVisibleOnlyInShowAllFiles>
+        <_XSharpXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpXamlResourcesDirectory>
+        <DebuggerFlavor>XSharpDebugger</DebuggerFlavor>
     </PropertyGroup>
 
     <ItemGroup>

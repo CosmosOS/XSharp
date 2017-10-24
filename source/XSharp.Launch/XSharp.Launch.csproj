@@ -6,6 +6,7 @@
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <Description>X# bootable launch hosts.
 $(XSharpDescription)</Description>
+        <IsPackable>False</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>

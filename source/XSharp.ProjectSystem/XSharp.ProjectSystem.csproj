@@ -29,23 +29,33 @@
         <Content Include="ProjectTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
-        <Content Include="**\*.imagemanifest">
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="XSharpImages.imagemanifest">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
     </ItemGroup>
 
     <ItemGroup>
         <XamlPropertyRule Include="BuildSystem\Rules\Compile.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ConfigurationGeneral.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml" />
-        <XamlPropertyRule Include="BuildSystem\Rules\ConfigurationGeneral.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\ResolvedProjectReference.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\XSharpDebugger.xaml" />
         <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <VSIXSourceItem Include="BuildSystem\**">
+            <InstallRoot>MSBuild</InstallRoot>
+            <VSIXSubPath>XSharp\%(RecursiveDir)</VSIXSubPath>
+        </VSIXSourceItem>
     </ItemGroup>
 
     <ItemGroup>

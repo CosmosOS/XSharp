@@ -5,7 +5,13 @@
     </PropertyGroup>
 
     <Import Project="$(XSharpCoreTargetsPath)" />
-    
+
+    <PropertyGroup>
+        <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="$(XSharpDesignTimeTargetsPath)" Condition="Exists('$(XSharpDesignTimeTargetsPath)')" />
+
     <PropertyGroup>
         <ToolsPath Condition = "'$(ToolsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\</ToolsPath>
 

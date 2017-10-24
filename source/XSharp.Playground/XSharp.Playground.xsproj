@@ -13,7 +13,6 @@
 
     <!--<Import Project="..\XSharp.Compiler\obj\Debug\package\build\XSharp.Compiler.props" />-->
     <Import Project="$(CustomProjectExtensionsPath)XSharp.props" />
-    <Import Project="$(CustomProjectExtensionsPath)XSharp.targets" />
     <!--<Import Project="..\XSharp.Build.Tasks\obj\Debug\package\build\XSharp.Build.targets" />-->
     
     <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.targets" />
