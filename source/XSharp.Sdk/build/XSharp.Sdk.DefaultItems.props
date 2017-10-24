@@ -1,0 +1,14 @@
+﻿<Project>
+
+    <ItemGroup Condition=" '$(EnableDefaultItems)' == 'True' ">
+        <Compile Include="**/*.xs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+        <EmbeddedResource Include="**/*.resx" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(EnableDefaultItems)' == 'true' And '$(EnableDefaultNoneItems)' == 'True' ">
+        <None Include="**/*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+        <None Remove="**/*$(DefaultLanguageSourceExtension)" Condition=" '$(EnableDefaultCompileItems)' == 'True' "/>
+        <None Remove="**/*.resx" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'True' "/>
+    </ItemGroup>
+
+</Project>
