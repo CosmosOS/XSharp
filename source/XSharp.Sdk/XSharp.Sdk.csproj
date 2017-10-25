@@ -46,6 +46,14 @@ $(XSharpDescription)</Description>
         <RemoveDir Directories="$(SdkPackageDir)" />
     </Target>
 
+    <Target Name="CopyBuildOutputToPackageFolder" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
+        <ItemGroup>
+            <_BuildOutput Include="$(OutputPath)**\*.dll" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(_BuildOutput)" DestinationFolder="$(SdkPackageDir)tools\$(PackageSubFolderName)\" />
+    </Target>
+
     <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">
         <Copy SourceFiles="@(Content)" DestinationFolder="$(SdkPackageDir)%(PackagePath)%(RecursiveDir)" />
     </Target>

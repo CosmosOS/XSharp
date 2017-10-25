@@ -17,8 +17,6 @@ X# is a HLA (High Level Assembler) for X86/X64 assembly.</description>
     <repository url="https://github.com/CosmosOS/XSharp" />
   </metadata>
   <files>
-    <file src="XSharp.Sdk\bin\$configuration$\netcoreapp2.0\*.dll" target="tools/netcoreapp" />
-    <file src="XSharp.Sdk\bin\$configuration$\net462\*.dll" target="tools/win" />
     <file src="XSharp.Sdk\obj\$configuration$\package\build\**" target="build" />
     <file src="XSharp.Sdk\obj\$configuration$\package\Sdk\**" target="Sdk" />
     <file src="XSharp.Sdk\obj\$configuration$\package\tools\**" target="tools" />
