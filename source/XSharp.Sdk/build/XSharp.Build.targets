@@ -1,10 +1,10 @@
 ﻿<Project>
 
-    <PropertyGroup>
+    <!--<PropertyGroup>
         <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
     </PropertyGroup>
 
-    <Import Project="$(XSharpCoreTargetsPath)" />
+    <Import Project="$(XSharpCoreTargetsPath)" />-->
 
     <PropertyGroup>
         <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
@@ -23,9 +23,6 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <BinOutputPath Condition="'$(IntermediateOutputPath)' == ''">bin\$(Configuration)\</BinOutputPath>
-        <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj\$(Configuration)\</IntermediateOutputPath>
-
         <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
         <AssemblyFileName Condition="'$(AssemblyFileName)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFileName>
         <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(IntermediateOutputPath)$(AssemblyFileName)</AssemblyFile>
@@ -63,6 +60,45 @@
     <UsingTask TaskName="MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
     <UsingTask TaskName="Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
 
+    <PropertyGroup>
+        <BuildDependsOn>
+            PrepareForBuild;
+            PreBuildEvent;
+            Compile;
+            Assemble;
+            Link;
+            PrepareForRun;
+            PostBuildEvent;
+        </BuildDependsOn>
+    </PropertyGroup>
+
+    <Target Name="Restore" />
+
+    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+
+    <Target Name="Clean" />
+    
+    <PropertyGroup>
+        <RebuildDependsOn>
+            Clean;
+            Build;
+        </RebuildDependsOn>
+    </PropertyGroup>
+    
+    <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" />
+
+    <Target Name="PreBuildEvent"
+            DependsOnTargets="$(PreBuildEventDependsOn)"
+            Condition="'$(PreBuildEvent)' != ''">
+        <Exec WorkingDirectory="$(OutDir)" Command="$(PreBuildEvent)" />
+    </Target>
+
+    <Target Name="PostBuildEvent"
+            DependsOnTargets="$(PostBuildEventDependsOn)"
+            Condition="'$(PostBuildEvent)' != '' AND '$(RunPostBuildEvent)' != 'OnOutputUpdated'">
+        <Exec WorkingDirectory="$(OutputPath)" Command="$(PostBuildEvent)" />
+    </Target>
+    
     <!--
     ================================================================================
                                      PrepareForBuild
@@ -73,11 +109,7 @@
     -->
     <Target Name="PrepareForBuild">
 
-        <MakeDir Directories="$(BinOutputPath)"
-                 Condition="!Exists('$(BinOutputPath)')" />
-
-        <MakeDir Directories="$(IntermediateOutputPath)"
-                 Condition="!Exists('$(IntermediateOutputPath)')" />
+        <MakeDir Directories="$(OutputPath);$(IntermediateOutputPath)" />
 
     </Target>
 

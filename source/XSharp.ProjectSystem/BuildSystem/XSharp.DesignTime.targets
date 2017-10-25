@@ -98,10 +98,6 @@
         </PropertyPageSchema>
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Include="**\*.xs" />
-    </ItemGroup>
-
     <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
 
     <Target Name="ResolvePackageReferencesDesignTime" Returns="@(_ResolvedPackageReference)">
@@ -115,27 +111,5 @@
             <_ResolvedProjectReference Include="@(ProjectReference)" />
         </ItemGroup>
     </Target>
-
-    <Target Name="PrepareForBuild" />
-    <Target Name="Compile" />
-    <Target Name="Assemble" />
-    <Target Name="Link" />
-    <Target Name="PrepareForRun" />
-
-    <PropertyGroup>
-        <BuildDependsOn>
-            PrepareForBuild;
-            Compile;
-            Assemble;
-            Link;
-            PrepareForRun;
-        </BuildDependsOn>
-    </PropertyGroup>
-
-    <Target Name="Restore" />
-    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
-    <Target Name="Clean" />
-    <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
-    <Target Name="Run" />
 
 </Project>
