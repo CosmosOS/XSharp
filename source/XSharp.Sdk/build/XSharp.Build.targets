@@ -1,10 +1,10 @@
 ﻿<Project>
 
-    <!--<PropertyGroup>
+    <PropertyGroup>
         <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
     </PropertyGroup>
 
-    <Import Project="$(XSharpCoreTargetsPath)" />-->
+    <Import Project="$(XSharpCoreTargetsPath)" />
 
     <PropertyGroup>
         <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
@@ -53,12 +53,11 @@
         <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
     </PropertyGroup>
 
-    <UsingTask TaskName="Xsc" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
 
     <PropertyGroup>
         <BuildDependsOn>
@@ -125,17 +124,13 @@
 
     ================================================================================
     -->
-    <Target Name="Compile"
-            Inputs="@(Compile)"
-            Outputs="$(AssemblyFile)">
+    <PropertyGroup>
+        <CompileDependsOn>
+            CoreCompile
+        </CompileDependsOn>
+    </PropertyGroup>
 
-        <Xsc InputFiles="@(Compile)"
-             OutputFile="$(AssemblyFile)"
-             Append="True"
-             ToolPath="$(XscToolPath)"
-             ToolExe="$(XscToolExe)" />
-
-    </Target>
+    <Target Name="Compile" DependsOnTargets="$(CompileDependsOn)" />
 
     <!--
     ================================================================================

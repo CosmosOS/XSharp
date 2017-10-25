@@ -1,11 +1,17 @@
 ﻿<Project>
 
+    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" AssemblyFile="$(MSBuildThisFileDirectory)..\tools\XSharp.Compiler.Tasks.dll" />
+
+    <PropertyGroup>
+        <XSharpCoreTargetsPath>$(MSBuildThisFileDirectory)..\tools\XSharp.Core.targets</XSharpCoreTargetsPath>
+    </PropertyGroup>
+
     <Choose>
         <When Condition="'$(MSBuildRuntimeType)' == 'Core'">
             <PropertyGroup>
                 <XscToolPath>$(MSBuildThisFileDirectory)..\tools\netcoreapp\</XscToolPath>
-                <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunCsc.cmd</XscToolExe>
-                <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunCsc</XscToolExe>
+                <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunXsc.cmd</XscToolExe>
+                <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunXsc</XscToolExe>
             </PropertyGroup>
         </When>
         <Otherwise>
@@ -15,5 +21,13 @@
             </PropertyGroup>
         </Otherwise>
     </Choose>
+    
+    <Target Name="MakeCompilerScriptsExecutable"
+            BeforeTargets="CoreCompile"
+            Condition="'$(BuildingProject)' == 'True' AND '$(OS)' != 'Windows_NT'">
+
+        <Exec Command="chmod +x '$(XscToolPath)/$(XscToolExe)'" />
+
+    </Target>
     
 </Project>
