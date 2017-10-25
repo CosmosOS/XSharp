@@ -39,6 +39,11 @@ $(XSharpDescription)</Description>
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
+
+        <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj">
+            <PrivateAssets>All</PrivateAssets>
+            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+        </ProjectReference>
     </ItemGroup>
     
     <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
