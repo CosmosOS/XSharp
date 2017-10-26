@@ -20,6 +20,17 @@
 
     <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="'$(ImportProjectExtensionProps)' == 'true' and exists('$(MSBuildProjectExtensionsPath)')" />
 
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|x86">
+            <Configuration>Debug</Configuration>
+            <Platform>x86</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x86">
+            <Configuration>Release</Configuration>
+            <Platform>x86</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
