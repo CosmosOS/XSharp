@@ -21,19 +21,19 @@
     <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="'$(ImportProjectExtensionProps)' == 'true' and exists('$(MSBuildProjectExtensionsPath)')" />
 
     <ItemGroup Label="ProjectConfigurations">
-        <ProjectConfiguration Include="Debug|x86">
+        <ProjectConfiguration Include="Debug|AnyCPU">
             <Configuration>Debug</Configuration>
-            <Platform>x86</Platform>
+            <Platform>AnyCPU</Platform>
         </ProjectConfiguration>
-        <ProjectConfiguration Include="Release|x86">
+        <ProjectConfiguration Include="Release|AnyCPU">
             <Configuration>Release</Configuration>
-            <Platform>x86</Platform>
+            <Platform>AnyCPU</Platform>
         </ProjectConfiguration>
     </ItemGroup>
 
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     </PropertyGroup>
 
     <PropertyGroup>
