@@ -1,8 +1,8 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="5" />
-        <Description Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="6" />
-        <Icon Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="7" />
+        <Name Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="6" />
+        <Description Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="7" />
+        <Icon Package="{d9eacd85-6e48-4c5f-95a2-51f85a57b517}" ID="8" />
         <ProjectType>XSharp</ProjectType>
         <CreateNewFolder>true</CreateNewFolder>
         <DefaultName>XSharpProject</DefaultName>

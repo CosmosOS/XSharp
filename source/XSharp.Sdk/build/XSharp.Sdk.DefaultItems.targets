@@ -1,0 +1,22 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <EnableDefaultItems Condition=" '$(EnableDefaultItems)' == '' ">True</EnableDefaultItems>
+        <EnableDefaultCompileItems Condition=" '$(EnableDefaultCompileItems)' == '' ">True</EnableDefaultCompileItems>
+        <EnableDefaultEmbeddedResourceItems Condition=" '$(EnableDefaultEmbeddedResourceItems)' == '' ">True</EnableDefaultEmbeddedResourceItems>
+        <EnableDefaultNoneItems Condition=" '$(EnableDefaultNoneItems)' == '' ">True</EnableDefaultNoneItems>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(BaseOutputPath)/**</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(BaseIntermediateOutputPath)/**</DefaultItemExcludes>
+
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/*.user</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/*.*proj</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/*.sln</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/*.vssscc</DefaultItemExcludes>
+
+        <DefaultExcludesInProjectFolder>$(DefaultItemExcludesInProjectFolder);**/.*/**</DefaultExcludesInProjectFolder>
+    </PropertyGroup>
+
+</Project>

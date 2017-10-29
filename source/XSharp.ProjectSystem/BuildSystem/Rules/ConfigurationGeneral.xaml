@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="ConfigurationGeneral"
+      DisplayName="General"
+      PageTemplate="generic"
+      Description="General"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+    
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile"
+                    Label="Configuration" />
+    </Rule.DataSource>
+    <Rule.Categories>
+        <Category Name="General"
+                  DisplayName="General"
+                  Description="General" />
+    </Rule.Categories>
+
+    <StringProperty Name="ProjectGuid"
+                    Visible="False">
+        <StringProperty.DataSource>
+            <DataSource Persistence="ImplicitProjectFile"
+                        Label="Globals"
+                        HasConfigurationCondition="False"
+                        SourceOfDefaultValue="AfterContext" />
+        </StringProperty.DataSource>
+    </StringProperty>
+
+    <StringProperty Name="BinOutputPath" />
+
+    <EnumProperty Name="OutputType">
+        <EnumValue Name="Application" DisplayName="Application" />
+        <EnumValue Name="Bootable" DisplayName="Bootable" />
+        <EnumValue Name="Library" DisplayName="Library" />
+    </EnumProperty>
+
+    <EnumProperty Name="Assembler">
+        <EnumValue Name="NASM" />
+    </EnumProperty>
+    
+    <StringProperty Name="BinaryOutput" />
+
+    <!-- only valid for Bootable projects -->
+    <EnumProperty Name="LaunchHost">
+        <EnumValue Name="Bochs" DisplayName="Bochs" />
+        <EnumValue Name="VMware" DisplayName="VMware" />
+        <EnumValue Name="HyperV" DisplayName="Hyper-V" />
+    </EnumProperty>
+
+    <StringProperty Name="OutputISO" />
+
+</Rule>

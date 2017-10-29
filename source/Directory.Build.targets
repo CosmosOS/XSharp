@@ -5,17 +5,18 @@
             This property should exist, according to the docs, but it has no effect on pack.
         -->
         <PackageVersionPrefix>$([System.DateTime]::Now.ToString("yyyy.MM.dd"))</PackageVersionPrefix>
-        <PackageVersion Condition="$(PackageVersionPrefix) != '' and $(VersionSuffix) != ''">$(PackageVersionPrefix)-$(VersionSuffix)</PackageVersion>
-        <PackageVersion Condition="$(PackageVersionPrefix) != '' and $(VersionSuffix) == ''">$(PackageVersionPrefix)</PackageVersion>
+        <PackageVersion Condition="'$(PackageVersionPrefix)' != '' and '$(VersionSuffix)' != ''">$(PackageVersionPrefix)-$(VersionSuffix)</PackageVersion>
+        <PackageVersion Condition="'$(PackageVersionPrefix)' != '' and '$(VersionSuffix)' == ''">$(PackageVersionPrefix)</PackageVersion>
         <Authors>Cosmos</Authors>
         <Company>Cosmos</Company>
         <Copyright>Copyright © 2007-$([System.DateTime]::Now.Year) COSMOS Project</Copyright>
         <PackageIconUrl>https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</PackageIconUrl>
-        <PackageProjectUrl>http://www.gocosmos.org/xsharp/</PackageProjectUrl>
+        <PackageProjectUrl>http://www.gocosmos.org/XSharp/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/CosmosOS/XSharp/blob/master/LICENSE.txt</PackageLicenseUrl>
-        <PackageTags>X# HLA High Level Assembler x86 x64 Assembly Cosmos OS Operating System</PackageTags>
+        <PackageTags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
         <RepositoryUrl>https://github.com/CosmosOS/XSharp</RepositoryUrl>
-        <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly.</XSharpDescription>
+
+        <NuspecProperties Condition="'$(NuspecFile)' != ''">version=$(PackageVersion);configuration=$(Configuration)</NuspecProperties>
     </PropertyGroup>
     
 </Project>

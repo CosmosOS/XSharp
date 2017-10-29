@@ -1,0 +1,29 @@
+﻿<Project>
+
+    <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
+
+    <Import Project="$(MSBuildThisFileDirectory)XSharp.Sdk.Common.targets"/>
+
+    <PropertyGroup>
+        <RunCommand>msbuild /t:Run</RunCommand>
+        <RunArguments></RunArguments>
+        <RunWorkingDirectory></RunWorkingDirectory>
+    </PropertyGroup>
+
+    <Import Project="$(MSBuildThisFileDirectory)XSharp.Build.targets" />
+
+    <PropertyGroup>
+        <ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">True</ImportProjectExtensionTargets>
+    </PropertyGroup>
+
+    <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="'$(ImportProjectExtensionTargets)' == 'True' and exists('$(MSBuildProjectExtensionsPath)')" />
+
+    <PropertyGroup Condition="'$(ImportDirectoryBuildTargets)' == 'true' and '$(DirectoryBuildTargetsPath)' == ''">
+        <_DirectoryBuildTargetsFile Condition="'$(_DirectoryBuildTargetsFile)' == ''">Directory.Build.targets</_DirectoryBuildTargetsFile>
+        <_DirectoryBuildTargetsBasePath Condition="'$(_DirectoryBuildTargetsBasePath)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '$(_DirectoryBuildTargetsFile)'))</_DirectoryBuildTargetsBasePath>
+        <DirectoryBuildTargetsPath Condition="'$(_DirectoryBuildTargetsBasePath)' != '' and '$(_DirectoryBuildTargetsFile)' != ''">$([System.IO.Path]::Combine('$(_DirectoryBuildTargetsBasePath)', '$(_DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="$(DirectoryBuildTargetsPath)" Condition="'$(ImportDirectoryBuildTargets)' == 'true' and exists('$(DirectoryBuildTargetsPath)')" />
+
+</Project>

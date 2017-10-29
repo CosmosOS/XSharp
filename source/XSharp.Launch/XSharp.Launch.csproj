@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <Description>X# bootable launch hosts.
+$(XSharpDescription)</Description>
+        <IsPackable>False</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Update="Bochs.Configuration.cs">
+            <DependentUpon>Bochs.cs</DependentUpon>
+        </Compile>
+        <EmbeddedResource Include="Resources\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
+        <PackageReference Include="System.IO.Ports" Version="4.4.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+        <PackageReference Include="System.Management.Automation" Version="6.0.0-beta.7" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+        <PackageReference Include="System.Management.Automation" Version="6.1.7601.17515" />
+    </ItemGroup>
+
+</Project>

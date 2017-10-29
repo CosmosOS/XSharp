@@ -1,4 +1,10 @@
 ; namespace DebugStub
 
-; [AX + 12] = EAX
-Mov DWORD [AX + 12], EAX
+; .v1 = 1
+Mov DWORD [DebugStub_Var_v1], 0x1
+; .v1 = AL
+Mov BYTE [DebugStub_Var_v1], AL
+; .v1 = EAX
+Mov DWORD [DebugStub_Var_v1], EAX
+; .v1 = #const
+Mov [DebugStub_Var_v1], DebugStub_Const_const

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="ResolvedProjectReference"
+      DisplayName="Resolved Project Reference"
+      PageTemplate="generic"
+      Description="Resolved reference"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ResolvedReference"
+                    ItemType="ProjectReference"
+                    HasConfigurationCondition="False" 
+                    SourceType="TargetResults"
+                    MSBuildTarget="ResolveProjectReferences" />
+    </Rule.DataSource>
+
+    <StringListProperty Name="Aliases"
+                        DisplayName="Aliases"
+                        Description="A comma-delimited list of aliases to this reference."
+                        Separator=",">
+        <StringListProperty.DataSource>
+            <DataSource Persistence="ProjectFile"
+                        ItemType="ProjectReference"
+                        HasConfigurationCondition="False" />
+        </StringListProperty.DataSource>
+    </StringListProperty>
+
+    <BoolProperty Name="CopyLocal"
+                  DisplayName="Copy Local"
+                  Description="Indicates whether the reference will be copied to the output directory.">
+        <BoolProperty.DataSource>
+            <DataSource Persistence="ProjectFile"
+                        ItemType="ProjectReference"
+                        HasConfigurationCondition="False"
+                        PersistedName="Private" />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+
+    <StringProperty Name="Description" 
+                    ReadOnly="True" 
+                    DisplayName="Description" 
+                    Description="The value of the Title field from the assembly metadata.">
+    </StringProperty>
+
+    <StringProperty Name="Identity"
+                    ReadOnly="True"
+                    DisplayName="Identity"
+                    Description="Security identity of the referenced assembly (see System.Reflection.Assembly.Evidence or System.Security.Policy.Evidence).">
+        <StringProperty.DataSource>
+            <DataSource PersistedName="{}{Identity}" />
+        </StringProperty.DataSource>
+    </StringProperty>
+
+    <StringProperty Name="ResolvedPath"
+                    ReadOnly="True"
+                    DisplayName="Path"
+                    Description="Location of the file being referenced.">
+        <StringProperty.DataSource>
+            <DataSource PersistedName="Identity" />
+        </StringProperty.DataSource>
+    </StringProperty>
+
+    <StringProperty Name="Version"
+                    ReadOnly="True"
+                    DisplayName="Version"
+                    Description="Version of reference.">
+    </StringProperty>
+
+    <StringProperty Name="OriginalItemSpec"
+                    Visible="False"
+                    ReadOnly="True"
+                    Description="The evaluated item name of the original reference item whose resolution resulted in this resolved reference item." />
+
+    <StringProperty Name="Name"
+                    Visible="false"
+                    ReadOnly="True" />
+
+</Rule>

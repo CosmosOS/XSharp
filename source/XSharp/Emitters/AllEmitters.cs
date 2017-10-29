@@ -18,13 +18,7 @@ namespace XSharp.Emitters
 
         // ===============================================================
 
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int08u))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int16u))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Int32u))]
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Variable))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(VariableAddress))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
-        [Emitter(typeof(Variable), typeof(OpEquals), typeof(Reg))]
         protected void VariableAssignment(object aVariableName, string aOpEquals, object aValue)
         {
         }

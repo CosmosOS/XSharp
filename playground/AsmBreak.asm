@@ -27,6 +27,7 @@
   ; ComReadEAX()
   ; Save EIP of the break
   ; .AsmBreakEIP = EAX
+  Mov DWORD [DebugStub_Var_AsmBreakEIP], EAX
   ; EDI = EAX
   Mov EDI, EAX
 
@@ -34,6 +35,7 @@
   ; AL = [EDI]
   Mov AL, BYTE [EDI]
   ; .AsmOrigByte = AL
+  Mov BYTE [DebugStub_Var_AsmOrigByte], AL
 
   ; Inject INT3
 	; Do in 2 steps to force a byte move to RAM (till X# can do byte in one step)
@@ -56,6 +58,7 @@
   Mov BYTE [EDI], AL
 
   ; .AsmBreakEIP = 0
+  Mov DWORD [DebugStub_Var_AsmBreakEIP], 0x0
 ; }
 
 ; function SetINT1_TrapFLAG {

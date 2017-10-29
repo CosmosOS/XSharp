@@ -1,0 +1,8 @@
+{
+    "profiles": {
+        "VSPropertyPages.Sample": {
+            "executablePath": "$(DevEnvDir)devenv.exe",
+            "commandLineArgs": "/rootSuffix Exp"
+        }
+    }
+}

@@ -36,7 +36,7 @@
 
     <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
         <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="%(Filename) == 'netstandard'">
+            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
                 <IncludeInVSIX>True</IncludeInVSIX>
                 <VSIXSubPath>/</VSIXSubPath>
             </Content>

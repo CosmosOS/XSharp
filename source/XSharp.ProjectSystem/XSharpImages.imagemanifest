@@ -1,19 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                           xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
-  <Symbols>
-    <String Name="Resources" Value="/XSharp.ProjectSystem;Component/" />
-    <Guid Name="XSharpImagesGuid" Value="574acd99-2695-4bc8-80ba-3d69c894ab63" />
-    <ID Name="ProjectIcon" Value="0" />
-  </Symbols>
-  <Images>
-    <Image Guid="$(XSharpImagesGuid)" ID="$(ProjectIcon)">
-      <!--<Source Uri="$(Resources)/Resources/XSharpProjectIcon.xaml" />-->
-      <Source Uri="$(Resources)/Resources/XSharpProject.ico" >
-        <Size Value="16" />
-      </Source>  
-    </Image>
-  </Images>
-  <ImageLists />
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
+    
+    <Symbols>
+        <String Name="Resources" Value="/XSharp.ProjectSystem;Component/Resources" />
+        <Guid Name="XSharpImagesGuid" Value="574acd99-2695-4bc8-80ba-3d69c894ab63" />
+        <ID Name="ProjectIcon" Value="0" />
+    </Symbols>
+    
+    <Images>
+        <Image Guid="$(XSharpImagesGuid)" ID="$(ProjectIcon)">
+            <!--<Source Uri="$(Resources)/XSharpProjectTreeIcon.xaml" />-->
+            <Source Uri="$(Resources)/XSharpProjectTreeIcon.png" >
+                <Size Value="16" />
+            </Source>
+        </Image>
+    </Images>
+
 </ImageManifest>

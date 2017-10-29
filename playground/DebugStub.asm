@@ -46,7 +46,7 @@
 	; Calculate location in table
     ; Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
 	; EBX = @.DebugBPs
-	Mov EBX, DebugStub_Const_DebugBPs
+	Mov EBX, DebugStub_Var_DebugBPs
     ; EAX << 2
     ; EBX += EAX
 
@@ -92,7 +92,7 @@
 
 	; Load the current BP Id we are testing against
 	; EBX = @.DebugBPs
-	Mov EBX, DebugStub_Const_DebugBPs
+	Mov EBX, DebugStub_Var_DebugBPs
 	; EAX = ECX
 	Mov EAX, ECX
 	; 4 bytes per Id
@@ -112,6 +112,7 @@
 		; ECX++
 		Inc ECX
 		; .MaxBPId = ECX
+		Mov DWORD [DebugStub_Var_MaxBPId], ECX
 		; goto Continue
 	; }
 	; Has our count reached 0? If so, exit the loop as no BPs found...
@@ -124,6 +125,7 @@
 	; No BPs found
 	; 0 indicates no BPs - see comment above
 	; .MaxBPId = 0
+	Mov DWORD [DebugStub_Var_MaxBPId], 0x0
 
 ; Continue:
 ; Exit:
@@ -219,7 +221,7 @@
 	; EAX = .CallerEIP
 	Mov EAX, DWORD [DebugStub_Var_CallerEIP]
     ; EDI = @.DebugBPs
-    Mov EDI, DebugStub_Const_DebugBPs
+    Mov EDI, DebugStub_Var_DebugBPs
     ; ECX = .MaxBPId
     Mov ECX, DWORD [DebugStub_Var_MaxBPId]
 	; //! repne scasd
@@ -293,9 +295,12 @@
     ; Reset request in case we are currently responding to one or we hit a fixed breakpoint
     ; before our request could be serviced (if one existed)
     ; .DebugBreakOnNextTrace = #StepTrigger_None
+    Mov [DebugStub_Var_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_None
     ; .BreakEBP = 0
+    Mov DWORD [DebugStub_Var_BreakEBP], 0x0
     ; Set break status
     ; .DebugStatus = #Status_Break
+    Mov [DebugStub_Var_DebugStatus], DebugStub_Const_Status_Break
     ; SendTrace()
 
     ; Wait for a command
@@ -321,24 +326,30 @@
 
     ; if AL = #Vs2Ds_StepInto {
         ; .DebugBreakOnNextTrace = #StepTrigger_Into
+        Mov [DebugStub_Var_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
 		; Not used, but set for consistency
         ; .BreakEBP = EAX
+        Mov DWORD [DebugStub_Var_BreakEBP], EAX
 	    ; goto Done
 	; }
 
     ; if AL = #Vs2Ds_StepOver {
         ; .DebugBreakOnNextTrace = #StepTrigger_Over
+        Mov [DebugStub_Var_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
         ; EAX = .CallerEBP
         Mov EAX, DWORD [DebugStub_Var_CallerEBP]
         ; .BreakEBP = EAX
+        Mov DWORD [DebugStub_Var_BreakEBP], EAX
 	    ; goto Done
 	; }
 
     ; if AL = #Vs2Ds_StepOut {
         ; .DebugBreakOnNextTrace = #StepTrigger_Out
+        Mov [DebugStub_Var_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out
         ; EAX = .CallerEBP
         Mov EAX, DWORD [DebugStub_Var_CallerEBP]
         ; .BreakEBP = EAX
+        Mov DWORD [DebugStub_Var_BreakEBP], EAX
 	    ; goto Done
 	; }
 
@@ -348,5 +359,6 @@
 ; Done:
     ; AckCommand()
     ; .DebugStatus = #Status_Run
+    Mov [DebugStub_Var_DebugStatus], DebugStub_Const_Status_Run
 ; }
 

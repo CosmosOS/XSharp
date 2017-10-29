@@ -1,0 +1,19 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
+        <BaseOutputPath Condition="!HasTrailingSlash('$(BaseOutputPath)')">$(BaseOutputPath)\</BaseOutputPath>
+        <OutputPath Condition="'$(OutputPath)' == ''">$(BaseOutputPath)$(Configuration)\</OutputPath>
+        <OutputPath Condition="!HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+        <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)' == ''">obj\</BaseIntermediateOutputPath>
+        <BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath Condition=" $(IntermediateOutputPath) == ''">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+        <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <XSharpBuildTasksAssembly>$(MSBuildThisFileDirectory)..\tools\win\XSharp.Build.Tasks.dll</XSharpBuildTasksAssembly>
+        <XSharpBuildTasksAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)..\tools\netcoreapp\XSharp.Build.Tasks.dll</XSharpBuildTasksAssembly>
+    </PropertyGroup>
+
+</Project>

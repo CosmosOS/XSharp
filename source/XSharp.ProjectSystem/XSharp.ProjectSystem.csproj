@@ -2,8 +2,11 @@
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
+        <RootNamespace>XSharp.ProjectSystem</RootNamespace>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
@@ -20,51 +23,98 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="ProjectTemplates\**\*.*">
+        <Content Include="ItemTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
-        <None Update="**\*.imagemanifest">
+        <Content Include="ProjectTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
-        </None>
+        </Content>
     </ItemGroup>
 
-    <!--<ItemGroup>
-        <None Include="BuildSystem\Rules\ProjectItemsSchema.xaml">
+    <ItemGroup>
+        <Content Include="XSharpImages.imagemanifest">
+            <IncludeInVSIX>True</IncludeInVSIX>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <XamlPropertyRule Include="BuildSystem\Rules\Compile.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ConfigurationGeneral.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\None.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ProjectReference.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ResolvedProjectReference.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\XSharpDebugger.xaml" />
+        <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <VSIXSourceItem Include="BuildSystem\**">
+            <InstallRoot>MSBuild</InstallRoot>
+            <VSIXSubPath>XSharp\%(RecursiveDir)</VSIXSubPath>
+        </VSIXSourceItem>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\XSharpProjectTreeIcon.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\ISO.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\PXE.png" />
+        <Resource Include="ProjectSystem\VS\Build\Resources\USB.png" />
+    </ItemGroup>
+
+    <!--
+        WPF Workarounds
+    -->
+
+    <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
+        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Page Include="ProjectSystem\VS\PropertyPages\**\*.xaml">
             <SubType>Designer</SubType>
-        </None>
-        <XamlPropertyRule Include="BuildSystem\Rules\DebuggerGeneral.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Compile Update="ProjectSystem\VS\PropertyPages\**\*.xaml.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+        <Page Include="ProjectSystem\VS\Build\**\*.xaml">
             <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\Folder.xaml">
-            <RuleInjection>None</RuleInjection>
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\General.xaml">
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\General.BrowseObject.xaml">
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\GeneralFile.xaml">
-            <RuleInjection>None</RuleInjection>
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\None.xaml">
-            <RuleInjection>None</RuleInjection>
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-        <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml">
-            <SubType>Designer</SubType>
-        </XamlPropertyRule>
-    </ItemGroup>-->
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Compile Update="ProjectSystem\VS\Build\**\*.xaml.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+        <PropertyGroup>
+            <BuildingProject>false</BuildingProject>
+        </PropertyGroup>
+    </Target>
+
+    <!--
+        End WPF Workarounds
+    -->
 
     <ItemGroup>
         <Reference Include="System.ComponentModel.Composition" />
-        <Reference Include="System.Windows.Forms" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Management" />
         <Reference Include="System.Xaml" />
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="WindowsBase" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
+        <PackageReference Include="EnvDTE" Version="8.0.1" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
@@ -72,10 +122,18 @@
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.0.26606" />
-        <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.0.26606" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.12" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
         <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
+        <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
+            <AdditionalProperties>TargetFramework=net462</AdditionalProperties>
+        </ProjectReference>
     </ItemGroup>
 
     <Target Name="CheckMSBuildRuntimeType">
@@ -84,23 +142,34 @@
 
     <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
         <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="%(Filename) == 'netstandard'">
+            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
                 <IncludeInVSIX>True</IncludeInVSIX>
                 <VSIXSubPath>/</VSIXSubPath>
             </Content>
         </ItemGroup>
     </Target>
 
+    <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">
+        <ItemGroup>
+            <VSIXSourceItem Include="@(ReferencePath)" Condition="$([System.String]::new('%(Filename)').StartsWith('DiscUtils'))" />
+        </ItemGroup>
+    </Target>
+  
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
+    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets') AND '$(MSBuildProjectExtension)' != '.tmp_proj'" />
 
     <Target Name="AfterBuild">
         <ItemGroup>
             <BuildSystemToCopy Include="BuildSystem\DeployedBuildSystem\**\*" />
             <RulesToCopy Include="BuildSystem\Rules\**\*" />
         </ItemGroup>
-        <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
-        <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+
+        <RemoveDir Directories="$(LocalAppData)\CustomProjectSystems\XSharp" />
+
+        <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
+        <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
     </Target>
+
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
 </Project>

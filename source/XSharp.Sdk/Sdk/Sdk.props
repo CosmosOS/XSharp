@@ -1,0 +1,5 @@
+﻿<Project>
+
+    <Import Project="$(MSBuildThisFileDirectory)..\build\XSharp.Sdk.props"  />
+
+</Project>

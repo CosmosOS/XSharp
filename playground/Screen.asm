@@ -30,7 +30,7 @@
 
 ; function DisplayWaitMsg {
 	; ESI = @.DebugWaitMsg
-	Mov ESI, DebugStub_Const_DebugWaitMsg
+	Mov ESI, DebugStub_Var_DebugWaitMsg
 
     ; EDI = #VidBase
     Mov EDI, DebugStub_Const_VidBase

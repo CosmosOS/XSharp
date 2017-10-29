@@ -42,7 +42,7 @@ namespace XSharp.Build {
             foreach (var xArg in aArgs) {
                 if (xArg.StartsWith("-")) {
                     xSwitch = new Switch();
-                    var xParts = xArg.Substring(1).ToUpper().Split(':');
+                    var xParts = xArg.Substring(1).Split(':');
                     xSwitch.Name = PreserveSwitchCase ? xParts[0] : xParts[0].ToUpper();
                     if (xParts.Length > 1) {
                         xSwitch.Value = xParts[1];

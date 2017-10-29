@@ -1,0 +1,72 @@
+﻿<propertypages:WpfPropertyPageUI x:Class="XSharp.ProjectSystem.VS.PropertyPages.AssemblePropertyPageControl"
+                                 x:ClassModifier="internal"
+                                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                                 xmlns:local="clr-namespace:XSharp.ProjectSystem.VS.PropertyPages"
+                                 xmlns:propertypages="clr-namespace:VSPropertyPages;assembly=VSPropertyPages"
+                                 mc:Ignorable="d"
+                                 d:DesignHeight="480" d:DesignWidth="800">
+    
+    <propertypages:WpfPropertyPageUI.Resources>
+        <Style x:Key="FieldName" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0, 0, 0, 8" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="2" />
+        </Style>
+    </propertypages:WpfPropertyPageUI.Resources>
+    
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <StackPanel Margin="8">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="8" />
+                </Style>
+            </StackPanel.Resources>
+
+            <StackPanel>
+                <CheckBox IsChecked="{Binding Assemble}">Assemble</CheckBox>
+            </StackPanel>
+
+            <Grid IsEnabled="{Binding Assemble}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0"
+                            Grid.Row="0">
+                    <TextBlock Style="{StaticResource FieldName}">Assembler:</TextBlock>
+                    <ComboBox IsEditable="False" Text="{Binding Assembler}">
+                        <ComboBoxItem>NASM</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Style="{StaticResource FieldName}">Output Format:</TextBlock>
+                    <ComboBox ItemsSource="{Binding AvailableOutputFormats}"
+                              Text="{Binding OutputFormat}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2">
+                    <TextBlock Style="{StaticResource FieldName}">Output File:</TextBlock>
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right"
+                            Command="{Binding BrowseAssemblerOutputCommand}">Browse</Button>
+                        <TextBox Margin="0, 0, 8, 0"
+                             Text="{Binding AssemblerOutput}"></TextBox>
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</propertypages:WpfPropertyPageUI>

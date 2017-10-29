@@ -1,0 +1,256 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="$(XSharpCoreTargetsPath)" />
+
+    <PropertyGroup>
+        <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="$(XSharpDesignTimeTargetsPath)" Condition="Exists('$(XSharpDesignTimeTargetsPath)')" />
+
+    <PropertyGroup>
+        <ToolsPath Condition = "'$(ToolsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\</ToolsPath>
+
+        <LdToolPath Condition = "'$(LdToolPath)' == ''">$(ToolsPath)ld\</LdToolPath>
+        <LdToolExe Condition = "'$(LdToolExe)' == ''">ld.exe</LdToolExe>
+
+        <MkisofsToolPath Condition = "'$(MkisofsToolPath)' == ''">$(ToolsPath)mkisofs\</MkisofsToolPath>
+        <MkisofsToolExe Condition = "'$(MkisofsToolExe)' == ''">mkisofs.exe</MkisofsToolExe>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyFileExt Condition="'$(AssemblyFileExt)' == ''">.asm</AssemblyFileExt>
+        <AssemblyFileName Condition="'$(AssemblyFileName)' == ''">$(OutputName)$(AssemblyFileExt)</AssemblyFileName>
+        <AssemblyFile Condition="'$(AssemblyFile)' == ''">$(IntermediateOutputPath)$(AssemblyFileName)</AssemblyFile>
+
+        <Assemble Condition="'$(Assemble)' == ''">True</Assemble>
+        <Assembler Condition="'$(Assembler)' == ''">NASM</Assembler>
+        <AssemblerOutputFormat Condition="'$(AssemblerOutputFormat)' == ''">Bin</AssemblerOutputFormat>
+        <AssemblerOutputExt Condition="'$(AssemblerOutputExt)' == ''">.bin</AssemblerOutputExt>
+        <AssemblerOutputFileName Condition="'$(AssemblerOutputFileName)' == ''">$(OutputName)$(AssemblerOutputExt)</AssemblerOutputFileName>
+        <AssemblerOutput Condition="'$(AssemblerOutput)' == ''">$(IntermediateOutputPath)$(AssemblerOutputFileName)</AssemblerOutput>
+
+        <Link Condition="'$(Link)' == '' AND '$(AssemblerOutputFormat)' != 'Bin'">True</Link>
+        <Link Condition="'$(Link)' == ''">False</Link>
+        <LinkOutputFileName Condition="'$(LinkOutputFileName)' == ''">$(OutputName).bin</LinkOutputFileName>
+        <LinkOutput Condition="'$(LinkOutput)' == ''">$(IntermediateOutputPath)$(LinkOutputFileName)</LinkOutput>
+
+        <BinaryOutput>$(AssemblerOutput)</BinaryOutput>
+        <BinaryOutput Condition="'$(Link)' == 'True'">$(LinkOutput)</BinaryOutput>
+        <BinName Condition="'$(BinName)' == ''">$([System.IO.Path]::GetFileName('$(BinaryOutput)'))</BinName>
+
+        <ISOLINUX Condition="'$(ISOLINUX)' == ''">$(ToolsPath)isolinux\</ISOLINUX>
+        <OutputIsoFileName Condition="'$(OutputIsoFileName)' == ''">$(OutputName).iso</OutputIsoFileName>
+        <OutputISO Condition="'$(OutputIso)' == ''">$(IntermediateOutputPath)$(OutputIsoFileName)</OutputISO>
+
+        <IntermediateIsoDirectory Condition="'$(IntermediateIsoDirectory)' == ''">$(IntermediateOutputPath)ISO\</IntermediateIsoDirectory>
+
+        <LaunchType Condition="'$(LaunchType)' == ''">Bochs</LaunchType>
+        <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
+    </PropertyGroup>
+
+    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+
+    <PropertyGroup>
+        <BuildDependsOn>
+            PrepareForBuild;
+            PreBuildEvent;
+            Compile;
+            Assemble;
+            Link;
+            PrepareForRun;
+            PostBuildEvent;
+        </BuildDependsOn>
+    </PropertyGroup>
+
+    <Target Name="Restore" />
+
+    <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+
+    <Target Name="Clean" />
+    
+    <PropertyGroup>
+        <RebuildDependsOn>
+            Clean;
+            Build;
+        </RebuildDependsOn>
+    </PropertyGroup>
+    
+    <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" />
+
+    <Target Name="PreBuildEvent"
+            DependsOnTargets="$(PreBuildEventDependsOn)"
+            Condition="'$(PreBuildEvent)' != ''">
+        <Exec WorkingDirectory="$(OutDir)" Command="$(PreBuildEvent)" />
+    </Target>
+
+    <Target Name="PostBuildEvent"
+            DependsOnTargets="$(PostBuildEventDependsOn)"
+            Condition="'$(PostBuildEvent)' != '' AND '$(RunPostBuildEvent)' != 'OnOutputUpdated'">
+        <Exec WorkingDirectory="$(OutputPath)" Command="$(PostBuildEvent)" />
+    </Target>
+    
+    <!--
+    ================================================================================
+                                     PrepareForBuild
+
+        Creates the needed directories used by build targets.
+
+    ================================================================================
+    -->
+    <Target Name="PrepareForBuild">
+
+        <MakeDir Directories="$(OutputPath);$(IntermediateOutputPath)" />
+
+    </Target>
+
+    <!--
+    ================================================================================
+                                        Compile
+
+        [IN]
+        @(Compile) - the list of X# files to compile.
+
+        [OUT]
+        $(AssemblyFile) - the file that results from compiling the .xs files.
+
+    ================================================================================
+    -->
+    <PropertyGroup>
+        <CompileDependsOn>
+            CoreCompile
+        </CompileDependsOn>
+    </PropertyGroup>
+
+    <Target Name="Compile" DependsOnTargets="$(CompileDependsOn)" />
+
+    <!--
+    ================================================================================
+                                        Assemble
+
+        [IN]
+        $(AssemblyFile) - the file to assemble.
+
+        [OUT]
+        $(AssemblerOutput) - the file that results from assembling the assembly
+                             file.
+
+    ================================================================================
+    -->
+    <Target Name="Assemble"
+            Inputs="$(AssemblyFile)"
+            Outputs="$(AssemblerOutput)"
+            DependsOnTargets="Compile"
+            Condition="'$(Assemble)' == 'True'">
+
+        <XsAssemble InputFile="$(AssemblyFile)"
+                    OutputFile="$(AssemblerOutput)"
+                    Assembler="$(Assembler)"
+                    OutputFormat="$(AssemblerOutputFormat)"
+                    ToolsPath="$(ToolsPath)" />
+
+    </Target>
+
+    <!--
+    ================================================================================
+                                       Link
+
+        [IN]
+        $(AssemblerOutput) - an assembled file.
+
+        [OUT]
+        $(LinkOutput) - a linked file.
+
+    ================================================================================
+    -->
+    <Target Name="Link"
+            Inputs="$(AssemblerOutput)"
+            Outputs="$(LinkOutput)"
+            DependsOnTargets="Assemble"
+            Condition="'$(Link)' == 'True'">
+
+        <Ld InputFiles="$(AssemblerOutput)"
+            OutputFile="$(LinkOutput)"
+            TextAddress="0x2000000"
+            DataAddress="0x1000000"
+            Entry="$(Entry)"
+            ToolPath="$(LdToolPath)"
+            ToolExe="$(LdToolExe)" />
+
+    </Target>
+
+    <!--
+    ================================================================================
+                                      PrepareForRun
+    ================================================================================
+    -->
+    <Target Name="PrepareForRun" DependsOnTargets="DeployISO" />
+
+    <!--
+    ================================================================================
+                                       DeployISO
+
+        [IN]
+        $(BinaryOutput) - a binary file.
+
+        [OUT]
+        $(OutputISO) - a bootable ISO file.
+        $(IntermediateIsoDirectory)syslinux.cfg - the syslinux configuration
+                                                  file.
+
+    ================================================================================
+    -->
+    <Target Name="DeployISO"
+            Inputs="$(BinaryOutput)"
+            Outputs="$(OutputISO);$(IntermediateIsoDirectory)syslinux.cfg"
+            DependsOnTargets="Link"
+            Condition="'$(OutputType)' == 'Bootable'">
+
+        <ItemGroup>
+            <_ISOLINUX Include="$(ISOLINUX)**" />
+        </ItemGroup>
+
+        <MakeDir Directories="$(IntermediateIsoDirectory)" />
+        <Copy SourceFiles="@(_ISOLINUX);$(BinaryOutput)"
+              DestinationFolder="$(IntermediateIsoDirectory)" />
+
+        <CreateSyslinuxConfig IsoDirectory="$(IntermediateIsoDirectory)"
+                              BinName="$(BinName)" />
+
+        <MakeIso IsoDirectory="$(IntermediateIsoDirectory)"
+                 OutputFile="$(OutputISO)"
+                 ToolPath="$(MkisofsToolPath)"
+                 ToolExe="$(MkisofsToolExe)" />
+
+    </Target>
+
+    <!--
+    ================================================================================
+                                           Run
+    ================================================================================
+    -->
+    <Target Name="Run"
+            DependsOnTargets="DeployISO">
+
+        <Error Text="Output type '$(OutputType)' cannot be run!"
+               Condition="'$(OutputType)' != 'Application' AND '$(OutputType)' != 'Bootable'" />
+
+        <Exec Command="$(BinaryOutput)"
+              Condition="'$(OutputType)' == 'Application'" />
+
+        <Launch LaunchType="$(LaunchType)"
+                ISO="$(OutputISO)"
+                ConfigurationFile="$(LaunchConfigurationFile)"
+                Condition="'$(OutputType)' == 'Bootable'"/>
+
+    </Target>
+
+</Project>

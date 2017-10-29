@@ -1,0 +1,15 @@
+﻿<Project>
+
+    <Target Name="CoreCompile"
+        Inputs="@(Compile)"
+        Outputs="$(AssemblyFile)">
+
+        <Xsc InputFiles="@(Compile)"
+             OutputFile="$(AssemblyFile)"
+             Append="True"
+             ToolPath="$(XscToolPath)"
+             ToolExe="$(XscToolExe)" />
+
+    </Target>
+
+</Project>

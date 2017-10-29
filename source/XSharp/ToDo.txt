@@ -20,6 +20,9 @@ IfPredicate - { and return - goto has value. Can compound front intead wtih comp
   -Live input to pl0ay and graph path
   -Generate attrib signature, and also optionally empty method with args
 
+-Assignments.cs
+  - Check generation of var = const.
+
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
 Enrique 500

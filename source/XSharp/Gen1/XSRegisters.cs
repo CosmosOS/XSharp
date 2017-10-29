@@ -41,9 +41,9 @@ namespace XSharp
         static XSRegisters()
         {
             mRegisters = new Dictionary<string, Register>();
-            foreach (var xField in typeof(XSRegisters).GetTypeInfo().GetFields(BindingFlags.Static | BindingFlags.Public))
+            foreach (var xField in typeof(XSRegisters).GetFields(BindingFlags.Static | BindingFlags.Public))
             {
-                mRegisters.Add(xField.Name, (Register) xField.GetValue(null));
+                mRegisters.Add(xField.Name, (Register)xField.GetValue(null));
             }
         }
 

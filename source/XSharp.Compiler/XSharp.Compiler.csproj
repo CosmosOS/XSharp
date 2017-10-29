@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
+        <OutputType>Exe</OutputType>
+        <AssemblyName>xsc</AssemblyName>
+        <RootNamespace>XSharp.XSC</RootNamespace>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
+        <ApplicationIcon>XSharp.ico</ApplicationIcon>
+        <PackageId>XSharp.Compiler</PackageId>
+        <Description>X# compiler.
+$(XSharpDescription)</Description>
+        <DevelopmentDependency>True</DevelopmentDependency>
+
+        <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>
+        <NuspecBasePath>..\</NuspecBasePath>
+
+        <!-- Package Properties -->
+        <InnerTargets>Publish</InnerTargets>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
+        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
+        <CompilerPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</CompilerPackageDir>
+        <PublishDir>$(CompilerPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="build\**">
+            <Pack>True</Pack>
+            <PackagePath>build\</PackagePath>
+        </Content>
+        <Content Include="tools\**">
+            <Pack>True</Pack>
+            <PackagePath>tools\</PackagePath>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
+        <ProjectReference Include="..\XSharp\XSharp.csproj" />
+
+        <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj">
+            <PrivateAssets>All</PrivateAssets>
+            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+        </ProjectReference>
+    </ItemGroup>
+    
+    <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
+        <RemoveDir Directories="$(CompilerPackageDir)" />
+    </Target>
+
+    <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">      
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
+    </Target>
+  
+</Project>

@@ -7,12 +7,14 @@ using XSharp.ProjectSystem;
 
 [assembly: ProjectTypeRegistration(XSharpProjectSystemPackage.ProjectTypeGuid, "#1", "#2", "xsproj", "XSharp",
     XSharpProjectSystemPackage.PackageGuid, Capabilities = ProjectCapability.InitialCapabilities,
-    ProjectTemplatesDir = "ProjectTemplates"/*, DisplayProjectTypeVsTemplate = "#1"*/)]
+    PossibleProjectExtensions = "xsproj", DisplayProjectTypeVsTemplate = "X#")]
 
 namespace XSharp.ProjectSystem
 {
     [Guid(PackageGuid)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
+    [ProvideObject(typeof(VS.PropertyPages.CompilePropertyPage))]
+    [ProvideObject(typeof(VS.PropertyPages.AssemblePropertyPage))]
     public sealed class XSharpProjectSystemPackage : Package
     {
         /// <summary>

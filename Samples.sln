@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{68A6F609-E61D-4B95-B063-DBB124F0F0AC}") = "HelloWorld.Win32", "samples\HelloWorld.Win32\HelloWorld.Win32.xsproj", "{5B3F798A-75EB-480F-AD07-714D3D72C5AD}"
+EndProject
+Project("{68A6F609-E61D-4B95-B063-DBB124F0F0AC}") = "HelloWorld.OS", "samples\HelloWorld.OS\HelloWorld.OS.xsproj", "{E324BE08-C6E1-4CDA-B95E-6F7F6856C6A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B3F798A-75EB-480F-AD07-714D3D72C5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3F798A-75EB-480F-AD07-714D3D72C5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3F798A-75EB-480F-AD07-714D3D72C5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3F798A-75EB-480F-AD07-714D3D72C5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E324BE08-C6E1-4CDA-B95E-6F7F6856C6A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E324BE08-C6E1-4CDA-B95E-6F7F6856C6A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E324BE08-C6E1-4CDA-B95E-6F7F6856C6A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E324BE08-C6E1-4CDA-B95E-6F7F6856C6A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F61DA5BA-AF55-4701-BEA8-2E7B79B4401F}
+	EndGlobalSection
+EndGlobal

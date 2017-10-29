@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
+        <AppDesignerFolderContentsVisibleOnlyInShowAllFiles Condition="'$(AppDesignerFolderContentsVisibleOnlyInShowAllFiles)' == ''">False</AppDesignerFolderContentsVisibleOnlyInShowAllFiles>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <_XSharpXamlResourcesDirectory>$(MSBuildThisFileDirectory)</_XSharpXamlResourcesDirectory>
+        <DebuggerFlavor>XSharpDebugger</DebuggerFlavor>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectCapability Include="DeclaredSourceItems;
+                                    HandlesOwnReload;
+                                    NoGeneralDependentFileIcon;
+                                    PackageReferences;
+                                    ProjectConfigurationsDeclaredAsItems;
+                                    ProjectReferences;
+                                    OutputGroups;
+                                    UseFileGlobs;
+                                    UserSourceItems;" />
+
+        <!--
+        <ProjectCapability Include="AllTargetOutputGroups;
+                                    AssemblyReferences;
+                                    DependenciesTree;
+                                    LaunchProfiles;
+                                    SingleFileGenerators;
+                                    VisualStudioWellKnownOutputGroups;" />
+        -->
+
+        <!--
+        <ProjectCapability Include="ReferenceManagerAssemblies" />
+        <ProjectCapability Include="ReferenceManagerBrowse" />
+        <ProjectCapability Include="ReferenceManagerProjects" />
+        -->
+
+        <ProjectCapability Include="XSharp"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\ConfigurationGeneral.xaml">
+            <Context>Project</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\General.BrowseObject.xaml">
+            <Context>BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\ProjectItemsSchema.xaml" />
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\DebuggerGeneral.xaml">
+            <Context>Project</Context>
+        </PropertyPageSchema>
+
+        <!--
+            This should be registered in XSharpDebugLaunchProvider.cs, but there's a bug
+        -->
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\XSharpDebugger.xaml">
+            <Context>Project</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\SourceControl.xaml">
+            <Context>Invisible</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\Compile.xaml;
+                                     $(_XSharpXamlResourcesDirectory)Rules\Folder.xaml;
+                                     $(_XSharpXamlResourcesDirectory)Rules\None.xaml;">
+            <Context>File;BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <!--<PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)PackageReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedPackageReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>-->
+
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ProjectReference.xaml">
+            <Context>Project;BrowseObject</Context>
+        </PropertyPageSchema>
+        <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)ResolvedProjectReference.xaml">
+            <Context>ProjectSubscriptionService;BrowseObject</Context>
+        </PropertyPageSchema>
+    </ItemGroup>
+
+    <Target Name="ResolvePackageReferencesDesignTime" Returns="@(_ResolvedPackageReference)">
+        <ItemGroup>
+            <_ResolvedPackageReference Include="@(PackageReference)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="ResolveProjectReferencesDesignTime" Returns="@(_ResolvedProjectReference)">
+        <ItemGroup>
+            <_ResolvedProjectReference Include="@(ProjectReference)" />
+        </ItemGroup>
+    </Target>
+
+</Project>
