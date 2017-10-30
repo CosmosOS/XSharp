@@ -1,8 +1,34 @@
 ﻿<Project>
 
+    <Choose>
+        <When Condition="'$(MSBuildRuntimeType)' == 'Core'">
+            <PropertyGroup>
+                <XscToolPath>$(MSBuildThisFileDirectory)netcoreapp\</XscToolPath>
+                <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunXsc.cmd</XscToolExe>
+                <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunXsc</XscToolExe>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <XscToolPath>$(MSBuildThisFileDirectory)win\</XscToolPath>
+                <XscToolExe>xsc.exe</XscToolExe>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+
+    <Target Name="MakeCompilerScriptsExecutable"
+            BeforeTargets="CoreCompile"
+            Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(OS)' != 'Windows_NT'">
+
+        <Exec Command="chmod +x '$(XscToolPath)/$(XscToolExe)'" />
+
+    </Target>
+
+    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" AssemblyFile="XSharp.Compiler.Tasks.dll" />
+
     <Target Name="CoreCompile"
-        Inputs="@(Compile)"
-        Outputs="$(AssemblyFile)">
+            Inputs="@(Compile)"
+            Outputs="$(AssemblyFile)">
 
         <Xsc InputFiles="@(Compile)"
              OutputFile="$(AssemblyFile)"
