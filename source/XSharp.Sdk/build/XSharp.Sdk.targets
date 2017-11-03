@@ -4,6 +4,8 @@
 
     <Import Project="$(MSBuildThisFileDirectory)XSharp.Sdk.Common.targets"/>
 
+    <Import Project="$(MSBuildThisFileDirectory)XSharp.Sdk.DefaultItems.targets"/>
+
     <PropertyGroup>
         <RunCommand>msbuild /t:Run</RunCommand>
         <RunArguments></RunArguments>

@@ -12,4 +12,8 @@
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
     </ItemGroup>
 
+    <Target Name="CopyBuildOutput" DependsOnTargets="Build">
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(DestinationFolder)" />
+    </Target>
+
 </Project>

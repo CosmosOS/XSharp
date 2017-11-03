@@ -19,6 +19,5 @@ X# is a HLA (High Level Assembler) for X86/X64 assembly.</description>
   <files>
     <file src="XSharp.Compiler\obj\$configuration$\package\build\**" target="build" />
     <file src="XSharp.Compiler\obj\$configuration$\package\tools\**" exclude="**\*.pdb" target="tools" />
-    <file src="XSharp.Compiler.Tasks\bin\$configuration$\netstandard1.3\*.dll" target="tools" />
   </files>
 </package>

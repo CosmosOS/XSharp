@@ -15,7 +15,6 @@
         <ProjectCapability Include="DeclaredSourceItems;
                                     HandlesOwnReload;
                                     NoGeneralDependentFileIcon;
-                                    PackageReferences;
                                     ProjectConfigurationsDeclaredAsItems;
                                     ProjectReferences;
                                     OutputGroups;
@@ -27,6 +26,7 @@
                                     AssemblyReferences;
                                     DependenciesTree;
                                     LaunchProfiles;
+                                    PackageReferences;
                                     SingleFileGenerators;
                                     VisualStudioWellKnownOutputGroups;" />
         -->

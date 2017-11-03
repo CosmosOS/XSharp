@@ -8,10 +8,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CustomProjectExtensionsPath>$(LocalAppData)\CustomProjectSystems\XSharp\</CustomProjectExtensionsPath>
+        <XSharpDesignTimeTargetsPath>$(LocalAppData)\CustomProjectSystems\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
     </PropertyGroup>
-
-    <!--<Import Project="..\XSharp.Compiler\obj\Debug\package\build\XSharp.Compiler.props" />-->
     
     <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.targets" />
 

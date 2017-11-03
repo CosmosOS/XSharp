@@ -58,4 +58,8 @@ $(XSharpDescription)</Description>
         <Copy SourceFiles="@(Content)" DestinationFolder="$(SdkPackageDir)%(PackagePath)%(RecursiveDir)" />
     </Target>
 
+    <Target Name="IncludeCompilerInPackage" AfterTargets="IncludeContentInPackage">
+        <MSBuild Projects="..\XSharp.Compiler\XSharp.Compiler.csproj" Targets="PublishToSdk" Properties="SdkCompilerFolder=$(MSBuildThisFileDirectory)$(SdkPackageDir)tools\xsc\" />
+    </Target>
+
 </Project>

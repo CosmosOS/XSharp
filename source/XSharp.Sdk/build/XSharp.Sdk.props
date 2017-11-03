@@ -42,4 +42,6 @@
         <RootNamespace Condition=" '$(RootNamespace)' == '' ">$(MSBuildProjectName)</RootNamespace>
     </PropertyGroup>
 
+    <Import Project="XSharp.Sdk.DefaultItems.props" />
+
 </Project>
