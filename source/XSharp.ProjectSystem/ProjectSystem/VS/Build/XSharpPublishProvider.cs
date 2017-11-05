@@ -96,12 +96,6 @@ namespace XSharp.ProjectSystem.VS.Build
                         }
 
                         break;
-                    case PublishType.PXE:
-                        await aOutputPaneWriter.WriteLineAsync("Publishing PXE!");
-
-                        // todo: PXE publish
-
-                        break;
                     default:
                         await aOutputPaneWriter.WriteLineAsync($"Unknown publish type! Publish type: '{mPublishSettings.PublishType}'");
                         break;
@@ -126,9 +120,8 @@ namespace XSharp.ProjectSystem.VS.Build
                 var xBinOutputPath = await xProjectProperties.BinOutputPath.GetEvaluatedValueAtEndAsync();
                 var xDefaultIsoPublishPath = ConfiguredProject.UnconfiguredProject.MakeRooted(
                     Path.Combine(xBinOutputPath, Path.ChangeExtension(Path.GetFileName(ConfiguredProject.UnconfiguredProject.FullPath), "iso")));
-                var xDefaultPxePublishPath = ConfiguredProject.UnconfiguredProject.MakeRooted(Path.Combine(xBinOutputPath, "PXE Publish"));
 
-                var xDefaultPublishProperties = new DefaultPublishProperties(xDefaultIsoPublishPath, xDefaultPxePublishPath);
+                var xDefaultPublishProperties = new DefaultPublishProperties(xDefaultIsoPublishPath);
 
                 var xPublishWindow = new PublishWindow(xDefaultPublishProperties);
                 mPublishSettings = xPublishWindow.ShowModal();

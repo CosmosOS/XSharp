@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <UseCodebase>true</UseCodebase>
+        <UseCodebase>True</UseCodebase>
         <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
         <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
         <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>

@@ -3,8 +3,7 @@
     public enum PublishType
     {
         ISO,
-        USB,
-        PXE
+        USB
     }
 
     internal class PublishSettings
