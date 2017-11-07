@@ -13,6 +13,7 @@
         <PackageIconUrl>https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</PackageIconUrl>
         <PackageProjectUrl>http://www.gocosmos.org/XSharp/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/CosmosOS/XSharp/blob/master/LICENSE.txt</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <PackageTags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
         <RepositoryUrl>https://github.com/CosmosOS/XSharp</RepositoryUrl>
 
