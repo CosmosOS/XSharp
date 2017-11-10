@@ -16,12 +16,10 @@ namespace XSharp.ProjectSystem.VS.Build
     internal class DefaultPublishProperties
     {
         public string IsoPublishPath { get; }
-        public string PxePublishPath { get; }
 
-        public DefaultPublishProperties(string aIsoPublishPath = null, string aPxePublishPath = null)
+        public DefaultPublishProperties(string aIsoPublishPath = null)
         {
             IsoPublishPath = aIsoPublishPath;
-            PxePublishPath = aPxePublishPath;
         }
     }
 
@@ -36,10 +34,8 @@ namespace XSharp.ProjectSystem.VS.Build
             mPublishWindow = aPublishWindow;
 
             mIsoPublishPath = aDefaultProperties.IsoPublishPath;
-            mPxePublishPath = aDefaultProperties.PxePublishPath;
 
             mBrowseIsoPublishPathCommand = new BrowseIsoPublishPathCommand(this, IsoPublishPath);
-            mBrowsePxePublishPathCommand = new BrowsePxePublishPathCommand(this, Path.GetDirectoryName(aDefaultProperties.PxePublishPath));
 
             mReturnPublishSettingsCommand = new ReturnPublishSettingsCommand(this);
 
@@ -85,13 +81,6 @@ namespace XSharp.ProjectSystem.VS.Build
             set => SetProperty(ref mBrowseIsoPublishPathCommand, value);
         }
 
-        private ICommand mBrowsePxePublishPathCommand;
-        public ICommand BrowsePxePublishPathCommand
-        {
-            get => mBrowsePxePublishPathCommand;
-            set => SetProperty(ref mBrowsePxePublishPathCommand, value, nameof(BrowsePxePublishPathCommand));
-        }
-
         private ICommand mReturnPublishSettingsCommand;
         public ICommand ReturnPublishSettingsCommand
         {
@@ -113,13 +102,6 @@ namespace XSharp.ProjectSystem.VS.Build
             set => SetProperty(ref mUsbPublishDrive, value);
         }
 
-        private string mPxePublishPath;
-        public string PxePublishPath
-        {
-            get => mPxePublishPath;
-            set => SetProperty(ref mPxePublishPath, value);
-        }
-
         // todo: format usb drive should be true by default?
         private bool mFormatUsbDrive = false;
         public bool FormatUsbDrive
@@ -139,9 +121,6 @@ namespace XSharp.ProjectSystem.VS.Build
                     break;
                 case PublishType.USB:
                     xPublishPath = UsbPublishDrive;
-                    break;
-                case PublishType.PXE:
-                    xPublishPath = PxePublishPath;
                     break;
                 default:
                     throw new NotImplementedException($"Publish type '{PublishType}' not implemented!");
@@ -191,40 +170,6 @@ namespace XSharp.ProjectSystem.VS.Build
         }
     }
 
-    internal class BrowsePxePublishPathCommand : ICommand
-    {
-        private PublishWindowViewModel mViewModel;
-        private string mInitialPath;
-
-        public BrowsePxePublishPathCommand(PublishWindowViewModel aViewModel, string aInitialPath)
-        {
-            mViewModel = aViewModel;
-            mInitialPath = aInitialPath;
-        }
-
-#pragma warning disable CS0067
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore CS0067
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            var xFolderBrowserDialog = new FolderBrowserDialog
-            {
-                SelectedPath = mInitialPath
-            };
-
-            if (xFolderBrowserDialog.ShowDialog() == WinFormsDialogResult.OK)
-            {
-                mViewModel.PxePublishPath = xFolderBrowserDialog.SelectedPath;
-            }
-        }
-    }
-
     internal class ReturnPublishSettingsCommand : ICommand
     {
         private PublishWindowViewModel mViewModel;
@@ -248,8 +193,6 @@ namespace XSharp.ProjectSystem.VS.Build
                     return Directory.Exists(Path.GetDirectoryName(mViewModel.IsoPublishPath));
                 case PublishType.USB:
                     return !String.IsNullOrWhiteSpace(mViewModel.UsbPublishDrive);
-                case PublishType.PXE:
-                    return Directory.Exists(Path.GetDirectoryName(mViewModel.PxePublishPath));
                 default:
                     return false;
 

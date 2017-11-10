@@ -1,13 +1,13 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''"></XSharpCoreTargetsPath>
+        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\xsc\tools\XSharp.Core.targets</XSharpCoreTargetsPath>
     </PropertyGroup>
 
     <Import Project="$(XSharpCoreTargetsPath)" />
 
     <PropertyGroup>
-        <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
+        <XSharpDesignTimeTargetsPath Condition="'$(XSharpDesignTimeTargetsPath)' == ''">$(MSBuildExtensionsPath)\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
     </PropertyGroup>
 
     <Import Project="$(XSharpDesignTimeTargetsPath)" Condition="Exists('$(XSharpDesignTimeTargetsPath)')" />
@@ -76,14 +76,14 @@
     <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
 
     <Target Name="Clean" />
-    
+
     <PropertyGroup>
         <RebuildDependsOn>
             Clean;
             Build;
         </RebuildDependsOn>
     </PropertyGroup>
-    
+
     <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" />
 
     <Target Name="PreBuildEvent"
@@ -97,7 +97,7 @@
             Condition="'$(PostBuildEvent)' != '' AND '$(RunPostBuildEvent)' != 'OnOutputUpdated'">
         <Exec WorkingDirectory="$(OutputPath)" Command="$(PostBuildEvent)" />
     </Target>
-    
+
     <!--
     ================================================================================
                                      PrepareForBuild

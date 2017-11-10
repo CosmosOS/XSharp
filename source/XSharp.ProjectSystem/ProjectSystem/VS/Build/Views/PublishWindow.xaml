@@ -139,24 +139,6 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
-                <!--<TabItem>
-                    <TabItem.Header>
-                        <DockPanel>
-                            <TextBlock DockPanel.Dock="Bottom" TextAlignment="Center">PXE</TextBlock>
-                            <Image Source="Resources/PXE.png" />
-                        </DockPanel>
-                    </TabItem.Header>
-                    <StackPanel>
-                        <TextBlock>Publish Path:</TextBlock>
-                        <DockPanel Margin="0, 4">
-                            <Button DockPanel.Dock="Right"
-                                    Margin="4, 0"
-                                    Command="{Binding BrowsePxePublishPathCommand}">Browse</Button>
-                            <TextBox Margin="4, 0"
-                                     Text="{Binding PxePublishPath, UpdateSourceTrigger=PropertyChanged}" />
-                        </DockPanel>
-                    </StackPanel>
-                </TabItem>-->
             </TabControl>
         </Grid>
 

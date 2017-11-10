@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <UseCodebase>true</UseCodebase>
+        <UseCodebase>True</UseCodebase>
         <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
         <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
         <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
@@ -160,14 +160,12 @@
 
     <Target Name="AfterBuild">
         <ItemGroup>
-            <BuildSystemToCopy Include="BuildSystem\DeployedBuildSystem\**\*" />
-            <RulesToCopy Include="BuildSystem\Rules\**\*" />
+            <BuildSystemToCopy Include="BuildSystem\**\*" />
         </ItemGroup>
 
         <RemoveDir Directories="$(LocalAppData)\CustomProjectSystems\XSharp" />
 
         <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
-        <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
     </Target>
 
     <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />

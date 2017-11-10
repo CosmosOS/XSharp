@@ -53,5 +53,17 @@ $(XSharpDescription)</Description>
     <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">      
         <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
     </Target>
+
+    <Target Name="IncludeCompilerInPackage" AfterTargets="IncludeContentInPackage">
+        <MSBuild Projects="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Targets="CopyBuildOutput" Properties="TargetFramework=netstandard1.3;DestinationFolder=$(MSBuildThisFileDirectory)$(CompilerPackageDir)tools\" />
+    </Target>
+
+    <Target Name="PublishToSdk" DependsOnTargets="DispatchToInnerBuilds">
+        <ItemGroup>
+            <IncludeInSdk Include="$(CompilerPackageDir)**" Exclude="**\*.pdb" />
+        </ItemGroup>
+      
+        <Copy SourceFiles="@(IncludeInSdk)" DestinationFolder="$(SdkCompilerFolder)%(RecursiveDir)" />
+    </Target>
   
 </Project>

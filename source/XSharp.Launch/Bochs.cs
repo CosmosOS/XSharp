@@ -255,7 +255,7 @@ namespace XSharp.Launch
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception($"The lock file couldn't be deleted! You have to delete it manually. Lock file location: '{xLockFile}'.{Environment.NewLine}Exception:{Environment.NewLine}{ex.ToString()}");
+                        throw new Exception($"The lock file couldn't be deleted! It has to be deleted manually. Lock file location: '{xLockFile}'.{Environment.NewLine}Exception:{Environment.NewLine}{ex.ToString()}");
                     }
                 }
             };
