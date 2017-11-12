@@ -2,8 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard1.3</TargetFramework>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <IsPackable>False</IsPackable>
     </PropertyGroup>
 

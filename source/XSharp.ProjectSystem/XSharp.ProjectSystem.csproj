@@ -7,8 +7,6 @@
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     </PropertyGroup>
 

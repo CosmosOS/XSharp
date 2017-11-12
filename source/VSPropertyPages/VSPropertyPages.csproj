@@ -2,9 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-        <Description>Property pages implementation for Visual Studio CPS-based project systems.</Description>
+        <PackageDescription>Property pages implementation for Visual Studio CPS-based project systems.</PackageDescription>
         <PackageTags>VS Visual Studio Property Pages CPS WPF Windows Forms WinForms X# XSharp Cosmos</PackageTags>
     </PropertyGroup>
 

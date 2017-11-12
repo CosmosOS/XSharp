@@ -5,12 +5,10 @@
         <OutputType>Exe</OutputType>
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.XSC</RootNamespace>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
         <PackageId>XSharp.Compiler</PackageId>
-        <Description>X# compiler.
-$(XSharpDescription)</Description>
+        <PackageDescription>X# compiler.
+$(XSharpDescription)</PackageDescription>
         <DevelopmentDependency>True</DevelopmentDependency>
 
         <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>
