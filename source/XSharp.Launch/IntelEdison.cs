@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace XSharp.Launch
+﻿namespace XSharp.Launch
 {
     public class IntelEdison : IHost
     {
