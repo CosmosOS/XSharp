@@ -1,17 +1,23 @@
-﻿using Xunit;
+﻿using System.IO;
+
+using NUnit.Framework;
 
 using XSharp.Launch.HardDisks;
 
-namespace XSharp.Launch.Tests
+namespace XSharp.Launch.Tests.HardDisks
 {
-    public class VhdxHardDiskTests
+    [TestFixture(TestOf = typeof(VhdxHardDisk))]
+    internal class VhdxHardDiskTests
     {
-        [Fact]
+        private string TestDir = TestUtilities.NewTestDir();
+
+        [Test]
         public void CreateDiskWithSampleContent()
         {
-            System.IO.Directory.CreateDirectory("TestDir");
-            System.IO.File.Create(@"TestDir\Sample.vhdx").Dispose();
-            var xHardDisk = new VhdxHardDisk(@"TestDir\Sample.vhdx", 20 * 1024 * 1024);
+            var xVhdxFile = Path.Combine(TestDir, "Sample.vhdx");
+            File.Create(xVhdxFile).Dispose();
+
+            var xHardDisk = new VhdxHardDisk(xVhdxFile, 20 * 1024 * 1024);
 
             Assert.False(xHardDisk.IsInitialized);
 

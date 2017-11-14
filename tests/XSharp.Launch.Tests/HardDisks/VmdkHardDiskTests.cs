@@ -1,17 +1,23 @@
-﻿using Xunit;
+﻿using System.IO;
+
+using NUnit.Framework;
 
 using XSharp.Launch.HardDisks;
 
-namespace XSharp.Launch.Tests
+namespace XSharp.Launch.Tests.HardDisks
 {
-    public class VmdkHardDiskTests
+    [TestFixture(TestOf = typeof(VmdkHardDisk))]
+    internal class VmdkHardDiskTests
     {
-        [Fact]
+        private string TestDir = TestUtilities.NewTestDir();
+
+        [Test]
         public void CreateDiskWithSampleContent()
         {
-            System.IO.Directory.CreateDirectory("TestDir");
-            System.IO.File.Create(@"TestDir\Sample.vmdk").Dispose();
-            var xHardDisk = new VmdkHardDisk(@"TestDir\Sample.vmdk", 20 * 1024 * 1024);
+            var xVmdkFile = Path.Combine(TestDir, "Sample.vmdk");
+            File.Create(xVmdkFile).Dispose();
+
+            var xHardDisk = new VmdkHardDisk(xVmdkFile, 20 * 1024 * 1024);
 
             Assert.False(xHardDisk.IsInitialized);
 
