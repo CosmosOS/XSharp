@@ -1,4 +1,4 @@
-﻿namespace XSharp.Launch
+﻿namespace XSharp.Launch.Hosts
 {
     public interface IHost
     {

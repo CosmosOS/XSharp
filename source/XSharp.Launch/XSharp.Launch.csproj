@@ -8,16 +8,22 @@ $(XSharpDescription)</PackageDescription>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Update="Bochs.Configuration.cs">
+        <Compile Update="Hosts\Bochs\Bochs.Configuration.cs">
             <DependentUpon>Bochs.cs</DependentUpon>
         </Compile>
-        <EmbeddedResource Include="Resources\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Hosts\Bochs\Bochs.bxrc" />
+        <EmbeddedResource Include="Hosts\VMware\Cosmos.nvram" />
+        <EmbeddedResource Include="Hosts\VMware\Cosmos.vmx" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Containers" Version="0.13.0-alpha" />
         <PackageReference Include="DiscUtils.FileSystems" Version="0.13.0-alpha" />
         <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
         <PackageReference Include="System.IO.Ports" Version="4.4.0" />
     </ItemGroup>
 
@@ -26,7 +32,7 @@ $(XSharpDescription)</PackageDescription>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-        <PackageReference Include="System.Management.Automation" Version="6.1.7601.17515" />
+        <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
     </ItemGroup>
 
 </Project>

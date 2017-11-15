@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using Microsoft.Win32;
 
-namespace XSharp.Launch
+namespace XSharp.Launch.Hosts.VMware
 {
     public enum VMwareEdition
     {

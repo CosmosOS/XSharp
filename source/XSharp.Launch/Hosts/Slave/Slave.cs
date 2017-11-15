@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using System.IO.Ports;
 
-namespace XSharp.Launch
+namespace XSharp.Launch.Hosts.Slave
 {
     public class Slave : IHost
     {

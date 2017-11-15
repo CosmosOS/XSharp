@@ -4,10 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using System.Runtime.InteropServices;
 using System.Security.Principal;
 
-namespace XSharp.Launch
+namespace XSharp.Launch.Hosts.HyperV
 {
     public class HyperV : IHost
     {
@@ -90,7 +89,7 @@ namespace XSharp.Launch
                 Collection<PSObject> results = pipeline.Invoke();
                 foreach (PSObject obj in results)
                 {
-                    System.Diagnostics.Debug.WriteLine(obj.ToString());
+                    Debug.WriteLine(obj.ToString());
                 }
             }
         }
