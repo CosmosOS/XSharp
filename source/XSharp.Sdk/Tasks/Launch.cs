@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-using XSharp.Launch;
+using XSharp.Launch.Hosts;
+using XSharp.Launch.Hosts.Bochs;
 
 namespace XSharp.Build.Tasks
 {
@@ -53,7 +53,13 @@ namespace XSharp.Build.Tasks
             switch (mLaunchType)
             {
                 case LaunchTypeEnum.Bochs:
-                    xHost = new Bochs(false, Path.GetFullPath(ConfigurationFile), Path.GetFullPath(ISO), null, false, false);
+                    var xLaunchSettings = new BochsLaunchSettings()
+                    {
+                        ConfigurationFile = Path.GetFullPath(ConfigurationFile),
+                        IsoFile = Path.GetFullPath(ISO)
+                    };
+
+                    xHost = new Bochs(xLaunchSettings);
                     break;
                 case LaunchTypeEnum.VMware:
                     //xHost = new VMware();
