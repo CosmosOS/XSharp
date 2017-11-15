@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace XSharp.Launch
+namespace XSharp.Launch.Hosts.Bochs
 {
     /// <summary>This class handles interactions with the Bochs emulation environment.</summary>
     public partial class Bochs : IHost
@@ -44,51 +44,37 @@ namespace XSharp.Launch
             Timeout = 0b1000
         }
 
+        private BochsLaunchSettings mLaunchSettings;
+
+        private string mBochsExe;
         private Process mBochsProcess;
 
-        private string mBochsDirectory;
-        private string mBochsExe;
-
-        private string mBochsConfigurationFile;
-        private string mIsoFile;
-        private string mHardDiskFile;
-        private string mDebugSymbolsPath;
-
-        private string mPipeServerName;
-
-        private bool mUseDebugVersion;
-
-        private string mConfigInterface;
         public string ConfigInterface
         {
             get
             {
-                if (mConfigInterface == null)
+                if (mLaunchSettings.ConfigurationInterface == null)
                 {
                     switch (DisplayLibrary)
                     {
                         case "win32":
-                            mConfigInterface = "win32config";
-                            break;
+                            return "win32config";
                         case "wx":
-                            mConfigInterface = "wx";
-                            break;
+                            return "wx";
                         default:
-                            mConfigInterface = "textconfig";
-                            break;
+                            return "textconfig";
                     }
                 }
 
-                return mConfigInterface;
+                return mLaunchSettings.ConfigurationInterface;
             }
         }
 
-        private string mDisplayLibrary;
         public string DisplayLibrary
         {
             get
             {
-                if (mDisplayLibrary == null)
+                if (mLaunchSettings.DisplayLibrary == null)
                 {
                     if (RuntimeHelper.IsWindows)
                     {
@@ -110,12 +96,12 @@ namespace XSharp.Launch
                     }
                 }
 
-                return mDisplayLibrary;
+                return mLaunchSettings.DisplayLibrary;
             }
         }
 
-        private DisplayLibraryOptions mDisplayLibraryOptions;
-        
+        public string BochsDebugSymbolsPath => Path.ChangeExtension(mLaunchSettings.IsoFile, ".sym");
+
         public bool RedirectOutput { get; private set; }
         public Action<string> LogOutput { get; private set; }
         public Action<string> LogError { get; private set; }
@@ -125,89 +111,60 @@ namespace XSharp.Launch
         /// mode. Bochs process will eventually be launched later when debugging engine is instructed to
         /// Attach to the debugged process.
         /// </summary>
+#if true
+        public Bochs(BochsLaunchSettings aLaunchSettings, bool aRedirectOutput = false,
+            Action<string> aLogOutput = null, Action<string> aLogError = null)
+#else
         public Bochs(bool aDebug, string aConfigurationFile, string aIsoFile, string aPipeServerName,
             bool aUseDebugVersion, bool aStartDebugGui, string aHardDisk = null, string aBochsDirectory = null,
             string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None,
             bool aRedirectOutput = false, Action<string> aLogOutput = null, Action<string> aLogError = null)
+#endif
         {
-            mBochsConfigurationFile = aConfigurationFile ?? throw new ArgumentNullException(nameof(aConfigurationFile));
-            mIsoFile = aIsoFile ?? throw new ArgumentNullException(nameof(aIsoFile));
-            mHardDiskFile = HardDiskHelpers.CreateDiskOnRequestedPathOrDefault(aHardDisk,
-                Path.ChangeExtension(mIsoFile, ".vmdk"), HardDiskHelpers.HardDiskType.Vmdk);
-            mDebugSymbolsPath = Path.ChangeExtension(mIsoFile, ".sym");
-
-            mPipeServerName = aPipeServerName ?? (aDebug ? throw new ArgumentNullException(nameof(aPipeServerName)) : String.Empty) ;
-
-            mUseDebugVersion = aUseDebugVersion;
-
-            mDisplayLibrary = aDisplayLibrary;
-            mDisplayLibraryOptions = aDisplayLibraryOptions;
+            mLaunchSettings = aLaunchSettings;
 
             RedirectOutput = aRedirectOutput;
             LogOutput = aLogOutput;
             LogError = aLogError;
 
-            if (String.IsNullOrWhiteSpace(aBochsDirectory) || !Directory.Exists(aBochsDirectory))
+            var xBochsDir = aLaunchSettings.BochsDirectory;
+
+            if (String.IsNullOrWhiteSpace(xBochsDir) || !Directory.Exists(xBochsDir))
             {
                 if (RuntimeHelper.IsWindows)
                 {
-                    mBochsDirectory = BochsSupport.BochsDirectory;
-                }
-                else
-                {
-                    throw new ArgumentException(aBochsDirectory);
+                    aLaunchSettings.BochsDirectory = BochsSupport.BochsDirectory;
                 }
             }
 
             if (RuntimeHelper.IsWindows)
             {
-                mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg.exe" : "bochs.exe");
+                mBochsExe = Path.Combine(
+                    aLaunchSettings.BochsDirectory, aLaunchSettings.UseDebugVersion ? "bochsdbg.exe" : "bochs.exe");
             }
             else
             {
                 // TODO - what's the extension of bochs exe on other platforms?
-                mBochsExe = Path.Combine(mBochsDirectory, mUseDebugVersion ? "bochsdbg" : "bochs");
+                mBochsExe = Path.Combine(
+                    aLaunchSettings.BochsDirectory, aLaunchSettings.UseDebugVersion ? "bochsdbg" : "bochs");
             }
-            
-            GenerateConfiguration(mBochsConfigurationFile);
-        }
 
-
-        /// <summary>
-        /// Fix the content of the configuration file, replacing each of the symbolic variable occurence
-        /// with its associated value.
-        /// </summary>
-        /// <param name="symbols">A set of key/value pairs where the key is the name of a variable. The value is
-        /// used for variable replacement. Variables are case sensistive.</param>
-        internal void FixBochsConfiguration(KeyValuePair<string, string>[] symbols)
-        {
-            if ((null == symbols) || (0 == symbols.Length))
+            if (mLaunchSettings.OverwriteConfigurationFile || !File.Exists(aLaunchSettings.ConfigurationFile))
             {
-                return;
-            }
-            string content;
-            using (StreamReader reader = new StreamReader(File.Open(mBochsConfigurationFile, FileMode.Open, FileAccess.Read)))
-            {
-                content = reader.ReadToEnd();
-            }
-            foreach (KeyValuePair<string, string> pair in symbols)
-            {
-                string variableName = string.Format("$({0})", pair.Key);
-
-                content.Replace(variableName, pair.Value);
-            }
-            using (StreamWriter writer = new StreamWriter(File.Open(mBochsConfigurationFile, FileMode.Create, FileAccess.Write)))
-            {
-                writer.Write(content);
+                GenerateConfiguration(aLaunchSettings.ConfigurationFile);
             }
         }
 
         /// <summary>Initialize and start the Bochs process.</summary>
         public void Start()
         {
-            BochsSupport.TryExtractBochsDebugSymbols(Path.ChangeExtension(mIsoFile, "map"), mDebugSymbolsPath);
+            //var xMapFile = Path.ChangeExtension(mLaunchSettings.IsoFile, ".map");
+            //BochsSupport.TryExtractBochsDebugSymbols(xMapFile, BochsDebugSymbolsPath);
+
             mBochsProcess = new Process();
-            ProcessStartInfo xBochsStartInfo = mBochsProcess.StartInfo;
+
+            var xBochsStartInfo = mBochsProcess.StartInfo;
+
             xBochsStartInfo.FileName = mBochsExe;
 
             // Start Bochs without displaying the configuration interface (-q) and using the specified
@@ -215,13 +172,12 @@ namespace XSharp.Launch
             // the Cosmos project whenever she wants to modify the environment.
 
             var xExtraLog = "";
-            if (mUseDebugVersion)
+            if (mLaunchSettings.UseDebugVersion)
             {
                 //xExtraLog = "-dbglog \"bochsdbg.log\"";
             }
 
-            xBochsStartInfo.Arguments = string.Format("-q {1} -f \"{0}\"", mBochsConfigurationFile, xExtraLog);
-            xBochsStartInfo.WorkingDirectory = Path.GetDirectoryName(mIsoFile);
+            xBochsStartInfo.Arguments = string.Format("-q {1} -f \"{0}\"", mLaunchSettings.ConfigurationFile, xExtraLog);
             xBochsStartInfo.UseShellExecute = true;
 
             if (RedirectOutput)
@@ -245,7 +201,7 @@ namespace XSharp.Launch
             mBochsProcess.EnableRaisingEvents = true;
             mBochsProcess.Exited += delegate
             {
-                var xLockFile = mHardDiskFile + ".lock";
+                var xLockFile = mLaunchSettings.HardDiskFile + ".lock";
                 if (File.Exists(xLockFile))
                 {
                     try
@@ -270,15 +226,13 @@ namespace XSharp.Launch
 
         public void Stop()
         {
-            if (null != mBochsProcess)
+            try
             {
-                try
-                {
-                    mBochsProcess.Kill();
-                }
-                catch
-                {
-                }
+                mBochsProcess?.Kill();
+                mBochsProcess?.WaitForExit();
+            }
+            catch
+            {
             }
         }
     }

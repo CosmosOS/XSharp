@@ -4,7 +4,7 @@ using System.Linq;
 
 using Microsoft.Win32;
 
-namespace XSharp.Launch
+namespace XSharp.Launch.Hosts.Bochs
 {
     /// <summary>
     /// An helper class that is used from both Cosmos.VS.ProjectSystem and Cosmos.VS.DebugEngine for
