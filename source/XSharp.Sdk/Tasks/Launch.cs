@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
+using XSharp.Launch;
 using XSharp.Launch.Hosts;
 using XSharp.Launch.Hosts.Bochs;
 
