@@ -175,7 +175,7 @@ namespace XSharp.Launch.Hosts.VMware
 
             if (!File.Exists(xNvramFile))
             {
-                using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Resources.Cosmos.nvram"))
+                using (var xStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Cosmos.nvram"))
                 {
                     using (var xFile = File.Create(xNvramFile))
                     {
@@ -188,7 +188,7 @@ namespace XSharp.Launch.Hosts.VMware
             // We also need to make changes based on project / debug settings.
             // Finally we do not want to create VCS checkins based on local user changes.
             // Because of this we use Cosmos.vmx as a template and output a Debug.vmx on every run.
-            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Resources.Cosmos.vmx")))
+            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "Cosmos.vmx")))
             {
                 try
                 {
