@@ -18,9 +18,7 @@ namespace XSharp.Launch.Tests.Hosts
             var xLaunchSettings = new BochsLaunchSettings()
             {
                 ConfigurationFile = Path.Combine(TestDir, "Bochs.bxrc"),
-                BochsDirectory = null,
-                IsoFile = "",
-                HardDiskFile = ""
+                BochsDirectory = null
             };
 
             var xBochsHost = new Bochs(xLaunchSettings);

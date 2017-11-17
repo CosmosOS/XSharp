@@ -8,42 +8,6 @@ namespace XSharp.Launch.Hosts.Bochs
     /// <summary>This class handles interactions with the Bochs emulation environment.</summary>
     public partial class Bochs : IHost
     {
-        [Flags]
-        public enum DisplayLibraryOptions
-        {
-            None = 0b0,
-            /// <summary>
-            /// Start Bochs debugger GUI.
-            /// <para>
-            /// Supported display libraries:
-            /// GTK debugger GUI (sdl, x);
-            /// Win32 debugger GUI (sdl, sdl2, win32)
-            /// </para>
-            /// </summary>
-            GUIDebug = 0b01,
-            /// <summary>
-            /// Disable IPS output in status bar.
-            /// <para>
-            /// Supported display libraries: rfb, sdl, sdl2, vncsrv, win32, wx, x
-            /// </para>
-            /// </summary>
-            HideIPS = 0b10,
-            /// <summary>
-            /// Turn off host keyboard repeat.
-            /// <para>
-            /// Supported display libraries: sdl, sdl2, win32, x
-            /// </para>
-            /// </summary>
-            NoKeyRepeat = 0b100,
-            /// <summary>
-            /// Time (in seconds) to wait for client.
-            /// <para>
-            /// Supported display libraries: rfb, vncsrv
-            /// </para>
-            /// </summary>
-            Timeout = 0b1000
-        }
-
         private BochsLaunchSettings mLaunchSettings;
 
         private string mBochsExe;
@@ -111,15 +75,8 @@ namespace XSharp.Launch.Hosts.Bochs
         /// mode. Bochs process will eventually be launched later when debugging engine is instructed to
         /// Attach to the debugged process.
         /// </summary>
-#if true
         public Bochs(BochsLaunchSettings aLaunchSettings, bool aRedirectOutput = false,
             Action<string> aLogOutput = null, Action<string> aLogError = null)
-#else
-        public Bochs(bool aDebug, string aConfigurationFile, string aIsoFile, string aPipeServerName,
-            bool aUseDebugVersion, bool aStartDebugGui, string aHardDisk = null, string aBochsDirectory = null,
-            string aDisplayLibrary = null, DisplayLibraryOptions aDisplayLibraryOptions = DisplayLibraryOptions.None,
-            bool aRedirectOutput = false, Action<string> aLogOutput = null, Action<string> aLogError = null)
-#endif
         {
             mLaunchSettings = aLaunchSettings;
 
@@ -151,7 +108,7 @@ namespace XSharp.Launch.Hosts.Bochs
 
             if (mLaunchSettings.OverwriteConfigurationFile || !File.Exists(aLaunchSettings.ConfigurationFile))
             {
-                GenerateConfiguration(aLaunchSettings.ConfigurationFile);
+                GenerateConfiguration();
             }
         }
 
@@ -167,15 +124,14 @@ namespace XSharp.Launch.Hosts.Bochs
 
             xBochsStartInfo.FileName = mBochsExe;
 
-            // Start Bochs without displaying the configuration interface (-q) and using the specified
-            // configuration file (-f). The user is intended to edit the configuration file coming with
-            // the Cosmos project whenever she wants to modify the environment.
-
             var xExtraLog = "";
             if (mLaunchSettings.UseDebugVersion)
             {
                 //xExtraLog = "-dbglog \"bochsdbg.log\"";
             }
+
+            // Start Bochs without displaying the configuration interface (-q) and using the specified
+            // configuration file (-f).
 
             xBochsStartInfo.Arguments = string.Format("-q {1} -f \"{0}\"", mLaunchSettings.ConfigurationFile, xExtraLog);
             xBochsStartInfo.UseShellExecute = true;
@@ -231,7 +187,7 @@ namespace XSharp.Launch.Hosts.Bochs
                 mBochsProcess?.Kill();
                 mBochsProcess?.WaitForExit();
             }
-            catch
+            catch (InvalidOperationException)
             {
             }
         }

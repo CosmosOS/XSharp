@@ -8,7 +8,7 @@ namespace XSharp.Launch.Hosts.Bochs
     {
         private const string BochsConfigurationFile = "Bochs.bxrc";
 
-        private void GenerateConfiguration(string aFilePath)
+        private void GenerateConfiguration()
         {
             var xConfiguration = GetDefaultConfiguration();
 
@@ -32,10 +32,10 @@ namespace XSharp.Launch.Hosts.Bochs
 
             if (mLaunchSettings.UseDebugVersion)
             {
-                xConfiguration = xConfiguration + Environment.NewLine + "magic_break: enabled = 1";
+                xConfiguration = xConfiguration + "magic_break: enabled = 1" + Environment.NewLine;
             }
 
-            using (var xWriter = File.CreateText(aFilePath))
+            using (var xWriter = File.CreateText(mLaunchSettings.ConfigurationFile))
             {
                 xWriter.Write(xConfiguration);
             }
