@@ -1,15 +1,17 @@
 ﻿using System;
+using System.IO.Ports;
 using System.Text;
 using System.Threading;
-using System.IO.Ports;
 
 namespace XSharp.Launch.Hosts.Slave
 {
     public class Slave : IHost
     {
-        string mPortName;
-        SerialPort mPort;
-        Thread mPowerStateThread;
+        private string mPortName;
+        private SerialPort mPort;
+        private Thread mPowerStateThread;
+
+        public event EventHandler ShutDown;
 
         public Slave(string aPort, bool aUseGDB)
         {
@@ -98,6 +100,22 @@ namespace XSharp.Launch.Hosts.Slave
             TogglePowerSwitch();
             // Give PC some time to turn on, else we will detect it as off right away.
             WaitPowerState(true);
+            
+            mPowerStateThread = new Thread(delegate ()
+            {
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                    if (!IsOn())
+                    {
+                        mPort.Close();
+                        ShutDown?.Invoke(this, EventArgs.Empty);
+                        break;
+                    }
+                }
+            });
+
+            mPowerStateThread.Start();
         }
 
         public void Stop()

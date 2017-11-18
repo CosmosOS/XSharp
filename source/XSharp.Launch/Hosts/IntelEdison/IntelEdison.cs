@@ -1,8 +1,12 @@
-﻿namespace XSharp.Launch.Hosts.IntelEdison
+﻿using System;
+
+namespace XSharp.Launch.Hosts.IntelEdison
 {
     public class IntelEdison : IHost
     {
-        public IntelEdison(bool aUseGDB)
+        public event EventHandler ShutDown;
+
+        public IntelEdison()
         {
         }
 

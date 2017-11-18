@@ -15,7 +15,9 @@ namespace XSharp.Launch.Hosts.HyperV
         protected Process mProcess;
         
         private static bool IsProcessAdministrator => (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
-        
+
+        public event EventHandler ShutDown;
+
         public HyperV(string aIsoFile, string aHardDisk = null)
         {
             if (!RuntimeHelper.IsWindows)
@@ -47,6 +49,11 @@ namespace XSharp.Launch.Hosts.HyperV
             mProcess = new Process();
             mProcess.StartInfo = info;
             mProcess.EnableRaisingEvents = true;
+
+            mProcess.Exited += delegate
+            {
+                ShutDown?.Invoke(this, EventArgs.Empty);
+            };
 
             mProcess.Start();
 

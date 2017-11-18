@@ -13,6 +13,8 @@ namespace XSharp.Launch.Hosts.Bochs
         private string mBochsExe;
         private Process mBochsProcess;
 
+        public event EventHandler ShutDown;
+
         public string ConfigInterface
         {
             get
@@ -158,6 +160,7 @@ namespace XSharp.Launch.Hosts.Bochs
             mBochsProcess.Exited += delegate
             {
                 var xLockFile = mLaunchSettings.HardDiskFile + ".lock";
+
                 if (File.Exists(xLockFile))
                 {
                     try
@@ -169,6 +172,8 @@ namespace XSharp.Launch.Hosts.Bochs
                         throw new Exception($"The lock file couldn't be deleted! It has to be deleted manually. Lock file location: '{xLockFile}'.{Environment.NewLine}Exception:{Environment.NewLine}{ex.ToString()}");
                     }
                 }
+
+                ShutDown?.Invoke(this, EventArgs.Empty);
             };
 
             mBochsProcess.Start();

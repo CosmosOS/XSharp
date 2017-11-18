@@ -1,7 +1,11 @@
-﻿namespace XSharp.Launch.Hosts
+﻿using System;
+
+namespace XSharp.Launch.Hosts
 {
     public interface IHost
     {
+        event EventHandler ShutDown;
+
         void Start();
         void Stop();
     }

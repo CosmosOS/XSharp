@@ -12,47 +12,28 @@ namespace XSharp.Launch.Tests.Hosts
     {
         private string TestDir = TestUtilities.NewTestDir();
 
-        [Test]
-        public void LaunchBochs()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void LaunchBochs(bool aUseDebugVersion)
         {
+            var xProcessName = aUseDebugVersion ? "bochsdbg" : "bochs";
+
             var xLaunchSettings = new BochsLaunchSettings()
             {
                 ConfigurationFile = Path.Combine(TestDir, "Bochs.bxrc"),
-                BochsDirectory = null
-            };
-
-            var xBochsHost = new Bochs(xLaunchSettings);
-
-            xBochsHost.Start();
-
-            var xProcessCount = Process.GetProcessesByName("bochs").Length;
-            Assert.That(xProcessCount, Is.Not.Zero);
-
-            xBochsHost.Stop();
-            Assert.That(Process.GetProcessesByName("bochs").Length, Is.EqualTo(xProcessCount - 1));
-        }
-
-        [Test]
-        public void LaunchBochsDebugVersion()
-        {
-            var xLaunchSettings = new BochsLaunchSettings()
-            {
-                ConfigurationFile = Path.Combine(TestDir, "BochsDebug.bxrc"),
                 BochsDirectory = null,
-                IsoFile = "",
-                HardDiskFile = "",
-                UseDebugVersion = true
+                UseDebugVersion = aUseDebugVersion
             };
 
             var xBochsHost = new Bochs(xLaunchSettings);
 
             xBochsHost.Start();
 
-            var xProcessCount = Process.GetProcessesByName("bochsdbg").Length;
+            var xProcessCount = Process.GetProcessesByName(xProcessName).Length;
             Assert.That(xProcessCount, Is.Not.Zero);
 
             xBochsHost.Stop();
-            Assert.That(Process.GetProcessesByName("bochsdbg").Length, Is.EqualTo(xProcessCount - 1));
+            Assert.That(Process.GetProcessesByName(xProcessName).Length, Is.EqualTo(xProcessCount - 1));
         }
     }
 }

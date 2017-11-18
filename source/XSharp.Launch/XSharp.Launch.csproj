@@ -15,8 +15,8 @@ $(XSharpDescription)</PackageDescription>
 
     <ItemGroup>
         <EmbeddedResource Include="Hosts\Bochs\Bochs.bxrc" />
-        <EmbeddedResource Include="Hosts\VMware\Cosmos.nvram" />
-        <EmbeddedResource Include="Hosts\VMware\Cosmos.vmx" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.nvram" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.vmx" />
     </ItemGroup>
 
     <ItemGroup>
