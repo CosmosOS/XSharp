@@ -33,7 +33,7 @@ namespace XSharp.Build.Tasks
             {
 #if NETCOREAPP2_0
                 mLaunchType = Enum.Parse<LaunchTypeEnum>(value, true);
-#elif NET462
+#else
                 mLaunchType = (LaunchTypeEnum)Enum.Parse(typeof(LaunchTypeEnum), value, true);
 #endif
             }

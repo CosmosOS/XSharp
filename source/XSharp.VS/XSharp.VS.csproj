@@ -3,7 +3,7 @@
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net471</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup>

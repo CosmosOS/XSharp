@@ -5,7 +5,7 @@
     <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
         <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     </PropertyGroup>
@@ -130,7 +130,7 @@
     <ItemGroup>
         <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
-            <AdditionalProperties>TargetFramework=net462</AdditionalProperties>
+            <AdditionalProperties>TargetFramework=net471</AdditionalProperties>
         </ProjectReference>
     </ItemGroup>
 
