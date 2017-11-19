@@ -11,4 +11,8 @@
         <NuspecProperties Condition="'$(NuspecFile)' != ''">version=$(PackageVersion);configuration=$(Configuration)</NuspecProperties>
     </PropertyGroup>
     
+    <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+        <Reference Include="netstandard" />
+    </ItemGroup>
+    
 </Project>
