@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <UseCodebase>true</UseCodebase>
+        <UseCodebase>True</UseCodebase>
         <GeneratePkgDefFile>True</GeneratePkgDefFile>
         <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
         <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
@@ -30,15 +30,6 @@
 
     <Target Name="CheckMSBuildRuntimeType">
         <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
-
-    <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
-        <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
-                <IncludeInVSIX>True</IncludeInVSIX>
-                <VSIXSubPath>/</VSIXSubPath>
-            </Content>
-        </ItemGroup>
     </Target>
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />

@@ -7,7 +7,6 @@
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-        <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -136,15 +135,6 @@
 
     <Target Name="CheckMSBuildRuntimeType">
         <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
-
-    <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
-        <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
-                <IncludeInVSIX>True</IncludeInVSIX>
-                <VSIXSubPath>/</VSIXSubPath>
-            </Content>
-        </ItemGroup>
     </Target>
 
     <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">
