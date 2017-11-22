@@ -137,14 +137,7 @@ namespace XSharp.Launch.Hosts.VMware
         {
             try
             {
-                var xVmxFile = mLaunchSettings.ConfigurationFile;
-
-                string xPath = Path.GetDirectoryName(xVmxFile);
-                // Delete old Cosmos.vmx and other files that might be left over from previous run.
-                // Especially important with newer versions of VMware player which defaults to suspend
-                // when the close button is used.
-                File.Delete(xVmxFile);
-                File.Delete(Path.ChangeExtension(xVmxFile, ".nvram"));
+                string xPath = Path.GetDirectoryName(mLaunchSettings.ConfigurationFile);
                 // Delete the auto snapshots that latest vmware players create as default.
                 // It creates them with suffixes though, so we need to wild card find them.
                 DeleteFiles(xPath, "*.vmxf");

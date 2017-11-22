@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Security.Principal;
@@ -10,30 +9,27 @@ namespace XSharp.Launch.Hosts.HyperV
 {
     public class HyperV : IHost
     {
-        protected string mIsoFile;
-        protected string mHardDiskFile;
+        private HyperVLaunchSettings mLaunchSettings;
+
         protected Process mProcess;
         
         private static bool IsProcessAdministrator => (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
 
         public event EventHandler ShutDown;
 
-        public HyperV(string aIsoFile, string aHardDisk = null)
+        public HyperV(HyperVLaunchSettings aLaunchSettings)
         {
             if (!RuntimeHelper.IsWindows)
             {
                 throw new PlatformNotSupportedException();
             }
 
-            mIsoFile = aIsoFile ?? throw new ArgumentNullException(nameof(aIsoFile));
-
+            mLaunchSettings = aLaunchSettings;
+            
             if (!IsProcessAdministrator)
             {
                 throw new Exception("Visual Studio must be run as administrator for Hyper-V to work");
             }
-
-            mHardDiskFile = HardDiskHelpers.CreateDiskOnRequestedPathOrDefault(aHardDisk,
-                Path.ChangeExtension(mIsoFile, ".vhdx"), HardDiskHelpers.HardDiskType.Vhdx);
         }
         
         public void Start()
@@ -72,13 +68,9 @@ namespace XSharp.Launch.Hosts.HyperV
 
             RunPowershellScript("Remove-VM -Name Cosmos -Force -ErrorAction Ignore");
             RunPowershellScript("New-VM -Name Cosmos -MemoryStartupBytes 268435456 -BootDevice CD");
-            if (!File.Exists(mHardDiskFile))
-            {
-                RunPowershellScript($@"New-VHD -SizeBytes 268435456 -Dynamic -Path ""{mHardDiskFile}""");
-            }
 
-            RunPowershellScript($@"Add-VMHardDiskDrive -VMName Cosmos -ControllerNumber 0 -ControllerLocation 0 -Path ""{mHardDiskFile}""");
-            RunPowershellScript($@"Set-VMDvdDrive -VMName Cosmos -ControllerNumber 1 -ControllerLocation 0 -Path ""{mIsoFile}""");
+            RunPowershellScript($@"Add-VMHardDiskDrive -VMName Cosmos -ControllerNumber 0 -ControllerLocation 0 -Path ""{mLaunchSettings.HardDiskFile}""");
+            RunPowershellScript($@"Set-VMDvdDrive -VMName Cosmos -ControllerNumber 1 -ControllerLocation 0 -Path ""{mLaunchSettings.IsoFile}""");
             RunPowershellScript(@"Set-VMComPort -VMName Cosmos -Path \\.\pipe\CosmosSerial -Number 1");
         }
         

@@ -7,22 +7,16 @@ namespace XSharp.Launch.Hosts.Slave
 {
     public class Slave : IHost
     {
-        private string mPortName;
+        private SlaveLaunchSettings mLaunchSettings;
+
         private SerialPort mPort;
         private Thread mPowerStateThread;
 
         public event EventHandler ShutDown;
 
-        public Slave(string aPort, bool aUseGDB)
+        public Slave(SlaveLaunchSettings aLaunchSettings)
         {
-            var xPort = aPort ?? throw new ArgumentNullException(nameof(aPort));
-            if (xPort == "None")
-            {
-                throw new Exception("No slave port is set.");
-            }
-
-            var xParts = xPort.Split(' ');
-            mPortName = xParts[1];
+            mLaunchSettings = aLaunchSettings;
         }
 
         string WaitForPrompt()
@@ -82,7 +76,7 @@ namespace XSharp.Launch.Hosts.Slave
 
         public void Start()
         {
-            mPort = new SerialPort(mPortName);
+            mPort = new SerialPort(mLaunchSettings.PortName);
             mPort.Open();
 
             Send("");
