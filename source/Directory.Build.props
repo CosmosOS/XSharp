@@ -15,8 +15,8 @@
         <Copyright Condition="'$(Copyright)' == ''">Copyright © 2007-$([System.DateTime]::Now.Year) COSMOS Project</Copyright>
         <PackageDescription Condition="'$(PackageDescription)' == ''">$(XSharpDescription)</PackageDescription>
         <PackageIconUrl Condition="'$(PackageIconUrl)' == ''">https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</PackageIconUrl>
-        <PackageProjectUrl Condition="'$(PackageProjectUrl)' == ''">http://www.gocosmos.org/XSharp/</PackageProjectUrl>
-        <PackageLicenseUrl Condition="'$(PackageLicenseUrl)' == ''">https://raw.githubusercontent.com/CosmosOS/XSharp/master/LICENSE.txt</PackageLicenseUrl>
+        <PackageProjectUrl Condition="'$(PackageProjectUrl)' == ''">https://www.gocosmos.org/XSharp/</PackageProjectUrl>
+        <PackageLicenseUrl Condition="'$(PackageLicenseUrl)' == ''">https://github.com/CosmosOS/XSharp/raw/master/LICENSE.txt</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' == ''">True</PackageRequireLicenseAcceptance>
         <PackageTags Condition="'$(PackageTags)' == ''">X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
         <RepositoryType Condition="'$(RepositoryType)' == ''">git</RepositoryType>
