@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\build\XSharp.snk</AssemblyOriginatorKeyFile>
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\tools\XSharp.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <PropertyGroup>
