@@ -10,9 +10,5 @@
         
         <NuspecProperties Condition="'$(NuspecFile)' != ''">version=$(PackageVersion);configuration=$(Configuration)</NuspecProperties>
     </PropertyGroup>
-    
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net471'">
-        <_HasReferenceToSystemRuntime>True</_HasReferenceToSystemRuntime>
-    </PropertyGroup>
-    
+
 </Project>
