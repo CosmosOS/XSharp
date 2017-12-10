@@ -23,10 +23,7 @@ namespace XSharp.Compiler.Tasks
             if (InputFiles.Length == 0)
             {
                 Log.LogError("No input files specified!");
-                return false;
             }
-
-            bool xInvalidFile = false;
 
             foreach (var xFile in InputFiles)
             {
@@ -42,18 +39,12 @@ namespace XSharp.Compiler.Tasks
                 }
             }
 
-            if (xInvalidFile)
-            {
-                return false;
-            }
-
             if (String.IsNullOrEmpty(OutputFile))
             {
                 Log.LogError("No output file specified!");
-                return false;
             }
 
-            return true;
+            return !Log.HasLoggedErrors;
         }
 
         protected override string GenerateFullPathToTool()

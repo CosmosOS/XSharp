@@ -7,10 +7,33 @@
         <PackageVersionPrefix>$([System.DateTime]::Now.ToString("yyyy.MM.dd"))</PackageVersionPrefix>
         <PackageVersion Condition="'$(PackageVersionPrefix)' != '' AND '$(VersionSuffix)' != ''">$(PackageVersionPrefix)-$(VersionSuffix)</PackageVersion>
         <PackageVersion Condition="'$(PackageVersionPrefix)' != '' AND '$(VersionSuffix)' == ''">$(PackageVersionPrefix)</PackageVersion>
-        
-        <NuspecProperties Condition="'$(NuspecFile)' != ''">version=$(PackageVersion);configuration=$(Configuration)</NuspecProperties>
+
+        <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' != 'True'">False</PackageRequireLicenseAcceptance>
+        <DevelopmentDependency Condition="'$(DevelopmentDependency)' != 'True'">False</DevelopmentDependency>
     </PropertyGroup>
-    
+
+    <Target Name="GenerateNuspecProperties" BeforeTargets="GenerateNuspec">
+
+        <PropertyGroup Condition="'$(NuspecFile)' != ''">
+            <NuspecProperties>$(NuspecProperties)id=$(PackageId);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)version=$(PackageVersion);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)authors=$(Authors);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)owners=$(Company);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)requireLicenseAcceptance=$(PackageRequireLicenseAcceptance.ToLower());</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)developmentDependency=$(DevelopmentDependency.ToLower());</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)licenseUrl=$(PackageLicenseUrl);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)projectUrl=$(PackageProjectUrl);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)iconUrl=$(PackageIconUrl);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)description=$(PackageDescription);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)copyright=$(Copyright);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)tags=$(PackageTags);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)repositoryType=$(RepositoryType);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)repositoryUrl=$(RepositoryUrl);</NuspecProperties>
+            <NuspecProperties>$(NuspecProperties)configuration=$(Configuration);</NuspecProperties>
+        </PropertyGroup>
+
+    </Target>
+
     <PropertyGroup Condition="'$(TargetFramework)' == 'net471'">
         <_HasReferenceToSystemRuntime>True</_HasReferenceToSystemRuntime>
     </PropertyGroup>
