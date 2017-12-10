@@ -16,6 +16,7 @@ namespace XSharp.Launch.Hosts.IntelEdison
 
         public void Stop()
         {
+            ShutDown?.Invoke(this, EventArgs.Empty);
         }
     }
 }

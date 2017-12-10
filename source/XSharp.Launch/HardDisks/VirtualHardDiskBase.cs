@@ -13,7 +13,7 @@ namespace XSharp.Launch.HardDisks
         public abstract VirtualDisk VirtualDisk { get; }
         public abstract DiscFileSystem FileSystem { get; }
 
-        public VirtualHardDiskBase(string aDiskPath, uint aDiskSize)
+        protected VirtualHardDiskBase(string aDiskPath, uint aDiskSize)
         {
             DiskPath = aDiskPath;
             DiskSize = aDiskSize;
