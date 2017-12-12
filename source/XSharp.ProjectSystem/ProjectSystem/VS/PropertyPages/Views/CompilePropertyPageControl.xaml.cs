@@ -15,9 +15,9 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
             InitializeComponent();
         }
 
-        public override Task SetViewModelAsync(PropertyPageViewModel propertyPageViewModel)
+        public override Task SetViewModelAsync(PropertyPageViewModel aPropertyPageViewModel)
         {
-            DataContext = propertyPageViewModel;
+            DataContext = aPropertyPageViewModel;
             return Task.CompletedTask;
         }
     }
