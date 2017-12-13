@@ -52,7 +52,7 @@ $(XSharpDescription)</PackageDescription>
         <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
     </Target>
 
-    <Target Name="IncludeCompilerInPackage" AfterTargets="IncludeContentInPackage">
+    <Target Name="IncludeCompilerTasksInPackage" AfterTargets="IncludeContentInPackage">
         <MSBuild Projects="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Targets="CopyBuildOutput" Properties="TargetFramework=netstandard1.3;DestinationFolder=$(MSBuildThisFileDirectory)$(CompilerPackageDir)tools\" />
     </Target>
 

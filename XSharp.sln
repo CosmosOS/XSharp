@@ -1,17 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C741BBD-6209-4240-9B96-59A4547152B5}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		source\Directory.Build.props = source\Directory.Build.props
-		source\Directory.Build.targets = source\Directory.Build.targets
 		playground\Test.asm = playground\Test.asm
 		playground\Test.xs = playground\Test.xs
 		playground\TestG1.asm = playground\TestG1.asm
 		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{F5DB77A7-34DD-46C9-9C27-DE76169327E6}"
+	ProjectSection(SolutionItems) = preProject
+		source\Directory.Build.props = source\Directory.Build.props
+		source\Directory.Build.targets = source\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{75FA78F2-7A44-4979-8E78-E39EEDD6BC5F}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.VS", "source\XSharp.VS\XSharp.VS.csproj", "{FB71E8EF-E229-4D81-984A-B9170D752BF9}"
@@ -45,6 +54,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Sdk", "source\XSharp.Sdk\XSharp.Sdk.csproj", "{BCCEEC71-240B-4BE5-A72E-F613444AB4E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Launch.Tests", "tests\XSharp.Launch.Tests\XSharp.Launch.Tests.csproj", "{F970102E-D446-46E8-9E81-4CCF147B3625}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VS", "VS", "{4C44AACD-B33B-4DEC-AF16-4AC3B2C9711B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,7 +128,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F5DB77A7-34DD-46C9-9C27-DE76169327E6} = {4C741BBD-6209-4240-9B96-59A4547152B5}
+		{75FA78F2-7A44-4979-8E78-E39EEDD6BC5F} = {4C741BBD-6209-4240-9B96-59A4547152B5}
+		{FB71E8EF-E229-4D81-984A-B9170D752BF9} = {4C44AACD-B33B-4DEC-AF16-4AC3B2C9711B}
 		{8AC538DE-494C-482D-9E2C-67F0FA5211F9} = {B402673F-8502-4632-8855-EB18B4C57D8E}
+		{E7F63CFE-3A8A-489C-B81D-73DD5D6FD9AF} = {4C44AACD-B33B-4DEC-AF16-4AC3B2C9711B}
+		{C25A6DA7-EE98-4CEA-ACF7-B7CB71B2B73C} = {4C44AACD-B33B-4DEC-AF16-4AC3B2C9711B}
 		{F970102E-D446-46E8-9E81-4CCF147B3625} = {B402673F-8502-4632-8855-EB18B4C57D8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -8,12 +8,13 @@
 $(XSharpDescription)</PackageDescription>
 
         <NuspecFile>XSharp.Sdk.nuspec</NuspecFile>
-        <NuspecBasePath>..\</NuspecBasePath>
 
         <!-- Package Properties -->
+        <InnerTargets>Publish</InnerTargets>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
         <SdkPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</SdkPackageDir>
+        <PublishDir>$(SdkPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
@@ -42,14 +43,6 @@ $(XSharpDescription)</PackageDescription>
 
     <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
         <RemoveDir Directories="$(SdkPackageDir)" />
-    </Target>
-
-    <Target Name="CopyBuildOutputToPackageFolder" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
-        <ItemGroup>
-            <_BuildOutput Include="$(OutputPath)**\*.dll" />
-        </ItemGroup>
-
-        <Copy SourceFiles="@(_BuildOutput)" DestinationFolder="$(SdkPackageDir)tools\$(PackageSubFolderName)\" />
     </Target>
 
     <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">

@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>XSharp.Compiler</id>
+    <id>$id$</id>
     <version>$version$</version>
-    <authors>Cosmos</authors>
-    <owners>Cosmos</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <developmentDependency>true</developmentDependency>
-    <licenseUrl>https://github.com/CosmosOS/XSharp/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>http://www.gocosmos.org/XSharp/</projectUrl>
-    <iconUrl>https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</iconUrl>
-    <description>X# compiler.
-X# is a HLA (High Level Assembler) for X86/X64 assembly.</description>
-    <copyright>Copyright © 2007-2017 COSMOS Project</copyright>
-    <tags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</tags>
-    <repository url="https://github.com/CosmosOS/XSharp" />
+    <authors>$authors$</authors>
+    <owners>$owners$</owners>
+    <requireLicenseAcceptance>$requireLicenseAcceptance$</requireLicenseAcceptance>
+    <developmentDependency>$developmentDependency$</developmentDependency>
+    <licenseUrl>$licenseUrl$</licenseUrl>
+    <projectUrl>$projectUrl$</projectUrl>
+    <iconUrl>$iconUrl$</iconUrl>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>$tags$</tags>
+    <repository type="$repositoryType$" url="$repositoryUrl$" />
   </metadata>
   <files>
     <file src="XSharp.Compiler\obj\$configuration$\package\build\**" target="build" />
