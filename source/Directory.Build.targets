@@ -33,9 +33,5 @@
         </PropertyGroup>
 
     </Target>
-
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net471'">
-        <_HasReferenceToSystemRuntime>True</_HasReferenceToSystemRuntime>
-    </PropertyGroup>
     
 </Project>
