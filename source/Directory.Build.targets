@@ -10,15 +10,13 @@
 
         <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' != 'True'">False</PackageRequireLicenseAcceptance>
         <DevelopmentDependency Condition="'$(DevelopmentDependency)' != 'True'">False</DevelopmentDependency>
-
-        <RoslynDiagnosticsNuGetPackageVersion>2.6.0-beta2</RoslynDiagnosticsNuGetPackageVersion>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="$(RoslynDiagnosticsNuGetPackageVersion)" />
-        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="$(RoslynDiagnosticsNuGetPackageVersion)" />
-        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="$(RoslynDiagnosticsNuGetPackageVersion)" />
-        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="$(RoslynDiagnosticsNuGetPackageVersion)" />
+    <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'True'">
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0-beta2" />
+        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0-beta2" />
+        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0-beta2" />
+        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.0-beta2" />
     </ItemGroup>
 
     <Target Name="GenerateNuspecProperties" BeforeTargets="GenerateNuspec">
