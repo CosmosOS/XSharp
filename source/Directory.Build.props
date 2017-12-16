@@ -3,6 +3,7 @@
     <PropertyGroup>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\tools\XSharp.snk</AssemblyOriginatorKeyFile>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\build\XSharp.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <PropertyGroup>
