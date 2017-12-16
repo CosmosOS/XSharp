@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C741BBD-6209-4240-9B96-59A4547152B5}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,6 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		playground\Test.xs = playground\Test.xs
 		playground\TestG1.asm = playground\TestG1.asm
 		source\XSharp\ToDo.txt = source\XSharp\ToDo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{33D5F09C-2B98-4869-A480-FEF5CF9EFE0C}"
+	ProjectSection(SolutionItems) = preProject
+		build\XSharp.ruleset = build\XSharp.ruleset
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{F5DB77A7-34DD-46C9-9C27-DE76169327E6}"
@@ -128,6 +133,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{33D5F09C-2B98-4869-A480-FEF5CF9EFE0C} = {4C741BBD-6209-4240-9B96-59A4547152B5}
 		{F5DB77A7-34DD-46C9-9C27-DE76169327E6} = {4C741BBD-6209-4240-9B96-59A4547152B5}
 		{75FA78F2-7A44-4979-8E78-E39EEDD6BC5F} = {4C741BBD-6209-4240-9B96-59A4547152B5}
 		{FB71E8EF-E229-4D81-984A-B9170D752BF9} = {4C44AACD-B33B-4DEC-AF16-4AC3B2C9711B}
