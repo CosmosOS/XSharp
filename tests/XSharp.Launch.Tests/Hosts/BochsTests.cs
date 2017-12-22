@@ -7,7 +7,7 @@ using XSharp.Launch.Hosts.Bochs;
 
 namespace XSharp.Launch.Tests.Hosts
 {
-    [TestFixture(TestOf = typeof(Bochs))]
+    [TestFixture(TestOf = typeof(BochsHost))]
     public class BochsTests
     {
         private string TestDir = TestUtilities.NewTestDir();
@@ -25,14 +25,14 @@ namespace XSharp.Launch.Tests.Hosts
                 UseDebugVersion = aUseDebugVersion
             };
 
-            var xBochsHost = new Bochs(xLaunchSettings);
+            var xBochsHost = new BochsHost(xLaunchSettings);
 
             xBochsHost.Start();
 
             var xProcessCount = Process.GetProcessesByName(xProcessName).Length;
             Assert.That(xProcessCount, Is.Not.Zero);
 
-            xBochsHost.Stop();
+            xBochsHost.Kill();
             Assert.That(Process.GetProcessesByName(xProcessName).Length, Is.EqualTo(xProcessCount - 1));
         }
     }

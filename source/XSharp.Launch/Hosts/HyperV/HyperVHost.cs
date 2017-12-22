@@ -7,17 +7,17 @@ using System.Security.Principal;
 
 namespace XSharp.Launch.Hosts.HyperV
 {
-    public class HyperV : IHost
+    public sealed class HyperVHost : IHost, IDisposable
     {
         private HyperVLaunchSettings mLaunchSettings;
 
-        protected Process mProcess;
+        private Process mProcess;
         
         private static bool IsProcessAdministrator => (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
 
         public event EventHandler ShutDown;
 
-        public HyperV(HyperVLaunchSettings aLaunchSettings)
+        public HyperVHost(HyperVLaunchSettings aLaunchSettings)
         {
             if (!RuntimeHelper.IsWindows)
             {
@@ -56,13 +56,13 @@ namespace XSharp.Launch.Hosts.HyperV
             RunPowershellScript("Start-VM -Name Cosmos");
         }
         
-        public void Stop()
+        public void Kill()
         {
             RunPowershellScript("Stop-VM -Name Cosmos -TurnOff -ErrorAction Ignore");
             mProcess.Kill();
         }
         
-        protected void CreateVirtualMachine()
+        private void CreateVirtualMachine()
         {
             RunPowershellScript("Stop-VM -Name Cosmos -TurnOff -ErrorAction Ignore");
 
@@ -73,7 +73,13 @@ namespace XSharp.Launch.Hosts.HyperV
             RunPowershellScript($@"Set-VMDvdDrive -VMName Cosmos -ControllerNumber 1 -ControllerLocation 0 -Path ""{mLaunchSettings.IsoFile}""");
             RunPowershellScript(@"Set-VMComPort -VMName Cosmos -Path \\.\pipe\CosmosSerial -Number 1");
         }
-        
+
+        public void Dispose()
+        {
+            mProcess?.Dispose();
+            //GC.SuppressFinalize(this);
+        }
+
         private static void RunPowershellScript(string text)
         {
             using (Runspace runspace = RunspaceFactory.CreateRunspace())

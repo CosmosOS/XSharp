@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace XSharp.Launch.Hosts.Slave
 {
-    public class Slave : IHost
+    public sealed class SlaveHost : IHost, IDisposable
     {
         private SlaveLaunchSettings mLaunchSettings;
 
@@ -14,7 +14,7 @@ namespace XSharp.Launch.Hosts.Slave
 
         public event EventHandler ShutDown;
 
-        public Slave(SlaveLaunchSettings aLaunchSettings)
+        public SlaveHost(SlaveLaunchSettings aLaunchSettings)
         {
             mLaunchSettings = aLaunchSettings;
         }
@@ -112,7 +112,7 @@ namespace XSharp.Launch.Hosts.Slave
             mPowerStateThread.Start();
         }
 
-        public void Stop()
+        public void Kill()
         {
             if (mPowerStateThread != null)
             {
@@ -126,6 +126,12 @@ namespace XSharp.Launch.Hosts.Slave
                 WaitPowerState(false);
             }
             mPort.Close();
+        }
+
+        public void Dispose()
+        {
+            mPort?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

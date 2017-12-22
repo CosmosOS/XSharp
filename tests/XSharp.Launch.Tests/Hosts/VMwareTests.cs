@@ -7,7 +7,7 @@ using XSharp.Launch.Hosts.VMware;
 
 namespace XSharp.Launch.Tests.Hosts
 {
-    [TestFixture(TestOf = typeof(VMware))]
+    [TestFixture(TestOf = typeof(VMwareHost))]
     public class VMwareTests
     {
         private string TestDir = TestUtilities.NewTestDir();
@@ -21,14 +21,14 @@ namespace XSharp.Launch.Tests.Hosts
                 VMwareExecutable = null
             };
 
-            var xVMware = new VMware(xLaunchSettings);
+            var xVMware = new VMwareHost(xLaunchSettings);
 
             xVMware.Start();
 
             var xProcessCount = Process.GetProcessesByName("vmplayer").Length;
             Assert.That(xProcessCount, Is.Not.Zero);
 
-            xVMware.Stop();
+            xVMware.Kill();
             Assert.That(Process.GetProcessesByName("vmplayer").Length, Is.EqualTo(xProcessCount - 1));
         }
     }

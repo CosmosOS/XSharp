@@ -26,13 +26,22 @@ namespace XSharp.Launch.HardDisks
             Initialize(CreateSampleContent);
         }
 
-        public void Dispose()
+        protected virtual void Dispose(bool aDisposing)
         {
-            VirtualDisk?.Dispose();
-            FileSystem?.Dispose();
+            if (aDisposing)
+            {
+                VirtualDisk?.Dispose();
+                FileSystem?.Dispose();
+            }
         }
 
-        private void CreateSampleContent(DiscFileSystem aFileSystem)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private static void CreateSampleContent(DiscFileSystem aFileSystem)
         {
             /*
                 \Dir Testing\
