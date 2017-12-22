@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -35,17 +34,15 @@ namespace VSPropertyPages
         public abstract PropertyPageViewModel CreatePropertyPageViewModel(
             UnconfiguredProject unconfiguredProject, IProjectThreadingService projectThreadingService);
 
-        public PropertyPage()
-        {
-            _propertyPageUI = CreatePropertyPageUI();
-        }
-
         private void WaitForAsync(Func<Task> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
 
         private T WaitForAsync<T>(Func<Task<T>> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
 
-        private void PropertyChanging(object sender, ProjectPropertyChangingEventArgs e) =>
+        private void PropertyChanging(object sender, ProjectPropertyChangingEventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _vsProjectDesignerPageSite.OnPropertyChanging(e.PropertyName, e.PropertyName.ToProjectPropertyDescriptor());
+        }
 
         private void PropertyChanged(object sender, ProjectPropertyChangedEventArgs e)
         {
@@ -71,22 +68,36 @@ namespace VSPropertyPages
 #if DEBUG
             if (pRect == null || pRect.Length != 1)
             {
-                throw new ArgumentException(nameof(pRect));
+                throw new ArgumentOutOfRangeException(nameof(pRect));
             }
 #endif
+            _propertyPageUI = CreatePropertyPageUI();
+
             var vsRect = pRect[0];
             var rect = new Rectangle(vsRect.left, vsRect.top, vsRect.right - vsRect.left, vsRect.bottom - vsRect.top);
 
             var modal = bModal.ToBoolean();
 
             WaitForAsync(() => _propertyPageUI.ActivateAsync(hWndParent, rect, modal));
+            WaitForAsync(() => _propertyPageUI.SetViewModelAsync(_propertyPageViewModel));
         }
 
         public void Deactivate() => WaitForAsync(_propertyPageUI.DeactivateAsync);
 
         public void GetPageInfo(PROPPAGEINFO[] pPageInfo)
         {
-            var pageInfo = new PROPPAGEINFO()
+#if DEBUG
+            if (pPageInfo == null)
+            {
+                throw new ArgumentNullException(nameof(pPageInfo));
+            }
+
+            if (pPageInfo.Length == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(pPageInfo));
+            }
+#endif
+            pPageInfo[0] = new PROPPAGEINFO()
             {
                 cb = (uint)Marshal.SizeOf(typeof(PROPPAGEINFO)),
                 dwHelpContext = 0,
@@ -95,25 +106,27 @@ namespace VSPropertyPages
                 pszTitle = PageName,
                 SIZE = new SIZE()
             };
-
-            if (pPageInfo != null && pPageInfo.Length > 0)
-            {
-                pPageInfo[0] = pageInfo;
-            }
         }
 
+#pragma warning disable CA1725 // Parameter names should match base declaration
         public void SetObjects(uint cObjects, object[] ppUnk)
+#pragma warning restore CA1725 // Parameter names should match base declaration
         {
             if (cObjects == 0)
             {
                 return;
+            }
+#if DEBUG
+            if (ppUnk == null)
+            {
+                throw new ArgumentNullException(nameof(ppUnk));
             }
 
             if (ppUnk.Length < cObjects)
             {
                 throw new ArgumentOutOfRangeException(nameof(cObjects));
             }
-
+#endif
             ThreadHelper.ThrowIfNotOnUIThread();
 
             for (int i = 0; i < cObjects; i++)
@@ -162,8 +175,6 @@ namespace VSPropertyPages
             
             _propertyPageViewModel.ProjectPropertyChanged += PropertyChanged;
             _propertyPageViewModel.ProjectPropertyChanging += PropertyChanging;
-
-            WaitForAsync(() => _propertyPageUI.SetViewModelAsync(_propertyPageViewModel));
         }
 
         public void Show(uint nCmdShow)
@@ -182,11 +193,12 @@ namespace VSPropertyPages
 #if DEBUG
             if (pRect == null || pRect.Length != 1)
             {
-                throw new ArgumentException(nameof(pRect));
+                throw new ArgumentOutOfRangeException(nameof(pRect));
             }
 #endif
             var vsRect = pRect[0];
             var rect = new Rectangle(vsRect.left, vsRect.top, vsRect.right - vsRect.left, vsRect.bottom - vsRect.top);
+
             WaitForAsync(() => _propertyPageUI.MoveAsync(rect));
         }
 
@@ -203,19 +215,20 @@ namespace VSPropertyPages
         public int TranslateAccelerator(MSG[] pMsg)
         {
 #if DEBUG
-            if (pMsg == null || pMsg.Length != 1)
+            if (pMsg == null)
             {
-                throw new ArgumentException(nameof(pMsg));
+                throw new ArgumentNullException(nameof(pMsg));
+            }
+
+            if (pMsg.Length != 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(pMsg));
             }
 #endif
-            var msg = pMsg[0];
-            return WaitForAsync(() => _propertyPageUI.TranslateAcceleratorAsync(msg));
+            return WaitForAsync(() => _propertyPageUI.TranslateAcceleratorAsync(pMsg[0]));
         }
 
-        public void EditProperty(int DISPID)
-        {
-            throw new NotImplementedException();
-        }
+        public void EditProperty(int DISPID) => throw new NotImplementedException();
 
         int IPropertyPage.Apply() => WaitForAsync(_propertyPageViewModel.ApplyAsync).ToVSConstant();
 

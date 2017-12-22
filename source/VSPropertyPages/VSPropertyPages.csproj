@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net471</TargetFramework>
         <PackageDescription>Property pages implementation for Visual Studio CPS-based project systems.</PackageDescription>
         <PackageTags>VS Visual Studio Property Pages CPS WPF Windows Forms WinForms X# XSharp Cosmos</PackageTags>
     </PropertyGroup>

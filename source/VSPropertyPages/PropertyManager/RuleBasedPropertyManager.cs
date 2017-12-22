@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.Properties;
@@ -29,7 +28,7 @@ namespace VSPropertyPages
 
             var oldValue = await _rule.GetPropertyValueAsync(propertyName);
 
-            if (oldValue != value)
+            if (!String.Equals(oldValue, value, StringComparison.Ordinal))
             {
                 await _rule.GetProperty(propertyName)?.SetValueAsync(value);
                 PropertyChanged?.Invoke(this, new ProjectPropertyChangedEventArgs(propertyName, oldValue, value));
