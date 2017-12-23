@@ -12,7 +12,7 @@ namespace XSharp.Launch
             {
 #if NETCOREAPP2_0
                 return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#elif NET462
+#elif NET471
                 return true;
 #endif
             }
@@ -24,7 +24,7 @@ namespace XSharp.Launch
             {
 #if NETCOREAPP2_0
                 return RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-#elif NET462
+#elif NET471
                 return false;
 #endif
             }
@@ -36,7 +36,7 @@ namespace XSharp.Launch
             {
 #if NETCOREAPP2_0
                 return RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-#elif NET462
+#elif NET471
                 return false;
 #endif
             }

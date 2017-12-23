@@ -84,7 +84,7 @@ namespace VSPropertyPages
 
             if (_persistedProperties.TryGetValue(propertyName, out var defaultValue))
             {
-                if (defaultValue == value)
+                if (String.Equals(defaultValue, value, StringComparison.Ordinal))
                 {
                     if (isPropertySet)
                     {
@@ -143,7 +143,8 @@ namespace VSPropertyPages
         {
             foreach (var property in _properties)
             {
-                if (!_persistedProperties.TryGetValue(property.Key, out var value) || property.Value != value)
+                if (!_persistedProperties.TryGetValue(property.Key, out var value)
+                 || !String.Equals(property.Value, value, StringComparison.Ordinal))
                 {
                     return TplExtensions.TrueTask;
                 }

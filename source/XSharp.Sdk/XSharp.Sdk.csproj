@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
         <AssemblyName>XSharp.Build.Tasks</AssemblyName>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <PackageId>XSharp.Sdk</PackageId>
-        <Description>SDK for X# projects.
-$(XSharpDescription)</Description>
+        <PackageDescription>SDK for X# projects.
+$(XSharpDescription)</PackageDescription>
 
         <NuspecFile>XSharp.Sdk.nuspec</NuspecFile>
-        <NuspecBasePath>..\</NuspecBasePath>
 
         <!-- Package Properties -->
+        <InnerTargets>Publish</InnerTargets>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
         <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
         <SdkPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</SdkPackageDir>
+        <PublishDir>$(SdkPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
@@ -44,14 +43,6 @@ $(XSharpDescription)</Description>
 
     <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
         <RemoveDir Directories="$(SdkPackageDir)" />
-    </Target>
-
-    <Target Name="CopyBuildOutputToPackageFolder" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
-        <ItemGroup>
-            <_BuildOutput Include="$(OutputPath)**\*.dll" />
-        </ItemGroup>
-
-        <Copy SourceFiles="@(_BuildOutput)" DestinationFolder="$(SdkPackageDir)tools\$(PackageSubFolderName)\" />
     </Target>
 
     <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">

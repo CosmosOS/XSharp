@@ -1,0 +1,12 @@
+<Project>
+
+    <PropertyGroup>
+        <SignAssembly Condition="'$(SignAssembly)' == ''">True</SignAssembly>
+        <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == ''">$(MSBuildThisFileDirectory)..\tools\XSharp.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IsPackable Condition="'$(IsPackable)' == ''">False</IsPackable>
+    </PropertyGroup>
+    
+</Project>

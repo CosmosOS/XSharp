@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-        <Description>X# bootable launch hosts.
-$(XSharpDescription)</Description>
+        <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
+        <PackageDescription>X# bootable launch hosts.
+$(XSharpDescription)</PackageDescription>
         <IsPackable>False</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Update="Bochs.Configuration.cs">
-            <DependentUpon>Bochs.cs</DependentUpon>
-        </Compile>
-        <EmbeddedResource Include="Resources\**" />
+        <EmbeddedResource Include="Hosts\Bochs\Bochs.bxrc" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.nvram" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.vmx" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="DiscUtils.Containers" Version="0.13.0-alpha" />
+        <PackageReference Include="DiscUtils.FileSystems" Version="0.13.0-alpha" />
         <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
         <PackageReference Include="System.IO.Ports" Version="4.4.0" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
-        <PackageReference Include="System.Management.Automation" Version="6.0.0-beta.7" />
+        <PackageReference Include="System.Management.Automation" Version="6.0.0-rc.2" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-        <PackageReference Include="System.Management.Automation" Version="6.1.7601.17515" />
+    <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+        <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
     </ItemGroup>
 
 </Project>

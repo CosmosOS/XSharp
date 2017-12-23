@@ -1,16 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
         <OutputType>Exe</OutputType>
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.XSC</RootNamespace>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
         <PackageId>XSharp.Compiler</PackageId>
-        <Description>X# compiler.
-$(XSharpDescription)</Description>
+        <PackageDescription>X# compiler.
+$(XSharpDescription)</PackageDescription>
         <DevelopmentDependency>True</DevelopmentDependency>
 
         <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>
@@ -54,7 +52,7 @@ $(XSharpDescription)</Description>
         <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
     </Target>
 
-    <Target Name="IncludeCompilerInPackage" AfterTargets="IncludeContentInPackage">
+    <Target Name="IncludeCompilerTasksInPackage" AfterTargets="IncludeContentInPackage">
         <MSBuild Projects="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Targets="CopyBuildOutput" Properties="TargetFramework=netstandard1.3;DestinationFolder=$(MSBuildThisFileDirectory)$(CompilerPackageDir)tools\" />
     </Target>
 

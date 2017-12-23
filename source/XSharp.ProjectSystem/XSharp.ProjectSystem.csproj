@@ -5,11 +5,8 @@
     <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
+        <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\XSharp.snk</AssemblyOriginatorKeyFile>
-        <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -132,21 +129,12 @@
     <ItemGroup>
         <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
-            <AdditionalProperties>TargetFramework=net462</AdditionalProperties>
+            <AdditionalProperties>TargetFramework=net471</AdditionalProperties>
         </ProjectReference>
     </ItemGroup>
 
     <Target Name="CheckMSBuildRuntimeType">
         <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
-
-    <Target Name="IncludeNETStandardFacadeInVSIX" AfterTargets="ImplicitlyExpandNETStandardFacades">
-        <ItemGroup>
-            <Content Include="@(_NETStandardLibraryNETFrameworkLib)" Condition="'%(Filename)' == 'netstandard'">
-                <IncludeInVSIX>True</IncludeInVSIX>
-                <VSIXSubPath>/</VSIXSubPath>
-            </Content>
-        </ItemGroup>
     </Target>
 
     <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">

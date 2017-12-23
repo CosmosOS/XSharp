@@ -14,7 +14,7 @@ using Message = System.Windows.Interop.MSG;
 
 namespace VSPropertyPages
 {
-    public abstract class WpfPropertyPageUI : UserControl, IPropertyPageUI
+    public abstract class WpfPropertyPageUI : UserControl, IPropertyPageUI, IDisposable
     {
         private HwndSource _hWndSource;
 
@@ -60,7 +60,7 @@ namespace VSPropertyPages
 
         public Task DeactivateAsync()
         {
-            _hWndSource?.Dispose();
+            Dispose();
             return TplExtensions.CompletedTask;
         }
 
@@ -111,6 +111,20 @@ namespace VSPropertyPages
             }
 
             return VSConstants.S_OK;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _hWndSource?.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

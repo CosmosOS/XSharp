@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-using XSharp.Launch;
+using XSharp.Launch.Hosts;
+using XSharp.Launch.Hosts.Bochs;
 
 namespace XSharp.Build.Tasks
 {
@@ -32,7 +32,7 @@ namespace XSharp.Build.Tasks
             {
 #if NETCOREAPP2_0
                 mLaunchType = Enum.Parse<LaunchTypeEnum>(value, true);
-#elif NET462
+#else
                 mLaunchType = (LaunchTypeEnum)Enum.Parse(typeof(LaunchTypeEnum), value, true);
 #endif
             }
@@ -53,13 +53,19 @@ namespace XSharp.Build.Tasks
             switch (mLaunchType)
             {
                 case LaunchTypeEnum.Bochs:
-                    xHost = new Bochs(false, Path.GetFullPath(ConfigurationFile), Path.GetFullPath(ISO), null, false, false);
+                    var xLaunchSettings = new BochsLaunchSettings()
+                    {
+                        ConfigurationFile = Path.GetFullPath(ConfigurationFile),
+                        IsoFile = Path.GetFullPath(ISO)
+                    };
+
+                    xHost = new BochsHost(xLaunchSettings);
                     break;
                 case LaunchTypeEnum.VMware:
-                    //xHost = new VMware();
+                    //xHost = new VMwareHost();
                     break;
                 case LaunchTypeEnum.HyperV:
-                    //xHost = new HyperV(true, "", "");
+                    //xHost = new HyperVHost(true, "", "");
                     break;
                 default:
                     Log.LogError($"Unknown launch type! Launch type: '{mLaunchType}'");

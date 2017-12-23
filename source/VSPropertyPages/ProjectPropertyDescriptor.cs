@@ -21,15 +21,15 @@ namespace VSPropertyPages
 
         public override object GetValue(object component)
         {
-            Assumes.Fail("This method should not get called!");
+            Assumes.Fail("This method should not be called!");
             return null;
         }
 
         public override void ResetValue(object component) =>
-            Assumes.Fail("This method should not get called!");
+            Assumes.Fail("This method should not be called!");
 
         public override void SetValue(object component, object value) =>
-            Assumes.Fail("This method should not get called!");
+            Assumes.Fail("This method should not be called!");
 
         public override bool ShouldSerializeValue(object component) => true;
     }
