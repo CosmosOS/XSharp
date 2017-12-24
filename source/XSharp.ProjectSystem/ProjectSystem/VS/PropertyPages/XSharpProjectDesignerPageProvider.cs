@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
@@ -14,13 +13,14 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
     [AppliesTo(ProjectCapability.XSharpAndAppDesigner)]
     internal class XSharpProjectDesignerPageProvider : IVsProjectDesignerPageProvider
     {
-        private readonly IPageMetadata CompilePage = new PropertyPageMetadata("Compile", CompilePropertyPage.PageGuid, 0, false);
-        private readonly IPageMetadata AssemblePage = new PropertyPageMetadata("Assemble", AssemblePropertyPage.PageGuid, 1, false);
+        private static readonly IPageMetadata CompilePage = new PropertyPageMetadata("Compile", CompilePropertyPage.PageGuid, 0, false);
+        private static readonly IPageMetadata AssemblePage = new PropertyPageMetadata("Assemble", AssemblePropertyPage.PageGuid, 1, false);
+        private static readonly IPageMetadata DebugPage = new PropertyPageMetadata("Debug", DebugPropertyPage.PageGuid, 2, false);
 
         public Task<IReadOnlyCollection<IPageMetadata>> GetPagesAsync()
         {
-            var xPages = ImmutableArray.Create(CompilePage, AssemblePage);
-            return Task.FromResult<IReadOnlyCollection<IPageMetadata>>(xPages);
+            return Task.FromResult<IReadOnlyCollection<IPageMetadata>>(
+                ImmutableArray.Create(CompilePage, AssemblePage, DebugPage));
         }
     }
 }

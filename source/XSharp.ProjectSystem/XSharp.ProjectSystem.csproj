@@ -119,7 +119,7 @@
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.12" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.14" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.4.4" />
