@@ -81,13 +81,17 @@
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.14" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
-        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.5.24" />
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.5.24">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
     </ItemGroup>
 
