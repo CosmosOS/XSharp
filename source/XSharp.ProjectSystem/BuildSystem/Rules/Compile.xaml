@@ -19,27 +19,29 @@
 
     <DynamicEnumProperty Name="{}{ItemType}"
                          DisplayName="Build Action"
-                         Category="Advanced"
+                         Category="General"
                          Description="How the file relates to the build and deployment processes."
                          EnumProvider="ItemTypes" />
 
     <EnumProperty Name="CopyToOutputDirectory"
                   DisplayName="Copy to Output Directory"
-                  Category="Advanced"
+                  Category="General"
                   Description="Specifies the source file will be copied to the output directory.">
-        <EnumValue Name="Never" DisplayName="Do not copy" />
-        <EnumValue Name="Always" DisplayName="Copy always" />
-        <EnumValue Name="PreserveNewest" DisplayName="Copy if newer" />
+        <EnumValue Name="Never"
+                   DisplayName="Do not copy" />
+        <EnumValue Name="Always"
+                   DisplayName="Copy always" />
+        <EnumValue Name="PreserveNewest"
+                   DisplayName="Copy if newer" />
     </EnumProperty>
 
-    <StringProperty
-        Name="Generator"
-        Category="Advanced"
-        DisplayName="Custom Tool"
-        Description="Specifies the tool that transforms a file at design time and places the output of that transformation into another file. For example, a dataset (.xsd) file comes with a default custom tool." />
+    <StringProperty Name="Generator"
+                    Category="General"
+                    DisplayName="Custom Tool"
+                    Description="Specifies the tool that transforms a file at design time and places the output of that transformation into another file. For example, a dataset (.xsd) file comes with a default custom tool." />
 
     <StringProperty Name="CustomToolNamespace"
-                    Category="Advanced"
+                    Category="General"
                     DisplayName="Custom Tool Namespace"
                     Description="The namespace into which the output of the custom tool is placed." />
 
@@ -89,6 +91,7 @@
 
     <StringProperty Name="SubType"
                     Visible="false" />
+
     <StringProperty Name="LastGenOutput"
                     Visible="false"
                     Description="The filename of the last file generated as a result of the SFG." />

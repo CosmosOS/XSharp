@@ -54,9 +54,6 @@
             <Context>Project</Context>
         </PropertyPageSchema>
 
-        <!--
-            This should be registered in XSharpDebugLaunchProvider.cs, but there's a bug
-        -->
         <PropertyPageSchema Include="$(_XSharpXamlResourcesDirectory)Rules\XSharpDebugger.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>

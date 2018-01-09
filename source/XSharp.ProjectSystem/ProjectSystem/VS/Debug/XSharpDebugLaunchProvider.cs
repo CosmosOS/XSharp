@@ -6,9 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
-using Microsoft.VisualStudio.ProjectSystem.Build;
 using Microsoft.VisualStudio.ProjectSystem.Debug;
-using Microsoft.VisualStudio.ProjectSystem.Properties;
 using Microsoft.VisualStudio.ProjectSystem.VS.Debug;
 using Microsoft.VisualStudio.Threading;
 
@@ -18,29 +16,22 @@ namespace XSharp.ProjectSystem.VS.Debug
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
     [AppliesTo(ProjectCapability.XSharp)]
-    public class XSharpDebugLaunchProvider : DebugLaunchProviderBase
+    internal class XSharpDebugLaunchProvider : DebugLaunchProviderBase
     {
+        private ProjectProperties mProjectProperties;
+
         [ImportingConstructor]
-        public XSharpDebugLaunchProvider(ConfiguredProject aConfiguredProject)
+        public XSharpDebugLaunchProvider(ConfiguredProject aConfiguredProject, ProjectProperties aProjectProperties)
             : base(aConfiguredProject)
         {
+            mProjectProperties = aProjectProperties;
         }
 
-        //[ExportPropertyXamlRuleDefinition("XSharp.ProjectSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b94a93fbb8fa3f4f", "XamlRuleToCode:XSharpDebugger.xaml", PropertyPageContexts.Project)]
-        //[AppliesTo(ProjectCapability.XSharp)]
-        //private object DebuggerXaml { get { throw new NotImplementedException(); } }
-
-        [Import]
-        private ProjectProperties ProjectProperties { get; set; }
-
-        public override Task<bool> CanLaunchAsync(DebugLaunchOptions aLaunchOptions)
-        {
-            return TplExtensions.TrueTask;
-        }
+        public override Task<bool> CanLaunchAsync(DebugLaunchOptions aLaunchOptions) => TplExtensions.TrueTask;
 
         public override async Task<IReadOnlyList<IDebugLaunchSettings>> QueryDebugTargetsAsync(DebugLaunchOptions aLaunchOptions)
         {
-            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
+            var xProjectProperties = await mProjectProperties.GetConfigurationGeneralPropertiesAsync();
             var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync();
 
             if (xOutputType != OutputTypeValues.Application && xOutputType != OutputTypeValues.Bootable)
@@ -68,7 +59,7 @@ namespace XSharp.ProjectSystem.VS.Debug
                     // todo: implement
                     //xDebugSettings.LaunchDebugEngineGuid = XSharpDebuggerGuid;
 
-                    return new DebugLaunchSettings[0];
+                    return Array.Empty<DebugLaunchSettings>();
                 }
                 else
                 {
@@ -78,7 +69,7 @@ namespace XSharp.ProjectSystem.VS.Debug
                 return ImmutableArray.Create(xDebugSettings);
             }
 
-            return new DebugLaunchSettings[0];
+            return Array.Empty<DebugLaunchSettings>();
         }
     }
 }
