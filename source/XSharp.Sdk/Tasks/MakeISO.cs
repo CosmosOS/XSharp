@@ -22,7 +22,6 @@ namespace XSharp.Build.Tasks
             if (String.IsNullOrEmpty(OutputFile))
             {
                 Log.LogError(nameof(OutputFile) + " is null or empty!");
-                return false;
             }
 
             try
@@ -32,13 +31,11 @@ namespace XSharp.Build.Tasks
             catch
             {
                 Log.LogError($"{nameof(OutputFile)} is an invalid path! {nameof(OutputFile)}: '{OutputFile}'");
-                return false;
             }
 
             if (String.IsNullOrEmpty(IsoDirectory))
             {
                 Log.LogError(nameof(IsoDirectory) + " is null or empty!");
-                return false;
             }
 
             try
@@ -48,10 +45,9 @@ namespace XSharp.Build.Tasks
             catch
             {
                 Log.LogError($"{nameof(IsoDirectory)} is an invalid path! {nameof(IsoDirectory)}: '{IsoDirectory}'");
-                return false;
             }
 
-            return true;
+            return !Log.HasLoggedErrors;
         }
 
         protected override string GenerateFullPathToTool()
