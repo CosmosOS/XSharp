@@ -30,7 +30,7 @@ namespace XSharp.Build.Tasks
         protected override string ToolName => "ld.exe";
         protected override MessageImportance StandardErrorLoggingImportance => MessageImportance.High;
 
-        private bool IsValidAddress(string aAddress)
+        private static bool IsValidAddress(string aAddress)
         {
             if (UInt64.TryParse(aAddress, out var xAddress))
             {
@@ -51,10 +51,8 @@ namespace XSharp.Build.Tasks
             if (InputFiles.Length == 0)
             {
                 Log.LogError("No input files specified!");
-                return false;
             }
 
-            bool xInvalidFile = false;
 
             foreach (var xFile in InputFiles)
             {
@@ -63,24 +61,16 @@ namespace XSharp.Build.Tasks
                 if (String.IsNullOrWhiteSpace(xFullPath))
                 {
                     Log.LogError($"Input file is an empty string! Input files: '{String.Join(";", InputFiles.Select(f => f.GetMetadata("Identity")))}'");
-                    xInvalidFile = true;
                 }
                 else if (!File.Exists(xFullPath))
                 {
                     Log.LogError($"Input file '{xFullPath}' doesn't exist!");
-                    xInvalidFile = true;
                 }
-            }
-
-            if (xInvalidFile)
-            {
-                return false;
             }
 
             if (String.IsNullOrEmpty(OutputFile))
             {
                 Log.LogError("No output file specified!");
-                return false;
             }
 
             if (String.IsNullOrWhiteSpace(Entry))
@@ -115,7 +105,7 @@ namespace XSharp.Build.Tasks
                 Log.LogError(nameof(BssAddress) + " isn't a valid 64-bit number!");
             }
 
-            return true;
+            return !Log.HasLoggedErrors;
         }
 
         protected override string GenerateFullPathToTool()
