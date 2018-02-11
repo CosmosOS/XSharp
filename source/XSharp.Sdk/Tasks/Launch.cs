@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-using XSharp.Launch;
 using XSharp.Launch.Hosts;
 using XSharp.Launch.Hosts.Bochs;
 
@@ -60,13 +59,13 @@ namespace XSharp.Build.Tasks
                         IsoFile = Path.GetFullPath(ISO)
                     };
 
-                    xHost = new Bochs(xLaunchSettings);
+                    xHost = new BochsHost(xLaunchSettings);
                     break;
                 case LaunchTypeEnum.VMware:
-                    //xHost = new VMware();
+                    //xHost = new VMwareHost();
                     break;
                 case LaunchTypeEnum.HyperV:
-                    //xHost = new HyperV(true, "", "");
+                    //xHost = new HyperVHost(true, "", "");
                     break;
                 default:
                     Log.LogError($"Unknown launch type! Launch type: '{mLaunchType}'");

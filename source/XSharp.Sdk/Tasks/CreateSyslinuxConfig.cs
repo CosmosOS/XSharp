@@ -13,7 +13,7 @@ namespace XSharp.Build.Tasks
         [Required]
         public string BinName { get; set; }
 
-        private static string Indentation = "    ";
+        private string Indentation = "    ";
         
         public override bool Execute()
         {

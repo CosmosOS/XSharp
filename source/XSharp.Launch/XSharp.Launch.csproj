@@ -8,12 +8,6 @@ $(XSharpDescription)</PackageDescription>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Update="Hosts\Bochs\Bochs.Configuration.cs">
-            <DependentUpon>Bochs.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
         <EmbeddedResource Include="Hosts\Bochs\Bochs.bxrc" />
         <EmbeddedResource Include="Hosts\VMware\VMware.nvram" />
         <EmbeddedResource Include="Hosts\VMware\VMware.vmx" />
@@ -28,7 +22,7 @@ $(XSharpDescription)</PackageDescription>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
-        <PackageReference Include="System.Management.Automation" Version="6.0.0-rc" />
+        <PackageReference Include="System.Management.Automation" Version="6.0.0-rc.2" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net471'">

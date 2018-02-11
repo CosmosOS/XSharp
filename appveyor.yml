@@ -16,7 +16,7 @@ nuget:
 
 build_script:
   - cmd: |
-      build\nuget restore "XSharp.sln"
+      nuget restore "XSharp.sln"
       msbuild "XSharp.sln" /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Platform="Any CPU" /p:Configuration=Debug /p:DeployExtension=false
 
       msbuild "source\Spruce" /t:Restore;Pack /maxcpucount /p:VersionSuffix=%APPVEYOR_BUILD_NUMBER% /p:PackageOutputPath="c:\XSharp\artifacts\nuget"

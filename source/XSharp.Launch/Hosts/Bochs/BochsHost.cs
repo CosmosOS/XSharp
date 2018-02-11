@@ -6,12 +6,14 @@ using System.IO;
 namespace XSharp.Launch.Hosts.Bochs
 {
     /// <summary>This class handles interactions with the Bochs emulation environment.</summary>
-    public partial class Bochs : IHost
+    public sealed class BochsHost : IHost, IDisposable
     {
+        private const string BochsConfigurationFile = "Bochs.bxrc";
+
         private BochsLaunchSettings mLaunchSettings;
 
         private string mBochsExe;
-        private Process mBochsProcess;
+        private Process mProcess;
 
         public event EventHandler ShutDown;
 
@@ -77,7 +79,7 @@ namespace XSharp.Launch.Hosts.Bochs
         /// mode. Bochs process will eventually be launched later when debugging engine is instructed to
         /// Attach to the debugged process.
         /// </summary>
-        public Bochs(BochsLaunchSettings aLaunchSettings, bool aRedirectOutput = false,
+        public BochsHost(BochsLaunchSettings aLaunchSettings, bool aRedirectOutput = false,
             Action<string> aLogOutput = null, Action<string> aLogError = null)
         {
             mLaunchSettings = aLaunchSettings;
@@ -120,9 +122,9 @@ namespace XSharp.Launch.Hosts.Bochs
             //var xMapFile = Path.ChangeExtension(mLaunchSettings.IsoFile, ".map");
             //BochsSupport.TryExtractBochsDebugSymbols(xMapFile, BochsDebugSymbolsPath);
 
-            mBochsProcess = new Process();
+            mProcess = new Process();
 
-            var xBochsStartInfo = mBochsProcess.StartInfo;
+            var xBochsStartInfo = mProcess.StartInfo;
 
             xBochsStartInfo.FileName = mBochsExe;
 
@@ -151,13 +153,13 @@ namespace XSharp.Launch.Hosts.Bochs
 
                 xBochsStartInfo.RedirectStandardOutput = true;
                 xBochsStartInfo.RedirectStandardError = true;
-                mBochsProcess.OutputDataReceived += (sender, args) => LogOutput(args.Data);
-                mBochsProcess.ErrorDataReceived += (sender, args) => LogError(args.Data);
+                mProcess.OutputDataReceived += (sender, args) => LogOutput(args.Data);
+                mProcess.ErrorDataReceived += (sender, args) => LogError(args.Data);
             }
             // Register for process completion event so that we can funnel it to any code that
             // subscribed to this event in our base class.
-            mBochsProcess.EnableRaisingEvents = true;
-            mBochsProcess.Exited += delegate
+            mProcess.EnableRaisingEvents = true;
+            mProcess.Exited += delegate
             {
                 var xLockFile = mLaunchSettings.HardDiskFile + ".lock";
 
@@ -176,25 +178,93 @@ namespace XSharp.Launch.Hosts.Bochs
                 ShutDown?.Invoke(this, EventArgs.Empty);
             };
 
-            mBochsProcess.Start();
+            mProcess.Start();
 
             if (RedirectOutput)
             {
-                mBochsProcess.BeginErrorReadLine();
-                mBochsProcess.BeginOutputReadLine();
+                mProcess.BeginErrorReadLine();
+                mProcess.BeginOutputReadLine();
             }
         }
 
-        public void Stop()
+        public void Kill()
         {
             try
             {
-                mBochsProcess?.Kill();
-                mBochsProcess?.WaitForExit();
+                mProcess?.Kill();
+                mProcess?.WaitForExit();
             }
             catch (InvalidOperationException)
             {
             }
+        }
+        private void GenerateConfiguration()
+        {
+            var xConfiguration = GetDefaultConfiguration();
+
+            var xRomImage = Path.Combine(mLaunchSettings.BochsDirectory, "BIOS-bochs-latest");
+            var xVgaRomImage = Path.Combine(mLaunchSettings.BochsDirectory, "VGABIOS-lgpl-latest");
+
+            var xVariables = new Dictionary<string, string>()
+            {
+                { "$CONFIG_INTERFACE$", ConfigInterface },
+                { "$DISPLAY_LIBRARY$", DisplayLibrary },
+                { "$DISPLAY_LIBRARY_OPTIONS$", mLaunchSettings.DisplayLibraryOptions.ToString() },
+                { "$DEBUG_SYMBOLS_PATH$", BochsDebugSymbolsPath },
+                { "$ROM_IMAGE$", xRomImage },
+                { "$VGA_ROM_IMAGE$", xVgaRomImage },
+                { "$CDROM_BOOT_PATH$", mLaunchSettings.IsoFile },
+                { "$HARD_DISK_PATH$", mLaunchSettings.HardDiskFile },
+                { "$PIPE_SERVER_NAME$", mLaunchSettings.PipeServerName }
+            };
+
+            xConfiguration = ReplaceConfigurationVariables(xConfiguration, xVariables);
+
+            if (mLaunchSettings.UseDebugVersion)
+            {
+                xConfiguration = xConfiguration + "magic_break: enabled = 1" + Environment.NewLine;
+            }
+
+            using (var xWriter = File.CreateText(mLaunchSettings.ConfigurationFile))
+            {
+                xWriter.Write(xConfiguration);
+            }
+        }
+
+        /// <summary>
+        /// Reads the Bochs configuration file from assembly resources and returns it.
+        /// </summary>
+        /// <returns>Returns the Bochs configuration file.</returns>
+        private string GetDefaultConfiguration()
+        {
+            using (var xStream = GetType().Assembly.GetManifestResourceStream(typeof(BochsHost), BochsConfigurationFile))
+            {
+                using (var xReader = new StreamReader(xStream))
+                {
+                    return xReader.ReadToEnd();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            mProcess?.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        private static string ReplaceConfigurationVariables(string aConfiguration, Dictionary<string, string> aVariables)
+        {
+            foreach (var xVariable in aVariables)
+            {
+                if (xVariable.Key == null)
+                {
+                    throw new Exception();
+                }
+
+                aConfiguration = aConfiguration.Replace(xVariable.Key, xVariable.Value ?? String.Empty);
+            }
+
+            return aConfiguration;
         }
     }
 }

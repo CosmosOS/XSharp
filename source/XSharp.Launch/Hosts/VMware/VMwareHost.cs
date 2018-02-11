@@ -7,13 +7,7 @@ using Microsoft.Win32;
 
 namespace XSharp.Launch.Hosts.VMware
 {
-    public enum VMwareEdition
-    {
-        Workstation,
-        Player
-    }
-
-    public class VMware : IHost
+    public sealed class VMwareHost : IHost, IDisposable
     {
         private const string VMwareConfigurationFile = "VMware.vmx";
 
@@ -23,7 +17,7 @@ namespace XSharp.Launch.Hosts.VMware
 
         public event EventHandler ShutDown;
 
-        public VMware(VMwareLaunchSettings aLaunchSettings)
+        public VMwareHost(VMwareLaunchSettings aLaunchSettings)
         {
             if (!(RuntimeHelper.IsWindows || RuntimeHelper.IsLinux))
             {
@@ -41,32 +35,6 @@ namespace XSharp.Launch.Hosts.VMware
                     mLaunchSettings.VMwareExecutable = GetPathname("VMware Workstation", "vmware.exe")
                         ?? GetPathname("VMware Player", "vmplayer.exe");
                 }
-            }
-        }
-
-        protected string GetPathname(string aKey, string aExe)
-        {
-            using (var xRegKey = RegistryKey.OpenBaseKey(
-                RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"Software\VMware, Inc.\" + aKey, false))
-            {
-                if (xRegKey != null)
-                {
-                    var xInstallPath = (string)xRegKey.GetValue("InstallPath");
-
-                    if (xInstallPath == null)
-                    {
-                        return null;
-                    }
-
-                    string xResult = Path.Combine(xInstallPath, aExe);
-
-                    if (File.Exists(xResult))
-                    {
-                        return xResult;
-                    }
-                }
-
-                return null;
             }
         }
 
@@ -108,7 +76,7 @@ namespace XSharp.Launch.Hosts.VMware
             mProcess.Start();
         }
 
-        public void Stop()
+        public void Kill()
         {
             try
             {
@@ -124,7 +92,7 @@ namespace XSharp.Launch.Hosts.VMware
             }
         }
 
-        protected void DeleteFiles(string aPath, string aPattern)
+        private static void DeleteFiles(string aPath, string aPattern)
         {
             var xFiles = Directory.GetFiles(aPath, aPattern);
             foreach (var xFile in xFiles)
@@ -133,7 +101,7 @@ namespace XSharp.Launch.Hosts.VMware
             }
         }
 
-        protected void Cleanup()
+        private void Cleanup()
         {
             try
             {
@@ -194,7 +162,7 @@ namespace XSharp.Launch.Hosts.VMware
 
             var xConfigurationFile = mLaunchSettings.ConfigurationFile;
 
-            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMware), "VMware.vmx")))
+            using (var xSrc = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(VMwareHost), "VMware.vmx")))
             {
                 using (var xDest = new StreamWriter(File.Open(xConfigurationFile, FileMode.Create)))
                 {
@@ -207,22 +175,23 @@ namespace XSharp.Launch.Hosts.VMware
                             string xName = xParts[0].Trim();
                             string xValue = xParts[1].Trim();
 
-                            if ((xName == "uuid.location") || (xName == "uuid.bios"))
+                            if (String.Equals(xName, "uuid.location", StringComparison.Ordinal)
+                             || String.Equals(xName, "uuid.bios", StringComparison.Ordinal))
                             {
                                 // We delete uuid entries so VMware doesnt ask the user "Did you move or copy" the file
                                 xValue = null;
 
                             }
-                            else if (xName == "ide1:0.fileName")
+                            else if (String.Equals(xName, "ide1:0.fileName", StringComparison.Ordinal))
                             {
                                 // Set the ISO file for booting
                                 xValue = "\"" + mLaunchSettings.IsoFile + "\"";
                             }
-                            else if (xName == "ide0:0.fileName")
+                            else if (String.Equals(xName, "ide0:0.fileName", StringComparison.Ordinal))
                             {
                                 xValue = "\"" + mLaunchSettings.HardDiskFile + "\"";
                             }
-                            else if (xName == "nvram")
+                            else if (String.Equals(xName, "nvram", StringComparison.Ordinal))
                             {
                                 // Point it to an initially non-existent nvram.
                                 // This has the effect of disabling PXE so the boot is faster.
@@ -248,9 +217,15 @@ namespace XSharp.Launch.Hosts.VMware
             }
         }
 
+        public void Dispose()
+        {
+            mProcess?.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
         private string GetDefaultConfiguration()
         {
-            using (var xStream = GetType().Assembly.GetManifestResourceStream(typeof(VMware), VMwareConfigurationFile))
+            using (var xStream = GetType().Assembly.GetManifestResourceStream(typeof(VMwareHost), VMwareConfigurationFile))
             {
                 using (var xReader = new StreamReader(xStream))
                 {
@@ -259,7 +234,7 @@ namespace XSharp.Launch.Hosts.VMware
             }
         }
 
-        private string ReplaceConfigurationVariables(string aConfiguration, Dictionary<string, string> aVariables)
+        private static string ReplaceConfigurationVariables(string aConfiguration, Dictionary<string, string> aVariables)
         {
             foreach (var xVariable in aVariables)
             {
@@ -272,6 +247,32 @@ namespace XSharp.Launch.Hosts.VMware
             }
 
             return aConfiguration;
+        }
+
+        private static string GetPathname(string aKey, string aExe)
+        {
+            using (var xRegKey = RegistryKey.OpenBaseKey(
+                RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"Software\VMware, Inc.\" + aKey, false))
+            {
+                if (xRegKey != null)
+                {
+                    var xInstallPath = (string)xRegKey.GetValue("InstallPath");
+
+                    if (xInstallPath == null)
+                    {
+                        return null;
+                    }
+
+                    string xResult = Path.Combine(xInstallPath, aExe);
+
+                    if (File.Exists(xResult))
+                    {
+                        return xResult;
+                    }
+                }
+
+                return null;
+            }
         }
     }
 }

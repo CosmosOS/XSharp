@@ -7,6 +7,7 @@ namespace XSharp.Launch.Hosts
         event EventHandler ShutDown;
 
         void Start();
-        void Stop();
+        // not Stop, because it's a keyword in Visual Basic
+        void Kill();
     }
 }

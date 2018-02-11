@@ -2,11 +2,11 @@
 
 namespace XSharp.Launch.Hosts.IntelEdison
 {
-    public class IntelEdison : IHost
+    public class IntelEdisonHost : IHost
     {
         public event EventHandler ShutDown;
 
-        public IntelEdison()
+        public IntelEdisonHost()
         {
         }
 
@@ -14,7 +14,7 @@ namespace XSharp.Launch.Hosts.IntelEdison
         {
         }
 
-        public void Stop()
+        public void Kill()
         {
             ShutDown?.Invoke(this, EventArgs.Empty);
         }

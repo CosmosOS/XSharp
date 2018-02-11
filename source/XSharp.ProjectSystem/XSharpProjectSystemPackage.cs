@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.ProjectSystem.VS;
 using Microsoft.VisualStudio.Shell;
 
 using XSharp.ProjectSystem;
+using XSharp.ProjectSystem.VS.PropertyPages;
 
 [assembly: ProjectTypeRegistration(XSharpProjectSystemPackage.ProjectTypeGuid, "#1", "#2", "xsproj", "XSharp",
     XSharpProjectSystemPackage.PackageGuid, Capabilities = ProjectCapability.InitialCapabilities,
@@ -13,8 +14,9 @@ namespace XSharp.ProjectSystem
 {
     [Guid(PackageGuid)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [ProvideObject(typeof(VS.PropertyPages.CompilePropertyPage))]
-    [ProvideObject(typeof(VS.PropertyPages.AssemblePropertyPage))]
+    [ProvideObject(typeof(CompilePropertyPage))]
+    [ProvideObject(typeof(AssemblePropertyPage))]
+    [ProvideObject(typeof(DebugPropertyPage))]
     public sealed class XSharpProjectSystemPackage : Package
     {
         /// <summary>
