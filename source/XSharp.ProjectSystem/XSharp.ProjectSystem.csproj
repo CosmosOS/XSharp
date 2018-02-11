@@ -7,16 +7,7 @@
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <UseCodebase>True</UseCodebase>
-        <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
-        <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
-        <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
-        <CopyBuildOutputToOutputDirectory>True</CopyBuildOutputToOutputDirectory>
-        <CopyOutputSymbolsToOutputDirectory>False</CopyOutputSymbolsToOutputDirectory>
-        <DeployExtension>True</DeployExtension>
     </PropertyGroup>
 
     <ItemGroup>
@@ -111,7 +102,6 @@
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
-        <PackageReference Include="EnvDTE" Version="8.0.1" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
