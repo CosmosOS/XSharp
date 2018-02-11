@@ -13,10 +13,10 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'True'">
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0-beta2" />
-        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0-beta2" />
-        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0-beta2" />
-        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.0-beta2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0" />
+        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0" />
+        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0" />
+        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.0" />
     </ItemGroup>
 
     <Target Name="GenerateNuspecProperties" BeforeTargets="GenerateNuspec">
