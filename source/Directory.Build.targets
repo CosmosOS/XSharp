@@ -12,11 +12,11 @@
         <DevelopmentDependency Condition="'$(DevelopmentDependency)' != 'True'">False</DevelopmentDependency>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'True'">
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0" />
-        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0" />
-        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0" />
-        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.0" />
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.0" PrivateAssets="All" />
     </ItemGroup>
 
     <Target Name="GenerateNuspecProperties" BeforeTargets="GenerateNuspec">

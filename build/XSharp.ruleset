@@ -251,8 +251,8 @@
     <Rule Id="IDE0015" Action="Warning" />
     <Rule Id="IDE0016" Action="Warning" />
     <Rule Id="IDE0016WithoutSuggestion" Action="Warning" />
-    <Rule Id="IDE0017" Action="Warning" />
-    <Rule Id="IDE0017WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0017" Action="Info" />
+    <Rule Id="IDE0017WithoutSuggestion" Action="Info" />
     <Rule Id="IDE0018" Action="Warning" />
     <Rule Id="IDE0018WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0019" Action="Warning" />
@@ -288,54 +288,25 @@
   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
     <Rule Id="CA1000" Action="Info" />
     <Rule Id="CA1008" Action="Info" />
-    <Rule Id="CA1010" Action="Warning" />
     <Rule Id="CA1012" Action="Warning" />
     <Rule Id="CA1018" Action="Hidden" />
     <Rule Id="CA1024" Action="Info" />
     <Rule Id="CA1028" Action="Info" />
     <Rule Id="CA1030" Action="Hidden" />
     <Rule Id="CA1034" Action="Hidden" />
-    <Rule Id="CA1041" Action="Warning" />
-    <Rule Id="CA1043" Action="Warning" />
-    <Rule Id="CA1044" Action="Warning" />
     <Rule Id="CA1050" Action="Warning" />
-    <Rule Id="CA1051" Action="Warning" />
-    <Rule Id="CA1052" Action="Warning" />
     <Rule Id="CA1054" Action="Info" />
     <Rule Id="CA1055" Action="Info" />
     <Rule Id="CA1056" Action="Info" />
     <Rule Id="CA1064" Action="Info" />
     <Rule Id="CA1066" Action="Info" />
-    <Rule Id="CA1067" Action="Warning" />
     <Rule Id="CA1068" Action="Info" />
-    <Rule Id="CA1707" Action="Warning" />
     <Rule Id="CA1708" Action="Error" />
-    <Rule Id="CA1710" Action="Warning" />
     <Rule Id="CA1711" Action="Warning" />
-    <Rule Id="CA1714" Action="Warning" />
-    <Rule Id="CA1715" Action="Warning" />
-    <Rule Id="CA1716" Action="Warning" />
-    <Rule Id="CA1717" Action="Warning" />
-    <Rule Id="CA1720" Action="Warning" />
-    <Rule Id="CA1721" Action="Warning" />
-    <Rule Id="CA1724" Action="Warning" />
     <Rule Id="CA1725" Action="Warning" />
-    <Rule Id="CA1801" Action="Warning" />
-    <Rule Id="CA1802" Action="Warning" />
-    <Rule Id="CA1806" Action="Warning" />
-    <Rule Id="CA1812" Action="Warning" />
     <Rule Id="CA1814" Action="Info" />
-    <Rule Id="CA1819" Action="Warning" />
-    <Rule Id="CA1822" Action="Warning" />
-    <Rule Id="CA1823" Action="Warning" />
-    <Rule Id="CA2007" Action="Warning" />
-    <Rule Id="CA2119" Action="Warning" />
-    <Rule Id="CA2211" Action="Warning" />
     <Rule Id="CA2217" Action="Warning" />
     <Rule Id="CA2219" Action="Info" />
-    <Rule Id="CA2222" Action="Warning" />
-    <Rule Id="CA2226" Action="Warning" />
-    <Rule Id="CA2227" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.CSharp.Analyzers" RuleNamespace="Microsoft.CodeQuality.CSharp.Analyzers">
     <Rule Id="Async001" Action="Warning" />
@@ -346,11 +317,9 @@
     <Rule Id="Async006" Action="Warning" />
     <Rule Id="CA1003" Action="Info" />
     <Rule Id="CA1019" Action="Warning" />
-    <Rule Id="CA1032" Action="Warning" />
     <Rule Id="CA1040" Action="Warning" />
     <Rule Id="CA1500" Action="Warning" />
     <Rule Id="CA1726" Action="Hidden" />
-    <Rule Id="CA1821" Action="Warning" />
     <Rule Id="CA2000" Action="Error" />
     <Rule Id="CA2001" Action="Warning" />
     <Rule Id="CA2109" Action="Warning" />
@@ -361,11 +330,6 @@
     <Rule Id="CA1307" Action="Hidden" />
     <Rule Id="CA1308" Action="Hidden" />
     <Rule Id="CA1813" Action="Hidden" />
-    <Rule Id="CA1816" Action="Warning" />
-    <Rule Id="CA1820" Action="Warning" />
-    <Rule Id="CA2101" Action="Warning" />
-    <Rule Id="CA2208" Action="Warning" />
-    <Rule Id="CA2243" Action="Warning" />
     <Rule Id="RS0006" Action="Warning" />
     <Rule Id="RS0012" Action="Warning" />
     <Rule Id="RS0014" Action="Warning" />
@@ -376,19 +340,10 @@
     <Rule Id="CA1414" Action="Error" />
     <Rule Id="CA1601" Action="Warning" />
     <Rule Id="CA1824" Action="Info" />
-    <Rule Id="CA1825" Action="Warning" />
     <Rule Id="CA2201" Action="Hidden" />
     <Rule Id="CA2205" Action="Error" />
     <Rule Id="CA2215" Action="Warning" />
-    <Rule Id="CA5350" Action="Warning" />
-    <Rule Id="CA5351" Action="Warning" />
     <Rule Id="RS0015" Action="Warning" />
-  </Rules>
-  <Rules AnalyzerId="Microsoft.NetFramework.Analyzers" RuleNamespace="Microsoft.NetFramework.Analyzers">
-    <Rule Id="CA1058" Action="Warning" />
-    <Rule Id="CA2153" Action="Warning" />
-    <Rule Id="CA2229" Action="Warning" />
-    <Rule Id="CA2237" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetFramework.CSharp.Analyzers" RuleNamespace="Microsoft.NetFramework.CSharp.Analyzers">
     <Rule Id="CA1301" Action="Warning" />
@@ -396,7 +351,5 @@
     <Rule Id="CA2232" Action="Warning" />
     <Rule Id="CA2236" Action="Warning" />
     <Rule Id="CA2239" Action="Info" />
-    <Rule Id="CA5350" Action="Warning" />
-    <Rule Id="CA5351" Action="Warning" />
   </Rules>
 </RuleSet>
