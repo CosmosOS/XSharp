@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="CheckMSBuildRuntimeType">
+﻿<Project>
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
@@ -7,16 +7,7 @@
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <UseCodebase>True</UseCodebase>
-        <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
-        <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
-        <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
-        <CopyBuildOutputToOutputDirectory>True</CopyBuildOutputToOutputDirectory>
-        <CopyOutputSymbolsToOutputDirectory>False</CopyOutputSymbolsToOutputDirectory>
-        <DeployExtension>True</DeployExtension>
     </PropertyGroup>
 
     <ItemGroup>
@@ -111,7 +102,6 @@
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
-        <PackageReference Include="EnvDTE" Version="8.0.1" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
@@ -127,7 +117,7 @@
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.5.24">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.5.100" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
@@ -136,10 +126,6 @@
             <AdditionalProperties>TargetFramework=net471</AdditionalProperties>
         </ProjectReference>
     </ItemGroup>
-
-    <Target Name="CheckMSBuildRuntimeType">
-        <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
 
     <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">
         <ItemGroup>
