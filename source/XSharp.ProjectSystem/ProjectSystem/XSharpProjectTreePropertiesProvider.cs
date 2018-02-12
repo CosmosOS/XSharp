@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Composition;
+using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.ProjectSystem;
 
 namespace XSharp.ProjectSystem
