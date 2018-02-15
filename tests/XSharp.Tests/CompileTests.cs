@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,7 @@ namespace XSharp.Tests
             return xInputDir.GetFiles("*.xs").Select(f => f.FullName);
         }
 
-        [TestCaseSource("GetXSharpInput")]
+        [TestCaseSource(nameof(GetXSharpInput))]
         public void TestCompilation(string aPath)
         {
             var xExpectedOutputFile = Path.Combine(Path.GetDirectoryName(aPath), "..",
@@ -59,8 +58,8 @@ namespace XSharp.Tests
 
                             if (IgnoreCase)
                             {
-                                xActualLine = xActualLine.ToLower();
-                                xExpectedLine = xExpectedLine.ToLower();
+                                xActualLine = xActualLine.ToUpperInvariant();
+                                xExpectedLine = xExpectedLine.ToUpperInvariant();
                             }
 
                             if (Trim)

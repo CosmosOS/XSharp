@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio;
-using MVSP = Microsoft.VisualStudio.Package;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
+using MVSP = Microsoft.VisualStudio.Package;
 
 namespace XSharp.VS {
+  [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
   internal class Scanner : MVSP.IScanner {
     struct TokenData {
       public MVSP.TokenType Type;

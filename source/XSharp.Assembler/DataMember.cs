@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.IO;
-using XSharp.Assembler.x86;
 
 namespace XSharp.Assembler
 {

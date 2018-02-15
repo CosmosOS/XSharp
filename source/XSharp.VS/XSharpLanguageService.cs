@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Package;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
-using System.Runtime.InteropServices;
 
 // Walkthrough: Creating a Language Service (MPF)
 //   http://msdn.microsoft.com/en-us/library/bb165744
@@ -34,9 +29,9 @@ namespace XSharp.VS {
     }
 
     private Scanner mScanner;
-    public override IScanner GetScanner(IVsTextLines aBuffer) {
+    public override IScanner GetScanner(IVsTextLines buffer) {
       if (mScanner == null) {
-        mScanner = new Scanner(aBuffer);
+        mScanner = new Scanner(buffer);
       }
       return mScanner;
     }

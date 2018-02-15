@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Spruce {
+﻿namespace Spruce {
     public class CodePoint {
-        public readonly string FullText;
-        public readonly int TextStart;
-        public readonly int TextEnd;
-        public readonly Tokens.Token Token;
-        public readonly object Value;
+        public string FullText { get; }
+        public int TextStart { get; }
+        public int TextEnd { get; }
+        public Tokens.Token Token { get; }
+        public object Value { get; }
 
         public CodePoint(string aFullText, int aTextStart, int aTextEnd, Tokens.Token aToken, object aValue) {
             FullText = aFullText;
