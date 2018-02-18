@@ -1,5 +1,6 @@
 <Project>
 
+    <Import Project="PackageProperties.targets" />
     <Import Project="StrongName.targets" />
 
     <Import Project="Tests.targets" Condition="'$(IsTestProject)' == 'True'" />

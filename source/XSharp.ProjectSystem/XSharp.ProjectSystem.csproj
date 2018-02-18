@@ -6,6 +6,7 @@
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
+        <IsVsixProject>True</IsVsixProject>
     </PropertyGroup>
 
     <ItemGroup>
