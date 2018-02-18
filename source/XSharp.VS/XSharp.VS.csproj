@@ -1,10 +1,7 @@
-﻿<Project>
-
-    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
-        <UseCodebase>True</UseCodebase>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,8 +14,5 @@
     <ItemGroup>
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
-
-    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 
 </Project>

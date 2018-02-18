@@ -1,20 +1,15 @@
 ﻿<Project>
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
-
     <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
-        <UseCodebase>True</UseCodebase>
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="ItemTemplates\**">
-            <IncludeInVSIX>True</IncludeInVSIX>
-        </Content>
-        <Content Include="ProjectTemplates\**">
+        <Content Include="ItemTemplates\**;ProjectTemplates\**">
             <IncludeInVSIX>True</IncludeInVSIX>
         </Content>
     </ItemGroup>
@@ -53,45 +48,18 @@
         <Resource Include="ProjectSystem\VS\Build\Resources\USB.png" />
     </ItemGroup>
 
-    <!--
-        WPF Workarounds
-    -->
-
-    <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
-        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
-    </PropertyGroup>
-
     <ItemGroup>
-        <Page Include="ProjectSystem\VS\PropertyPages\**\*.xaml">
+        <Page Include="ProjectSystem\**\*.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <Compile Update="ProjectSystem\VS\PropertyPages\**\*.xaml.cs">
-            <SubType>Code</SubType>
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
-        <Page Include="ProjectSystem\VS\Build\**\*.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Compile Update="ProjectSystem\VS\Build\**\*.xaml.cs">
+        <Compile Update="ProjectSystem\**\*.xaml.cs">
             <SubType>Code</SubType>
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
-        <PropertyGroup>
-            <BuildingProject>false</BuildingProject>
-        </PropertyGroup>
-    </Target>
-
-    <!--
-        End WPF Workarounds
-    -->
-
     <ItemGroup>
-        <Reference Include="System.ComponentModel.Composition" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
         <Reference Include="System.Management" />
@@ -102,22 +70,18 @@
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
-        <PackageReference Include="Microsoft.Build" Version="15.3.409" />
-        <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
-        <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
-        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem" Version="15.3.224" />
+        <PackageReference Include="Microsoft.Build" Version="15.5.180" />
+        <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25408" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.14" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.16" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.5.24">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.5.100" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
@@ -132,20 +96,8 @@
             <VSIXSourceItem Include="@(ReferencePath)" Condition="$([System.String]::new('%(Filename)').StartsWith('DiscUtils'))" />
         </ItemGroup>
     </Target>
-  
+
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets') AND '$(MSBuildProjectExtension)' != '.tmp_proj'" />
-
-    <Target Name="AfterBuild">
-        <ItemGroup>
-            <BuildSystemToCopy Include="BuildSystem\**\*" />
-        </ItemGroup>
-
-        <RemoveDir Directories="$(LocalAppData)\CustomProjectSystems\XSharp" />
-
-        <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\XSharp\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="True" />
-    </Target>
-
     <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
 
 </Project>
