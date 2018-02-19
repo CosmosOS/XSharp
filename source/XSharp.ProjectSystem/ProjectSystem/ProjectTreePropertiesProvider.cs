@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
+
 using Microsoft.VisualStudio.ProjectSystem;
 
 namespace XSharp.ProjectSystem
 {
     [Export(typeof(IProjectTreePropertiesProvider))]
     [AppliesTo(ProjectCapability.XSharp)]
-    internal class XSharpProjectTreePropertiesProvider : IProjectTreePropertiesProvider
+    internal class ProjectTreePropertiesProvider : IProjectTreePropertiesProvider
     {
         public void CalculatePropertyValues(IProjectTreeCustomizablePropertyContext propertyContext, IProjectTreeCustomizablePropertyValues propertyValues)
         {
