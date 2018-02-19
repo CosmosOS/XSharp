@@ -12,36 +12,31 @@ using Microsoft.VisualStudio.TextManager.Interop;
 // Managed Babel
 //   http://msdn.microsoft.com/en-us/library/bb165037.aspx
 
-namespace XSharp.VS {
-    [Guid(Guids.guidCosmos_VS_XSharpLangSvcString)]
-    public class XSharpLanguageService : LanguageService {
-    public override string GetFormatFilterList() {
-      return "X# files (*.xs)\n*.xs\n";
-    }
+namespace XSharp.VS
+{
+    [Guid(LanguageServiceGuid)]
+    internal sealed class XSharpLanguageService : LanguageService
+    {
+        public const string LanguageServiceGuid = "3fb852ed-3562-3da4-98dc-55759744328c";
 
-    private LanguagePreferences mPreferences;
-    public override LanguagePreferences GetLanguagePreferences() {
-      if (mPreferences == null) {
-        mPreferences = new LanguagePreferences(Site, typeof(XSharpLanguageService).GUID, Name);
-        mPreferences.Init();
-      }
-      return mPreferences;
-    }
+        private Lazy<LanguagePreferences> _preferences;
 
-    private Scanner mScanner;
-    public override IScanner GetScanner(IVsTextLines buffer) {
-      if (mScanner == null) {
-        mScanner = new Scanner(buffer);
-      }
-      return mScanner;
-    }
+        public XSharpLanguageService()
+        {
+            _preferences = new Lazy<LanguagePreferences>(
+                () =>
+                {
+                    var preferences = new LanguagePreferences(Site, typeof(XSharpLanguageService).GUID, Name);
+                    preferences.Init();
 
-    public override string Name {
-      get { return "X#"; }
-    }
+                    return preferences;
+                });
+        }
 
-    public override AuthoringScope ParseSource(ParseRequest req) {
-      return new Parser();
+        public override string Name => "X#";
+        public override string GetFormatFilterList() => "X# files (*.xs)\n*.xs\n";
+        public override LanguagePreferences GetLanguagePreferences() => _preferences.Value;
+        public override IScanner GetScanner(IVsTextLines buffer) => new Scanner(buffer);
+        public override AuthoringScope ParseSource(ParseRequest req) => new Parser();
     }
-  }
 }
