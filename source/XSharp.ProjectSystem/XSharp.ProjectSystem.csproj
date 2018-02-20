@@ -10,15 +10,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="ItemTemplates\**;ProjectTemplates\**">
-            <IncludeInVSIX>True</IncludeInVSIX>
-        </Content>
+        <Content Include="ItemTemplates\**;ProjectTemplates\**" IncludeInVSIX="True" />
+        <Content Include="Resources\Icon.png" IncludeInVSIX="True" />
+        <Content Include="XSharpImages.imagemanifest" IncludeInVSIX="True" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="XSharpImages.imagemanifest">
-            <IncludeInVSIX>True</IncludeInVSIX>
-        </Content>
+        <Content Include="BuildSystem\**" InstallRoot="MSBuild" VSIXSubPath="XSharp\%(RecursiveDir)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,13 +31,6 @@
         <XamlPropertyRule Include="BuildSystem\Rules\SourceControl.xaml" />
         <XamlPropertyRule Include="BuildSystem\Rules\XSharpDebugger.xaml" />
         <XamlPropertyProjectItemsSchema Include="BuildSystem\Rules\ProjectItemsSchema.xaml" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <VSIXSourceItem Include="BuildSystem\**">
-            <InstallRoot>MSBuild</InstallRoot>
-            <VSIXSubPath>XSharp\%(RecursiveDir)</VSIXSubPath>
-        </VSIXSourceItem>
     </ItemGroup>
 
     <ItemGroup>
