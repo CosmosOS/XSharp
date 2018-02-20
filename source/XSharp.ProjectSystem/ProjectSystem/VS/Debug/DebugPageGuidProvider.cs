@@ -10,10 +10,10 @@ namespace XSharp.ProjectSystem.VS.Debug
 {
     [Export(typeof(IDebugPageGuidProvider))]
     [AppliesTo(ProjectCapability.XSharpAndRunningInVisualStudio)]
-    internal class XSharpDebugPageGuidProvider : IDebugPageGuidProvider
+    internal class DebugPageGuidProvider : IDebugPageGuidProvider
     {
-        private static readonly Task<Guid> Guid = Task.FromResult(new Guid(DebugPropertyPage.PageGuid));
+        private static readonly Task<Guid> GuidTask = Task.FromResult(new Guid(DebugPropertyPage.PageGuid));
 
-        public Task<Guid> GetDebugPropertyPageGuidAsync() => Guid;
+        public Task<Guid> GetDebugPropertyPageGuidAsync() => GuidTask;
     }
 }
