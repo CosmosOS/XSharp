@@ -4,6 +4,7 @@
         <Identity Id="XSharp.VS" Version="1.0" Language="en-US" Publisher="Cosmos" />
         <DisplayName>X# Language</DisplayName>
         <Description xml:space="preserve">X# for Visual Studio</Description>
+        <Icon>Resources\Icon.png</Icon>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />

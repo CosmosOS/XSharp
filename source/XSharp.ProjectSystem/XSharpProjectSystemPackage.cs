@@ -17,7 +17,7 @@ namespace XSharp.ProjectSystem
     [ProvideObject(typeof(CompilePropertyPage))]
     [ProvideObject(typeof(AssemblePropertyPage))]
     [ProvideObject(typeof(DebugPropertyPage))]
-    public sealed class XSharpProjectSystemPackage : Package
+    internal sealed class XSharpProjectSystemPackage : Package
     {
         /// <summary>
         /// The GUID for this package.

@@ -1,0 +1,20 @@
+<Project>
+
+    <PropertyGroup>
+        <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly.</XSharpDescription>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <Authors>Cosmos</Authors>
+        <Copyright>Copyright © 2007-$([System.DateTime]::Now.Year) COSMOS Project</Copyright>
+        <PackageDescription>$(XSharpDescription)</PackageDescription>
+        <PackageIconUrl>https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</PackageIconUrl>
+        <PackageProjectUrl>https://www.x-sharp.net</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/CosmosOS/XSharp/raw/master/LICENSE.txt</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+        <PackageTags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/CosmosOS/XSharp</RepositoryUrl>
+    </PropertyGroup>
+
+</Project>

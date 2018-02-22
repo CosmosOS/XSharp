@@ -110,7 +110,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="XSharp.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\source\XSharp\XSharp.csproj">

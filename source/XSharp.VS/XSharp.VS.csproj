@@ -1,11 +1,13 @@
-﻿<Project>
-
-    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
-        <UseCodebase>True</UseCodebase>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="Resources\Icon.png" IncludeInVSIX="True" />
+        <Content Include="Resources\Package.ico" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.VisualStudio.Package.LanguageService.15.0" Version="15.0.26606" />
@@ -17,8 +19,5 @@
     <ItemGroup>
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
-
-    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 
 </Project>

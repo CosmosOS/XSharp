@@ -2,15 +2,7 @@
 //#define VMT_DEBUG
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading;
 using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Xml;
-using XSharp.Assembler.x86;
 
 namespace XSharp.Assembler
 {

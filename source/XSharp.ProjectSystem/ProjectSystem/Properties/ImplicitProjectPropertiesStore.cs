@@ -3,7 +3,7 @@
 // The file has been modified
 
 using System.Collections.Concurrent;
-using System.Composition;
+using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.ProjectSystem;
 
 namespace XSharp.ProjectSystem.Properties

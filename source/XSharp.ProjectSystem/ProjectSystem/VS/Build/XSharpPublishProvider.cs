@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Composition;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
         [Import]
         private ProjectProperties ProjectProperties { get; set; }
-        
+
         [Import]
         private IProjectThreadingService ProjectThreadingService { get; set; }
 

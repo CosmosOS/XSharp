@@ -122,7 +122,11 @@ namespace Spruce.Tokens {
             }
 
             string xText = aText.Substring(rStart, i);
-            if (mIgnoreCase) xText = xText.ToUpper();
+            if (mIgnoreCase)
+            {
+                xText = xText.ToUpper();
+            }
+
             if (Check(xText)) {
                 rStart += i;
                 return Transform(xText);
@@ -143,9 +147,9 @@ namespace Spruce.Tokens {
             var xToken = this;
             for (int i = 0; i < aTokenTypes.Length; i++) {
                 var xType = aTokenTypes[i];
-                if (xType.IsDefined(typeof(GroupToken), false)) {
+                if (xType.IsDefined(typeof(GroupTokenAttribute), false)) {
                     // Group token, need to split tree
-                    var xGroupAttrib = xType.GetCustomAttribute<GroupToken>();
+                    var xGroupAttrib = xType.GetCustomAttribute<GroupTokenAttribute>();
                     // New array with each group token + rest that follow.
                     // Copy rest but leave first slot open.
                     var xTokenTypes = new Type[aTokenTypes.Length - i];

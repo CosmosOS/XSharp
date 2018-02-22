@@ -2,8 +2,8 @@
 {
     public abstract class Emitters
     {
-        public readonly Compiler Compiler;
-        public readonly x86.Assemblers.Assembler Asm;
+        protected Compiler Compiler { get; }
+        protected x86.Assemblers.Assembler Asm { get; }
 
         protected Emitters(Compiler aCompiler, x86.Assemblers.Assembler aAsm)
         {

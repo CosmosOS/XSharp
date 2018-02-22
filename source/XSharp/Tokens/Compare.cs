@@ -15,18 +15,18 @@ namespace XSharp.Tokens
         typeof(CompareVarAddrVarAddr), typeof(CompareVarAddrInt32), typeof(CompareInt8Int8), typeof(CompareInt8Const),
         typeof(CompareInt8Var), typeof(CompareInt16Int16), typeof(CompareInt16Const), typeof(CompareInt16Var),
         typeof(CompareInt32Int32), typeof(CompareInt32Const), typeof(CompareInt32Var), typeof(CompareInt32VarAddr))]
-    public class Compare : Spruce.Tokens.Compound
+    public class Compare : Compound
     {
     }
 
     [GroupToken(typeof(CompareMem<Reg32, OpCompare, Int32u>))]
-    public class CompareWithMem : Spruce.Tokens.Compound
+    public class CompareWithMem : Compound
     {
     }
 
     public abstract class Compare<TLeftValueType, TComparatorType, TRightValueType> : Compare
     {
-        public Compare()
+        protected Compare()
         {
             mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TLeftValueType)));
             mInternals.Add((Spruce.Tokens.Token)Activator.CreateInstance(typeof(TComparatorType)));

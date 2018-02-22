@@ -4,6 +4,7 @@
         <Identity Id="XSharp.ProjectSystem" Version="1.0" Language="en-US" Publisher="Cosmos" />
         <DisplayName>X# Project System</DisplayName>
         <Description xml:space="preserve">X# Project System for Visual Studio</Description>
+        <Icon>Resources\Icon.png</Icon>
     </Metadata>
     <Installation AllUsers="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
