@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using VSPropertyPages;
+﻿using VSPropertyPages;
 
 namespace XSharp.ProjectSystem.VS.PropertyPages
 {
@@ -13,12 +10,6 @@ namespace XSharp.ProjectSystem.VS.PropertyPages
         public CompilePropertyPageControl()
         {
             InitializeComponent();
-        }
-
-        public override Task SetViewModelAsync(PropertyPageViewModel aPropertyPageViewModel)
-        {
-            DataContext = aPropertyPageViewModel;
-            return Task.CompletedTask;
         }
     }
 }

@@ -20,8 +20,13 @@ namespace VSPropertyPages
     // shouldn't be used outside the lock.
     // Acquiring a lock for writing: https://github.com/Microsoft/VSProjectSystem/blob/master/doc/automation/obtaining_the_MSBuild.Project_from_CPS.md
     //
+    [Obsolete("Use DynamicConfiguredPropertyManager or DynamicUnconfiguredPropertyManager instead.")]
     public class DynamicPropertyManager : IPropertyManager
     {
+        public event EventHandler<ProjectPropertyChangingEventArgs> PropertyChanging;
+        public event EventHandler<ProjectPropertyChangedEventArgs> PropertyChanged;
+        public event EventHandler ConfigurationsChanged;
+
         private UnconfiguredProject _unconfiguredProject;
         private IProjectLockService _projectLockService;
 
@@ -32,8 +37,7 @@ namespace VSPropertyPages
 
         private TaskCompletionSource<bool> _firstProjectUpdateCompletionSource = new TaskCompletionSource<bool>();
 
-        public event EventHandler<ProjectPropertyChangingEventArgs> PropertyChanging;
-        public event EventHandler<ProjectPropertyChangedEventArgs> PropertyChanged;
+        public Task UpdateConfigurationsAsync(IReadOnlyCollection<ConfiguredProject> configuredProjects) => Task.CompletedTask;
 
         public DynamicPropertyManager(UnconfiguredProject unconfiguredProject)
         {

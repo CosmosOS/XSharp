@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.ProjectSystem;
 
 namespace VSPropertyPages
 {
@@ -7,6 +9,9 @@ namespace VSPropertyPages
     {
         event EventHandler<ProjectPropertyChangingEventArgs> PropertyChanging;
         event EventHandler<ProjectPropertyChangedEventArgs> PropertyChanged;
+        event EventHandler ConfigurationsChanged;
+
+        Task UpdateConfigurationsAsync(IReadOnlyCollection<ConfiguredProject> configuredProjects);
 
         Task<string> GetPropertyAsync(string propertyName);
         Task SetPropertyAsync(string propertyName, string value);

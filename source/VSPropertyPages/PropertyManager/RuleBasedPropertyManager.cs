@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.Properties;
@@ -7,17 +8,20 @@ namespace VSPropertyPages
 {
     public class RuleBasedPropertyManager : IPropertyManager
     {
-        private UnconfiguredProject _unconfiguredProject;
-        private IRule _rule;
-
         public event EventHandler<ProjectPropertyChangingEventArgs> PropertyChanging;
         public event EventHandler<ProjectPropertyChangedEventArgs> PropertyChanged;
+        public event EventHandler ConfigurationsChanged;
+
+        private UnconfiguredProject _unconfiguredProject;
+        private IRule _rule;
 
         public RuleBasedPropertyManager(UnconfiguredProject unconfiguredProject, IRule rule)
         {
             _unconfiguredProject = unconfiguredProject;
             _rule = rule;
         }
+
+        public Task UpdateConfigurationsAsync(IReadOnlyCollection<ConfiguredProject> configuredProjects) => Task.CompletedTask;
 
         public async Task<string> GetPropertyAsync(string propertyName) =>
             await _rule.GetPropertyValueAsync(propertyName);
@@ -38,30 +42,14 @@ namespace VSPropertyPages
         public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative)
         {
             var value = await GetPropertyAsync(propertyName);
-
-            if (isRelative)
-            {
-                return _unconfiguredProject.MakeRelative(value);
-            }
-            else
-            {
-                return _unconfiguredProject.MakeRooted(value);
-            }
+            return isRelative ? _unconfiguredProject.MakeRelative(value) : _unconfiguredProject.MakeRooted(value);
         }
 
-        public async Task SetPathPropertyAsync(string propertyName, string value, bool isRelative)
-        {
-            if (isRelative)
-            {
-                await SetPropertyAsync(propertyName, _unconfiguredProject.MakeRelative(value));
-            }
-            else
-            {
-                await SetPropertyAsync(propertyName, _unconfiguredProject.MakeRooted(value));
-            }
-        }
+        public Task SetPathPropertyAsync(string propertyName, string value, bool isRelative) =>
+            isRelative ? SetPropertyAsync(propertyName, _unconfiguredProject.MakeRelative(value))
+            : SetPropertyAsync(propertyName, _unconfiguredProject.MakeRooted(value));
 
-        public async Task<bool> IsDirtyAsync() => await _unconfiguredProject.GetIsDirtyAsync();
+        public Task<bool> IsDirtyAsync() => _unconfiguredProject.GetIsDirtyAsync();
 
         public async Task<bool> ApplyAsync()
         {
