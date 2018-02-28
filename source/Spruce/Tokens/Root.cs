@@ -12,7 +12,7 @@ namespace Spruce.Tokens
             // Load emitters to pattern list
             foreach (var xMethod in aEmitter.GetType().GetRuntimeMethods())
             {
-                foreach (var xAttrib in xMethod.GetCustomAttributes<Attribs.Emitter>())
+                foreach (var xAttrib in xMethod.GetCustomAttributes<Attribs.EmitterAttribute>())
                 {
                     Token.Action xAction;
                     var xParams = xMethod.GetParameters();

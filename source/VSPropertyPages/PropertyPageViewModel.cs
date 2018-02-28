@@ -24,6 +24,7 @@ namespace VSPropertyPages
 
             _propertyManager.PropertyChanged += PropertyManager_PropertyChanged;
             _propertyManager.PropertyChanging += PropertyManager_PropertyChanging;
+            _propertyManager.ConfigurationsChanged += PropertyManager_ConfigurationsChanged;
         }
 
         private void WaitForAsync(Func<Task> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
@@ -54,11 +55,13 @@ namespace VSPropertyPages
         private void PropertyManager_PropertyChanging(object sender, ProjectPropertyChangingEventArgs e) =>
             ProjectPropertyChanging?.Invoke(this, e);
 
-        public async Task<string> GetPropertyAsync(string propertyName) =>
-            await _propertyManager.GetPropertyAsync(propertyName);
+        private void PropertyManager_ConfigurationsChanged(object sender, EventArgs e) => OnPropertyChanged();
 
-        public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative) =>
-            await _propertyManager.GetPathPropertyAsync(propertyName, isRelative);
+        public Task<string> GetPropertyAsync(string propertyName) =>
+            _propertyManager.GetPropertyAsync(propertyName);
+
+        public Task<string> GetPathPropertyAsync(string propertyName, bool isRelative) =>
+            _propertyManager.GetPathPropertyAsync(propertyName, isRelative);
 
         /// <summary>
         /// Sets a project property.
@@ -71,14 +74,8 @@ namespace VSPropertyPages
         /// <returns>An awaitable <seealso cref="Task"/>.</returns>
         public async Task SetPropertyAsync(string propertyName, string value, params string[] changedProperties)
         {
-            if (!String.Equals(
-                await _propertyManager.GetPropertyAsync(propertyName),
-                value,
-                StringComparison.Ordinal))
-            {
-                await _propertyManager.SetPropertyAsync(propertyName, value);
-                OnPropertyChanged(changedProperties);
-            }
+            await _propertyManager.SetPropertyAsync(propertyName, value);
+            OnPropertyChanged(changedProperties);
         }
 
         /// <summary>
@@ -92,19 +89,12 @@ namespace VSPropertyPages
         /// <returns>An awaitable <seealso cref="Task"/>.</returns>
         public async Task SetPathPropertyAsync(string propertyName, string value, bool isRelative, params string[] changedProperties)
         {
-            if (!String.Equals(
-                await _propertyManager.GetPathPropertyAsync(propertyName, false),
-                value,
-                StringComparison.Ordinal))
-            {
-                await _propertyManager.SetPathPropertyAsync(propertyName, value, isRelative);
-                OnPropertyChanged(changedProperties);
-            }
+            await _propertyManager.SetPathPropertyAsync(propertyName, value, isRelative);
+            OnPropertyChanged(changedProperties);
         }
 
-        public async Task<bool> IsDirtyAsync() => await _propertyManager.IsDirtyAsync();
-
-        public async Task<bool> ApplyAsync() => await _propertyManager.ApplyAsync();
+        public Task<bool> IsDirtyAsync() => _propertyManager.IsDirtyAsync();
+        public Task<bool> ApplyAsync() => _propertyManager.ApplyAsync();
 
         protected string GetProperty(string propertyName) =>
             WaitForAsync(() => GetPropertyAsync(propertyName));

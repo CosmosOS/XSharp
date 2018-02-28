@@ -4,40 +4,26 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.ProjectSystem;
-using Microsoft.VisualStudio.Threading;
 
 using MSG = Microsoft.VisualStudio.OLE.Interop.MSG;
 using Message = System.Windows.Interop.MSG;
 
 namespace VSPropertyPages
 {
-    public abstract class WpfPropertyPageUI : UserControl, IPropertyPageUI, IDisposable
+    public class WpfPropertyPageUI : UserControl, IPropertyPageUI, IDisposable
     {
         private HwndSource _hWndSource;
 
-        private IPropertyPageSite _propertyPageSite;
         private IProjectThreadingService _projectThreadingService;
-
-        protected IProjectThreadingService ProjectThreadingService => _projectThreadingService;
-        
-        public Task SetPageSiteAsync(IPropertyPageSite site)
-        {
-            _propertyPageSite = site;
-            return TplExtensions.CompletedTask;
-        }
 
         public Task SetProjectThreadingServiceAsync(IProjectThreadingService projectThreadingService)
         {
             _projectThreadingService = projectThreadingService;
-            return TplExtensions.CompletedTask;
+            return Task.CompletedTask;
         }
 
-        public abstract Task SetViewModelAsync(PropertyPageViewModel propertyPageViewModel);
-
-        public Task ActivateAsync(IntPtr hWndParent, Rectangle rect, bool modal)
+        public void Activate(IntPtr hWndParent, Rectangle rect, bool modal)
         {
             var hWndSourceParams = new HwndSourceParameters
             {
@@ -54,33 +40,21 @@ namespace VSPropertyPages
                 RootVisual = this,
                 SizeToContent = SizeToContent.WidthAndHeight
             };
-
-            return TplExtensions.CompletedTask;
         }
 
-        public Task DeactivateAsync()
-        {
-            Dispose();
-            return TplExtensions.CompletedTask;
-        }
+        public void Deactivate() => Dispose();
 
-        public Task MoveAsync(Rectangle rect)
+        public void Move(Rectangle rect)
         {
             Margin = new Thickness(rect.Left, rect.Top, 0, 0);
 
             Width = rect.Width;
             Height = rect.Height;
-
-            return TplExtensions.CompletedTask;
         }
 
-        public Task ShowAsync(bool visible)
-        {
-            Visibility = visible ? Visibility.Visible : Visibility.Hidden;
-            return TplExtensions.TrueTask;
-        }
+        public void Show(bool visible) => Visibility = visible ? Visibility.Visible : Visibility.Hidden;
 
-        public async Task<int> TranslateAcceleratorAsync(MSG msg)
+        public bool TranslateAccelerator(ref MSG msg)
         {
             var message = new Message
             {
@@ -101,16 +75,10 @@ namespace VSPropertyPages
                 msg.wParam = message.wParam;
                 msg.lParam = message.lParam;
 
-                return VSConstants.S_OK;
+                return true;
             }
 
-            if (_propertyPageSite != null)
-            {
-                await _projectThreadingService.SwitchToUIThread();
-                return _propertyPageSite.TranslateAccelerator(new MSG[] { msg });
-            }
-
-            return VSConstants.S_OK;
+            return false;
         }
 
         protected virtual void Dispose(bool disposing)

@@ -1,0 +1,13 @@
+<Project>
+
+    <PropertyGroup>
+        <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)build\XSharp.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <Import Project="build\Targets\Import.props" />
+
+</Project>

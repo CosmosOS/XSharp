@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Composition;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
         [Import]
         private ProjectProperties ProjectProperties { get; set; }
-        
+
         [Import]
         private IProjectThreadingService ProjectThreadingService { get; set; }
 
@@ -34,23 +34,24 @@ namespace XSharp.ProjectSystem.VS.Build
 
         public async Task PublishAsync(CancellationToken aCancellationToken, TextWriter aOutputPaneWriter)
         {
-            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
+            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync().ConfigureAwait(false);
+            var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
 
-            var xOutputISO = await xProjectProperties.OutputISO.GetEvaluatedValueAtEndAsync();
+            var xOutputISO = await xProjectProperties.OutputISO.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
             xOutputISO = ConfiguredProject.UnconfiguredProject.MakeRooted(xOutputISO);
 
-            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == OutputTypeValues.Bootable)
+            if (String.Equals(xOutputType, OutputTypeValues.Bootable, StringComparison.OrdinalIgnoreCase))
             {
                 if (mPublishSettings == null)
                 {
-                    await aOutputPaneWriter.WriteAsync("Publish settings are null!");
+                    await aOutputPaneWriter.WriteAsync("Publish settings are null!").ConfigureAwait(false);
                     return;
                 }
 
                 switch (mPublishSettings.PublishType)
                 {
                     case PublishType.ISO:
-                        await aOutputPaneWriter.WriteLineAsync("Publishing ISO!");
+                        await aOutputPaneWriter.WriteLineAsync("Publishing ISO!").ConfigureAwait(false);
 
                         if (String.IsNullOrWhiteSpace(mPublishSettings.PublishPath))
                         {
@@ -61,7 +62,7 @@ namespace XSharp.ProjectSystem.VS.Build
 
                         break;
                     case PublishType.USB:
-                        await aOutputPaneWriter.WriteLineAsync("Publishing USB!");
+                        await aOutputPaneWriter.WriteLineAsync("Publishing USB!").ConfigureAwait(false);
 
                         DriveInfo xDriveInfo;
 
@@ -88,7 +89,7 @@ namespace XSharp.ProjectSystem.VS.Build
                                     {
                                         using (var xNewFile = File.Create(Path.Combine(xDrivePath, Path.GetFileName(xFile))))
                                         {
-                                            await xFileStream.CopyToAsync(xNewFile);
+                                            await xFileStream.CopyToAsync(xNewFile).ConfigureAwait(false);
                                         }
                                     }
                                 }
@@ -97,27 +98,30 @@ namespace XSharp.ProjectSystem.VS.Build
 
                         break;
                     default:
-                        await aOutputPaneWriter.WriteLineAsync($"Unknown publish type! Publish type: '{mPublishSettings.PublishType}'");
+                        await aOutputPaneWriter.WriteLineAsync(
+                            $"Unknown publish type! Publish type: '{mPublishSettings.PublishType}'").ConfigureAwait(false);
                         break;
                 }
             }
             else
             {
-                await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Publish"), CancellationToken.None, true);
+                await ConfiguredProject.Services.Build.BuildAsync(
+                    ImmutableArray.Create("Publish"), CancellationToken.None, true).ConfigureAwait(false);
             }
 
-            await aOutputPaneWriter.WriteLineAsync("Publish successful!");
+            await aOutputPaneWriter.WriteLineAsync("Publish successful!").ConfigureAwait(false);
         }
 
         public async Task<bool> ShowPublishPromptAsync()
         {
-            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync();
+            var xProjectProperties = await ProjectProperties.GetConfigurationGeneralPropertiesAsync().ConfigureAwait(false);
+            var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
 
-            if (await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync() == OutputTypeValues.Bootable)
+            if (String.Equals(xOutputType, OutputTypeValues.Bootable, StringComparison.OrdinalIgnoreCase))
             {
                 await ProjectThreadingService.SwitchToUIThread();
 
-                var xBinOutputPath = await xProjectProperties.BinOutputPath.GetEvaluatedValueAtEndAsync();
+                var xBinOutputPath = await xProjectProperties.BinOutputPath.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
                 var xDefaultIsoPublishPath = ConfiguredProject.UnconfiguredProject.MakeRooted(
                     Path.Combine(xBinOutputPath, Path.ChangeExtension(Path.GetFileName(ConfiguredProject.UnconfiguredProject.FullPath), "iso")));
 

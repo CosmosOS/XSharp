@@ -10,6 +10,7 @@ using static XSharp.XSRegisters;
 namespace XSharp
 {
   [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
+  [SuppressMessage("Usage", "CA1806:Do not ignore method results")]
   public static partial class XS
   {
     public static void Label(string labelName)

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace XSharp.x86
 {
     public class Register
     {
-        public class Names
+        public static class Names
         {
             public static readonly string[] Reg08 = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
             public static readonly string[] Reg16 = "AX,BX,CX,DX".Split(',');
@@ -16,39 +14,39 @@ namespace XSharp.x86
 
         // These statics are not used much now but will be used even with NASM
         // and will become far important wtih binary assembler.
-        public static Register EAX = new Register("EAX");
+        public static readonly Register EAX = new Register("EAX");
 
-        public static Register EBX = new Register("EBX");
-        public static Register ECX = new Register("ECX");
-        public static Register EDX = new Register("EDX");
-        public static Register ESP = new Register("ESP");
-        public static Register EBP = new Register("EBP");
-        public static Register ESI = new Register("ESI");
+        public static readonly Register EBX = new Register("EBX");
+        public static readonly Register ECX = new Register("ECX");
+        public static readonly Register EDX = new Register("EDX");
+        public static readonly Register ESP = new Register("ESP");
+        public static readonly Register EBP = new Register("EBP");
+        public static readonly Register ESI = new Register("ESI");
 
-        public static Register EDI = new Register("EDI");
-
-        //
-        public static Register AX = new Register("AX");
-
-        public static Register BX = new Register("BX");
-        public static Register CX = new Register("CX");
-
-        public static Register DX = new Register("DX");
+        public static readonly Register EDI = new Register("EDI");
 
         //
-        public static Register AH = new Register("AH");
+        public static readonly Register AX = new Register("AX");
 
-        public static Register AL = new Register("AL");
-        public static Register BH = new Register("BH");
-        public static Register BL = new Register("BL");
-        public static Register CH = new Register("CH");
-        public static Register CL = new Register("CL");
-        public static Register DH = new Register("DH");
-        public static Register DL = new Register("DL");
+        public static readonly Register BX = new Register("BX");
+        public static readonly Register CX = new Register("CX");
 
-        public readonly bool IsGenPurpose;
-        public readonly string Name;
-        public readonly int Size;
+        public static readonly Register DX = new Register("DX");
+
+        //
+        public static readonly Register AH = new Register("AH");
+
+        public static readonly Register AL = new Register("AL");
+        public static readonly Register BH = new Register("BH");
+        public static readonly Register BL = new Register("BL");
+        public static readonly Register CH = new Register("CH");
+        public static readonly Register CL = new Register("CL");
+        public static readonly Register DH = new Register("DH");
+        public static readonly Register DL = new Register("DL");
+
+        public bool IsGenPurpose { get; }
+        public string Name { get; }
+        public int Size { get; }
 
         public Register(string aName)
         {
@@ -81,7 +79,10 @@ namespace XSharp.x86
             if (!(aValidRegs + ",").Contains(Name + ","))
             {
                 if (throwException)
+                {
                     throw new Exception("Invalid register: {Name}.\r\nMust be one of: {aValidRegs}");
+                }
+
                 return false;
             }
             return true;
@@ -109,7 +110,7 @@ namespace XSharp.x86
                 ? "word"
                 : IsReg32
                     ? "dword"
-                    : throw new Exception("Unknown register size");
+                    : throw new NotSupportedException("Unknown register size");
 
         public override string ToString()
         {

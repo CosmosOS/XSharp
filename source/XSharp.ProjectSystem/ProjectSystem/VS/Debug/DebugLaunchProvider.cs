@@ -16,12 +16,12 @@ namespace XSharp.ProjectSystem.VS.Debug
 {
     [ExportDebugger(XSharpDebugger.SchemaName)]
     [AppliesTo(ProjectCapability.XSharp)]
-    internal class XSharpDebugLaunchProvider : DebugLaunchProviderBase
+    internal class DebugLaunchProvider : DebugLaunchProviderBase
     {
         private ProjectProperties mProjectProperties;
 
         [ImportingConstructor]
-        public XSharpDebugLaunchProvider(ConfiguredProject aConfiguredProject, ProjectProperties aProjectProperties)
+        public DebugLaunchProvider(ConfiguredProject aConfiguredProject, ProjectProperties aProjectProperties)
             : base(aConfiguredProject)
         {
             mProjectProperties = aProjectProperties;
@@ -31,30 +31,34 @@ namespace XSharp.ProjectSystem.VS.Debug
 
         public override async Task<IReadOnlyList<IDebugLaunchSettings>> QueryDebugTargetsAsync(DebugLaunchOptions aLaunchOptions)
         {
-            var xProjectProperties = await mProjectProperties.GetConfigurationGeneralPropertiesAsync();
-            var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync();
+            var xProjectProperties = await mProjectProperties.GetConfigurationGeneralPropertiesAsync().ConfigureAwait(false);
+            var xOutputType = await xProjectProperties.OutputType.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
+            var xIsBootable = String.Equals(xOutputType, OutputTypeValues.Bootable, StringComparison.OrdinalIgnoreCase);
 
-            if (xOutputType != OutputTypeValues.Application && xOutputType != OutputTypeValues.Bootable)
+            if (!String.Equals(xOutputType, OutputTypeValues.Application, StringComparison.OrdinalIgnoreCase) && !xIsBootable)
             {
                 throw new Exception($"Project cannot be launched! Output type: '{xOutputType}'.");
             }
 
-            if (xOutputType == OutputTypeValues.Bootable)
+            if (xIsBootable)
             {
                 // todo: using debugger for this would be better
-                await ConfiguredProject.Services.Build.BuildAsync(ImmutableArray.Create("Run"), CancellationToken.None, true);
+                await ConfiguredProject.Services.Build.BuildAsync(
+                    ImmutableArray.Create("Run"), CancellationToken.None, true).ConfigureAwait(false);
             }
 
             if (!aLaunchOptions.HasFlag(DebugLaunchOptions.NoDebug))
             {
-                var xBinaryOutput = await xProjectProperties.BinaryOutput.GetEvaluatedValueAtEndAsync();
+                var xBinaryOutput = await xProjectProperties.BinaryOutput.GetEvaluatedValueAtEndAsync().ConfigureAwait(false);
                 xBinaryOutput = Path.GetFullPath(xBinaryOutput);
 
-                var xDebugSettings = new DebugLaunchSettings(aLaunchOptions);
-                xDebugSettings.LaunchOperation = DebugLaunchOperation.AlreadyRunning;
-                xDebugSettings.CurrentDirectory = Path.GetDirectoryName(xBinaryOutput);
+                var xDebugSettings = new DebugLaunchSettings(aLaunchOptions)
+                {
+                    LaunchOperation = DebugLaunchOperation.AlreadyRunning,
+                    CurrentDirectory = Path.GetDirectoryName(xBinaryOutput)
+                };
 
-                if (xOutputType == OutputTypeValues.Bootable)
+                if (xIsBootable)
                 {
                     // todo: implement
                     //xDebugSettings.LaunchDebugEngineGuid = XSharpDebuggerGuid;

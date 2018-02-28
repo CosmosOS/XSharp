@@ -1,38 +1,23 @@
-﻿<Project InitialTargets="CheckMSBuildRuntimeType">
-
-    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <UseCodebase>True</UseCodebase>
-        <GeneratePkgDefFile>True</GeneratePkgDefFile>
-        <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
-        <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
-        <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
-        <CopyBuildOutputToOutputDirectory>True</CopyBuildOutputToOutputDirectory>
-        <CopyOutputSymbolsToOutputDirectory>False</CopyOutputSymbolsToOutputDirectory>
-        <DeployExtension>True</DeployExtension>
-    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="Resources\Icon.png" IncludeInVSIX="True" />
+        <Content Include="Resources\Package.ico" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.VisualStudio.Package.LanguageService.15.0" Version="15.0.26606" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.10.0" Version="10.0.30319" />
-        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.5.100" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
-
-    <Target Name="CheckMSBuildRuntimeType">
-        <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
-
-    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-    <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 
 </Project>

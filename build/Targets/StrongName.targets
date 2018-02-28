@@ -1,0 +1,7 @@
+<Project>
+
+    <PropertyGroup Condition="'$(SignAssembly)' == 'True'">
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\XSharp.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+</Project>

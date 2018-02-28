@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Text;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio;
-using System.Runtime.InteropServices;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace XSharp.VS
 {
@@ -15,22 +15,28 @@ namespace XSharp.VS
   // When we get .xsproj types, we can eliminate this class.
   public class XsToAsmFileGenerator : IVsSingleFileGenerator
   {
-    public int DefaultExtension(out string oDefaultExt)
+    public int DefaultExtension(out string pbstrDefaultExtension)
     {
-      oDefaultExt = ".asm";
+      pbstrDefaultExtension = ".asm";
       return VSConstants.S_OK;
     }
 
-    public int Generate(string aInputFilePath, string aInputFileContents, string aDefaultNamespace, IntPtr[] aOutputFileContents, out uint oPcbOutput, IVsGeneratorProgress aGenerateProgress)
+    public int Generate(
+      string wszInputFilePath,
+      string bstrInputFileContents,
+      string wszDefaultNamespace,
+      IntPtr[] rgbOutputFileContents,
+      out uint pcbOutput,
+      IVsGeneratorProgress pGenerateProgress)
     {
       string xResult;
-      using (var xInput = new StringReader(aInputFileContents))
+      using (var xInput = new StringReader(bstrInputFileContents))
       {
         using (var xOut = new StringWriter())
         {
           try
           {
-            new Assembler.Assembler();
+            var xAssembler = new Assembler.Assembler();
             try
             {
               var xGen = new AsmGenerator();
@@ -57,14 +63,14 @@ namespace XSharp.VS
         }
       }
 
-      aOutputFileContents[0] = IntPtr.Zero;
-      oPcbOutput = 0;
+      rgbOutputFileContents[0] = IntPtr.Zero;
+      pcbOutput = 0;
       var xBytes = Encoding.UTF8.GetBytes(xResult);
       if (xBytes.Length > 0)
       {
-        aOutputFileContents[0] = Marshal.AllocCoTaskMem(xBytes.Length);
-        Marshal.Copy(xBytes, 0, aOutputFileContents[0], xBytes.Length);
-        oPcbOutput = (uint)xBytes.Length;
+        rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(xBytes.Length);
+        Marshal.Copy(xBytes, 0, rgbOutputFileContents[0], xBytes.Length);
+        pcbOutput = (uint)xBytes.Length;
       }
 
       return VSConstants.S_OK;

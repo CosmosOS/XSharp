@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Spruce.Attribs;
+﻿using Spruce.Attribs;
 using Spruce.Tokens;
 
 namespace XSharp.Tokens {
