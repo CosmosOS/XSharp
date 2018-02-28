@@ -8,9 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Win32;
 
-using WinFormsDialogResult = System.Windows.Forms.DialogResult;
-using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
-
 namespace XSharp.ProjectSystem.VS.Build
 {
     internal class DefaultPublishProperties
