@@ -34,6 +34,10 @@ $(XSharpDescription)</PackageDescription>
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="System.CommandLine" Version="0.1.0-e171004-2" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
