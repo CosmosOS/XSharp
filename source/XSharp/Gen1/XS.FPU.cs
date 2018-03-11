@@ -91,7 +91,7 @@ namespace XSharp
         };
       }
 
-      public static void IntLoad(XSRegisters.Register32 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
+      public static void IntLoad(XSRegisters.Register32 destination, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
       {
         if (size == null)
         {
@@ -100,6 +100,11 @@ namespace XSharp
             throw new InvalidOperationException("No size specified!");
           }
           size = destination.Size;
+        }
+
+        if (displacement != null)
+        {
+          isIndirect = true;
         }
 
         new IntLoad

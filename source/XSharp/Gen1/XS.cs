@@ -1171,12 +1171,26 @@ namespace XSharp
 
     public static void StoreByteInString()
     {
-      new StoreByteInString();
+      new Stos()
+      {
+        Size = 8
+      };
     }
 
     public static void StoreWordInString()
     {
-      new StoreWordInString();
+      new Stos()
+      {
+        Size = 16
+      };
+    }
+
+    public static void StoreDwordInString()
+    {
+      new Stos()
+      {
+        Size = 32
+      };
     }
 
     public static void LoadGdt(Register32 destination, bool isIndirect = false)
