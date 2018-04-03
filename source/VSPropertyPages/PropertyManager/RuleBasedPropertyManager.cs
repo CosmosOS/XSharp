@@ -13,35 +13,42 @@ namespace VSPropertyPages
         public event EventHandler ConfigurationsChanged;
 
         private UnconfiguredProject _unconfiguredProject;
+        private IProjectThreadingService _projectThreadingService;
+
         private IRule _rule;
 
         public RuleBasedPropertyManager(UnconfiguredProject unconfiguredProject, IRule rule)
         {
-            _unconfiguredProject = unconfiguredProject;
+            _unconfiguredProject = unconfiguredProject ?? throw new ArgumentNullException(nameof(unconfiguredProject));
+            _projectThreadingService = _unconfiguredProject.ProjectService.Services.ThreadingPolicy;
+
             _rule = rule;
         }
 
         public Task UpdateConfigurationsAsync(IReadOnlyCollection<ConfiguredProject> configuredProjects) => Task.CompletedTask;
 
         public async Task<string> GetPropertyAsync(string propertyName) =>
-            await _rule.GetPropertyValueAsync(propertyName);
+            await _rule.GetPropertyValueAsync(propertyName).ConfigureAwait(false);
 
         public async Task SetPropertyAsync(string propertyName, string value)
         {
+            await _projectThreadingService.SwitchToUIThread();
             PropertyChanging?.Invoke(this, new ProjectPropertyChangingEventArgs(propertyName));
 
-            var oldValue = await _rule.GetPropertyValueAsync(propertyName);
+            var oldValue = await _rule.GetPropertyValueAsync(propertyName).ConfigureAwait(false);
 
             if (!String.Equals(oldValue, value, StringComparison.Ordinal))
             {
-                await _rule.GetProperty(propertyName)?.SetValueAsync(value);
+                await _rule.GetProperty(propertyName).SetValueAsync(value).ConfigureAwait(false);
+
+                await _projectThreadingService.SwitchToUIThread();
                 PropertyChanged?.Invoke(this, new ProjectPropertyChangedEventArgs(propertyName, oldValue, value));
             }
         }
 
         public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative)
         {
-            var value = await GetPropertyAsync(propertyName);
+            var value = await GetPropertyAsync(propertyName).ConfigureAwait(false);
             return isRelative ? _unconfiguredProject.MakeRelative(value) : _unconfiguredProject.MakeRooted(value);
         }
 
@@ -53,8 +60,8 @@ namespace VSPropertyPages
 
         public async Task<bool> ApplyAsync()
         {
-            await _unconfiguredProject.SaveAsync();
-            await _unconfiguredProject.SaveUserFileAsync();
+            await _unconfiguredProject.SaveAsync().ConfigureAwait(false);
+            await _unconfiguredProject.SaveUserFileAsync().ConfigureAwait(false);
 
             return true;
         }
