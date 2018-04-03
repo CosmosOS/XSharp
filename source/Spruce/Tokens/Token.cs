@@ -12,23 +12,17 @@ namespace Spruce.Tokens {
     public abstract class Token {
 
         public static class Chars {
-            public static readonly string Alpha;
             public static readonly string Digit = "0123456789";
             public static readonly string ExtraHexDigit = "ABCDEFabcdef";
-            public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRTSUVWXYZ";
-            public static readonly string AlphaLower;
-            public static readonly string AlphaNum;
-
-            static Chars() {
-                AlphaLower = AlphaUpper.ToLower();
-                Alpha = AlphaUpper + AlphaLower;
-                AlphaNum = Alpha + Digit;
-            }
+            public static readonly string AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            public static readonly string AlphaLower = AlphaUpper.ToLowerInvariant();
+            public static readonly string Alpha = AlphaUpper + AlphaLower;
+            public static readonly string AlphaNum = Alpha + Digit;
         }
 
         public delegate void Action(List<CodePoint> aPoints);
         protected List<Token> mChildren = new List<Token>();
-        public Action Emitter;
+        public Action Emitter { get; private set; }
 
         protected int mMaxLength;
         protected readonly bool mIgnoreCase;
