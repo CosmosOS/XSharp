@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
-namespace XSharp.x86.Params {
+namespace XSharp.x86.Params
+{
     public abstract class Param {
         public delegate void ActionDelegate(object[] aValues);
         public ActionDelegate Action;

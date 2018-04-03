@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace XSharp.Assembler
+﻿namespace XSharp.Assembler
 {
     [XSharp.Assembler.OpCode("%ifdef")]
     public class IfDefined: Instruction, IIfDefined {

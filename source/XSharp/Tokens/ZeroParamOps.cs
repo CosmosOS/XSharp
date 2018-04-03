@@ -1,7 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using XSharp.x86;
+﻿using XSharp.x86;
 
-namespace XSharp.Tokens {
+namespace XSharp.Tokens
+{
     public class ZeroParamOp : Spruce.Tokens.AlphaNumList {
         protected OpCode mOpCode;
 

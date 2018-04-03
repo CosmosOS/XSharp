@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace XSharp.Assembler.x86 {
+namespace XSharp.Assembler.x86
+{
     [XSharp.Assembler.OpCode("stos")]
     public class Stos : InstructionWithSize, IInstructionWithPrefix {
 

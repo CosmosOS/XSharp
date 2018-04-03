@@ -1,5 +1,4 @@
-﻿using System;
-using Spruce.Attribs;
+﻿using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;

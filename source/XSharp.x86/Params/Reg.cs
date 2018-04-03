@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XSharp.x86.Params {
+﻿namespace XSharp.x86.Params
+{
     public abstract class Reg : Param {
         protected readonly int mSize;
         protected readonly bool mIsGenPurpose;

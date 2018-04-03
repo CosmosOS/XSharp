@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace XSharp.Assembler
+﻿namespace XSharp.Assembler
 {
     public class IfNotDefined: Instruction, IIfNotDefined {
         public string Symbol {

@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Spruce.Tokens;
+﻿using Spruce.Tokens;
 
 namespace XSharp.Tokens
 {

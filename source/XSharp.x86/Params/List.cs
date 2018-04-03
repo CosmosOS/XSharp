@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
-namespace XSharp.x86.Params {
+namespace XSharp.x86.Params
+{
     public class List : Param {
         protected readonly string[] mTexts;
 

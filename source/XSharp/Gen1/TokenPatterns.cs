@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XSharp.Assembler;
 using XSharp.Assembler.x86;
 
-namespace XSharp {
-  /// <summary>This class is able to translate a single X# source code line into one or more
-  /// target assembler source code and data lines. The class is a group of pattern each of
-  /// which defines a transformation function from the X# syntax to the target assembler
-  /// syntax.</summary>
-  public class TokenPatterns {
+namespace XSharp
+{
+    /// <summary>This class is able to translate a single X# source code line into one or more
+    /// target assembler source code and data lines. The class is a group of pattern each of
+    /// which defines a transformation function from the X# syntax to the target assembler
+    /// syntax.</summary>
+    public class TokenPatterns {
     /// <summary>Describe a single pattern with its list of tokens that might include pattern
     /// reserved syntax token and a transformation function. For ease of search and performance
     /// an hashcode value is computed on the tokens list content and later used for searching
