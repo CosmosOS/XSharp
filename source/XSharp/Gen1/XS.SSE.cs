@@ -123,16 +123,6 @@ namespace XSharp
       }
 #endif
 
-      public static void ConvertSS2SD(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
-      {
-        new ConvertSS2SD()
-        {
-          DestinationReg = destination,
-          SourceReg = source,
-          SourceIsIndirect = sourceIsIndirect
-        };
-      }
-
       public static void ConvertSS2SIAndTruncate(Register32 destination, RegisterXMM source)
       {
         new ConvertSS2SIAndTruncate
