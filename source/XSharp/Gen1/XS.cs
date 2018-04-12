@@ -723,7 +723,7 @@ namespace XSharp
         throw new InvalidOperationException();
       }
 
-      Do<ShiftLeft>(destination, bitCount, destinationIsIndirect: destinationIsIndirect, size: size);
+      Do<ShiftLeft>(destination, bitCount, destinationIsIndirect: destinationIsIndirect, skipSizeCheck: true, size: size);
     }
 
     public static void ShiftRightArithmetic(Register destination, byte bitCount)
