@@ -1380,6 +1380,17 @@ namespace XSharp
 
     #endregion
 
+    public static void SetByteOnCondition(ConditionalTestEnum condition, Register destination, bool destinationIsIndirect = false, int? destinationDisplacement = null)
+    {
+      new SetByteOnCondition
+      {
+        Condition = condition,
+        DestinationReg = destination,
+        DestinationIsIndirect = destinationIsIndirect,
+        DestinationDisplacement = destinationDisplacement
+      };
+    }
+
     public static void Cpuid()
     {
       new CpuId();
