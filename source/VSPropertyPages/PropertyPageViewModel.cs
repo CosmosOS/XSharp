@@ -7,14 +7,14 @@ namespace VSPropertyPages
 {
     public abstract class PropertyPageViewModel : INotifyPropertyChanged
     {
-        private IPropertyManager _propertyManager;
-        private IProjectThreadingService _projectThreadingService;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<ProjectPropertyChangedEventArgs> ProjectPropertyChanged;
         public event EventHandler<ProjectPropertyChangingEventArgs> ProjectPropertyChanging;
-        
+
+        private IPropertyManager _propertyManager;
+        private IProjectThreadingService _projectThreadingService;
+
         protected PropertyPageViewModel(
             IPropertyManager propertyManager,
             IProjectThreadingService projectThreadingService)
@@ -26,36 +26,6 @@ namespace VSPropertyPages
             _propertyManager.PropertyChanging += PropertyManager_PropertyChanging;
             _propertyManager.ConfigurationsChanged += PropertyManager_ConfigurationsChanged;
         }
-
-        private void WaitForAsync(Func<Task> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
-
-        private T WaitForAsync<T>(Func<Task<T>> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
-
-        private void OnPropertyChanged(params string[] propertyNames)
-        {
-            if (PropertyChanged != null)
-            {
-                if (propertyNames.Length > 0)
-                {
-                    foreach (var property in propertyNames)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(property));
-                    }
-                }
-                else
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
-                }
-            }
-        }
-
-        private void PropertyManager_PropertyChanged(object sender, ProjectPropertyChangedEventArgs e) =>
-            ProjectPropertyChanged?.Invoke(this, e);
-
-        private void PropertyManager_PropertyChanging(object sender, ProjectPropertyChangingEventArgs e) =>
-            ProjectPropertyChanging?.Invoke(this, e);
-
-        private void PropertyManager_ConfigurationsChanged(object sender, EventArgs e) => OnPropertyChanged();
 
         public Task<string> GetPropertyAsync(string propertyName) =>
             _propertyManager.GetPropertyAsync(propertyName);
@@ -114,5 +84,38 @@ namespace VSPropertyPages
 
         protected void SetPathProperty(string propertyName, string value, bool isRelative, params string[] changedProperties) =>
             WaitForAsync(() => SetPathPropertyAsync(propertyName, value, isRelative, changedProperties));
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private void WaitForAsync(Func<Task> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
+
+        private T WaitForAsync<T>(Func<Task<T>> asyncFunc) => _projectThreadingService.ExecuteSynchronously(asyncFunc);
+
+        private void OnPropertyChanged(params string[] propertyNames)
+        {
+            if (PropertyChanged != null)
+            {
+                if (propertyNames.Length > 0)
+                {
+                    foreach (var property in propertyNames)
+                    {
+                        OnPropertyChanged(property);
+                    }
+                }
+                else
+                {
+                    OnPropertyChanged(String.Empty);
+                }
+            }
+        }
+
+        private void PropertyManager_PropertyChanged(object sender, ProjectPropertyChangedEventArgs e) =>
+            ProjectPropertyChanged?.Invoke(this, e);
+
+        private void PropertyManager_PropertyChanging(object sender, ProjectPropertyChangingEventArgs e) =>
+            ProjectPropertyChanging?.Invoke(this, e);
+
+        private void PropertyManager_ConfigurationsChanged(object sender, EventArgs e) => OnPropertyChanged(String.Empty);
     }
 }

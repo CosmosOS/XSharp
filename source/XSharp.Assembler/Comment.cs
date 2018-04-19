@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace XSharp.Assembler
+﻿namespace XSharp.Assembler
 {
     public class Comment : Instruction
     {

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace XSharp.Build {
+namespace XSharp.Build
+{
     public class Clogger : IDisposable {
         public enum FileType {
             Overwrite,

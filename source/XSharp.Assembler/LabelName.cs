@@ -36,8 +36,7 @@ namespace XSharp.Assembler
 
         public static string Get(MethodBase aMethod)
         {
-            string result;
-            if (labelNamesCache.TryGetValue(aMethod, out result))
+            if (labelNamesCache.TryGetValue(aMethod, out var result))
             {
                 return result;
             }
@@ -53,7 +52,7 @@ namespace XSharp.Assembler
         }
 
         // no array bracket, they need to replace, for unique names for used types in methods
-        public static System.Text.RegularExpressions.Regex IllegalCharsReplace = new System.Text.RegularExpressions.Regex(@"[&.,+$<>{}\-\`\\'/\\ \(\)\*!=]", System.Text.RegularExpressions.RegexOptions.Compiled);
+        private static readonly System.Text.RegularExpressions.Regex IllegalCharsReplace = new System.Text.RegularExpressions.Regex(@"[&.,+$<>{}\-\`\\'/\\ \(\)\*!=]", System.Text.RegularExpressions.RegexOptions.Compiled);
 
         public static string Final(string xName)
         {
@@ -143,7 +142,7 @@ namespace XSharp.Assembler
         {
             if (aMethod == null)
             {
-                throw new ArgumentNullException("aMethod");
+                throw new ArgumentNullException(nameof(aMethod));
             }
             var xBuilder = new StringBuilder(256);
             var xParts = aMethod.ToString().Split(' ');

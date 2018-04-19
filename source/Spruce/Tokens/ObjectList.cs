@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Spruce.Tokens {
+namespace Spruce.Tokens
+{
     public class ObjectList<T> : Token {
         protected readonly Dictionary<string, T> mList = new Dictionary<string, T>();
 

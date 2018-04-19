@@ -13,6 +13,8 @@ namespace VSPropertyPages
         public event EventHandler ConfigurationsChanged;
 
         private UnconfiguredProject _unconfiguredProject;
+        private IProjectThreadingService _projectThreadingService;
+
         private IReadOnlyCollection<ConfiguredProject> _configuredProjects;
 
         public DynamicConfiguredPropertyManager(
@@ -20,6 +22,8 @@ namespace VSPropertyPages
             IReadOnlyCollection<ConfiguredProject> configuredProjects)
         {
             _unconfiguredProject = unconfiguredProject ?? throw new ArgumentNullException(nameof(unconfiguredProject));
+            _projectThreadingService = _unconfiguredProject.ProjectService.Services.ThreadingPolicy;
+
             _configuredProjects = configuredProjects ?? throw new ArgumentNullException(nameof(configuredProjects));
 
             if (configuredProjects.Count <= 0)
@@ -42,23 +46,25 @@ namespace VSPropertyPages
 
         public async Task<string> GetPathPropertyAsync(string propertyName, bool isRelative)
         {
-            var path = await GetPropertyAsync(propertyName);
+            var path = await GetPropertyAsync(propertyName).ConfigureAwait(false);
             return isRelative ? _unconfiguredProject.MakeRelative(path) : _unconfiguredProject.MakeRooted(path);
         }
 
         public async Task SetPropertyAsync(string propertyName, string value)
         {
+            await _projectThreadingService.SwitchToUIThread();
             PropertyChanging?.Invoke(this, new ProjectPropertyChangingEventArgs(propertyName));
 
-            var oldValue = await GetPropertyAsync(propertyName);
+            var oldValue = await GetPropertyAsync(propertyName).ConfigureAwait(false);
 
             foreach (var configuredProject in _configuredProjects)
             {
                 var properties = configuredProject.Services.ProjectPropertiesProvider.GetCommonProperties();
                 await properties.SetPropertyValueAsync(
-                    propertyName, value, configuredProject.ProjectConfiguration.Dimensions);
+                    propertyName, value, configuredProject.ProjectConfiguration.Dimensions).ConfigureAwait(false);
             }
 
+            await _projectThreadingService.SwitchToUIThread();
             PropertyChanged?.Invoke(this, new ProjectPropertyChangedEventArgs(propertyName, oldValue, value));
         }
 
@@ -69,7 +75,7 @@ namespace VSPropertyPages
 
         public async Task<bool> ApplyAsync()
         {
-            await _unconfiguredProject.SaveAsync();
+            await _unconfiguredProject.SaveAsync().ConfigureAwait(false);
             return true;
         }
     }

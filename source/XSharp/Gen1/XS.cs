@@ -723,7 +723,7 @@ namespace XSharp
         throw new InvalidOperationException();
       }
 
-      Do<ShiftLeft>(destination, bitCount, destinationIsIndirect: destinationIsIndirect, size: size);
+      Do<ShiftLeft>(destination, bitCount, destinationIsIndirect: destinationIsIndirect, skipSizeCheck: true, size: size);
     }
 
     public static void ShiftRightArithmetic(Register destination, byte bitCount)
@@ -1379,6 +1379,17 @@ namespace XSharp
     }
 
     #endregion
+
+    public static void SetByteOnCondition(ConditionalTestEnum condition, Register destination, bool destinationIsIndirect = false, int? destinationDisplacement = null)
+    {
+      new SetByteOnCondition
+      {
+        Condition = condition,
+        DestinationReg = destination,
+        DestinationIsIndirect = destinationIsIndirect,
+        DestinationDisplacement = destinationDisplacement
+      };
+    }
 
     public static void Cpuid()
     {

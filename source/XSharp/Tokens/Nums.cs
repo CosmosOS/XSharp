@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
-namespace XSharp.Tokens {
+namespace XSharp.Tokens
+{
     public abstract class Num : Spruce.Tokens.Num {
         protected Func<string, NumberStyles, object> mParse;
 

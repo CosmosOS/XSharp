@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using XSharp.x86.Params;
 
 namespace XSharp.x86.Assemblers

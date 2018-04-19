@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 
-namespace XSharp.Assembler.x86 {
-  // todo: cache the EncodingOption and InstructionData instances..
-  public abstract class Instruction : XSharp.Assembler.Instruction {
+namespace XSharp.Assembler.x86
+{
+    // todo: cache the EncodingOption and InstructionData instances..
+    public abstract class Instruction : XSharp.Assembler.Instruction {
     
     [Flags]
     public enum InstructionSizes {

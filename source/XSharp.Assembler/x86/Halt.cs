@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace XSharp.Assembler.x86
+﻿namespace XSharp.Assembler.x86
 {
     [XSharp.Assembler.OpCode("hlt")]
     public class Halt : Instruction

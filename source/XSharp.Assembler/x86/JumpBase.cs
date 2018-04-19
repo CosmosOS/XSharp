@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
-namespace XSharp.Assembler.x86 {
-  public abstract class JumpBase : InstructionWithDestination
+namespace XSharp.Assembler.x86
+{
+    public abstract class JumpBase : InstructionWithDestination
   {
       public JumpBase(string mnemonic =null) : base(mnemonic)
       {

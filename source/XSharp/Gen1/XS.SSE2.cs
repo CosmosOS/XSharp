@@ -52,6 +52,16 @@ namespace XSharp
         };
       }
 
+      public static void ConvertSS2SD(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      {
+        new ConvertSS2SD()
+        {
+          DestinationReg = destination,
+          SourceReg = source,
+          SourceIsIndirect = sourceIsIndirect
+        };
+      }
+
       public static void ConvertSD2SS(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
       {
         new ConvertSD2SS()

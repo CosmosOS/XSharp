@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XSharp.x86
+﻿namespace XSharp.x86
 {
     // Do all 8086/88 ops first
     // https://en.wikipedia.org/wiki/X86_instruction_listings

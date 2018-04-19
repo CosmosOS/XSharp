@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
-namespace Spruce.Tokens {
+namespace Spruce.Tokens
+{
     public abstract class Num : Token {
         protected Num(string aExtraChars = "", string aExtraFirstChars = "") : base(aExtraChars + Chars.Digit, aExtraFirstChars + Chars.Digit) { }
 

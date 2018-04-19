@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace XSharp.Assembler.x86 {
-  public class MoveToDR6 : XSharp.Assembler.Instruction {
+namespace XSharp.Assembler.x86
+{
+    public class MoveToDR6 : XSharp.Assembler.Instruction {
     protected UInt32 mValue;
 
     public MoveToDR6(UInt32 aValue) {

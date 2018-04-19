@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace XSharp.x86 {
+namespace XSharp.x86
+{
     public class Map {
         protected Dictionary<OpCode, Params.Param> mOpCodes = new Dictionary<OpCode, Params.Param>();
 

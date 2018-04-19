@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Spruce.Tokens {
+namespace Spruce.Tokens
+{
     // Could use attribs to build descendants up like Groups,
     // but compounds will usually add functionality anyway and
     // may use instanced Tokens rather than default ctors so

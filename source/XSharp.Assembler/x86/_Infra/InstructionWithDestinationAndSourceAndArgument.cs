@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace XSharp.Assembler.x86 {
+namespace XSharp.Assembler.x86
+{
     public abstract class InstructionWithDestinationAndSourceAndArgument : InstructionWithDestinationAndSource, IInstructionWithArgument {
 		public XSharp.Assembler.ElementReference ArgumentRef
 		{

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
-namespace XSharp.Build {
+namespace XSharp.Build
+{
     public static class Plugins {
         public static List<Assembly> List = new List<Assembly>();
 

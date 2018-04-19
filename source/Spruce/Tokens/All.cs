@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Spruce.Tokens {
+﻿namespace Spruce.Tokens
+{
     public class All : Token {
         public override object Parse(string aText, ref int rStart) {
             string xResult = aText.Substring(rStart);
