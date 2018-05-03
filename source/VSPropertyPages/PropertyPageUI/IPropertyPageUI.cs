@@ -15,6 +15,6 @@ namespace VSPropertyPages
 
         void Show(bool visible);
         void Move(Rectangle rect);
-        bool TranslateAccelerator(ref MSG pMsg);
+        bool TranslateAccelerator(ref MSG msg);
     }
 }
