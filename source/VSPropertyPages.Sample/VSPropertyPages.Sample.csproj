@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="CheckMSBuildRuntimeType">
+﻿<Project>
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
@@ -6,16 +6,8 @@
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <UseCodebase>True</UseCodebase>
-        <IncludeAssemblyInVSIXContainer>True</IncludeAssemblyInVSIXContainer>
-        <IncludeDebugSymbolsInVSIXContainer>True</IncludeDebugSymbolsInVSIXContainer>
-        <IncludeDebugSymbolsInLocalVSIXDeployment>True</IncludeDebugSymbolsInLocalVSIXDeployment>
-        <CopyBuildOutputToOutputDirectory>True</CopyBuildOutputToOutputDirectory>
-        <CopyOutputSymbolsToOutputDirectory>False</CopyOutputSymbolsToOutputDirectory>
-        <DeployExtension>True</DeployExtension>
+        <IsVsixProject>True</IsVsixProject>
     </PropertyGroup>
 
     <!--
@@ -76,7 +68,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="EnvDTE" Version="8.0.1" />
+        <PackageReference Include="EnvDTE" Version="8.0.2" />
         <PackageReference Include="Microsoft.Build" Version="15.3.409" />
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
@@ -89,20 +81,15 @@
         <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.14" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
-        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.5.24">
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.7.17">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.1.192" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
     </ItemGroup>
 
-    <Target Name="CheckMSBuildRuntimeType">
-        <Error Text="$(MSBuildRuntimeType) MSBuild not supported!" Condition="'$(MSBuildRuntimeType)' != 'Full'" />
-    </Target>
-  
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets') AND '$(MSBuildProjectExtension)' != '.tmp_proj'" />
 

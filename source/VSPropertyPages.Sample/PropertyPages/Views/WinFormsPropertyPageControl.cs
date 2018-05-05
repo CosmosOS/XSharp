@@ -1,21 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace VSPropertyPages.Sample.PropertyPages
+﻿namespace VSPropertyPages.Sample.PropertyPages
 {
     internal partial class WinFormsPropertyPageControl : WinFormsPropertyPageUI
     {
-        public WinFormsPropertyPageControl()
+        public WinFormsPropertyPageControl(SamplePropertyPageViewModel viewModel)
         {
             InitializeComponent();
+            InitializeBindings(viewModel);
         }
 
-        public override Task SetViewModelAsync(PropertyPageViewModel propertyPageViewModel)
+        private void InitializeBindings(SamplePropertyPageViewModel viewModel)
         {
-            textBox1.DataBindings.Add("Text", propertyPageViewModel, nameof(SamplePropertyPageViewModel.TargetFramework));
-            textBox2.DataBindings.Add("Text", propertyPageViewModel, nameof(SamplePropertyPageViewModel.AssemblyName));
-
-            return Task.CompletedTask;
+            textBox1.DataBindings.Add("Text", viewModel, nameof(SamplePropertyPageViewModel.TargetFramework));
+            textBox2.DataBindings.Add("Text", viewModel, nameof(SamplePropertyPageViewModel.AssemblyName));
         }
     }
 }

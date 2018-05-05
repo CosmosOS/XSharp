@@ -17,6 +17,11 @@ namespace VSPropertyPages
 
         private IProjectPropertiesProvider _projectPropertiesProvider;
 
+        public DynamicUnconfiguredPropertyManager(ConfiguredProject configuredProject)
+            : this(configuredProject.UnconfiguredProject, configuredProject.Services.ProjectPropertiesProvider)
+        {
+        }
+
         public DynamicUnconfiguredPropertyManager(
             UnconfiguredProject unconfiguredProject,
             IProjectPropertiesProvider projectPropertiesProvider)

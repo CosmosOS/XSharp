@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.ProjectSystem;
+﻿using Microsoft.VisualStudio.ProjectSystem;
 
 namespace VSPropertyPages.Sample.PropertyPages
 {
     internal class SamplePropertyPageViewModel : PropertyPageViewModel
     {
-        public SamplePropertyPageViewModel(IPropertyManager propertyManager, IProjectThreadingService projectThreadingService)
+        public SamplePropertyPageViewModel(
+            IPropertyManager propertyManager,
+            IProjectThreadingService projectThreadingService)
             : base(propertyManager, projectThreadingService)
         {
         }

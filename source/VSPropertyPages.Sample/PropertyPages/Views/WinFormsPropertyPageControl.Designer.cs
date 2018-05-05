@@ -78,7 +78,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Target Framework";
+            this.label1.Text = "Target Framework:";
             // 
             // textBox1
             // 
@@ -94,7 +94,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Assembly Name";
+            this.label2.Text = "Assembly Name:";
             // 
             // textBox2
             // 
