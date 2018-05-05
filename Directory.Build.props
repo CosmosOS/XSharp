@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)build\XSharp.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>$(RepoRoot)build\XSharp.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <Import Project="build\Targets\Import.props" />
