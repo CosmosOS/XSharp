@@ -1,6 +1,13 @@
 <Project>
 
     <PropertyGroup>
+        <PackageDescription Condition="'$(PackageDescription)' != ''">$(PackageDescription)
+
+$(IL2CPUDescription)</PackageDescription>
+        <PackageDescription Condition="'$(PackageDescription)' == ''">$(IL2CPUDescription)</PackageDescription>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' != 'True'">False</PackageRequireLicenseAcceptance>
         <DevelopmentDependency Condition="'$(DevelopmentDependency)' != 'True'">False</DevelopmentDependency>
     </PropertyGroup>
