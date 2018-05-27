@@ -3,8 +3,8 @@
     <PropertyGroup>
         <PackageDescription Condition="'$(PackageDescription)' != ''">$(PackageDescription)
 
-$(IL2CPUDescription)</PackageDescription>
-        <PackageDescription Condition="'$(PackageDescription)' == ''">$(IL2CPUDescription)</PackageDescription>
+$(XSharpDescription)</PackageDescription>
+        <PackageDescription Condition="'$(PackageDescription)' == ''">$(XSharpDescription)</PackageDescription>
     </PropertyGroup>
 
     <PropertyGroup>
