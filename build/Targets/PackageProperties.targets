@@ -1,6 +1,13 @@
 <Project>
 
     <PropertyGroup>
+        <PackageDescription Condition="'$(PackageDescription)' != ''">$(PackageDescription)
+
+$(XSharpDescription)</PackageDescription>
+        <PackageDescription Condition="'$(PackageDescription)' == ''">$(XSharpDescription)</PackageDescription>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' != 'True'">False</PackageRequireLicenseAcceptance>
         <DevelopmentDependency Condition="'$(DevelopmentDependency)' != 'True'">False</DevelopmentDependency>
     </PropertyGroup>

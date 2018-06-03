@@ -2,7 +2,7 @@
 
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
-    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj' OR $(MSBuildProjectName.EndsWith('wpftmp'))" />
 
     <PropertyGroup>
         <TargetFramework>net471</TargetFramework>
@@ -29,23 +29,9 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <!--
-        WPF Workarounds
-    -->
-
-    <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
-        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
-    </PropertyGroup>
-
     <ItemGroup>
-        <Page Include="PropertyPages\**\*.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Compile Update="PropertyPages\**\*.xaml.cs">
-            <SubType>Code</SubType>
-            <DependentUpon>%(Filename)</DependentUpon>
-        </Compile>
+        <Page Include="PropertyPages\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Compile Update="PropertyPages\**\*.xaml.cs" DependentUpon="%(Filename)" />
     </ItemGroup>
 
     <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
@@ -73,17 +59,11 @@
         <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.25407" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224">
-            <PrivateAssets>All</PrivateAssets>
-        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" PrivateAssets="All" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK.Tools" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="15.0.14" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.4.27004" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="15.4.27004" />
-        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="15.7.17">
-            <PrivateAssets>All</PrivateAssets>
-        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
@@ -93,6 +73,6 @@
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets') AND '$(MSBuildProjectExtension)' != '.tmp_proj'" />
 
-    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />
+    <Import Project="$(BaseIntermediateOutputPath)*.nuget.g.targets" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj' OR $(MSBuildProjectName.EndsWith('wpftmp'))" />
 
 </Project>

@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
         <AssemblyName>XSharp.Build.Tasks</AssemblyName>
+
+        <IsPackable>True</IsPackable>
         <PackageId>XSharp.Sdk</PackageId>
-        <PackageDescription>SDK for X# projects.
-$(XSharpDescription)</PackageDescription>
+        <PackageDescription>SDK for X# projects.</PackageDescription>
 
         <NuspecFile>XSharp.Sdk.nuspec</NuspecFile>
 

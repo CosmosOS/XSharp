@@ -77,7 +77,7 @@ namespace XSharp.DotNetCLI
               }
               else if (xExt == ".DLL")
               {
-                xAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(xVal));
+                xAssemblies.Add(Assembly.LoadFrom(xVal));
               }
               else
               {

@@ -3,7 +3,11 @@
     <PropertyGroup>
         <XSharpDescription>X# is a HLA (High Level Assembler) for X86/X64 assembly.</XSharpDescription>
     </PropertyGroup>
-    
+
+    <PropertyGroup>
+        <IsPackable>False</IsPackable>
+    </PropertyGroup>
+
     <PropertyGroup>
         <Authors>Cosmos</Authors>
         <Copyright>Copyright © 2007-$([System.DateTime]::Now.Year) COSMOS Project</Copyright>

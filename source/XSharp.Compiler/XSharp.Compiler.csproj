@@ -6,9 +6,10 @@
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.XSC</RootNamespace>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
+
+        <IsPackable>True</IsPackable>
         <PackageId>XSharp.Compiler</PackageId>
-        <PackageDescription>X# compiler.
-$(XSharpDescription)</PackageDescription>
+        <PackageDescription>X# compiler.</PackageDescription>
         <DevelopmentDependency>True</DevelopmentDependency>
 
         <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>

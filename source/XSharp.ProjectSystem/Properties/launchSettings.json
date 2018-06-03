@@ -1,8 +1,12 @@
 {
-    "profiles": {
-        "XSharp.ProjectSystem": {
-            "executablePath": "$(DevEnvDir)devenv.exe",
-            "commandLineArgs": "/rootSuffix Exp"
-        }
+  "profiles": {
+    "XSharp.ProjectSystem": {
+      "commandName": "Executable",
+      "executablePath": "$(DevEnvDir)devenv.exe",
+      "commandLineArgs": "/rootSuffix Exp",
+      "environmentVariables": {
+        "XSharpDesignTimeTargetsPath": "$(MSBuildProjectDirectory)\\BuildSystem\\XSharp.DesignTime.targets"
+      }
     }
+  }
 }
