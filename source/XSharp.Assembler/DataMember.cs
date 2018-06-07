@@ -116,11 +116,6 @@ namespace XSharp.Assembler
             RawDefaultValue = aDefaultValue;
         }
 
-        public static string GetStaticFieldName(FieldInfo aField)
-        {
-            return FilterStringForIncorrectChars("static_field__" + LabelName.GetFullName(aField.DeclaringType) + "." + aField.Name);
-        }
-
         public static string FilterStringForIncorrectChars(string aName)
         {
             string xTempResult = aName;
