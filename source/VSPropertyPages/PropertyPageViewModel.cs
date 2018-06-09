@@ -44,7 +44,7 @@ namespace VSPropertyPages
         /// <returns>An awaitable <seealso cref="Task"/>.</returns>
         public async Task SetPropertyAsync(string propertyName, string value, params string[] changedProperties)
         {
-            await _propertyManager.SetPropertyAsync(propertyName, value);
+            await _propertyManager.SetPropertyAsync(propertyName, value).ConfigureAwait(true);
             OnPropertyChanged(changedProperties);
         }
 
@@ -59,7 +59,7 @@ namespace VSPropertyPages
         /// <returns>An awaitable <seealso cref="Task"/>.</returns>
         public async Task SetPathPropertyAsync(string propertyName, string value, bool isRelative, params string[] changedProperties)
         {
-            await _propertyManager.SetPathPropertyAsync(propertyName, value, isRelative);
+            await _propertyManager.SetPathPropertyAsync(propertyName, value, isRelative).ConfigureAwait(true);
             OnPropertyChanged(changedProperties);
         }
 
