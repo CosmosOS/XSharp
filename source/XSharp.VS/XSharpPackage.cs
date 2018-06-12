@@ -1,19 +1,20 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Package;
 using Microsoft.VisualStudio.Shell;
+using Task = System.Threading.Tasks.Task;
 
 namespace XSharp.VS
 {
     [Guid(PackageGuid)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideService(typeof(XSharpLanguageService))]
     [ProvideLanguageExtension(typeof(XSharpLanguageService), ".xs")]
     [ProvideLanguageService(typeof(XSharpLanguageService), "X#", 0, RequestStockColors = true)]
-    internal sealed class XSharpPackage : Package, IOleComponent
+    internal sealed class XSharpPackage : AsyncPackage, IOleComponent
     {
         /// <summary>
         /// The GUID for this package.
@@ -34,10 +35,12 @@ namespace XSharp.VS
         public int FDoIdle(uint grfidlef)
         {
             bool bPeriodic = (grfidlef & (uint)_OLEIDLEF.oleidlefPeriodic) != 0;
+
             if (GetService(typeof(XSharpLanguageService)) is LanguageService xService)
             {
                 xService.OnIdle(bPeriodic);
             }
+
             return 0;
         }
 
@@ -48,18 +51,23 @@ namespace XSharp.VS
 
         #endregion
 
-        protected override void Initialize()
+        protected override async Task InitializeAsync(
+            CancellationToken cancellationToken,
+            IProgress<ServiceProgressData> progress)
         {
-            base.Initialize();
+            await base.InitializeAsync(cancellationToken, progress).ConfigureAwait(false);
+
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             // Proffer the service.
-            var serviceContainer = this as IServiceContainer;
+            var serviceContainer = this as IAsyncServiceContainer;
             var langService = new XSharpLanguageService();
             langService.SetSite(this);
-            serviceContainer.AddService(typeof(XSharpLanguageService), langService, true);
+            serviceContainer.AddService(typeof(XSharpLanguageService), (container, token, type) => Task.FromResult((object)langService), true);
 
             // Register a timer to call our language service during idle periods.
-            if (mComponentID == 0 && (GetService(typeof(SOleComponentManager)) is IOleComponentManager xMgr))
+            if (mComponentID == 0
+                && (await GetServiceAsync(typeof(SOleComponentManager)).ConfigureAwait(true) is IOleComponentManager xMgr))
             {
                 var crinfo = new OLECRINFO
                 {
@@ -75,13 +83,19 @@ namespace XSharp.VS
 
         protected override void Dispose(bool disposing)
         {
-            if (mComponentID != 0)
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (disposing)
             {
-                if (GetService(typeof(SOleComponentManager)) is IOleComponentManager xMgr)
+                if (mComponentID != 0)
                 {
-                    xMgr.FRevokeComponent(mComponentID);
+                    if (GetService(typeof(SOleComponentManager)) is IOleComponentManager xMgr)
+                    {
+                        xMgr.FRevokeComponent(mComponentID);
+                    }
+
+                    mComponentID = 0;
                 }
-                mComponentID = 0;
             }
 
             base.Dispose(disposing);
