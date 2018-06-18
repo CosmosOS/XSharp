@@ -56,11 +56,11 @@
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
-        <PackageReference Include="Microsoft.Build" Version="15.6.85" />
+        <PackageReference Include="Microsoft.Build" Version="15.7.179" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" Version="14.3.26930" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="15.3.224" PrivateAssets="All" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
-        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.6.27413" />
+        <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.7.27703" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.11.0" Version="11.0.61031" />
     </ItemGroup>
 
