@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Reflection;
-using System.IO;
 
 namespace XSharp.Assembler
 {
@@ -238,8 +237,7 @@ namespace XSharp.Assembler
 
                 Func<object, string> xGetTextForItem = delegate(object aItem)
                                                        {
-                                                           var xElementRef = aItem as ElementReference;
-                                                           if (xElementRef == null)
+                                                           if (!(aItem is ElementReference xElementRef))
                                                            {
                                                                return (aItem ?? 0).ToString();
                                                            }
@@ -286,24 +284,24 @@ namespace XSharp.Assembler
             }
         }
 
-        public override void UpdateAddress(Assembler aAssembler, ref ulong xAddress)
+        public override void UpdateAddress(Assembler aAssembler, ref ulong aAddress)
         {
             if (Alignment > 0)
             {
-                if (xAddress % Alignment != 0)
+                if (aAddress % Alignment != 0)
                 {
-                    xAddress += Alignment - (xAddress % Alignment);
+                    aAddress += Alignment - (aAddress % Alignment);
                 }
             }
-            base.UpdateAddress(aAssembler, ref xAddress);
+            base.UpdateAddress(aAssembler, ref aAddress);
             if (RawDefaultValue != null)
             {
-                xAddress += (ulong) RawDefaultValue.Length;
+                aAddress += (ulong) RawDefaultValue.Length;
             }
             if (UntypedDefaultValue != null)
             {
                 // TODO: what to do with 64bit target platforms? right now we only support 32bit
-                xAddress += (ulong) (UntypedDefaultValue.Length * 4);
+                aAddress += (ulong) (UntypedDefaultValue.Length * 4);
             }
         }
 
@@ -344,8 +342,7 @@ namespace XSharp.Assembler
             {
                 for (int i = 0; i < UntypedDefaultValue.Length; i++)
                 {
-                    var xRef = UntypedDefaultValue[i] as ElementReference;
-                    if (xRef != null)
+                    if (UntypedDefaultValue[i] is ElementReference xRef)
                     {
                         var xTheRef = aAssembler.TryResolveReference(xRef);
                         if (xTheRef == null)
@@ -362,13 +359,13 @@ namespace XSharp.Assembler
                     {
                         if (UntypedDefaultValue[i] is int)
                         {
-                            aOutput.Write(BitConverter.GetBytes((int) UntypedDefaultValue[i]), 0, 4);
+                            aOutput.Write(BitConverter.GetBytes((int)UntypedDefaultValue[i]), 0, 4);
                         }
                         else
                         {
                             if (UntypedDefaultValue[i] is uint)
                             {
-                                aOutput.Write(BitConverter.GetBytes((uint) UntypedDefaultValue[i]), 0, 4);
+                                aOutput.Write(BitConverter.GetBytes((uint)UntypedDefaultValue[i]), 0, 4);
                             }
                             else
                             {

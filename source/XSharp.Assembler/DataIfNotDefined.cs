@@ -1,8 +1,10 @@
-﻿namespace XSharp.Assembler
+﻿using System;
+
+namespace XSharp.Assembler
 {
     public class DataIfNotDefined: DataMember, IIfNotDefined {
         public DataIfNotDefined(string aSymbol)
-            : base("define", new byte[0]) {
+            : base("define", Array.Empty<byte>()) {
             Symbol = aSymbol;
         }
 

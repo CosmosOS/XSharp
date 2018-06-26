@@ -9,10 +9,6 @@ namespace XSharp.Assembler
             Mnemonic = mnemonic;
         }
 
-        public string Mnemonic
-        {
-            get;
-            set;
-        }
+        public string Mnemonic { get; }
     }
 }

@@ -41,7 +41,7 @@ namespace XSharp.Assembler
         {
             if (String.IsNullOrEmpty(aName))
             {
-                throw new ArgumentNullException("aName");
+                throw new ArgumentNullException(nameof(aName));
             }
             if (aName == "00h")
             {
@@ -81,8 +81,7 @@ namespace XSharp.Assembler
             {
                 if (mCache != null)
                 {
-                    BaseAssemblerElement xTempResult;
-                    if (mCache.TryGetValue(aName, out xTempResult))
+                    if (mCache.TryGetValue(aName, out var xTempResult))
                     {
                         return xTempResult;
                     }
@@ -102,13 +101,11 @@ namespace XSharp.Assembler
                     for (int i = 0; i < xMax; i++)
                     {
                         var xInstruction = aAssembler.GetAssemblerElement(i);
-                        var xLabel = xInstruction as Label;
-                        if (xLabel != null)
+                        if (xInstruction is Label xLabel)
                         {
                             mCache.Add(xLabel.QualifiedName, xLabel);
                         }
-                        var xDataMember = xInstruction as DataMember;
-                        if (xDataMember != null)
+                        if (xInstruction is DataMember xDataMember)
                         {
                             if (mCache.ContainsKey(xDataMember.Name))
                             {
@@ -118,8 +115,7 @@ namespace XSharp.Assembler
                         }
                     }
                 }
-                BaseAssemblerElement xTempResult;
-                if (mCache.TryGetValue(aName, out xTempResult))
+                if (mCache.TryGetValue(aName, out var xTempResult))
                 {
                     return xTempResult;
                 }
