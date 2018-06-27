@@ -8,4 +8,6 @@
 
     <Import Project="Workarounds.targets" />
 
+    <Import Project="Packages.targets" />
+
 </Project>

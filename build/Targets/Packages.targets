@@ -1,0 +1,18 @@
+<Project>
+
+    <PropertyGroup>
+        <MicrosoftAnalyzersVersion>2.6.1</MicrosoftAnalyzersVersion>
+        <MicrosoftVsSdkBuildToolsVersion>15.7.109</MicrosoftVsSdkBuildToolsVersion>
+        <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.17</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
+        <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
+        <PackageReference Update="Microsoft.NetCore.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
+        <PackageReference Update="Microsoft.NetFramework.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
+        <PackageReference Update="Microsoft.VSSDK.BuildTools" Version="$(MicrosoftVsSdkBuildToolsVersion)" />
+        <PackageReference Update="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="$(MicrosoftVisualStudioSdkEmbedInteropTypesVersion)" />
+    </ItemGroup>
+
+</Project>

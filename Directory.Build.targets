@@ -14,10 +14,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.1" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.1" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.1" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.CodeQuality.Analyzers" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NetCore.Analyzers" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NetFramework.Analyzers" PrivateAssets="All" />
     </ItemGroup>
 
     <Import Project="build\Targets\Import.targets" />
