@@ -226,7 +226,7 @@ namespace XSharp.Assembler
                 }
                 aOutput.Write(Name);
 
-                if (UntypedDefaultValue[0] is Int64 || UntypedDefaultValue[0] is UInt64 || UntypedDefaultValue[0] is Double)
+                if (UntypedDefaultValue[0] is long || UntypedDefaultValue[0] is ulong || UntypedDefaultValue[0] is double)
                 {
                     aOutput.Write(" dq ");
                 }
@@ -272,7 +272,7 @@ namespace XSharp.Assembler
 
         public int CompareTo(DataMember other)
         {
-            return string.Compare(Name, other.Name);
+            return String.Compare(Name, other.Name, StringComparison.Ordinal);
         }
 
         public override ulong? ActualAddress
