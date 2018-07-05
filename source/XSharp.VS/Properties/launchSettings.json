@@ -1,8 +1,9 @@
 {
-    "profiles": {
-        "XSharp.VS": {
-            "executablePath": "$(DevEnvDir)devenv.exe",
-            "commandLineArgs": "/rootSuffix Exp"
-        }
+  "profiles": {
+    "XSharp.VS": {
+      "commandName": "Executable",
+      "executablePath": "$(DevEnvDir)devenv.exe",
+      "commandLineArgs": "/rootSuffix Exp"
     }
+  }
 }

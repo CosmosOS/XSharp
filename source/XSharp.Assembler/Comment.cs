@@ -2,7 +2,7 @@
 {
     public class Comment : Instruction
     {
-        public readonly string Text;
+        public string Text { get; }
 
         public Comment(Assembler aAssembler, string aText)
             : base() //HACK

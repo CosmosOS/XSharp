@@ -4,6 +4,9 @@ namespace VSPropertyPages.Sample.PropertyPages
 {
     internal class SamplePropertyPageViewModel : PropertyPageViewModel
     {
+        private const string TargetFrameworkProperty = "TargetFramework";
+        private const string AssemblyNameProperty = "AssemblyName";
+
         public SamplePropertyPageViewModel(
             IPropertyManager propertyManager,
             IProjectThreadingService projectThreadingService)
@@ -13,14 +16,14 @@ namespace VSPropertyPages.Sample.PropertyPages
 
         public string TargetFramework
         {
-            get => GetProperty("TargetFramework");
-            set => SetProperty("TargetFramework", value, nameof(TargetFramework));
+            get => GetProperty(TargetFrameworkProperty);
+            set => SetProperty(TargetFrameworkProperty, value, nameof(TargetFramework));
         }
 
         public string AssemblyName
         {
-            get => GetProperty("AssemblyName");
-            set => SetProperty("AssemblyName", value, nameof(AssemblyName));
+            get => GetProperty(AssemblyNameProperty);
+            set => SetProperty(AssemblyNameProperty, value, nameof(AssemblyName));
         }
     }
 }
