@@ -19,18 +19,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="build\**">
-            <Pack>True</Pack>
-            <PackagePath>build\</PackagePath>
-        </Content>
-        <Content Include="Sdk\*">
-            <Pack>True</Pack>
-            <PackagePath>Sdk\</PackagePath>
-        </Content>
-        <Content Include="tools\**">
-            <Pack>True</Pack>
-            <PackagePath>tools\</PackagePath>
-        </Content>
+        <Content Include="build\**" Pack="True" PackagePath="build\" />
+        <Content Include="sdk\**" Pack="True" PackagePath="sdk\" />
+        <Content Include="tools\**" Pack="True" PackagePath="tools\" />
     </ItemGroup>
 
     <ItemGroup>

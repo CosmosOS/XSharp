@@ -9,14 +9,15 @@ namespace XSharp.Tests
     [TestFixture]
     public class CompileTests
     {
-        private static string mAssemblyDir = Path.GetDirectoryName(typeof(CompileTests).Assembly.Location);
-        private static bool IgnoreCase = false;
-        private static bool Trim = false;
-        private static bool SkipLineComments = false;
+        private const bool IgnoreCase = false;
+        private const bool Trim = false;
+        private const bool SkipLineComments = false;
+
+        private static readonly string AssemblyDir = Path.GetDirectoryName(typeof(CompileTests).Assembly.Location);
 
         private static IEnumerable<string> GetXSharpInput()
         {
-            var xInputDir = new DirectoryInfo(Path.Combine(mAssemblyDir, "Input"));
+            var xInputDir = new DirectoryInfo(Path.Combine(AssemblyDir, "Input"));
             return xInputDir.GetFiles("*.xs").Select(f => f.FullName);
         }
 
