@@ -45,7 +45,7 @@ namespace XSharp.Build
                     var xParts = xArg.Substring(1).Split(':');
                     xSwitch.Name = PreserveSwitchCase ? xParts[0] : xParts[0].ToUpper();
                     if (xParts.Length > 1) {
-                        xSwitch.Value = xParts[1];
+                        xSwitch.Value = string.Join(":", xParts.Skip(1));
                     }
                     Switches.Add(xSwitch);
                 } else {
