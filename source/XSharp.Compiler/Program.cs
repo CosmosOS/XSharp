@@ -145,11 +145,11 @@ namespace XSharp.DotNetCLI
                 var xReader = File.OpenText(xFile);
                 if (xAppend)
                 {
-                  xGen.Generate(xReader, File.AppendText(xOutputPath));
+                  xGen.GenerateToFile(xFile, xReader, File.AppendText(xOutputPath));
                 }
                 else if (xFiles.Count == 1 && xOutputPath != null)
                 {
-                  xGen.Generate(File.OpenText(xFile), File.CreateText(xOutputPath));
+                  xGen.GenerateToFile(xFile, File.OpenText(xFile), File.CreateText(xOutputPath));
                 }
                 else
                 {
