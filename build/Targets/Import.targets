@@ -1,6 +1,9 @@
 <Project>
 
     <Import Project="PackageProperties.targets" />
+
+    <Import Project="NETFramework.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
+
     <Import Project="StrongName.targets" />
 
     <Import Project="Tests.targets" Condition="'$(IsTestProject)' == 'True'" />
@@ -8,6 +11,6 @@
 
     <Import Project="Workarounds.targets" />
 
-    <Import Project="Packages.targets" />
+    <Import Project="PackageVersions.targets" />
 
 </Project>
