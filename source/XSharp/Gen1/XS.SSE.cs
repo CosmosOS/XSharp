@@ -108,20 +108,35 @@ namespace XSharp
         DoDestinationSource<MoveUPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-#if false
-      public static void MoveUPS(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, Register32 destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveDQA(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
-        //DoDestinationSource<MoveUPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
-        new MoveUPS()
-        {
-          DestinationReg = destination,
-          DestinationIsIndirect = destinationIsIndirect,
-          DestinationDisplacement = (int)destinationDisplacement,
-          SourceDisplacement = sourceDisplacement,
-          SourceReg = source
-        };
+         DoDestinationSource<MoveDQA>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
-#endif
+
+      public static void MoveDQA(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      {
+                DoDestinationSource<MoveDQA>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
+      }
+
+      public static void MoveDQU(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      {
+        DoDestinationSource<MoveDQU>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
+      }
+
+      public static void MoveDQU(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      {
+          DoDestinationSource<MoveDQU>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
+      }
+
+      public static void MoveAPS(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      {
+          DoDestinationSource<MoveAPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
+      }
+
+      public static void MoveAPS(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      {
+          DoDestinationSource<MoveAPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
+      }
 
       public static void ConvertSS2SIAndTruncate(Register32 destination, RegisterXMM source)
       {
