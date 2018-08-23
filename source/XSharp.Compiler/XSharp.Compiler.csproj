@@ -24,21 +24,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="build\**">
-            <Pack>True</Pack>
-            <PackagePath>build\</PackagePath>
-        </Content>
-        <Content Include="tools\**">
-            <Pack>True</Pack>
-            <PackagePath>tools\</PackagePath>
-        </Content>
+        <Content Include="build\**" Pack="True" PackagePath="build\" />
+        <Content Include="tools\**" Pack="True" PackagePath="tools\" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
-
         <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj">
             <PrivateAssets>All</PrivateAssets>
             <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
@@ -58,11 +51,13 @@
     </Target>
 
     <Target Name="PublishToSdk" DependsOnTargets="DispatchToInnerBuilds">
+
         <ItemGroup>
-            <IncludeInSdk Include="$(CompilerPackageDir)**" Exclude="**\*.pdb" />
+            <IncludeInSdk Include="$(CompilerPackageDir)**" />
         </ItemGroup>
       
         <Copy SourceFiles="@(IncludeInSdk)" DestinationFolder="$(SdkCompilerFolder)%(RecursiveDir)" />
+
     </Target>
   
 </Project>
