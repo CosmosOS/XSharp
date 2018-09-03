@@ -10,5 +10,7 @@
     <Import Project="RepoLayout.props" />
 
     <Import Project="PackageProperties.props" />
+    
+    <Import Project="Versions.props" />
 
 </Project>

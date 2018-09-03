@@ -1,0 +1,13 @@
+<Project>
+
+    <PropertyGroup>
+        <MicrosoftAnalyzersVersion>2.6.1</MicrosoftAnalyzersVersion>
+        <MicrosoftBuildVersion>15.6.85</MicrosoftBuildVersion>
+        <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
+        <MicrosoftVisualStudioProjectSystemVersion>15.3.224</MicrosoftVisualStudioProjectSystemVersion>
+        <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.17</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
+        <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.145</MicrosoftVisualStudioThreadingAnalyzersVersion>
+        <MicrosoftVSSDKBuildToolsVersion>15.7.109</MicrosoftVSSDKBuildToolsVersion>
+    </PropertyGroup>
+
+</Project>

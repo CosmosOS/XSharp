@@ -4,60 +4,28 @@
         <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
         <OutputType>Exe</OutputType>
         <AssemblyName>xsc</AssemblyName>
-        <RootNamespace>XSharp.XSC</RootNamespace>
+        <RootNamespace>XSharp.CommandLine</RootNamespace>
         <ApplicationIcon>XSharp.ico</ApplicationIcon>
-
-        <IsPackable>True</IsPackable>
         <PackageId>XSharp.Compiler</PackageId>
         <PackageDescription>X# compiler.</PackageDescription>
-        <DevelopmentDependency>True</DevelopmentDependency>
-
-        <NuspecFile>XSharp.Compiler.nuspec</NuspecFile>
-        <NuspecBasePath>..\</NuspecBasePath>
-
-        <!-- Package Properties -->
-        <InnerTargets>Publish</InnerTargets>
-        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('net'))">win</PackageSubFolderName>
-        <PackageSubFolderName Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</PackageSubFolderName>
-        <CompilerPackageDir>$(BaseIntermediateOutputPath)$(Configuration)\package\</CompilerPackageDir>
-        <PublishDir>$(CompilerPackageDir)tools\$(PackageSubFolderName)\</PublishDir>
+        <IsPackable>True</IsPackable>
+        <IsMSBuildExtensionProject>True</IsMSBuildExtensionProject>
+        <AppendTargetFrameworkToToolsPackageFolder>False</AppendTargetFrameworkToToolsPackageFolder>
+        <ToolPackagePath Condition="$(TargetFramework.StartsWith('net'))">xsc\win\</ToolPackagePath>
+        <ToolPackagePath Condition="$(TargetFramework.StartsWith('netcoreapp'))">xsc\netcoreapp\</ToolPackagePath>
     </PropertyGroup>
 
     <ItemGroup>
         <Content Include="build\**" Pack="True" PackagePath="build\" />
-        <Content Include="tools\**" Pack="True" PackagePath="tools\" />
+        <Content Include="tools\**" Exclude="tools\netcoreapp\**" Pack="True" PackagePath="tools\" />
+        <GeneratedToolFiles Include="tools\netcoreapp\**" Condition="$(TargetFramework.StartsWith('netcoreapp'))" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
+        <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Pack="True" PackagePath="" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
-        <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj">
-            <PrivateAssets>All</PrivateAssets>
-            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-        </ProjectReference>
     </ItemGroup>
-    
-    <Target Name="PreparePackageDir" BeforeTargets="DispatchToInnerBuilds">
-        <RemoveDir Directories="$(CompilerPackageDir)" />
-    </Target>
 
-    <Target Name="IncludeContentInPackage" AfterTargets="DispatchToInnerBuilds">      
-        <Copy SourceFiles="@(Content)" DestinationFolder="$(CompilerPackageDir)%(PackagePath)%(RecursiveDir)" />
-    </Target>
-
-    <Target Name="IncludeCompilerTasksInPackage" AfterTargets="IncludeContentInPackage">
-        <MSBuild Projects="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Targets="CopyBuildOutput" Properties="TargetFramework=netstandard1.3;DestinationFolder=$(MSBuildThisFileDirectory)$(CompilerPackageDir)tools\" />
-    </Target>
-
-    <Target Name="PublishToSdk" DependsOnTargets="DispatchToInnerBuilds">
-
-        <ItemGroup>
-            <IncludeInSdk Include="$(CompilerPackageDir)**" />
-        </ItemGroup>
-      
-        <Copy SourceFiles="@(IncludeInSdk)" DestinationFolder="$(SdkCompilerFolder)%(RecursiveDir)" />
-
-    </Target>
-  
 </Project>

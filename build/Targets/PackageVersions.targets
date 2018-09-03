@@ -1,19 +1,18 @@
 <Project>
 
-    <PropertyGroup>
-        <MicrosoftAnalyzersVersion>2.6.1</MicrosoftAnalyzersVersion>
-        <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
-        <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.17</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
-        <MicrosoftVSSDKBuildToolsVersion>15.7.109</MicrosoftVSSDKBuildToolsVersion>
-    </PropertyGroup>
-
     <ItemGroup>
+        <PackageReference Update="Microsoft.Build" Version="$(MicrosoftBuildVersion)" />
+        <PackageReference Update="Microsoft.Build.Framework" Version="$(MicrosoftBuildVersion)" />
+        <PackageReference Update="Microsoft.Build.Utilities.Core" Version="$(MicrosoftBuildVersion)" />
         <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
         <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
         <PackageReference Update="Microsoft.NetCore.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
         <PackageReference Update="Microsoft.NetFramework.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
         <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="$(MicrosoftNETFrameworkReferenceAssembliesVersion)" />
+        <PackageReference Update="Microsoft.VisualStudio.ProjectSystem" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
+        <PackageReference Update="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="$(MicrosoftVisualStudioSdkEmbedInteropTypesVersion)" />
+        <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="$(MicrosoftVisualStudioThreadingAnalyzersVersion)" />
         <PackageReference Update="Microsoft.VSSDK.BuildTools" Version="$(MicrosoftVSSDKBuildToolsVersion)" />
     </ItemGroup>
 
