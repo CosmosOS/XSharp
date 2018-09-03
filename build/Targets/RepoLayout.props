@@ -8,7 +8,7 @@
 
     <PropertyGroup>
         <ArtifactsDir Condition="'$(ArtifactsDir)' == ''">$(RepoRoot)artifacts\$(Configuration)\</ArtifactsDir>
-        <!--<PackageOutputPath>$(ArtifactsDir)nupkg\</PackageOutputPath>-->
+        <PackageOutputPath>$(ArtifactsDir)nupkg\</PackageOutputPath>
         <VsixOutputPath>$(ArtifactsDir)VSIX\</VsixOutputPath>
     </PropertyGroup>
 

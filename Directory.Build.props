@@ -5,7 +5,19 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <LangVersion>Latest</LangVersion>
         <CodeAnalysisRuleSet>$(RepoRoot)build\XSharp.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageVersion>0.1.0</PackageVersion>
+        <PackageVersionSuffix Condition="'$(APPVEYOR)' == 'True'">-build$(APPVEYOR_BUILD_NUMBER)+$(APPVEYOR_REPO_COMMIT.Substring(0, 7))</PackageVersionSuffix>
+        <PackageVersionSuffix Condition="'$(PackageVersionSuffix)' == ''">-localbuild$([System.DateTime]::Now.ToString("yyyyMMddhhmmss"))</PackageVersionSuffix>
+        <PackageVersionSuffix Condition="'$(APPVEYOR_REPO_TAG)' == 'True'"></PackageVersionSuffix>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DeployExtension Condition="'$(CI)' == 'True'">False</DeployExtension>
     </PropertyGroup>
 
     <Import Project="build\Targets\Import.props" />
