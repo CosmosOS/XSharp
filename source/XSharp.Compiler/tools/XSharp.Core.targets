@@ -1,12 +1,12 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <XscToolPath>$(MSBuildThisFileDirectory)win\</XscToolPath>
+        <XscToolPath>$(MSBuildThisFileDirectory)xsc\win\</XscToolPath>
         <XscToolExe>xsc.exe</XscToolExe>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
-        <XscToolPath>$(MSBuildThisFileDirectory)netcoreapp\</XscToolPath>
+        <XscToolPath>$(MSBuildThisFileDirectory)xsc\netcoreapp\</XscToolPath>
         <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunXsc</XscToolExe>
         <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunXsc.cmd</XscToolExe>
     </PropertyGroup>
