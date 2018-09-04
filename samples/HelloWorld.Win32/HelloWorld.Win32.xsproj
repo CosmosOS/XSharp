@@ -1,17 +1,9 @@
-﻿<Project>
-
-    <Import Project="..\..\source\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.props" />
+﻿<Project Sdk="XSharp.Sdk">
 
     <PropertyGroup>
         <OutputType>Application</OutputType>
         <AssemblerOutputFormat>Win32</AssemblerOutputFormat>
         <AssemblerOutputExt>.obj</AssemblerOutputExt>
     </PropertyGroup>
-    
-    <PropertyGroup>
-        <XSharpDesignTimeTargetsPath>$(LocalAppData)\CustomProjectSystems\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
-    </PropertyGroup>
 
-    <Import Project="..\..\source\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.targets" />
-    
 </Project>
