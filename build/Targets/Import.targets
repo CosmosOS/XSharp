@@ -1,16 +1,29 @@
 <Project>
 
-    <Import Project="PackageProperties.targets" />
+    <PropertyGroup>
+        <IsToolProject Condition="'$(IsMSBuildExtensionProject)' == 'True'">True</IsToolProject>
+    </PropertyGroup>
 
-    <Import Project="NETFramework.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
+    <Import Project="PackageProperties.targets" />
 
     <Import Project="StrongName.targets" />
 
+    <!-- .NET Framework targets: reference assemblies -->
+    <Import Project="NETFramework.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
+
+    <!-- Project types -->
+    <Import Project="MSBuildExtension.targets" Condition="'$(IsMSBuildExtensionProject)' == 'True'" />
     <Import Project="Tests.targets" Condition="'$(IsTestProject)' == 'True'" />
+    <Import Project="Tool.targets" Condition="'$(IsToolProject)' == 'True'" />
     <Import Project="VSIX.targets" Condition="'$(IsVsixProject)' == 'True'" />
 
     <Import Project="Workarounds.targets" />
 
+    <!--
+        Import package versions last, as it updates package references included before.
+        Update should affect includes after itself, but for some cases it doesn't seem
+        to work, maybe because the import is conditioned?
+    -->
     <Import Project="PackageVersions.targets" />
 
 </Project>

@@ -1,17 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard1.3</TargetFramework>
         <IsPackable>False</IsPackable>
+        <IsMSBuildExtensionProject>True</IsMSBuildExtensionProject>
+        <AppendTargetFrameworkToToolsPackageFolder>False</AppendTargetFrameworkToToolsPackageFolder>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Build.Framework" Version="15.3.409" />
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.3.409" />
-    </ItemGroup>
-
-    <Target Name="CopyBuildOutput" DependsOnTargets="Build">
-        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(DestinationFolder)" />
-    </Target>
 
 </Project>
