@@ -31,12 +31,22 @@ namespace XSharp.Build
             }
         }
 
-        public void Dispose() {
-            Out.Dispose();
-            Out = null;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Out.Dispose();
+                Out = null;
+            }
         }
 
-        public string TimeStamp() {
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public static string TimeStamp() {
             return DateTime.Now.ToString("yyyyMMdd'-'HHmmss");
         }
 
@@ -77,7 +87,9 @@ namespace XSharp.Build
             WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
 
-        public static Clogger operator *(Clogger aThis, string aValue) {
+#pragma warning disable CA2225 // Operator overloads have named alternates
+        public static Clogger operator *(Clogger aThis, string aValue)
+        {
             aThis.WriteLine(aValue);
             return aThis;
         }
@@ -93,5 +105,6 @@ namespace XSharp.Build
             aThis.WriteBlankLine();
             return aThis;
         }
+#pragma warning restore CA2225 // Operator overloads have named alternates
     }
 }
