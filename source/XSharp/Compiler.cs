@@ -9,7 +9,7 @@ namespace XSharp
     {
         protected Spruce.Tokens.Root mTokenMap;
         public readonly TextWriter Out;
-        protected readonly x86.Assemblers.NASM mNASM;
+        protected readonly NASM mNASM;
         protected string Indent = "";
         public int LineNo { get; private set; }
         public bool EmitUserComments = true;

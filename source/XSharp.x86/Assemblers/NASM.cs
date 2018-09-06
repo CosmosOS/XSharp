@@ -100,7 +100,7 @@ namespace XSharp.x86.Assemblers
 
         protected void Add(OpCode aOpCode, string aOutput = null, params Type[] aParamTypes)
         {
-            Param.ActionDelegate xAction;
+            Action<object[]> xAction;
             if (aOutput == null)
             {
                 xAction = (object[] aValues) =>

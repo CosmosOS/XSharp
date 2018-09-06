@@ -6,7 +6,7 @@ namespace XSharp.x86
     public class Map {
         protected Dictionary<OpCode, Params.Param> mOpCodes = new Dictionary<OpCode, Params.Param>();
 
-        public void Add(Params.Param.ActionDelegate aAction, OpCode aOpCode, params Type[] aParamTypes) {
+        public void Add(Action<object[]> aAction, OpCode aOpCode, params Type[] aParamTypes) {
             // See if OpCode already mapped, if not create a slot
             Params.Param xParam;
             if (mOpCodes.TryGetValue(aOpCode, out xParam) == false) {
