@@ -6,13 +6,13 @@ namespace XSharp.Build
 {
     public class CliProcessor {
         public class Arg {
-            public string Value;
-            public Switch Switch;
+            public string Value { get; set; }
+            public Switch Switch { get; set; }
         }
 
         public class Switch {
-            public string Name;
-            public string Value;
+            public string Name { get; set; }
+            public string Value { get; set; }
 
             public string Check(string aDefault, string[] aAllowedValues, bool aCaseSensitive = false) {
                 if (aAllowedValues.Contains(Value, aCaseSensitive ? null : StringComparer.OrdinalIgnoreCase)) {
@@ -22,14 +22,15 @@ namespace XSharp.Build
             }
         }
 
-        public bool RequireArgs = true;
-        public bool PreserveSwitchCase = false;
+        public bool RequireArgs { get; set; } = true;
+        public bool PreserveSwitchCase { get; set; } = false;
 
-        public List<Arg> Args = new List<Arg>();
+        public List<Arg> Args { get; } = new List<Arg>();
         // Do not use dictionary. Dictionary loses order and dose not allow multiples.
-        public List<Switch> Switches = new List<Switch>();
+        public List<Switch> Switches { get; } = new List<Switch>();
 
-        protected bool mParsed = false;
+        private bool mParsed = false;
+
         public void Parse(string[] aArgs) {
             if (RequireArgs && aArgs.Length == 0) {
                 throw new Exception("No arguments were specified.");
@@ -61,18 +62,17 @@ namespace XSharp.Build
                 aName = aName.ToUpper();
                 aShortName = aShortName.ToUpper();
             }
-            return Switches.FirstOrDefault(q => q.Name == aName || (aShortName != "" && q.Name == aShortName));
+            return Switches.FirstOrDefault(q => q.Name == aName || (!String.IsNullOrEmpty(aShortName) && q.Name == aShortName));
         }
 
-        public Switch this[string aName, string aShortName = ""] {
-            get { return GetSwitch(aName, aShortName); }
-        }
+        public Switch this[string aName, string aShortName = ""] => GetSwitch(aName, aShortName);
+
         public List<Switch> GetSwitches(string aName, string aShortName = "") {
             if (PreserveSwitchCase == false) {
                 aName = aName.ToUpper();
                 aShortName = aShortName.ToUpper();
             }
-            return Switches.FindAll(q => q.Name == aName || (aShortName != "" && q.Name == aShortName));
+            return Switches.FindAll(q => q.Name == aName || (!String.IsNullOrEmpty(aShortName) && q.Name == aShortName));
         }
     }
 }

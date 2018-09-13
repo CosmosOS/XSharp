@@ -95,7 +95,7 @@ namespace Spruce.Tokens {
         // 3) Transform - Transform into the desired result object. May remain a string (default)
         //    or be converted int a number or other full object type.
         //
-        // TODO Can seperate the NOOB chars and short circuit earlier but may not be worth the additional overhead.
+        // TODO Can separate the NOOB chars and short circuit earlier but may not be worth the additional overhead.
         public virtual object Parse(string aText, ref int rStart) {
             // Check first char
             if (CheckChar(0, aText[rStart]) == false) {
@@ -127,9 +127,9 @@ namespace Spruce.Tokens {
             }
             return null;
         }
-        // NotImpl instead of abstract. Parse calls Check, but if Parse is overriden
+        // NotImpl instead of abstract. Parse calls Check, but if Parse is overridden
         // then check is often not needed and this makes it so such descendants
-        // dont need to override something they don't use anyway.
+        // don't need to override something they don't use anyway.
         protected virtual bool Check(string aText) {
             throw new NotImplementedException();
         }
@@ -184,7 +184,7 @@ namespace Spruce.Tokens {
                 }
             }
             if (rStart == aText.Length) {
-                // All whitespace. Should never happen wtih our .TrimEnd(), but just in case.
+                // All whitespace. Should never happen with our .TrimEnd(), but just in case.
                 throw new Exception("End of line reached.");
             }
         }
