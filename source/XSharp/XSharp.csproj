@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>True</IsPackable>
-        <NoWarn>CA1801;CA1822;$(NoWarn)</NoWarn>
+        <NoWarn>CA1716;CA1801;CA1822;$(NoWarn)</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
