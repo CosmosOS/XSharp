@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <MicrosoftAnalyzersVersion>2.6.1</MicrosoftAnalyzersVersion>
+        <RoslynAnalyzersVersion>2.6.2</RoslynAnalyzersVersion>
         <MicrosoftBuildVersion>15.8.166</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
