@@ -4,16 +4,16 @@
         <PackageReference Update="Microsoft.Build" Version="$(MicrosoftBuildVersion)" />
         <PackageReference Update="Microsoft.Build.Framework" Version="$(MicrosoftBuildVersion)" />
         <PackageReference Update="Microsoft.Build.Utilities.Core" Version="$(MicrosoftBuildVersion)" />
-        <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
-        <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
-        <PackageReference Update="Microsoft.NetCore.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
-        <PackageReference Update="Microsoft.NetFramework.Analyzers" Version="$(MicrosoftAnalyzersVersion)" />
         <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="$(MicrosoftNETFrameworkReferenceAssembliesVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.ProjectSystem" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="$(MicrosoftVisualStudioSdkEmbedInteropTypesVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="$(MicrosoftVisualStudioThreadingAnalyzersVersion)" />
         <PackageReference Update="Microsoft.VSSDK.BuildTools" Version="$(MicrosoftVSSDKBuildToolsVersion)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Update="@(RoslynAnalyzer)" Version="$(RoslynAnalyzersVersion)" />
     </ItemGroup>
 
 </Project>
