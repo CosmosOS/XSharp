@@ -11,6 +11,8 @@
     <!-- .NET Framework targets: reference assemblies -->
     <Import Project="NETFramework.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
 
+	<Import Project="References.targets" />
+
     <!-- Project types -->
     <Import Project="MSBuildExtension.targets" Condition="'$(IsMSBuildExtensionProject)' == 'True'" />
     <Import Project="Tests.targets" Condition="'$(IsTestProject)' == 'True'" />

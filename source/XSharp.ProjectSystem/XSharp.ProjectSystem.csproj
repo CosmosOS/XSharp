@@ -7,6 +7,8 @@
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
         <IsVsixProject>True</IsVsixProject>
+        <IncludeWpfReferences>True</IncludeWpfReferences>
+        <IncludeWindowsFormsReferences>True</IncludeWindowsFormsReferences>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="BuildSystem\**" InstallRoot="MSBuild" VSIXSubPath="XSharp\%(RecursiveDir)" />
+        <Content Include="BuildSystem\**" IncludeInVSIX="True" InstallRoot="MSBuild" VSIXSubPath="XSharp\%(RecursiveDir)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,12 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="PresentationCore" />
-        <Reference Include="PresentationFramework" />
         <Reference Include="System.Management" />
-        <Reference Include="System.Xaml" />
-        <Reference Include="System.Windows.Forms" />
-        <Reference Include="WindowsBase" />
     </ItemGroup>
 
     <ItemGroup>
