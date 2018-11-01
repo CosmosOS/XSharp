@@ -4,6 +4,7 @@
         <TargetFramework>net471</TargetFramework>
         <PackageDescription>Property pages implementation for Visual Studio CPS-based project systems.</PackageDescription>
         <PackageTags>VS Visual Studio Property Pages CPS WPF Windows Forms WinForms X# XSharp Cosmos</PackageTags>
+        <IsPackable>True</IsPackable>
         <MicrosoftBuildVersion>15.3.409</MicrosoftBuildVersion>
         <MicrosoftVisualStudioProjectSystemVersion>15.3.224</MicrosoftVisualStudioProjectSystemVersion>
     </PropertyGroup>
