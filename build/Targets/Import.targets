@@ -21,6 +21,8 @@
 
     <Import Project="Workarounds.targets" />
 
+    <Import Project="InternalPackages.targets" />
+
     <!--
         Import package versions last, as it updates package references included before.
         Update should affect includes after itself, but for some cases it doesn't seem

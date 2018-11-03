@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+        <CommonRepoRoot>$(RepoRoot)..\Common\</CommonRepoRoot>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -21,6 +22,10 @@
         -->
         <PackageVersionSuffix Condition="'$(PackageVersionSuffix)' == '' AND '$(DesignTimeBuild)' != 'True'">-localbuild$([System.DateTime]::Now.ToString("yyyyMMddhhmmss"))</PackageVersionSuffix>
         <PackageVersionSuffix Condition="'$(APPVEYOR_REPO_TAG)' == 'True'"></PackageVersionSuffix>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <CommonVersion>0.1.0-build8</CommonVersion>
     </PropertyGroup>
 
     <PropertyGroup>
