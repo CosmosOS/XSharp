@@ -7,6 +7,8 @@
         <TargetFramework>net471</TargetFramework>
         <RootNamespace>XSharp.ProjectSystem</RootNamespace>
         <IsVsixProject>True</IsVsixProject>
+        <IncludeWpfReferences>True</IncludeWpfReferences>
+        <IncludeWindowsFormsReferences>True</IncludeWindowsFormsReferences>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="BuildSystem\**" InstallRoot="MSBuild" VSIXSubPath="XSharp\%(RecursiveDir)" />
+        <Content Include="BuildSystem\**" IncludeInVSIX="True" InstallRoot="MSBuild" VSIXSubPath="XSharp\%(RecursiveDir)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,12 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="PresentationCore" />
-        <Reference Include="PresentationFramework" />
         <Reference Include="System.Management" />
-        <Reference Include="System.Xaml" />
-        <Reference Include="System.Windows.Forms" />
-        <Reference Include="WindowsBase" />
     </ItemGroup>
 
     <ItemGroup>
@@ -62,10 +59,10 @@
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" Version="15.3.224" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="15.7.27703" />
         <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.11.0" Version="11.0.61031" />
+        <PackageReference Include="VSPropertyPages" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\VSPropertyPages\VSPropertyPages.csproj" />
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
             <AdditionalProperties>TargetFramework=net471</AdditionalProperties>
         </ProjectReference>

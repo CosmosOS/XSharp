@@ -11,6 +11,8 @@
     <!-- .NET Framework targets: reference assemblies -->
     <Import Project="NETFramework.targets" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
 
+	<Import Project="References.targets" />
+
     <!-- Project types -->
     <Import Project="MSBuildExtension.targets" Condition="'$(IsMSBuildExtensionProject)' == 'True'" />
     <Import Project="Tests.targets" Condition="'$(IsTestProject)' == 'True'" />
@@ -18,6 +20,8 @@
     <Import Project="VSIX.targets" Condition="'$(IsVsixProject)' == 'True'" />
 
     <Import Project="Workarounds.targets" />
+
+    <Import Project="InternalPackages.targets" />
 
     <!--
         Import package versions last, as it updates package references included before.
