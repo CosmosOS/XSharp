@@ -7,7 +7,7 @@
         <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
         <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.145</MicrosoftVisualStudioThreadingAnalyzersVersion>
-        <MicrosoftVSSDKBuildToolsVersion>15.8.3252</MicrosoftVSSDKBuildToolsVersion>
+        <MicrosoftVSSDKBuildToolsVersion>15.9.3032</MicrosoftVSSDKBuildToolsVersion>
     </PropertyGroup>
 
 </Project>
