@@ -1,3 +1,49 @@
+=================== 2018 Short List ===================
+
+===== VS Code =====
+*For now, use X# core as is for integration. We will return to X# itself after.
+*Notion of an X# project
+*Building
+-xsconfig.json (VS Code version of .xsproj)
+    -CompilerOptions (Future, nothing yet)
+    -Exclude files
+    -Include dir
+-Launch.json
+    -asm
+    -Bochs - First
+        -VMWare and Hyper-V later
+        -Libs for this are already in Cosmos. Should be separated into new project and moved down into X# repo.
+        -Normally we should use a separate repo, but 3 is already enough so common stuff we are putting in X# since the other 2 need it.
+-Ability to install as an extension via Extensions gallery
+     *XSC allow local overrides
+--------------------
+-Language Service Protocol Support
+    *Syntax highlighting
+    -Code formatting
+Other build targets
+    -windows exe, obj other...
+
+Notes:
+    -For XSC, building all parts of X# itself, we stay VS for now.... ie VS code is for X# use.. not dev of X# project itself.... maybe later we will look at VS code but its C# support is well behind VS.
+
+===== VS =====
+For X# we want to focus on VS code, but we want basic functionality in VS. This is due to both limited resources, but other factors as well.
+-Building - Must be able to build X# projects to allow Cosmos to work in VS fully.
+-Editing, even if just text.
+-Syntax highlighting is nice, but if VS code requires TS for syntax highlighting this may create a duplication of code and a liabilty.
+
+===== X# =====
+-TODO - Update this section (Kudzu)
+-After Gen2 is complete
+  -Move down a mini base DebugStub and share with Cosmos
+  -VS Code debug integration, Watches, stacks, etc...
+
+===== Publicity (Kudzu) =====
+Docs, Videos, website, Microsoft, CodeProject, YouTube C9
+
+
+=================== OLD 2017 Notes - Slowly importing and reassessing ===================
+
 Kudzu
 -xsharp.Eval("x = {aVal}")
 -Macros - ie inline functions of sort
@@ -28,7 +74,6 @@ Kudzu ----------------------------------------------------
 Enrique 500
 
 Change XSC to use Clogger
-VS Code
 
 Parser
    -SyntaxMap - can be circular
@@ -50,8 +95,6 @@ pre/post as plugins
 
 -Emit into ONE .asm file. If output file is specified, all goes to one. Else does one .asm per .xs as now. Also append option to existing .asm
 
-Publicity
-Docs, Videos, website, Microsoft, C9
 
 ---
 
