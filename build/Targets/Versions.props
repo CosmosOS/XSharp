@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <RoslynAnalyzersVersion>2.6.2</RoslynAnalyzersVersion>
-        <MicrosoftBuildVersion>15.8.166</MicrosoftBuildVersion>
+        <MicrosoftBuildVersion>15.9.20</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
