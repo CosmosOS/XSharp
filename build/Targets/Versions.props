@@ -4,9 +4,10 @@
         <RoslynAnalyzersVersion>2.6.2</RoslynAnalyzersVersion>
         <MicrosoftBuildVersion>15.9.20</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
+        <MicrosoftNETTestSdkVersion>15.9.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
-        <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.145</MicrosoftVisualStudioThreadingAnalyzersVersion>
+        <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.192</MicrosoftVisualStudioThreadingAnalyzersVersion>
         <MicrosoftVSSDKBuildToolsVersion>15.9.3032</MicrosoftVSSDKBuildToolsVersion>
     </PropertyGroup>
 
