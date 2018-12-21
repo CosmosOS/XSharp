@@ -16,7 +16,6 @@ namespace XSharp
         public bool EmitSourceCode = true;
 
         private string _currentNamespace;
-        private string _currentFunction;
 
         /// <summary>
         /// Gets the current namespace.
