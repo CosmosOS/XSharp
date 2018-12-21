@@ -168,9 +168,11 @@ namespace XSharp.Emitters
         }
 
         // function fName123 {
-        [Emitter(typeof(Function), typeof(Identifier), typeof(OpOpenBrace))]
-        protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
+        [Emitter(typeof(FunctionKeyword), typeof(Identifier), typeof(OpOpenBrace))]
+        protected void FunctionDefinitionStart(string aFunctionKeyword, string aFunctionName, string opOpenBraces)
         {
+            Compiler.CurrentFunction = aFunctionName;
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aFunctionName}:");
         }
 
         // }
