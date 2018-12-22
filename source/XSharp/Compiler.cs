@@ -15,7 +15,7 @@ namespace XSharp
         public bool EmitUserComments = true;
         public bool EmitSourceCode = true;
 
-        private string _currentNamespace = null;
+        private string _currentNamespace;
 
         /// <summary>
         /// Gets the current namespace.
@@ -31,6 +31,11 @@ namespace XSharp
             set => _currentNamespace = value;
         }
 
+        /// <summary>
+        /// Gets the current function.
+        /// </summary>
+        public string CurrentFunction { get; set; }
+        
         public Compiler(TextWriter aOut)
         {
             Out = aOut;
@@ -98,9 +103,13 @@ namespace XSharp
 
         #region Helper methods for namspaces
 
-        public string GetPrefixForConst => $"{CurrentNamespace}_Const_";
+        public string GetPrefixForConst => string.IsNullOrWhiteSpace(CurrentFunction)
+            ? $"{CurrentNamespace}_Const_"
+            : $"{CurrentNamespace}_{CurrentFunction}_Const_";
 
-        public string GetPrefixForVar => $"{CurrentNamespace}_Var_";
+        public string GetPrefixForVar => string.IsNullOrWhiteSpace(CurrentFunction)
+            ? $"{CurrentNamespace}_Var_"
+            : $"{CurrentNamespace}_{CurrentFunction}_Var_";
 
         #endregion Helper methods for namspaces
     }
