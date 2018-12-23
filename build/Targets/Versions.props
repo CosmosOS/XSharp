@@ -7,8 +7,9 @@
         <MicrosoftNETTestSdkVersion>15.9.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
-        <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.192</MicrosoftVisualStudioThreadingAnalyzersVersion>
         <MicrosoftVSSDKBuildToolsVersion>15.9.3032</MicrosoftVSSDKBuildToolsVersion>
+        <NUnitVersion>3.11.0</NUnitVersion>
+        <NUnit3TestAdapterVersion>3.12.0</NUnit3TestAdapterVersion>
     </PropertyGroup>
 
 </Project>
