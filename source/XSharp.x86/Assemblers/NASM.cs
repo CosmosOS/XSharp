@@ -1,20 +1,17 @@
 ﻿using System;
 using System.IO;
+
 using XSharp.x86.Params;
 
 namespace XSharp.x86.Assemblers
 {
     public class NASM : Assembler
     {
-        protected readonly Map mMap;
-        public string Indent = "";
-        protected readonly TextWriter mOut;
-
         public NASM(TextWriter aOut)
         {
-            mOut = aOut;
+            Out = aOut;
 
-            mMap = new Map();
+            Map = new Map();
 
             // Add in alphabetical order from here
 
@@ -98,6 +95,12 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
         }
 
+        protected Map Map { get; }
+
+        protected TextWriter Out { get; }
+
+        public string Indent { get; set; }
+
         protected void Add(OpCode aOpCode, string aOutput = null, params Type[] aParamTypes)
         {
             Action<object[]> xAction;
@@ -105,7 +108,7 @@ namespace XSharp.x86.Assemblers
             {
                 xAction = (object[] aValues) =>
                 {
-                    mOut.WriteLine();
+                    Out.WriteLine();
                 };
             }
             else
@@ -114,17 +117,17 @@ namespace XSharp.x86.Assemblers
                 {
                     // Can be done with a single call to .WriteLine but makes
                     // debugging far more difficult.
-                    string xOut = string.Format(aOutput, aValues);
-                    mOut.WriteLine(xOut);
+                    string xOut = String.Format(aOutput, aValues);
+                    Out.WriteLine(xOut);
                 };
             }
-            mMap.Add(xAction, aOpCode, aParamTypes);
+            Map.Add(xAction, aOpCode, aParamTypes);
         }
 
         public override void Emit(OpCode aOp, params object[] aParams)
         {
-            mOut.Write(Indent + aOp + " ");
-            mMap.Execute(aOp, aParams);
+            Out.Write(Indent + aOp + " ");
+            Map.Execute(aOp, aParams);
         }
     }
 }

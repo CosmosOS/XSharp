@@ -4,14 +4,13 @@ using System.Collections.Generic;
 namespace XSharp.x86
 {
     public class Map {
-        protected Dictionary<OpCode, Params.Param> mOpCodes = new Dictionary<OpCode, Params.Param>();
+        protected Dictionary<OpCode, Params.Param> OpCodes { get; } = new Dictionary<OpCode, Params.Param>();
 
         public void Add(Action<object[]> aAction, OpCode aOpCode, params Type[] aParamTypes) {
             // See if OpCode already mapped, if not create a slot
-            Params.Param xParam;
-            if (mOpCodes.TryGetValue(aOpCode, out xParam) == false) {
+            if (!OpCodes.TryGetValue(aOpCode, out var xParam)) {
                 xParam = new Params.Root();
-                mOpCodes[aOpCode] = xParam;
+                OpCodes[aOpCode] = xParam;
             }
 
             foreach (var xType in aParamTypes) {
@@ -26,8 +25,7 @@ namespace XSharp.x86
 
         // Use Params to transform values and call Action with transformed values.
         public void Execute(OpCode aOp, params object[] aParams) {
-            Params.Param xParam;
-            if (mOpCodes.TryGetValue(aOp, out xParam) == false) {
+            if (OpCodes.TryGetValue(aOp, out var xParam) == false) {
                 throw new Exception("No OpCode found in map for : " + aOp);
             }
 

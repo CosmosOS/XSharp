@@ -1,19 +1,18 @@
 ﻿namespace XSharp.x86.Params
 {
     public abstract class Reg : Param {
-        protected readonly int mSize;
-        protected readonly bool mIsGenPurpose;
-
-        public Reg(int aSize, bool aIsGenPurpose = true) {
-            mSize = aSize;
-            mIsGenPurpose = aIsGenPurpose;
+        protected Reg(int aSize, bool aIsGenPurpose = true) {
+            Size = aSize;
+            IsGenPurpose = aIsGenPurpose;
         }
 
+        protected int Size { get; }
+        protected bool IsGenPurpose { get; }
+
         public override bool IsMatch(object aValue) {
-            var xReg = aValue as Register;
-            if (xReg != null) {
+            if (aValue is Register xReg) {
                 if (xReg.IsGenPurpose) {
-                    return xReg.Size == mSize;
+                    return xReg.Size == Size;
                 }
                 // non gp - prob need to check name or other
             }
