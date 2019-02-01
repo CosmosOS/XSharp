@@ -13,7 +13,7 @@
         <MicrosoftVisualStudioShellInterop110Version>11.0.61031</MicrosoftVisualStudioShellInterop110Version>
         <MicrosoftVisualStudioShell150Version>15.9.28307</MicrosoftVisualStudioShell150Version>
         <MicrosoftVisualStudioThreadingVersion>15.8.209</MicrosoftVisualStudioThreadingVersion>
-        <MicrosoftVSSDKBuildToolsVersion>15.9.3032</MicrosoftVSSDKBuildToolsVersion>
+        <MicrosoftVSSDKBuildToolsVersion>15.9.3039</MicrosoftVSSDKBuildToolsVersion>
         <NUnitVersion>3.11.0</NUnitVersion>
         <NUnit3TestAdapterVersion>3.12.0</NUnit3TestAdapterVersion>
     </PropertyGroup>
