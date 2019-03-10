@@ -15,7 +15,7 @@
         <MicrosoftVisualStudioThreadingVersion>15.8.209</MicrosoftVisualStudioThreadingVersion>
         <MicrosoftVSSDKBuildToolsVersion>15.9.3039</MicrosoftVSSDKBuildToolsVersion>
         <NUnitVersion>3.11.0</NUnitVersion>
-        <NUnit3TestAdapterVersion>3.12.0</NUnit3TestAdapterVersion>
+        <NUnit3TestAdapterVersion>3.13.0</NUnit3TestAdapterVersion>
     </PropertyGroup>
 
 </Project>
