@@ -11,6 +11,7 @@
         <PackageReference Update="Microsoft.VisualStudio.ProjectSystem.Analyzers" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.ProjectSystem.Sdk" Version="$(MicrosoftVisualStudioProjectSystemVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.SDK.EmbedInteropTypes" Version="$(MicrosoftVisualStudioSdkEmbedInteropTypesVersion)" />
+        <PackageReference Update="Microsoft.VisualStudio.Shell.Framework" Version="$(MicrosoftVisualStudioShellFrameworkVersion)" />
         <PackageReference Update="Microsoft.VisualStudio.Shell.Interop.10.0" Version="$(MicrosoftVisualStudioShellInterop100Version)" />
         <PackageReference Update="Microsoft.VisualStudio.Shell.Interop.11.0" Version="$(MicrosoftVisualStudioShellInterop110Version)" />
         <PackageReference Update="Microsoft.VisualStudio.Shell.15.0" Version="$(MicrosoftVisualStudioShell150Version)" />
