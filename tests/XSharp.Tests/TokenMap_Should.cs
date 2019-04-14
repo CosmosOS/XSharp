@@ -27,7 +27,7 @@ namespace XSharp.Tests
         }
 
         [Test]
-        public void Parse_Namespasce_Definition_Keyword_And_Identifier()
+        public void Parse_Namespace_Definition_Keyword_And_Identifier()
         {
             const string xNamespaceDefinitionLine = "namespace DebugStub";
             const int xExpectedTokenCount = 2;
