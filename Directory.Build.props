@@ -7,7 +7,6 @@
 
     <PropertyGroup>
         <LangVersion>Latest</LangVersion>
-        <CodeAnalysisRuleSet>$(RepoRoot)build\XSharp.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <PropertyGroup>
