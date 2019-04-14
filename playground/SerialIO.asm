@@ -20,6 +20,7 @@
 ; DX
 
 ; function WriteRegister {
+DebugStub_WriteRegister:
   ; +EDX
   Push EDX
     ; DX += $03F8
@@ -35,6 +36,7 @@
 ; Modifies:
 ; AL -> value read
 ; function ReadRegister {
+DebugStub_ReadRegister:
   ; +EDX
   Push EDX
     ; DX += $03F8

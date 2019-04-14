@@ -70,6 +70,7 @@ Mov EAX, EBX
 Mov DWORD [DebugStub_Var_CallerEIP], EAX
 
 	; Executing()
+	Call DebugStub_Executing
 
 ; -All
 PopAD 

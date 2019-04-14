@@ -100,17 +100,5 @@ namespace XSharp
                 throw new Exception("Generation error on line " + LineNo, e);
             }
         }
-
-        #region Helper methods for namspaces
-
-        public string GetPrefixForConst => string.IsNullOrWhiteSpace(CurrentFunction)
-            ? $"{CurrentNamespace}_Const_"
-            : $"{CurrentNamespace}_{CurrentFunction}_Const_";
-
-        public string GetPrefixForVar => string.IsNullOrWhiteSpace(CurrentFunction)
-            ? $"{CurrentNamespace}_Var_"
-            : $"{CurrentNamespace}_{CurrentFunction}_Var_";
-
-        #endregion Helper methods for namspaces
     }
 }

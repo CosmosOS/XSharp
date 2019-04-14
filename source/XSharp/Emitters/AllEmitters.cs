@@ -110,6 +110,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd 0");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
@@ -189,14 +190,16 @@ namespace XSharp.Emitters
         // Important! All that start with AlphaNum MUST be last to allow fall through to prevent early claims over keywords.
         // fName ()
         [Emitter(typeof(Identifier), typeof(OpOpenParen), typeof(OpCloseParen))]
-        protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
+        protected void FunctionCall(string aFunctionName, string aOpOpenParenthesis, string aOpCloseParenthesis)
         {
+            Compiler.WriteLine($"Call {Compiler.CurrentNamespace}_{aFunctionName}");
         }
 
         // Label
         [Emitter(typeof(Identifier), typeof(OpColon))]
         protected void LabelDefinition(string aLabelName, string aOpColon)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aLabelName}:");
         }
     }
 }

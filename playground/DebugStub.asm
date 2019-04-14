@@ -2,33 +2,44 @@
 
 ; Caller's Registers
 ; var CallerEBP
+DebugStub_CallerEBP dd 0
 ; var CallerEIP
+DebugStub_CallerEIP dd 0
 ; var CallerESP
+DebugStub_CallerESP dd 0
 
 ; Tracing: 0=Off, 1=On
 ; var TraceMode
+DebugStub_TraceMode dd 0
 ; enum Status
 ; var DebugStatus
+DebugStub_DebugStatus dd 0
 ; Pointer to the push all data. It points to the bottom after PushAll.
 ; Walk up to find the 8 x 32 bit registers.
 ; var PushAllPtr
+DebugStub_PushAllPtr dd 0
 ; If set non 0, on next trace a break will occur
 ; var DebugBreakOnNextTrace
+DebugStub_DebugBreakOnNextTrace dd 0
 ; For step out and over this is used to determine where the initial request was made
 ; EBP is logged when the trace is started and can be used to determine
 ; what level we are "at" relative to the original step start location.
 ; var BreakEBP
+DebugStub_BreakEBP dd 0
 ; Command ID of last command received
 ; var CommandID
+DebugStub_CommandID dd 0
 
 ; Sets a breakpoint
 ; Serial Params:
 ; 1: x32 - EIP to break on, or 0 to disable breakpoint.
 ; function BreakOnAddress {
+DebugStub_BreakOnAddress:
 	; +All
 	PushAD 
     ; BP Address
     ; ComReadEAX()
+    Call DebugStub_ComReadEAX
     ; ECX = EAX
     Mov ECX, EAX
 
@@ -38,6 +49,7 @@
     ; EAX = 0
     Mov EAX, 0x0
     ; ComReadAL()
+    Call DebugStub_ComReadAL
 
     ; Push EAX so we preserve it for later
 	; +EAX
@@ -73,6 +85,7 @@
 	Mov BYTE [EDI], AL
 
 ; DontSetBP:
+DebugStub_DontSetBP:
 
 	; Restore EAX - the BP Id
 	; -EAX
@@ -87,6 +100,7 @@
 	Mov ECX, 0x100
 	; Scan backwards to find the highest BP Id
 ; FindBPLoop:
+DebugStub_FindBPLoop:
 	; ECX--
 	Dec ECX
 
@@ -122,23 +136,28 @@
 	; goto FindBPLoop
 
 ; FindBPLoopExit:
+DebugStub_FindBPLoopExit:
 	; No BPs found
 	; 0 indicates no BPs - see comment above
 	; .MaxBPId = 0
 	Mov DWORD [DebugStub_Var_MaxBPId], 0x0
 
 ; Continue:
+DebugStub_Continue:
 ; Exit:
+DebugStub_Exit:
 	; -All
 	PopAD 
 ; }
 
 ; function SetINT3 {
+DebugStub_SetINT3:
 	; +All
 	PushAD 
 
     ; BP Address
     ; ComReadEAX()
+    Call DebugStub_ComReadEAX
 	; Set to INT3 ($CC)
     ; EDI = EAX
     Mov EDI, EAX
@@ -148,15 +167,18 @@
 	Mov BYTE [EDI], AL
 
 ; Exit:
+DebugStub_Exit:
 	; -All
 	PopAD 
 ; }
 ; function ClearINT3 {
+DebugStub_ClearINT3:
 	; +All
 	PushAD 
 
 	; BP Address
     ; ComReadEAX()
+    Call DebugStub_ComReadEAX
 	; Clear to NOP ($90)
     ; EDI = EAX
     Mov EDI, EAX
@@ -166,11 +188,13 @@
 	Mov BYTE [EDI], AL
 
 ; Exit:
+DebugStub_Exit:
 	; -All
 	PopAD 
 ; }
 
 ; function Executing {
+DebugStub_Executing:
 	; This is the secondary stub routine. After the primary has decided we should do some debug
 	; activities, this one is called.
 	; Each of these checks a flag, and if it processes then it jumps to .Normal.
@@ -188,8 +212,10 @@
 	   MOV DR6, EAX
 
 	   ; ResetINT1_TrapFLAG()
+	   Call DebugStub_ResetINT1_TrapFLAG
 
 	   ; Break()
+	   Call DebugStub_Break
 	   ; goto Normal
 	 ; }
 
@@ -200,6 +226,7 @@
     ; AsmBreakEIP is 0 when disabled, but EIP can never be 0 so we dont need a separate check.
 	; if EAX = .AsmBreakEIP {
 		; DoAsmBreak()
+		Call DebugStub_DoAsmBreak
   		; goto Normal
 	; }
 
@@ -228,9 +255,11 @@
 	repne scasd
 	; if = {
 		; Break()
+		Call DebugStub_Break
 		; goto Normal
 	; }
 ; SkipBPScan:
+DebugStub_SkipBPScan:
 
     ; Only one of the following can be active at a time (F10, F11, ShiftF11)
 
@@ -238,6 +267,7 @@
 	; If F11, stop on next C# line that executes.
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Into {
 		; Break()
+		Call DebugStub_Break
 		; goto Normal
 	; }
 
@@ -251,6 +281,7 @@
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX >= .BreakEBP {
 			; Break()
+			Call DebugStub_Break
 		; }
 		; goto Normal
 	; }
@@ -260,36 +291,43 @@
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX > .BreakEBP {
 			; Break()
+			Call DebugStub_Break
 		; }
 		; goto Normal
 	; }
 
 ; Normal:
+DebugStub_Normal:
     ; If tracing is on, send a trace message.
     ; Tracing isnt really used any more, was used by the old stand alone debugger. Might be upgraded
     ; and resused in the future.
 	; if dword .TraceMode = #Tracing_On {
 		; SendTrace()
+		Call DebugStub_SendTrace
 	; }
 
     ; Is there a new incoming command? We dont want to wait for one
     ; if there isn't one already here. This is a non blocking check.
 ; CheckForCmd:
+DebugStub_CheckForCmd:
 	  ; DX = 5
 	  Mov DX, 0x5
     ; ReadRegister()
+    Call DebugStub_ReadRegister
     ; AL test 1
     Test AL, 0x1
     ; If a command is waiting, process it and then check for another.
     ; If no command waiting, break from loop.
 	; if !0 {
 		; ProcessCommand()
+		Call DebugStub_ProcessCommand
 		; See if there are more commands waiting
 		; goto CheckForCmd
 	; }
 ; }
 
 ; function Break {
+DebugStub_Break:
     ; Should only be called internally by DebugStub. Has a lot of preconditions.
     ; Externals should use BreakOnNextTrace instead.
     ; Reset request in case we are currently responding to one or we hit a fixed breakpoint
@@ -302,11 +340,14 @@
     ; .DebugStatus = #Status_Break
     Mov [DebugStub_Var_DebugStatus], DebugStub_Const_Status_Break
     ; SendTrace()
+    Call DebugStub_SendTrace
 
     ; Wait for a command
 ; WaitCmd:
+DebugStub_WaitCmd:
     ; Check for common commands first
     ; ProcessCommand()
+    Call DebugStub_ProcessCommand
 
     ; Now check for commands that are only valid in break state or commands that require special handling while in break state.
 
@@ -315,12 +356,15 @@
 	; If Asm step into, we need to continue execution
 	; if AL = #Vs2Ds_AsmStepInto {
 		; SetINT1_TrapFLAG()
+		Call DebugStub_SetINT1_TrapFLAG
 		; goto Done
 	; }
 
     ; if AL = #Vs2Ds_SetAsmBreak {
         ; SetAsmBreak()
+        Call DebugStub_SetAsmBreak
 	    ; AckCommand()
+	    Call DebugStub_AckCommand
 	    ; goto WaitCmd
 	; }
 
@@ -357,7 +401,9 @@
     ; goto WaitCmd
 
 ; Done:
+DebugStub_Done:
     ; AckCommand()
+    Call DebugStub_AckCommand
     ; .DebugStatus = #Status_Run
     Mov [DebugStub_Var_DebugStatus], DebugStub_Const_Status_Run
 ; }

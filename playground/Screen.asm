@@ -8,6 +8,7 @@
 ; const VidBase = $B8000
 
 ; function Cls {
+DebugStub_Cls:
     ; ESI = #VidBase
     Mov ESI, DebugStub_Const_VidBase
 
@@ -29,6 +30,7 @@
 ; }
 
 ; function DisplayWaitMsg {
+DebugStub_DisplayWaitMsg:
 	; ESI = @.DebugWaitMsg
 	Mov ESI, DebugStub_Var_DebugWaitMsg
 

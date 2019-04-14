@@ -46,7 +46,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         protected void VariableAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpCloseBracket, string aOpEquals, Address source)
         {
-            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source.AddPrefix(Compiler.GetPrefixForVar));
+            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
         }
 
         // [EAX] = 0x10
@@ -61,30 +61,30 @@ namespace XSharp.Emitters
         [Emitter(typeof(Reg08), typeof(OpEquals), typeof(Int08u))] // AH = 0
         [Emitter(typeof(Reg16), typeof(OpEquals), typeof(Int16u))] // AX = 0
         [Emitter(typeof(Reg32), typeof(OpEquals), typeof(Int32u))] // EAX = 0
-        protected void RegAssigNum(Register aDestReg, string aEquals, object aVal)
+        protected void RegAssignNum(Register aDestReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aDestReg, aVal);
         }
 
         // AX = #Test
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(Const))]
-        protected void RegAssigConst(Register aReg, string aEquals, string aVal)
+        protected void RegAssignConst(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.GetPrefixForConst}{aVal}");
+            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
         }
 
         // EAX = .Varname
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(Variable))]
-        protected void RegAssigVar(Register aReg, string aEquals, Address aVal)
+        protected void RegAssignVar(Register aReg, string aEquals, Address aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal.AddPrefix(Compiler.GetPrefixForVar));
+            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
         }
 
         // AL = @.varname
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(VariableAddress))]
-        protected void RegAssignVarAddr(Register aReg, string aEquals, string aVal)
+        protected void RegAssignVarAddress(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.GetPrefixForVar}{aVal}");
+            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_Var_{aVal}");
         }
 
         // ESI = [EBP-1] => mov ESI, dword [EBP - 1]
@@ -122,18 +122,18 @@ namespace XSharp.Emitters
             {
                 case uint _:
                     size = "dword";
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
                     break;
 
                 case Register aValueReg:
                     size = aValueReg.RegSize;
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
                     break;
 
                 case string _:
                     //TODO: verify this
-                    aValue = $"{Compiler.GetPrefixForConst}{aValue}";
-                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix(Compiler.GetPrefixForVar), aValue);
+                    aValue = $"{Compiler.CurrentNamespace}_Const_{aValue}";
+                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
                     break;
             }
         }

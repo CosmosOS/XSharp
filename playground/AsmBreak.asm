@@ -3,12 +3,15 @@
 ; Location where INT3 has been injected.
 ; 0 if no INT3 is active.
 ; var AsmBreakEIP
+DebugStub_AsmBreakEIP dd 0
 
 ; Old byte before INT3 was injected.
 ; Only 1 byte is used.
 ; var AsmOrigByte
+DebugStub_AsmOrigByte dd 0
 
 ; function DoAsmBreak {
+DebugStub_DoAsmBreak:
 	; Since our Int3 is temp, we need to adjust return EIP to return to it, not after it.
 	; ESI = .CallerESP
 	Mov ESI, DWORD [DebugStub_Var_CallerESP]
@@ -18,13 +21,18 @@
 	Mov DWORD [ESI - 12], EAX
 
 	; ClearAsmBreak()
+	Call DebugStub_ClearAsmBreak
   ; Break()
+  Call DebugStub_Break
 ; }
 
 ; function SetAsmBreak {
+DebugStub_SetAsmBreak:
 	; ClearAsmBreak()
+	Call DebugStub_ClearAsmBreak
 
   ; ComReadEAX()
+  Call DebugStub_ComReadEAX
   ; Save EIP of the break
   ; .AsmBreakEIP = EAX
   Mov DWORD [DebugStub_Var_AsmBreakEIP], EAX
@@ -46,6 +54,7 @@
 ; }
 
 ; function ClearAsmBreak {
+DebugStub_ClearAsmBreak:
   ; EDI = .AsmBreakEIP
   Mov EDI, DWORD [DebugStub_Var_AsmBreakEIP]
   ; If 0, we don't need to clear an older one.
@@ -62,6 +71,7 @@
 ; }
 
 ; function SetINT1_TrapFLAG {
+DebugStub_SetINT1_TrapFLAG:
 	; Push EAX to make sure whatever we do below doesn't affect code afterwards
 	; +EBP
 	Push EBP
@@ -93,6 +103,7 @@
 ; }
 
 ; function ResetINT1_TrapFLAG {
+DebugStub_ResetINT1_TrapFLAG:
 	; Push EAX to make sure whatever we do below doesn't affect code afterwards
 	; +EBP
 	Push EBP

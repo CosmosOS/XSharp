@@ -36,12 +36,14 @@
 ; Todo Auto params
 ; Todo ebp frame ptr auto etc
 ; function InitSerial {
+DebugStub_InitSerial:
 	; Disable interrupts
   ; DX = 1
   Mov DX, 0x1
 	; AL = 0
 	Mov AL, 0x0
   ; WriteRegister()
+  Call DebugStub_WriteRegister
 
 	; Enable DLAB (set baud rate divisor)
 	; DX = 3
@@ -49,6 +51,7 @@
 	; AL = $80
 	Mov AL, 0x80
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; 0x01, 0x00 - 115200
 	; 0x02, 0x00 - 57600
@@ -59,6 +62,7 @@
 	; AL = $01
 	Mov AL, 0x1
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; hi byte
 	; DX = 1
@@ -66,6 +70,7 @@
 	; AL = $00
 	Mov AL, 0x0
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; 8N1
 	; DX = 3
@@ -73,6 +78,7 @@
 	; AL = $03
 	Mov AL, 0x3
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; Enable FIFO, clear them
 	; Set 14-byte threshold for IRQ.
@@ -83,6 +89,7 @@
 	; AL = $C7
 	Mov AL, 0xC7
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; 0x20 AFE Automatic Flow control Enable - 16550 (VMWare uses 16550A) is most common and does not support it
 	; 0x02 RTS
@@ -93,14 +100,18 @@
 	; AL = $03
 	Mov AL, 0x3
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 ; }
 
 ; Modifies: AL, DX
 ; function ComReadAL {
+DebugStub_ComReadAL:
 	; DX = 5
 	Mov DX, 0x5
 ; Wait:
+DebugStub_Wait:
     ; ReadRegister()
+    Call DebugStub_ReadRegister
     ; AL test $01
     Test AL, 0x1
     ; if 0 goto Wait
@@ -108,9 +119,11 @@
 	; DX = 0
 	Mov DX, 0x0
   ; ReadRegister()
+  Call DebugStub_ReadRegister
 ; }
 
 ; function ComWrite8 {
+DebugStub_ComWrite8:
 	; Input: ESI
 	; Output: None
 	; Modifies: EAX, EDX
@@ -131,7 +144,9 @@
 	; Wait for serial port to be ready
 	; Bit 5 (0x20) test for Transmit Holding Register to be empty.
 ; Wait:
+DebugStub_Wait:
     ; ReadRegister()
+    Call DebugStub_ReadRegister
 	  ; AL test $20
 	  Test AL, 0x20
 	  ; if 0 goto Wait
@@ -144,6 +159,7 @@
   Mov AL, BYTE [ESI]
 	; Send the byte
 	; WriteRegister()
+	Call DebugStub_WriteRegister
 
 	; ESI++
 	Inc ESI
