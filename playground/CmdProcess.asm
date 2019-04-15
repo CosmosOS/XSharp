@@ -22,7 +22,7 @@ DebugStub_ProcessCommand:
     ; ComReadAL()
     Call DebugStub_ComReadAL
     ; .CommandID = EAX
-    Mov DWORD [DebugStub_Var_CommandID], EAX
+    Mov DWORD [DebugStub_CommandID], EAX
 
     ; Get AL back so we can compare it, but also leave it for later
     ; EAX = [ESP]
@@ -156,7 +156,7 @@ DebugStub_AckCommand:
     Call DebugStub_ComWriteAL
     
     ; EAX = .CommandID
-    Mov EAX, DWORD [DebugStub_Var_CommandID]
+    Mov EAX, DWORD [DebugStub_CommandID]
     ; ComWriteAL()
     Call DebugStub_ComWriteAL
 ; }

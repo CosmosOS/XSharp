@@ -6,6 +6,7 @@
 %ifndef Exclude_Memory_Based_Console
 
 ; const VidBase = $B8000
+DebugStub_Const_VidBase equ 753664
 
 ; function Cls {
 DebugStub_Cls:
@@ -32,7 +33,7 @@ DebugStub_Cls:
 ; function DisplayWaitMsg {
 DebugStub_DisplayWaitMsg:
 	; ESI = @.DebugWaitMsg
-	Mov ESI, DebugStub_Var_DebugWaitMsg
+	Mov ESI, DebugStub_DebugWaitMsg
 
     ; EDI = #VidBase
     Mov EDI, DebugStub_Const_VidBase

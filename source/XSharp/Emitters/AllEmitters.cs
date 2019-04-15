@@ -96,6 +96,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName} equ {aConstValue}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]

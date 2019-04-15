@@ -9,19 +9,19 @@ DebugStub_SendRegisters:
     Call DebugStub_ComWriteAL
 
     ; ESI = .PushAllPtr
-    Mov ESI, DWORD [DebugStub_Var_PushAllPtr]
+    Mov ESI, DWORD [DebugStub_PushAllPtr]
     ; ECX = 32
     Mov ECX, 0x20
     ; ComWriteX()
     Call DebugStub_ComWriteX
 
     ; ESI = @.CallerESP
-    Mov ESI, DebugStub_Var_CallerESP
+    Mov ESI, DebugStub_CallerESP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Var_CallerEIP
+    Mov ESI, DebugStub_CallerEIP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
@@ -39,7 +39,7 @@ DebugStub_SendFrame:
     Call DebugStub_ComWriteAX
 
     ; ESI = .CallerEBP
-    Mov ESI, DWORD [DebugStub_Var_CallerEBP]
+    Mov ESI, DWORD [DebugStub_CallerEBP]
     ; Dont transmit EIP or old EBP
     ; ESI += 8
     ; ECX = 32
@@ -99,9 +99,9 @@ DebugStub_SendStack:
 
     ; Send size of bytes
     ; ESI = .CallerESP
-    Mov ESI, DWORD [DebugStub_Var_CallerESP]
+    Mov ESI, DWORD [DebugStub_CallerESP]
     ; EAX = .CallerEBP
-    Mov EAX, DWORD [DebugStub_Var_CallerEBP]
+    Mov EAX, DWORD [DebugStub_CallerEBP]
     ; EAX -= ESI
     ; ComWriteAX()
     Call DebugStub_ComWriteAX
@@ -109,7 +109,7 @@ DebugStub_SendStack:
     ; Send actual bytes
     ; Need to reload ESI, WriteAXToCompPort modifies it
     ; ESI = .CallerESP
-    Mov ESI, DWORD [DebugStub_Var_CallerESP]
+    Mov ESI, DWORD [DebugStub_CallerESP]
     ; while ESI != .CallerEBP {
         ; ComWrite8()
         Call DebugStub_ComWrite8
@@ -131,7 +131,7 @@ DebugStub_SendMethodContext:
     Call DebugStub_ComWriteAL
 
     ; ESI = .CallerEBP
-    Mov ESI, DWORD [DebugStub_Var_CallerEBP]
+    Mov ESI, DWORD [DebugStub_CallerEBP]
 
     ; offset relative to ebp
     ; size of data to send
@@ -216,7 +216,7 @@ DebugStub_SendTrace:
 
     ; Send Calling EIP.
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Var_CallerEIP
+    Mov ESI, DebugStub_CallerEIP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
@@ -466,7 +466,7 @@ DebugStub_SendStackCorruptionOccurred:
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Var_CallerEIP
+    Mov ESI, DebugStub_CallerEIP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
@@ -484,7 +484,7 @@ DebugStub_SendStackOverflowOccurred:
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Var_CallerEIP
+    Mov ESI, DebugStub_CallerEIP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
@@ -522,7 +522,7 @@ DebugStub_SendNullReferenceOccurred:
 
     ; pointer value
     ; ESI = @.CallerEIP
-    Mov ESI, DebugStub_Var_CallerEIP
+    Mov ESI, DebugStub_CallerEIP
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
@@ -579,15 +579,15 @@ DebugStub_SendCoreDump:
     ; +ESI
     Push ESI
     ; EAX = @.CallerEBP
-    Mov EAX, DebugStub_Var_CallerEBP
+    Mov EAX, DebugStub_CallerEBP
     ; +EAX
     Push EAX
     ; EAX = @.CallerEIP
-    Mov EAX, DebugStub_Var_CallerEIP
+    Mov EAX, DebugStub_CallerEIP
     ; +EAX
     Push EAX
     ; EAX = @.CallerESP
-    Mov EAX, DebugStub_Var_CallerESP
+    Mov EAX, DebugStub_CallerESP
     ; +EAX
     Push EAX
     ; ECX = 36

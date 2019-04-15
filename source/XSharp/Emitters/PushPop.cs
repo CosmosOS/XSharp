@@ -36,13 +36,13 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpPlus), typeof(Variable))]
         protected void PushVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Push, value.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
+            Asm.Emit(OpCode.Push, value.AddPrefix($"{Compiler.CurrentNamespace}_"));
         }
 
         [Emitter(typeof(OpPlus), typeof(VariableAddress))]
         protected void PushVarAddr(string aOpPlus, string value)
         {
-            Asm.Emit(OpCode.Push, $"{Compiler.CurrentNamespace}_Var_{value}");
+            Asm.Emit(OpCode.Push, $"{Compiler.CurrentNamespace}_{value}");
         }
 
         // -Reg
@@ -64,13 +64,13 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpMinus), typeof(Variable))]
         protected void PopVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Pop, value.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
+            Asm.Emit(OpCode.Pop, value.AddPrefix($"{Compiler.CurrentNamespace}_"));
         }
 
         [Emitter(typeof(OpMinus), typeof(VariableAddress))]
         protected void PopAddr(string aOpPlus, string value)
         {
-            Asm.Emit(OpCode.Pop, $"{Compiler.CurrentNamespace}_Var_{value}");
+            Asm.Emit(OpCode.Pop, $"{Compiler.CurrentNamespace}_{value}");
         }
     }
 }

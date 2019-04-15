@@ -46,7 +46,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         protected void VariableAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpCloseBracket, string aOpEquals, Address source)
         {
-            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
+            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source.AddPrefix($"{Compiler.CurrentNamespace}_"));
         }
 
         // [EAX] = 0x10
@@ -77,14 +77,14 @@ namespace XSharp.Emitters
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(Variable))]
         protected void RegAssignVar(Register aReg, string aEquals, Address aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_Var_"));
+            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
         }
 
         // AL = @.varname
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(VariableAddress))]
         protected void RegAssignVarAddress(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_Var_{aVal}");
+            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
         }
 
         // ESI = [EBP-1] => mov ESI, dword [EBP - 1]
@@ -122,18 +122,18 @@ namespace XSharp.Emitters
             {
                 case uint _:
                     size = "dword";
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
                     break;
 
                 case Register aValueReg:
                     size = aValueReg.RegSize;
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
                     break;
 
                 case string _:
                     //TODO: verify this
                     aValue = $"{Compiler.CurrentNamespace}_Const_{aValue}";
-                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_Var_"), aValue);
+                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
                     break;
             }
         }

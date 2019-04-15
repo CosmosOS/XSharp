@@ -14,9 +14,9 @@ DebugStub_AsmOrigByte dd 0
 DebugStub_DoAsmBreak:
 	; Since our Int3 is temp, we need to adjust return EIP to return to it, not after it.
 	; ESI = .CallerESP
-	Mov ESI, DWORD [DebugStub_Var_CallerESP]
+	Mov ESI, DWORD [DebugStub_CallerESP]
 	; EAX = .AsmBreakEIP
-	Mov EAX, DWORD [DebugStub_Var_AsmBreakEIP]
+	Mov EAX, DWORD [DebugStub_AsmBreakEIP]
 	; [ESI-12] = EAX
 	Mov DWORD [ESI - 12], EAX
 
@@ -35,7 +35,7 @@ DebugStub_SetAsmBreak:
   Call DebugStub_ComReadEAX
   ; Save EIP of the break
   ; .AsmBreakEIP = EAX
-  Mov DWORD [DebugStub_Var_AsmBreakEIP], EAX
+  Mov DWORD [DebugStub_AsmBreakEIP], EAX
   ; EDI = EAX
   Mov EDI, EAX
 
@@ -43,7 +43,7 @@ DebugStub_SetAsmBreak:
   ; AL = [EDI]
   Mov AL, BYTE [EDI]
   ; .AsmOrigByte = AL
-  Mov BYTE [DebugStub_Var_AsmOrigByte], AL
+  Mov BYTE [DebugStub_AsmOrigByte], AL
 
   ; Inject INT3
 	; Do in 2 steps to force a byte move to RAM (till X# can do byte in one step)
@@ -56,18 +56,18 @@ DebugStub_SetAsmBreak:
 ; function ClearAsmBreak {
 DebugStub_ClearAsmBreak:
   ; EDI = .AsmBreakEIP
-  Mov EDI, DWORD [DebugStub_Var_AsmBreakEIP]
+  Mov EDI, DWORD [DebugStub_AsmBreakEIP]
   ; If 0, we don't need to clear an older one.
   ; if EDI = 0 return
     
 	; Clear old break point and set back to original opcode / partial opcode
   ; AL = .AsmOrigByte
-  Mov AL, BYTE [DebugStub_Var_AsmOrigByte]
+  Mov AL, BYTE [DebugStub_AsmOrigByte]
   ; [EDI] = AL
   Mov BYTE [EDI], AL
 
   ; .AsmBreakEIP = 0
-  Mov DWORD [DebugStub_Var_AsmBreakEIP], 0x0
+  Mov DWORD [DebugStub_AsmBreakEIP], 0x0
 ; }
 
 ; function SetINT1_TrapFLAG {
@@ -80,7 +80,7 @@ DebugStub_SetINT1_TrapFLAG:
 
 	; Set base pointer to the caller ESP
 	; EBP = .CallerESP
-	Mov EBP, DWORD [DebugStub_Var_CallerESP]
+	Mov EBP, DWORD [DebugStub_CallerESP]
 	
 	; Set the Trap Flag (http://en.wikipedia.org/wiki/Trap_flag)
 	; For EFLAGS we want - the interrupt frame = ESP + 12
@@ -112,7 +112,7 @@ DebugStub_ResetINT1_TrapFLAG:
 
 	; Set base pointer to the caller ESP
 	; EBP = .CallerESP
-	Mov EBP, DWORD [DebugStub_Var_CallerESP]
+	Mov EBP, DWORD [DebugStub_CallerESP]
 	
 	; Clear the Trap Flag (http://en.wikipedia.org/wiki/Trap_flag)
 	; See comment in SetINT1_TrapFlag

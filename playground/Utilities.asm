@@ -16,7 +16,7 @@ DebugStub_CheckStack:
         ; EAX = [ESP]
         Mov EAX, DWORD [ESP]
         ; .CallerEIP = EAX
-        Mov DWORD [DebugStub_Var_CallerEIP], EAX
+        Mov DWORD [DebugStub_CallerEIP], EAX
         ; SendStackCorruptionOccurred()
         Call DebugStub_SendStackCorruptionOccurred
       ; halt:
