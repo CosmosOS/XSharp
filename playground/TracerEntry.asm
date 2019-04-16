@@ -38,12 +38,14 @@ Mov DWORD [DebugStub_CallerEBP], EBP
 ; EBP = ESP
 Mov EBP, ESP
 ; EBP += 32
+Add EBP, 0x20
 ; Caller EIP
 ; EAX = [EBP]
 Mov EAX, DWORD [EBP]
 
 ; 12 bytes for EFLAGS, CS, EIP
 ; EBP += 12
+Add EBP, 0xC
 ; .CallerESP = EBP
 Mov DWORD [DebugStub_CallerESP], EBP
 

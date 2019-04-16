@@ -61,6 +61,7 @@ DebugStub_BreakOnAddress:
 	Mov EBX, DebugStub_DebugBPs
     ; EAX << 2
     ; EBX += EAX
+    Add EBX, EAX
 
 	; if ECX = 0 {
 		; This is a BP removal
@@ -112,6 +113,7 @@ DebugStub_FindBPLoop:
 	; 4 bytes per Id
 	; EAX << 2
 	; EBX += EAX
+	Add EBX, EAX
 
 	; Set EAX to be the value at the address stored by EAX
 	; I.e. the ASM address of the BP with BP Id of ECX (if there is one - it will be 0 if no BP at this BP Id)

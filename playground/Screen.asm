@@ -39,6 +39,7 @@ DebugStub_DisplayWaitMsg:
     Mov EDI, DebugStub_Const_VidBase
     ; 10 lines down, 20 cols in (10 * 80 + 20) * 2)
     ; EDI += 1640
+    Add EDI, 0x668
 
     ; Read and copy string till 0 terminator
     ; while byte [ESI] != 0 {
@@ -49,6 +50,7 @@ DebugStub_DisplayWaitMsg:
 		; ESI++
 		Inc ESI
 		; EDI += 2
+		Add EDI, 0x2
 	; }
 ; }
 

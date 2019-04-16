@@ -42,6 +42,7 @@ DebugStub_SendFrame:
     Mov ESI, DWORD [DebugStub_CallerEBP]
     ; Dont transmit EIP or old EBP
     ; ESI += 8
+    Add ESI, 0x8
     ; ECX = 32
     Mov ECX, 0x20
     ; ComWriteX()
@@ -103,6 +104,7 @@ DebugStub_SendStack:
     ; EAX = .CallerEBP
     Mov EAX, DWORD [DebugStub_CallerEBP]
     ; EAX -= ESI
+    Sub EAX, ESI
     ; ComWriteAX()
     Call DebugStub_ComWriteAX
 
@@ -138,6 +140,7 @@ DebugStub_SendMethodContext:
     ; ComReadEAX()
     Call DebugStub_ComReadEAX
     ; ESI += EAX
+    Add ESI, EAX
     ; ComReadEAX()
     Call DebugStub_ComReadEAX
     ; ECX = EAX
@@ -242,6 +245,7 @@ Mov EBP, ESP
     ; ESI = EBP
     Mov ESI, EBP
     ; ESI += 12
+    Add ESI, 0xC
     ; ECX = [ESI]
     Mov ECX, DWORD [ESI]
     ; ComWrite16()
@@ -542,6 +546,7 @@ DebugStub_SendMessageBox:
     ; ESI = EBP
     Mov ESI, EBP
     ; ESI += 12
+    Add ESI, 0xC
     ; ECX = [ESI]
     Mov ECX, DWORD [ESI]
     ; ComWrite16()
@@ -596,9 +601,11 @@ DebugStub_SendCoreDump:
     Mov EAX, EBP
     ; while EAX != 0 {
         ; EAX -= 4
+        Sub EAX, 0x4
         ; +EAX
         Push EAX
         ; ECX += 4
+        Add ECX, 0x4
         ; EAX = [EAX]
         Mov EAX, DWORD [EAX]
     ; }

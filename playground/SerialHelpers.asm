@@ -22,6 +22,7 @@ DebugStub_ComRead8:
     ; [EDI] = AL
     Mov BYTE [EDI], AL
     ; EDI += 1
+    Add EDI, 0x1
 ; }
 ; function ComRead16 {
 DebugStub_ComRead16:

@@ -87,6 +87,7 @@ DebugStub_SetINT1_TrapFLAG:
 	; - The interrupt frame - 8 for correct byte = ESP + 12 - 8 = ESP + 4
 	; - Therefore, ESP - 4 to get to the correct position
 	; EBP -= 4
+	Sub EBP, 0x4
 	; EAX = [EBP]
 	Mov EAX, DWORD [EBP]
 	; EAX | $0100
@@ -117,6 +118,7 @@ DebugStub_ResetINT1_TrapFLAG:
 	; Clear the Trap Flag (http://en.wikipedia.org/wiki/Trap_flag)
 	; See comment in SetINT1_TrapFlag
 	; EBP -= 4
+	Sub EBP, 0x4
 	; EAX = [EBP]
 	Mov EAX, DWORD [EBP]
 	; EAX & $FEFF

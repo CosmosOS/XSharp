@@ -15,6 +15,13 @@ namespace XSharp.x86.Assemblers
 
             // Add in alphabetical order from here
 
+            Add(OpCode.Add, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Add, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Add, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+
             Add(OpCode.Dec, "{0}", typeof(Reg08));
             Add(OpCode.Dec, "{0}", typeof(Reg16));
             Add(OpCode.Dec, "{0}", typeof(Reg32));
@@ -56,6 +63,13 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(Identifier));
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg32), typeof(Identifier));
 
+            Add(OpCode.Mul, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Mul, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Mul, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Mul, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Mul, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Mul, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+
             Add(OpCode.NOP);
 
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg08));
@@ -88,7 +102,22 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Pop, "{0}", typeof(RegisterAddress));
 
             Add(OpCode.PopAD);
+
+            Add(OpCode.Rem, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Rem, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Rem, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Rem, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Rem, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Rem, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+
             Add(OpCode.Ret);
+
+            Add(OpCode.Sub, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Sub, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Sub, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Sub, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Sub, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Sub, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
 
             Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
             Add(OpCode.Test, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));

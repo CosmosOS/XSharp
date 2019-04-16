@@ -23,17 +23,22 @@
     // Please add ops in alphabetical order
     public enum OpCode
     {
-        Dec,    // Decrement operator
+        Add,    // Add
+        Dec,    // Decrement
+        Div,    // Divide
         In,     // In Oprator
-        Inc,    // Increment operator
-        Mov,    // Move operator
+        Inc,    // Increment
+        Mov,    // Move
+        Mul,    // Multiply
         NOP,    // No op
         Out,    // Out
         Pop,    // Pop
         PopAD,  // Pop all
         Push,   // Push
         PushAD, // Push all
+        Rem,    // Remainder
         Ret,    // Return
+        Sub,    // Subtract
         Test,   // Test - logical compare
     }
 }

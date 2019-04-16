@@ -119,20 +119,6 @@ namespace XSharp.Emitters
         {
         }
 
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Const))]
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Variable))]
-        [Emitter(typeof(Reg08), typeof(OpMath), typeof(Int08u))]
-        [Emitter(typeof(Reg16), typeof(OpMath), typeof(Int16u))]
-        [Emitter(typeof(Reg32), typeof(OpMath), typeof(Int32u))]
-        protected void Arithmetic(Register aRegister, string aOpArithmetic, object aValue)
-        {
-        }
-
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Reg))]
-        protected void ArithmeticRegReg(Register aRegister, string aOpArithmetic, object aValue)
-        {
-        }
-
         [Emitter(typeof(Reg), typeof(OpBitwise), typeof(Const))]
         [Emitter(typeof(Reg), typeof(OpBitwise), typeof(Variable))]
         [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Reg08))]
