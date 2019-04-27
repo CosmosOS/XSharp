@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "XSharp Compiler (netcoreapp2.1)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
+            "args": [
+                "..\\..\\playground\\",
+                "-Plugin:Cosmos.XSC",
+                "-Gen2",
+                "-WaitOnError"
+            ],
+            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "XSharp Compiler (net471)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\net471\\xsc.dll",
+            "args": [
+                "..\\..\\playground\\",
+                "-Plugin:Cosmos.XSC",
+                "-Gen2",
+                "-WaitOnError"
+            ],
+            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
