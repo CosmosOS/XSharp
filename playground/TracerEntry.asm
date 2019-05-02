@@ -29,23 +29,25 @@ cli
 	PushAD 
 ; Save current ESP so we can look at the results of PushAll later
 ; .PushAllPtr = ESP
-Mov DWORD [DebugStub_Var_PushAllPtr], ESP
+Mov DWORD [DebugStub_PushAllPtr], ESP
 ; .CallerEBP = EBP
-Mov DWORD [DebugStub_Var_CallerEBP], EBP
+Mov DWORD [DebugStub_CallerEBP], EBP
 
 ; Get current ESP and add 32. This will skip over the PushAll and point
 ; us at the call data from Int3.
 ; EBP = ESP
 Mov EBP, ESP
 ; EBP += 32
+Add EBP, 0x20
 ; Caller EIP
 ; EAX = [EBP]
 Mov EAX, DWORD [EBP]
 
 ; 12 bytes for EFLAGS, CS, EIP
 ; EBP += 12
+Add EBP, 0xC
 ; .CallerESP = EBP
-Mov DWORD [DebugStub_Var_CallerESP], EBP
+Mov DWORD [DebugStub_CallerESP], EBP
 
 ; EIP is pointer to op after our call. Int3 is 1 byte so we subtract 1.
 ; Note - when we used call it was 5 (size of our call + address)
@@ -67,9 +69,10 @@ Mov EAX, EBX
 
 ; Store it for later use.
 ; .CallerEIP = EAX
-Mov DWORD [DebugStub_Var_CallerEIP], EAX
+Mov DWORD [DebugStub_CallerEIP], EAX
 
 	; Executing()
+	Call DebugStub_Executing
 
 ; -All
 PopAD 

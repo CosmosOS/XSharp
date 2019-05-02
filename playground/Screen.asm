@@ -6,8 +6,10 @@
 %ifndef Exclude_Memory_Based_Console
 
 ; const VidBase = $B8000
+DebugStub_Const_VidBase equ 753664
 
 ; function Cls {
+DebugStub_Cls:
     ; ESI = #VidBase
     Mov ESI, DebugStub_Const_VidBase
 
@@ -29,13 +31,15 @@
 ; }
 
 ; function DisplayWaitMsg {
+DebugStub_DisplayWaitMsg:
 	; ESI = @.DebugWaitMsg
-	Mov ESI, DebugStub_Var_DebugWaitMsg
+	Mov ESI, DebugStub_DebugWaitMsg
 
     ; EDI = #VidBase
     Mov EDI, DebugStub_Const_VidBase
     ; 10 lines down, 20 cols in (10 * 80 + 20) * 2)
     ; EDI += 1640
+    Add EDI, 0x668
 
     ; Read and copy string till 0 terminator
     ; while byte [ESI] != 0 {
@@ -46,6 +50,7 @@
 		; ESI++
 		Inc ESI
 		; EDI += 2
+		Add EDI, 0x2
 	; }
 ; }
 

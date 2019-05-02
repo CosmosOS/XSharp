@@ -15,7 +15,7 @@ namespace XSharp
         public bool EmitUserComments = true;
         public bool EmitSourceCode = true;
 
-        private string _currentNamespace = null;
+        private string _currentNamespace;
 
         /// <summary>
         /// Gets the current namespace.
@@ -31,6 +31,11 @@ namespace XSharp
             set => _currentNamespace = value;
         }
 
+        /// <summary>
+        /// Gets the current function.
+        /// </summary>
+        public string CurrentFunction { get; set; }
+        
         public Compiler(TextWriter aOut)
         {
             Out = aOut;
@@ -45,6 +50,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new Emitters.PushPop(this, mNASM)); // This should be above + operator
             mTokenMap.AddEmitter(new Emitters.Assignments(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.Math(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 
@@ -95,13 +101,5 @@ namespace XSharp
                 throw new Exception("Generation error on line " + LineNo, e);
             }
         }
-
-        #region Helper methods for namspaces
-
-        public string GetPrefixForConst => $"{CurrentNamespace}_Const_";
-
-        public string GetPrefixForVar => $"{CurrentNamespace}_Var_";
-
-        #endregion Helper methods for namspaces
     }
 }

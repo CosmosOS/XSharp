@@ -17,10 +17,10 @@ namespace XSharp.Emitters
         /// <summary>
         /// Definition of a namespace. Does not generate any code.
         /// </summary>
-        [Emitter(typeof(NamespaceKeyword), typeof(AlphaNum))] // namespace name
-        protected void NamespaceDefinition(string aNamespaceKeyword, string aText)
+        [Emitter(typeof(NamespaceKeyword), typeof(Identifier))] // namespace name
+        protected void NamespaceDefinition(string aNamespaceKeyword, string aNamespaceName)
         {
-            Compiler.CurrentNamespace = aText;
+            Compiler.CurrentNamespace = aNamespaceName;
         }
     }
 }

@@ -96,6 +96,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName} equ {aConstValue}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
@@ -110,24 +111,11 @@ namespace XSharp.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd 0");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
-        {
-        }
-
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Const))]
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Variable))]
-        [Emitter(typeof(Reg08), typeof(OpMath), typeof(Int08u))]
-        [Emitter(typeof(Reg16), typeof(OpMath), typeof(Int16u))]
-        [Emitter(typeof(Reg32), typeof(OpMath), typeof(Int32u))]
-        protected void Arithmetic(Register aRegister, string aOpArithmetic, object aValue)
-        {
-        }
-
-        [Emitter(typeof(Reg), typeof(OpMath), typeof(Reg))]
-        protected void ArithmeticRegReg(Register aRegister, string aOpArithmetic, object aValue)
         {
         }
 
@@ -168,9 +156,11 @@ namespace XSharp.Emitters
         }
 
         // function fName123 {
-        [Emitter(typeof(Function), typeof(Identifier), typeof(OpOpenBrace))]
-        protected void FunctionDefinitionStart(string funcKeyword, string functionName, string opOpenBraces)
+        [Emitter(typeof(FunctionKeyword), typeof(Identifier), typeof(OpOpenBrace))]
+        protected void FunctionDefinitionStart(string aFunctionKeyword, string aFunctionName, string opOpenBraces)
         {
+            Compiler.CurrentFunction = aFunctionName;
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aFunctionName}:");
         }
 
         // }
@@ -187,14 +177,16 @@ namespace XSharp.Emitters
         // Important! All that start with AlphaNum MUST be last to allow fall through to prevent early claims over keywords.
         // fName ()
         [Emitter(typeof(Identifier), typeof(OpOpenParen), typeof(OpCloseParen))]
-        protected void FunctionCall(string functionName, string opOpenParanthesis, string opCloseParanthesis)
+        protected void FunctionCall(string aFunctionName, string aOpOpenParenthesis, string aOpCloseParenthesis)
         {
+            Compiler.WriteLine($"Call {Compiler.CurrentNamespace}_{aFunctionName}");
         }
 
         // Label
         [Emitter(typeof(Identifier), typeof(OpColon))]
         protected void LabelDefinition(string aLabelName, string aOpColon)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aLabelName}:");
         }
     }
 }

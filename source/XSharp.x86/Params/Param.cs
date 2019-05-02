@@ -5,8 +5,9 @@ using System.Linq;
 namespace XSharp.x86.Params
 {
     public abstract class Param {
-        public Action<object[]> Action;
-        public List<Param> Params = new List<Param>();
+        public Action<object[]> Action { get; set; }
+        public List<Param> Params { get; } = new List<Param>();
+
         public abstract bool IsMatch(object aValue);
 
         // Currently not used (Check refs in case used in future)

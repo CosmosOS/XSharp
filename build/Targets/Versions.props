@@ -1,13 +1,21 @@
 <Project>
 
     <PropertyGroup>
-        <RoslynAnalyzersVersion>2.6.2</RoslynAnalyzersVersion>
-        <MicrosoftBuildVersion>15.8.166</MicrosoftBuildVersion>
+        <MicrosoftBuildVersion>15.9.20</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-alpha-004</MicrosoftNETFrameworkReferenceAssembliesVersion>
-        <MicrosoftVisualStudioProjectSystemVersion>15.8.243</MicrosoftVisualStudioProjectSystemVersion>
+        <MicrosoftNETTestSdkVersion>15.9.0</MicrosoftNETTestSdkVersion>
+        <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
+        <MicrosoftVisualStudioPackageLanguageService150Version>15.9.28307</MicrosoftVisualStudioPackageLanguageService150Version>
+        <MicrosoftVisualStudioProjectSystemVersion>16.0.374-pre</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
-        <MicrosoftVisualStudioThreadingAnalyzersVersion>15.8.145</MicrosoftVisualStudioThreadingAnalyzersVersion>
-        <MicrosoftVSSDKBuildToolsVersion>15.8.3252</MicrosoftVSSDKBuildToolsVersion>
+        <MicrosoftVisualStudioShellFrameworkVersion>16.0.28729</MicrosoftVisualStudioShellFrameworkVersion>
+        <MicrosoftVisualStudioShellInterop100Version>10.0.30320</MicrosoftVisualStudioShellInterop100Version>
+        <MicrosoftVisualStudioShellInterop110Version>11.0.61031</MicrosoftVisualStudioShellInterop110Version>
+        <MicrosoftVisualStudioShell150Version>15.9.28307</MicrosoftVisualStudioShell150Version>
+        <MicrosoftVisualStudioThreadingVersion>15.8.209</MicrosoftVisualStudioThreadingVersion>
+        <MicrosoftVSSDKBuildToolsVersion>15.9.3039</MicrosoftVSSDKBuildToolsVersion>
+        <NUnitVersion>3.11.0</NUnitVersion>
+        <NUnit3TestAdapterVersion>3.13.0</NUnit3TestAdapterVersion>
     </PropertyGroup>
 
 </Project>

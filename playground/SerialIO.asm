@@ -20,9 +20,11 @@
 ; DX
 
 ; function WriteRegister {
+DebugStub_WriteRegister:
   ; +EDX
   Push EDX
     ; DX += $03F8
+    Add DX, 0x3F8
     ; Port[DX] = AL
     Out DX, AL
   ; -EDX
@@ -35,9 +37,11 @@
 ; Modifies:
 ; AL -> value read
 ; function ReadRegister {
+DebugStub_ReadRegister:
   ; +EDX
   Push EDX
     ; DX += $03F8
+    Add DX, 0x3F8
     ; AL = Port[DX]
     In AL, DX
   ; -EDX

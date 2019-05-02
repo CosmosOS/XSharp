@@ -1,15 +1,15 @@
 ﻿namespace XSharp.Tokens
 {
-    public class NamespaceKeyword : Spruce.Tokens.AlphaNumList
+    public class NamespaceKeyword: Spruce.Tokens.AlphaNumList
     {
         public NamespaceKeyword() : base("Namespace")
         {
         }
     }
 
-    public class Function : Spruce.Tokens.AlphaNumList
+    public class FunctionKeyword : Spruce.Tokens.AlphaNumList
     {
-        public Function() : base("Function")
+        public FunctionKeyword() : base("Function")
         {
         }
     }

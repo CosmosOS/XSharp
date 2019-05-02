@@ -14,11 +14,15 @@
         <PackageDescription>$(XSharpDescription)</PackageDescription>
         <PackageIconUrl>https://github.com/CosmosOS/XSharp/raw/master/XSharp.ico</PackageIconUrl>
         <PackageProjectUrl>https://www.x-sharp.net</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/CosmosOS/XSharp/raw/master/LICENSE.txt</PackageLicenseUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <PackageTags>X# XSharp HLA High Level Assembler x86 x64 x86_64 ARM ARMv7 ARMv8 Assembly Cosmos OS Operating System</PackageTags>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/CosmosOS/XSharp</RepositoryUrl>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(RepoRoot)LICENSE.txt" Pack="True" PackagePath="$(PackageLicenseFile)" Visible="False" />
+    </ItemGroup>
 
 </Project>
