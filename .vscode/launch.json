@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "XSharp Compiler (netcoreapp2.1)",
+            "name": "XSharp Compiler (netcoreapp2.0)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "dotnet-build",
             "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
             "args": [
                 "..\\..\\playground\\",
@@ -21,10 +21,10 @@
             "console": "internalConsole"
         },
         {
-            "name": "XSharp Compiler (net471)",
+            "name": "XSharp Compiler (net472)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "dotnet-build",
             "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\net471\\xsc.dll",
             "args": [
                 "..\\..\\playground\\",
