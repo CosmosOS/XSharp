@@ -65,7 +65,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj">
-            <AdditionalProperties>TargetFramework=net471</AdditionalProperties>
+            <AdditionalProperties>TargetFramework=net472</AdditionalProperties>
         </ProjectReference>
     </ItemGroup>
 

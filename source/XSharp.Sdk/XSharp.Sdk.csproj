@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.1;net471</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.0;net472</TargetFrameworks>
         <AssemblyName>XSharp.Build.Tasks</AssemblyName>
         <PackageId>XSharp.Sdk</PackageId>
         <PackageDescription>SDK for X# projects.</PackageDescription>
