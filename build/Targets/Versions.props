@@ -3,16 +3,16 @@
     <PropertyGroup>
         <MicrosoftBuildVersion>16.0.461</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-preview.1</MicrosoftNETFrameworkReferenceAssembliesVersion>
-        <MicrosoftNETTestSdkVersion>16.0.1</MicrosoftNETTestSdkVersion>
+        <MicrosoftNETTestSdkVersion>16.1.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
-        <MicrosoftVisualStudioPackageLanguageService150Version>15.9.28307</MicrosoftVisualStudioPackageLanguageService150Version>
+        <MicrosoftVisualStudioPackageLanguageService150Version>16.0.28729</MicrosoftVisualStudioPackageLanguageService150Version>
         <MicrosoftVisualStudioProjectSystemVersion>16.0.374-pre</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
         <MicrosoftVisualStudioShellFrameworkVersion>16.0.28729</MicrosoftVisualStudioShellFrameworkVersion>
         <MicrosoftVisualStudioShell150Version>16.0.28729</MicrosoftVisualStudioShell150Version>
         <MicrosoftVisualStudioShellInterop100Version>10.0.30320</MicrosoftVisualStudioShellInterop100Version>
         <MicrosoftVisualStudioShellInterop110Version>11.0.61031</MicrosoftVisualStudioShellInterop110Version>
-        <MicrosoftVisualStudioThreadingVersion>15.8.209</MicrosoftVisualStudioThreadingVersion>
+        <MicrosoftVisualStudioThreadingVersion>16.0.102</MicrosoftVisualStudioThreadingVersion>
         <MicrosoftVSSDKBuildToolsVersion>16.1.42</MicrosoftVSSDKBuildToolsVersion>
         <NUnitVersion>3.11.0</NUnitVersion>
         <NUnit3TestAdapterVersion>3.13.0</NUnit3TestAdapterVersion>
