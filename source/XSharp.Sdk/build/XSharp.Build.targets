@@ -1,7 +1,7 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\xsc\tools\XSharp.Core.targets</XSharpCoreTargetsPath>
+        <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''">$(MSBuildThisFileDirectory)..\..\XSharp.Compiler\tools\XSharp.Core.targets</XSharpCoreTargetsPath>
     </PropertyGroup>
 
     <Import Project="$(XSharpCoreTargetsPath)" />

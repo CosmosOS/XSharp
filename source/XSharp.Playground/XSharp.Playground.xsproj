@@ -1,6 +1,10 @@
 ﻿<Project>
 
-    <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.props" />
+    <Import Project="..\XSharp.Sdk\sdk\Sdk.props" />
+
+    <PropertyGroup Label="Globals">
+      <ProjectGuid>b2646df5-b718-4547-8dc0-79f1a240af58</ProjectGuid>
+    </PropertyGroup>
 
     <PropertyGroup>
         <OutputType>Bootable</OutputType>
@@ -10,6 +14,6 @@
         <XSharpDesignTimeTargetsPath>$(LocalAppData)\CustomProjectSystems\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
     </PropertyGroup>
     
-    <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.targets" />
+    <Import Project="..\XSharp.Sdk\sdk\Sdk.targets" />
 
-</Project>
+</Project>    

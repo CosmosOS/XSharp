@@ -1,6 +1,6 @@
 ﻿<Project>
 
-    <Import Project="$(MSBuildThisFileDirectory)..\tools\xsc\build\XSharp.Compiler.props" />
+    <Import Project="$(MSBuildThisFileDirectory)..\..\XSharp.Compiler\build\XSharp.Compiler.props" />
 
     <PropertyGroup Condition="'$(ImportDirectoryBuildProps)' == 'true' and '$(DirectoryBuildPropsPath)' == ''">
         <_DirectoryBuildPropsFile Condition="'$(_DirectoryBuildPropsFile)' == ''">Directory.Build.props</_DirectoryBuildPropsFile>
