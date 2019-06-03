@@ -53,10 +53,10 @@
         <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
     </PropertyGroup>
 
-    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" AssemblyFile="$(MSBuildThisFileDirectory)..\..\XSharp.Sdk\bin\Debug\net472\XSharp.Build.Tasks.dll" />
     <UsingTask TaskName="XSharp.Build.Tasks.Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" AssemblyFile="$(MSBuildThisFileDirectory)..\..\XSharp.Sdk\bin\Debug\net472\XSharp.Build.Tasks.dll" />
+    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" AssemblyFile="$(MSBuildThisFileDirectory)..\..\XSharp.Sdk\bin\Debug\net472\XSharp.Build.Tasks.dll" />
     <UsingTask TaskName="XSharp.Build.Tasks.Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
 
     <PropertyGroup>
