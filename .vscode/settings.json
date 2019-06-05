@@ -2,5 +2,6 @@
   "files.exclude": {
     "**/bin": true,
     "**/obj": true
-  }
+  },
+  "csharpfixformat.style.spaces.beforeParenthesis": false
 }

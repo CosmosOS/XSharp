@@ -4,20 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace XSharp.CommandLine
-{
-  internal class Program
-  {
-    private static void Main(string[] aArgs)
-    {
-      try
-      {
+namespace XSharp.CommandLine {
+  internal class Program {
+    private static void Main(string[] aArgs) {
+      try {
         // Parse arguments
         var xCLI = new Build.CliProcessor();
         xCLI.Parse(aArgs);
 
-        try
-        {
+        try {
           var xGen = new AsmGenerator();
 
           bool xAppend = false;
@@ -25,170 +20,126 @@ namespace XSharp.CommandLine
 
           // Options
           var xUserComments = xCLI["UserComments", "UC"];
-          if (xUserComments != null)
-          {
+          if (xUserComments != null) {
             xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
           }
           //
           var xSourceCode = xCLI["SourceCode", "SC"];
-          if (xSourceCode != null)
-          {
+          if (xSourceCode != null) {
             xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
           }
           //
           var xOutput = xCLI["Out", "O"];
-          if (xOutput != null)
-          {
+          if (xOutput != null) {
             xOutputPath = xOutput.Value;
           }
           //
           xAppend = xCLI["Append", "A"] != null;
-          if (xAppend && xOutput == null)
-          {
+          if (xAppend && xOutput == null) {
             throw new Exception("Use of -Append requires use of -Out.");
           }
 
           // Plugins
           var xPlugins = xCLI.GetSwitches("PlugIn");
-          foreach (var xPlugin in xPlugins)
-          {
+          foreach (var xPlugin in xPlugins) {
             // TODO Load plugins
           }
 
           // List of source files
           var xFiles = new List<string>();
           var xAssemblies = new List<Assembly>();
-          foreach (var xArg in xCLI.Args)
-          {
+          foreach (var xArg in xCLI.Args) {
             string xVal = xArg.Value;
 
-            if (Directory.Exists(xVal))
-            {
+            if (Directory.Exists(xVal)) {
               // If dir specified, find all .xs files
               string xPath = Path.GetFullPath(xVal);
               xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
-            }
-            else if (File.Exists(xVal))
-            {
+            } else if (File.Exists(xVal)) {
               string xExt = Path.GetExtension(xVal).ToUpper();
-              if (xExt == ".XS")
-              {
+              if (xExt == ".XS") {
                 xFiles.Add(Path.GetFullPath(xVal));
-              }
-              else if (xExt == ".DLL")
-              {
+              } else if (xExt == ".DLL") {
                 xAssemblies.Add(Assembly.LoadFrom(xVal));
-              }
-              else
-              {
+              } else {
                 throw new Exception("Not a valid file type: " + xVal);
               }
-            }
-            else
-            {
+            } else {
               throw new Exception("Not a valid file or directory: " + xVal);
             }
           }
 
-          if (xCLI["Gen2"] != null)
-          {
-            foreach (var xFile in xFiles)
-            {
-              using (var xIn = File.OpenText(xFile))
-              {
-                if (!xAppend)
-                {
+          if (xCLI["Gen2"] != null) {
+            foreach (var xFile in xFiles) {
+              using(var xIn = File.OpenText(xFile)) {
+                if (!xAppend) {
                   xOutputPath = Path.ChangeExtension(xFile, ".asm");
                 }
 
-                using (var xOut = File.CreateText(xOutputPath))
-                {
+                using(var xOut = File.CreateText(xOutputPath)) {
                   Console.WriteLine("Processing file: " + xFile);
                   Compiler xCompiler;
 
-                  try
-                  {
+                  try {
                     xCompiler = new Compiler(xOut);
-                  }
-                  catch (Exception e)
-                  {
-                    Console.WriteLine(e);
+                  } catch (Exception ex) {
+                    Console.WriteLine(ex);
                     throw;
                   }
-                  try
-                  {
+                  try {
                     xCompiler.Emit(xIn);
                     var temp = Console.BackgroundColor;
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine("File processed");
                     Console.BackgroundColor = temp;
-                  }
-                  catch (Exception e)
-                  {
+                  } catch (Exception ex) {
                     var temp = Console.BackgroundColor;
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine(e);
+                    Console.WriteLine(ex);
                     Console.BackgroundColor = temp;
                     throw;
                   }
                 }
               }
             }
-          }
-          else
-          {
-            try
-            {
+          } else {
+            try {
               // Generate output
-              foreach (var xFile in xFiles)
-              {
+              foreach (var xFile in xFiles) {
                 var xReader = File.OpenText(xFile);
-                if (xAppend)
-                {
+                if (xAppend) {
                   xGen.GenerateToFile(xFile, xReader, File.AppendText(xOutputPath));
-                }
-                else if (xFiles.Count == 1 && xOutputPath != null)
-                {
+                } else if (xFiles.Count == 1 && xOutputPath != null) {
                   xGen.GenerateToFile(xFile, File.OpenText(xFile), File.CreateText(xOutputPath));
-                }
-                else
-                {
+                } else {
                   Console.WriteLine(xFile);
                   xGen.GenerateToFiles(xFile);
                 }
               }
 
               // Generate output from embedded resources
-              foreach (var xAssembly in xAssemblies)
-              {
+              foreach (var xAssembly in xAssemblies) {
                 TextWriter xWriter = null;
-                if (!xAppend)
-                {
+                if (!xAppend) {
                   var xDestination = Path.ChangeExtension(xAssembly.Location, "asm");
                   xWriter = new StreamWriter(File.Create(xDestination));
                 }
 
                 foreach (var xResource in xAssembly.GetManifestResourceNames()
-                  .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase)))
-                {
+                    .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase))) {
                   var xStream = xAssembly.GetManifestResourceStream(xResource);
                   xGen.GenerateToFile(xResource, new StreamReader(xStream), xWriter);
                 }
               }
-            }
-            catch (Exception e)
-            {
-              Console.WriteLine(e);
+            } catch (Exception ex) {
+              Console.WriteLine(ex);
             }
           }
 
           // Finalize
           Console.WriteLine("Done.");
-        }
-        catch (Exception ex)
-        {
-          if (xCLI["WaitOnError"] != null)
-          {
+        } catch (Exception ex) {
+          if (xCLI["WaitOnError"] != null) {
             Console.WriteLine();
             Console.WriteLine("Waiting on error. Press Enter to exit.");
             Console.WriteLine("Exception: " + ex.ToString());
@@ -196,9 +147,7 @@ namespace XSharp.CommandLine
           }
           Environment.Exit(-1);
         }
-      }
-      catch (Exception ex)
-      {
+      } catch (Exception ex) {
         Console.WriteLine("Argument parse error:\r\n" + ex);
         Environment.Exit(-2);
       }
