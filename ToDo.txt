@@ -1,7 +1,18 @@
 2019 Work Plan
 
+1) Reorg file tree (Kudzu)
+2) Colorizer - based on existing parser.
+3) Get Each .asm emitting same as Gen1 
+  -Swap out G1 for G2 in Cosmos.
+
 -Finalize and complete all emitters
   -Emit DS for input to Cosmos via Gen2
+-Directories
+  -XSharp.Build -> Common\Build (Cosmos.Common.Build NS)
+  -XSharp
+    -XSharp
+    -XSC
+  -VS
 -.xs Colorizing
   -Use same parser as we have now
 
