@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Spruce\Spruce.csproj" />
-        <ProjectReference Include="..\Assembler\Assembler\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\Assembler\Gen1\XSharp.Assembler.csproj" />
         <ProjectReference Include="..\Assembler\x86\XSharp.x86.csproj" />
     </ItemGroup>
 
