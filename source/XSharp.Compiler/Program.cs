@@ -20,24 +20,16 @@ namespace XSharp.CommandLine {
 
           // Options
           var xUserComments = xCLI["UserComments", "UC"];
-          if (xUserComments != null) {
-            xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
-          }
+          if (xUserComments != null) xGen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
           //
           var xSourceCode = xCLI["SourceCode", "SC"];
-          if (xSourceCode != null) {
-            xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
-          }
+          if (xSourceCode != null) xGen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
           //
           var xOutput = xCLI["Out", "O"];
-          if (xOutput != null) {
-            xOutputPath = xOutput.Value;
-          }
+          if (xOutput != null) xOutputPath = xOutput.Value;
           //
           xAppend = xCLI["Append", "A"] != null;
-          if (xAppend && xOutput == null) {
-            throw new Exception("Use of -Append requires use of -Out.");
-          }
+          if (xAppend && xOutput == null) throw new Exception("Use of -Append requires use of -Out.");
 
           // Plugins
           var xPlugins = xCLI.GetSwitches("PlugIn");
@@ -55,6 +47,7 @@ namespace XSharp.CommandLine {
               // If dir specified, find all .xs files
               string xPath = Path.GetFullPath(xVal);
               xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
+
             } else if (File.Exists(xVal)) {
               string xExt = Path.GetExtension(xVal).ToUpper();
               if (xExt == ".XS") {
@@ -64,6 +57,7 @@ namespace XSharp.CommandLine {
               } else {
                 throw new Exception("Not a valid file type: " + xVal);
               }
+              
             } else {
               throw new Exception("Not a valid file or directory: " + xVal);
             }
@@ -72,9 +66,7 @@ namespace XSharp.CommandLine {
           if (xCLI["Gen2"] != null) {
             foreach (var xFile in xFiles) {
               using(var xIn = File.OpenText(xFile)) {
-                if (!xAppend) {
-                  xOutputPath = Path.ChangeExtension(xFile, ".asm");
-                }
+                if (!xAppend) xOutputPath = Path.ChangeExtension(xFile, ".asm");
 
                 using(var xOut = File.CreateText(xOutputPath)) {
                   Console.WriteLine("Processing file: " + xFile);
@@ -86,22 +78,24 @@ namespace XSharp.CommandLine {
                     Console.WriteLine(ex);
                     throw;
                   }
+
+                  var xOrigBgColor = Console.BackgroundColor;
                   try {
                     xCompiler.Emit(xIn);
-                    var temp = Console.BackgroundColor;
+
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine("File processed");
-                    Console.BackgroundColor = temp;
+                    Console.BackgroundColor = xOrigBgColor;
                   } catch (Exception ex) {
-                    var temp = Console.BackgroundColor;
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex);
-                    Console.BackgroundColor = temp;
+                    Console.BackgroundColor = xOrigBgColor;
                     throw;
                   }
                 }
               }
             }
+
           } else {
             try {
               // Generate output
@@ -125,8 +119,8 @@ namespace XSharp.CommandLine {
                   xWriter = new StreamWriter(File.Create(xDestination));
                 }
 
-                foreach (var xResource in xAssembly.GetManifestResourceNames()
-                    .Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase))) {
+                var xResources = xAssembly.GetManifestResourceNames().Where(r => r.EndsWith(".xs", StringComparison.OrdinalIgnoreCase));
+                foreach (var xResource in xResources) {
                   var xStream = xAssembly.GetManifestResourceStream(xResource);
                   xGen.GenerateToFile(xResource, new StreamReader(xStream), xWriter);
                 }

@@ -2,6 +2,11 @@
 
 -Finalize and complete all emitters
 
+-X#/ARM, X#/86
+
+-Kill Gen1
+  -Integerate G2 for Cosmos and IL2CPU
+
 -Tree for source
   -ie XSharp stuff in an XSharp folder, spruce, etc.
   -Tree:
@@ -21,8 +26,10 @@
 
 VS Code
 -.xs Colorizing
+-.xs formatting
 
 -DebugStub
+  -Share with IL2CPU and Cosmos
 
 
 
