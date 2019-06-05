@@ -5,7 +5,7 @@
         <OutputType>Exe</OutputType>
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.CommandLine</RootNamespace>
-        <ApplicationIcon>XSharp.ico</ApplicationIcon>
+        <ApplicationIcon>..\..\XSharp.ico</ApplicationIcon>
         <PackageId>XSharp.Compiler</PackageId>
         <PackageDescription>X# compiler.</PackageDescription>
         <IsPackable>True</IsPackable>
