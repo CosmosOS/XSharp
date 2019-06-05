@@ -8,7 +8,7 @@
             // https://stackoverflow.com/questions/49826816/vscode-unable-to-open-file-cs-file-not-found
             "command": "dotnet build /property:GenerateFullPaths=true",
             "options": {
-                "cwd": "${workspaceFolder}\\source\\XSharp.Compiler\\"
+                "cwd": "${workspaceFolder}\\source\\XSharp\\XSC\\"
             },
             "group": {
                 "kind": "build",

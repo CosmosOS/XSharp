@@ -5,7 +5,7 @@
         <OutputType>Exe</OutputType>
         <AssemblyName>xsc</AssemblyName>
         <RootNamespace>XSharp.CommandLine</RootNamespace>
-        <ApplicationIcon>..\..\XSharp.ico</ApplicationIcon>
+        <ApplicationIcon>..\..\..\XSharp.ico</ApplicationIcon>
         <PackageId>XSharp.Compiler</PackageId>
         <PackageDescription>X# compiler.</PackageDescription>
         <IsPackable>True</IsPackable>
@@ -22,10 +22,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\XSharp.Assembler\XSharp.Assembler.csproj" />
-        <ProjectReference Include="..\XSharp.Build\XSharp.Build.csproj" />
-        <ProjectReference Include="..\XSharp.Compiler.Tasks\XSharp.Compiler.Tasks.csproj" Pack="True" PackagePath="" />
-        <ProjectReference Include="..\XSharp\XSharp\XSharp.csproj" />
+        <ProjectReference Include="..\..\XSharp.Assembler\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\..\XSharp.Build\XSharp.Build.csproj" />
+        <ProjectReference Include="..\MSBuild\XSharp.Compiler.Tasks.csproj" Pack="True" PackagePath="" />
+        <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
 
 </Project>

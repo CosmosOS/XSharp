@@ -9,13 +9,13 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
-            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.0\\xsc.dll",
+            "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\netcoreapp2.0\\xsc.dll",
             "args": [
-                "..\\..\\playground\\",
+                "..\\..\\..\\playground\\",
                 //"-Plugin:Cosmos.XSC",
                 "-Gen2", "-WaitOnError"
             ],
-            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
@@ -25,14 +25,14 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
-            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\net471\\xsc.dll",
+            "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\net471\\xsc.dll",
             "args": [
-                "..\\..\\playground\\",
+                "..\\..\\..\\playground\\",
                 "-Plugin:Cosmos.XSC",
                 "-Gen2",
                 "-WaitOnError"
             ],
-            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
             "console": "internalConsole"
         }
