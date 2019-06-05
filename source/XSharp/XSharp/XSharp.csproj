@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\XSharp.x86\XSharp.x86.csproj" />
         <ProjectReference Include="..\..\Spruce\Spruce.csproj" />
         <ProjectReference Include="..\..\XSharp.Assembler\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\..\XSharp.x86\XSharp.x86.csproj" />
     </ItemGroup>
 
 </Project>
