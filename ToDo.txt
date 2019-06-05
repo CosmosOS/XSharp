@@ -1,6 +1,7 @@
 2019 Work Plan
 
 1) Reorg file tree (Kudzu)
+  -ARM space
 2) Colorizer - based on existing parser.
 3) Get Each .asm emitting same as Gen1 
   -Swap out G1 for G2 in Cosmos.
