@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
-            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
+            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.0\\xsc.dll",
             "args": [
                 "..\\..\\playground\\",
                 "-Plugin:Cosmos.XSC",

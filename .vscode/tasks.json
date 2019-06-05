@@ -18,32 +18,6 @@
             "problemMatcher": [
                 "$msCompile"
             ]
-        },
-        {
-            "label": "npm-compile",
-            "type": "npm",
-            "script": "compile",
-            "path": "source/XSharp.VSCode/",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never",
-            },
-            "problemMatcher": [
-                "$tsc"
-            ]
-        },
-        {
-            "label": "npm-watch",
-            "type": "npm",
-            "script": "watch",
-            "path": "source/XSharp.VSCode/",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never",
-            },
-            "problemMatcher": [
-                "$tsc"
-            ]
         }
     ]
 }
