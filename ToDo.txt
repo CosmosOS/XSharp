@@ -1,3 +1,45 @@
+2019 Work Plan
+
+-Finalize and complete all emitters
+
+-Tree for source
+  -ie XSharp stuff in an XSharp folder, spruce, etc.
+  -Tree:
+    Common - Need a name... Build stuff shared with Cosmos and other
+    Spruce
+    XSharp
+    VS - Stuff specific for VS 2019
+
+-Implement "X# Projects"
+  -No real need for .xsproj given how VS Code works?
+  -Task that when F5 is used, can build and package ISO like Cosmos and boot it.
+  -Share code from Cosmos
+    -Where does the common code belong?
+    -new Common subdir in source? Named what?
+
+===========================================
+
+VS Code
+-.xs Colorizing
+
+-DebugStub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================================
 XSharp.x86
 "EAX" -> Reg
 types then map to compile
@@ -7,7 +49,6 @@ inside use .tostring + $""
 
 Kudzu ----------------------------------------------------
 *** PrivateAssets to G3
-Enrique 500
 Change XSC to use Clogger
 
 Parser
@@ -63,7 +104,7 @@ X# can be in C# with variable use etc through stack or special area for single X
 
 Change IL2CPU to use X# instead of XSharp.Assembler
 
-DebugStub ReferenceHelper - Better way? Not needed if we merge probably, needed at all beyond?
+DebugStubï¿½ReferenceHelper - Better way? Not needed if we merge probably, needed at all beyond?
 Convert DebugStub as necessary
 
 Move all X# code into Cosmos.CPU except that which is used as a plug to .NET Framework (that goes to CpuPlug, later)
