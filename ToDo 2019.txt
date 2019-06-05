@@ -1,11 +1,12 @@
 2019 Work Plan
 
-1) Reorg file tree (Kudzu)
-  -ARM space
-  -XSharp.Build -> XSharp.Tools
-2) Colorizer - based on existing parser.
-3) Get Each .asm emitting same as Gen1 
+* Colorizer
+  -based on existing parser so changes are reflected without copying or translation
+  -.xs files in VS Code editor
+* Get Each .asm emitting same as Gen1 
   -Swap out G1 for G2 in Cosmos.
+
+
 
 -Finalize and complete all emitters
   -Emit DS for input to Cosmos via Gen2
@@ -15,8 +16,6 @@
     -XSharp
     -XSC
   -VS
--.xs Colorizing
-  -Use same parser as we have now
 
 -X#/ARM, X#/86
 

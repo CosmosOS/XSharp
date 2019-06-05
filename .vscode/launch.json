@@ -28,7 +28,7 @@
             "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\net471\\xsc.dll",
             "args": [
                 "..\\..\\..\\playground\\",
-                "-Plugin:Cosmos.XSC",
+                //"-Plugin:Cosmos.XSC",
                 "-Gen2",
                 "-WaitOnError"
             ],
