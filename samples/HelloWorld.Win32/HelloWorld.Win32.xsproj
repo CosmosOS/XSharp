@@ -1,9 +1,13 @@
-﻿<Project Sdk="XSharp.Sdk">
+﻿<Project Sdk="XSharp.Sdk" ToolsVersion="Current">
 
-    <PropertyGroup>
-        <OutputType>Application</OutputType>
-        <AssemblerOutputFormat>Win32</AssemblerOutputFormat>
-        <AssemblerOutputExt>.obj</AssemblerOutputExt>
-    </PropertyGroup>
-
+	<PropertyGroup>
+		<OutputType>Application</OutputType>
+		<AssemblerOutputFormat>Win32</AssemblerOutputFormat>
+		<AssemblerOutputExt>.obj</AssemblerOutputExt>
+		<OldToolsVersion>2.0</OldToolsVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+	    <XSharpDesignTimeTargetsPath>$(LocalAppData)\Microsoft\VisualStudio\16.0_72f4f999Exp\Extensions\Cosmos\X# Project System\1.0\$MSBuild\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
+	</PropertyGroup>
+	
 </Project>

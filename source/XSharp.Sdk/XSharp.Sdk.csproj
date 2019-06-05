@@ -10,6 +10,7 @@
         <AppendTargetFrameworkToToolsPackageFolder>False</AppendTargetFrameworkToToolsPackageFolder>
         <ToolPackagePath Condition="$(TargetFramework.StartsWith('net'))">win</ToolPackagePath>
         <ToolPackagePath Condition="$(TargetFramework.StartsWith('netcoreapp'))">netcoreapp</ToolPackagePath>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>

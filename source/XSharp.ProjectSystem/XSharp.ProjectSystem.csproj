@@ -9,6 +9,7 @@
         <IsVsixProject>True</IsVsixProject>
         <IncludeWpfReferences>True</IncludeWpfReferences>
         <IncludeWindowsFormsReferences>True</IncludeWindowsFormsReferences>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
