@@ -49,17 +49,18 @@ namespace XSharp.CommandLine {
               xFiles.AddRange(Directory.GetFiles(xPath, "*.xs"));
 
             } else if (File.Exists(xVal)) {
+              // Load .XS inputs, or Assemblies to load into compiler itself (plugins etc?)
               string xExt = Path.GetExtension(xVal).ToUpper();
               if (xExt == ".XS") {
                 xFiles.Add(Path.GetFullPath(xVal));
               } else if (xExt == ".DLL") {
                 xAssemblies.Add(Assembly.LoadFrom(xVal));
               } else {
-                throw new Exception("Not a valid file type: " + xVal);
+                throw new Exception($"Not a valid file type: {xVal}");
               }
-              
+
             } else {
-              throw new Exception("Not a valid file or directory: " + xVal);
+              throw new Exception($"Not a valid file or directory: {xVal}");
             }
           }
 
@@ -69,7 +70,7 @@ namespace XSharp.CommandLine {
                 if (!xAppend) xOutputPath = Path.ChangeExtension(xFile, ".asm");
 
                 using(var xOut = File.CreateText(xOutputPath)) {
-                  Console.WriteLine("Processing file: " + xFile);
+                  Console.WriteLine($"Processing file: {xFile}");
                   Compiler xCompiler;
 
                   try {
@@ -97,6 +98,7 @@ namespace XSharp.CommandLine {
             }
 
           } else {
+            #region Gen1
             try {
               // Generate output
               foreach (var xFile in xFiles) {
@@ -128,6 +130,7 @@ namespace XSharp.CommandLine {
             } catch (Exception ex) {
               Console.WriteLine(ex);
             }
+            #endregion
           }
 
           // Finalize
@@ -136,13 +139,13 @@ namespace XSharp.CommandLine {
           if (xCLI["WaitOnError"] != null) {
             Console.WriteLine();
             Console.WriteLine("Waiting on error. Press Enter to exit.");
-            Console.WriteLine("Exception: " + ex.ToString());
+            Console.WriteLine($"Exception: {ex}");
             Console.ReadLine();
           }
           Environment.Exit(-1);
         }
       } catch (Exception ex) {
-        Console.WriteLine("Argument parse error:\r\n" + ex);
+        Console.WriteLine($"Argument parse error:\r\n{ex}");
         Environment.Exit(-2);
       }
     }
