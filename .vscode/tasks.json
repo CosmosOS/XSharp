@@ -4,7 +4,9 @@
         {
             "label": "dotnet-build",
             "type": "shell",
-            "command": "dotnet build",
+            // Ask msbuild to generate full paths for file names.
+            // https://stackoverflow.com/questions/49826816/vscode-unable-to-open-file-cs-file-not-found
+            "command": "dotnet build /property:GenerateFullPaths=true",
             "options": {
                 "cwd": "${workspaceFolder}\\source\\XSharp.Compiler\\"
             },
