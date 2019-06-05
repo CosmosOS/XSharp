@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "XSharp Compiler (netcoreapp2.0)",
+            "name": "X# Playground",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
@@ -20,8 +20,9 @@
             "stopAtEntry": false,
             "console": "internalConsole"
         },
+
         {
-            "name": "XSharp Compiler (net472)",
+            "name": "X# (472) Playground",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
