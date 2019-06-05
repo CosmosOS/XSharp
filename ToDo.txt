@@ -1,6 +1,9 @@
 2019 Work Plan
 
 -Finalize and complete all emitters
+  -Emit DS for input to Cosmos via Gen2
+-.xs Colorizing
+  -Use same parser as we have now
 
 -X#/ARM, X#/86
 
@@ -26,7 +29,6 @@
 ===========================================
 
 VS Code
--.xs Colorizing
 -.xs formatting
 
 -DebugStub
@@ -76,8 +78,6 @@ Plugins - Use XSharp.Build.Plugins
 pre/post directives, separate api than normal pre/post
 -as namespaces - process for - ie Cosmos.directive
 pre/post as plugins
-
--Emit into ONE .asm file. If output file is specified, all goes to one. Else does one .asm per .xs as now. Also append optino to existing .asm
 
 Publicity
 Docs, Videos, website, Microsoft, C9
