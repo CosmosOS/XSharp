@@ -30,7 +30,6 @@ namespace XSharp.CommandLine {
 
     private static void Run() {
       try {
-        // Options
         var xUserComments = _Args["UserComments", "UC"];
         if (xUserComments != null) _Gen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
         //
