@@ -12,9 +12,8 @@
             "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.0\\xsc.dll",
             "args": [
                 "..\\..\\playground\\",
-                "-Plugin:Cosmos.XSC",
-                "-Gen2",
-                "-WaitOnError"
+                //"-Plugin:Cosmos.XSC",
+                "-Gen2", "-WaitOnError"
             ],
             "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
             "stopAtEntry": false,
