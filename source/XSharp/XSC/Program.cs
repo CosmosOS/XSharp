@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace XSharp.CommandLine {
   internal class Program {
-    private static Build.CliProcessor _Args = new Build.CliProcessor();
+    private static Tools.CliProcessor _Args = new Tools.CliProcessor();
 
     private static bool _Append = false;
     private static string _OutputPath = null;

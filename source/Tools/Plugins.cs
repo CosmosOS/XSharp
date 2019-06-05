@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace XSharp.Build
+namespace XSharp.Tools
 {
     public static class Plugins {
         public static List<Assembly> List = new List<Assembly>();

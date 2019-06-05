@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace XSharp.Build
+namespace XSharp.Tools
 {
     public class Clogger : IDisposable {
         public enum FileType {
