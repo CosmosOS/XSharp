@@ -1,14 +1,12 @@
 ﻿<!--
-Independent parser used by external projects.
-
-Kept in XSharp repo to avoid making a 4th repo.
+XSharp.Tools is shared by other projects outside of XSharp such as Cosmos and IL2CPU.
+It is called XSharp.Tools to avoid creating a 4th project.
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  
+
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>True</IsPackable>
     </PropertyGroup>
 
 </Project>

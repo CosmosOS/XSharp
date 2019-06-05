@@ -2,6 +2,7 @@
 
 1) Reorg file tree (Kudzu)
   -ARM space
+  -XSharp.Build -> XSharp.Tools
 2) Colorizer - based on existing parser.
 3) Get Each .asm emitting same as Gen1 
   -Swap out G1 for G2 in Cosmos.

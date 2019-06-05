@@ -23,7 +23,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\XSharp.Assembler\XSharp.Assembler.csproj" />
-        <ProjectReference Include="..\..\XSharp.Build\XSharp.Build.csproj" />
+        <ProjectReference Include="..\..\Tools\XSharp.Build.csproj" />
         <ProjectReference Include="..\MSBuild\XSharp.Compiler.Tasks.csproj" Pack="True" PackagePath="" />
         <ProjectReference Include="..\XSharp\XSharp.csproj" />
     </ItemGroup>
