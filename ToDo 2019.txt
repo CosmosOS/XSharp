@@ -1,48 +1,27 @@
-2019 Work Plan
+* ARM
+  -XSharp.Asm.x86/ARM and XSharp.Asm base
+  -Command line arg -CPU:X86/ARM
 
 * Colorizer
   -based on existing parser so changes are reflected without copying or translation
   -.xs files in VS Code editor
+  -https://microsoft.github.io/language-server-protocol/overview
+  -https://github.com/OmniSharp/csharp-language-server-protocol
+
 * Get Each .asm emitting same as Gen1 
   -Swap out G1 for G2 in Cosmos.
+  -Eliminate G1
 
+* .xsproj
+  -Build files
+  -F5 build and run
 
-
--Finalize and complete all emitters
-  -Emit DS for input to Cosmos via Gen2
--Directories
-  -XSharp.Build -> Common\Build (Cosmos.Common.Build NS)
-  -XSharp
-    -XSharp
-    -XSC
-  -VS
-
--X#/ARM, X#/86
-
--Kill Gen1
-  -Integerate G2 for Cosmos and IL2CPU
-
--Tree for source
-  -ie XSharp stuff in an XSharp folder, spruce, etc.
-  -Tree:
-    Common - Need a name... Build stuff shared with Cosmos and other
-      -Currently XSharp.Build - keep this or something else?
-      
-    Spruce
-    XSharp
-    VS - Stuff specific for VS 2019
-
--Implement "X# Projects"
-  -No real need for .xsproj given how VS Code works?
-  -Task that when F5 is used, can build and package ISO like Cosmos and boot it.
-  -Share code from Cosmos
-    -Where does the common code belong?
-    -new Common subdir in source? Named what?
-
-===========================================
-
-VS Code
--.xs formatting
-
--DebugStub
+* DebugStub
   -Share with IL2CPU and Cosmos
+
+* Promotion
+  -Demos
+  -Docs
+    -Tutorials
+  -Videos
+  -Unis
