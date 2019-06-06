@@ -13,6 +13,8 @@
   -Eliminate G1
 
 * .xsproj
+  -Use .json if allowed
+  -replication of xsc args - then args can override if specified wtih .xsproj to xsc
   -Build files
   -F5 build and run
 

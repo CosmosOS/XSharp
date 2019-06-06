@@ -14,10 +14,11 @@ namespace XSharp.Tools
             public string Name { get; set; }
             public string Value { get; set; }
 
-            public string Check(string aDefault, string[] aAllowedValues, bool aCaseSensitive = false) {
+            public string Check(string aDefault, string[] aAllowedValues, bool aRequired = false, bool aCaseSensitive = false) {
                 if (aAllowedValues.Contains(Value, aCaseSensitive ? null : StringComparer.OrdinalIgnoreCase)) {
                     return Value;
                 }
+                if (aRequired) throw new Exception($"{Name} requires a value.");
                 return aDefault;
             }
         }

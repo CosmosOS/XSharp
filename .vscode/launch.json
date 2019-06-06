@@ -13,7 +13,7 @@
             "args": [
                 "..\\..\\..\\playground\\",
                 //"-Plugin:Cosmos.XSC",
-                "-Gen2", "-WaitOnError"
+                "-Gen2", "-WaitOnError", "-CPU:x86"
             ],
             "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
@@ -29,8 +29,7 @@
             "args": [
                 "..\\..\\..\\playground\\",
                 //"-Plugin:Cosmos.XSC",
-                "-Gen2",
-                "-WaitOnError"
+                "-Gen2", "-WaitOnError", "-CPU:x86"
             ],
             "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,

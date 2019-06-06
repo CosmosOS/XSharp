@@ -10,6 +10,7 @@ namespace XSharp.CommandLine {
 
     private static bool _Append = false;
     private static string _OutputPath = null;
+    private static string _CPU = null;
 
     private static AsmGenerator _Gen = new AsmGenerator();
     // List of source files
@@ -31,16 +32,20 @@ namespace XSharp.CommandLine {
     private static void Run() {
       try {
         var xUserComments = _Args["UserComments", "UC"];
-        if (xUserComments != null) _Gen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }) == "ON";
+        if (xUserComments != null) _Gen.EmitUserComments = xUserComments.Check("ON", new string[] { "ON", "OFF" }).ToUpper() == "ON";
         //
         var xSourceCode = _Args["SourceCode", "SC"];
-        if (xSourceCode != null) _Gen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }) == "ON";
+        if (xSourceCode != null) _Gen.EmitSourceCode = xSourceCode.Check("ON", new string[] { "ON", "OFF" }).ToUpper() == "ON";
         //
         var xOutput = _Args["Out", "O"];
         if (xOutput != null) _OutputPath = xOutput.Value;
         //
         _Append = _Args["Append", "A"] != null;
         if (_Append && xOutput == null) throw new Exception("Use of -Append requires use of -Out.");
+        //
+        var xCPU = _Args["CPU"];
+        if (xCPU == null) throw new Exception("-CPU is a required parameter.");
+        _CPU = xCPU.Check("", new string[] { "X86", "ARM" }, true).ToUpper();
 
         // Plugins
         var xPlugins = _Args.GetSwitches("PlugIn");
@@ -91,6 +96,7 @@ namespace XSharp.CommandLine {
 
     #region Gen1
     private static void RunGen1() {
+      if (_CPU != "X86") throw new Exception("Gen1 only supports X86");
       try {
         // Generate output
         foreach (var xFile in _XsFiles) {
@@ -126,6 +132,7 @@ namespace XSharp.CommandLine {
     #endregion
 
     private static void RunGen2() {
+      if (_CPU != "X86") throw new Exception("ARM is in progress and not supported yet.");
       foreach (var xFile in _XsFiles) {
         using(var xIn = File.OpenText(xFile)) {
           if (!_Append) _OutputPath = Path.ChangeExtension(xFile, ".asm");
