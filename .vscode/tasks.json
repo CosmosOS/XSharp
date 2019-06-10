@@ -4,9 +4,11 @@
         {
             "label": "dotnet-build",
             "type": "shell",
-            "command": "dotnet build",
+            // Ask msbuild to generate full paths for file names.
+            // https://stackoverflow.com/questions/49826816/vscode-unable-to-open-file-cs-file-not-found
+            "command": "dotnet build /property:GenerateFullPaths=true",
             "options": {
-                "cwd": "${workspaceFolder}\\source\\XSharp.Compiler\\"
+                "cwd": "${workspaceFolder}\\source\\XSharp\\XSC\\"
             },
             "group": {
                 "kind": "build",
@@ -17,32 +19,6 @@
             },
             "problemMatcher": [
                 "$msCompile"
-            ]
-        },
-        {
-            "label": "npm-compile",
-            "type": "npm",
-            "script": "compile",
-            "path": "source/XSharp.VSCode/",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never",
-            },
-            "problemMatcher": [
-                "$tsc"
-            ]
-        },
-        {
-            "label": "npm-watch",
-            "type": "npm",
-            "script": "watch",
-            "path": "source/XSharp.VSCode/",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never",
-            },
-            "problemMatcher": [
-                "$tsc"
             ]
         }
     ]

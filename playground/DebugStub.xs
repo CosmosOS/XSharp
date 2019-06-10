@@ -26,24 +26,24 @@ var CommandID
 //   1: x32 - EIP to break on, or 0 to disable breakpoint.
 function BreakOnAddress {
 	+All
-    // BP Address
-    ComReadEAX()
-    ECX = EAX
+  // BP Address
+  ComReadEAX()
+  ECX = EAX
 
-    // BP ID Number
-    // BP ID Number is sent after BP Address, because
-    // reading BP address uses AL (EAX).
-    EAX = 0
-    ComReadAL()
+  // BP ID Number
+  // BP ID Number is sent after BP Address, because
+  // reading BP address uses AL (EAX).
+  EAX = 0
+  ComReadAL()
 
-    //Push EAX so we preserve it for later
+  //Push EAX so we preserve it for later
 	+EAX
 
 	// Calculate location in table
-    // Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
+  // Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
 	EBX = @.DebugBPs
-    EAX << 2
-    EBX += EAX
+  EAX << 2
+  EBX += EAX
 
 	if ECX = 0 {
 		//This is a BP removal

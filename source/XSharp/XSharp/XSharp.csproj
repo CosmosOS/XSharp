@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>True</IsPackable>
+        <NoWarn>CA1716;CA1801;CA1822;$(NoWarn)</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Spruce\Spruce.csproj" />
+        <ProjectReference Include="..\Assembler\Gen1\XSharp.Assembler.csproj" />
+        <ProjectReference Include="..\Assembler\x86\XSharp.x86.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.0;net472</TargetFrameworks>
+        <OutputType>Exe</OutputType>
+        <AssemblyName>xsc</AssemblyName>
+        <RootNamespace>XSharp.CommandLine</RootNamespace>
+        <ApplicationIcon>..\..\..\XSharp.ico</ApplicationIcon>
+        <PackageId>XSharp.Compiler</PackageId>
+        <PackageDescription>X# compiler.</PackageDescription>
+        <IsPackable>True</IsPackable>
+        <IsMSBuildExtensionProject>True</IsMSBuildExtensionProject>
+        <AppendTargetFrameworkToToolsPackageFolder>False</AppendTargetFrameworkToToolsPackageFolder>
+        <ToolPackagePath Condition="$(TargetFramework.StartsWith('net'))">xsc\win\</ToolPackagePath>
+        <ToolPackagePath Condition="$(TargetFramework.StartsWith('netcoreapp'))">xsc\netcoreapp\</ToolPackagePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="build\**" Pack="True" PackagePath="build\" />
+        <Content Include="tools\**" Exclude="tools\netcoreapp\**" Pack="True" PackagePath="tools\" />
+        <GeneratedToolFiles Include="tools\netcoreapp\**" Condition="$(TargetFramework.StartsWith('netcoreapp'))" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\XSharp\XSharp.csproj" />
+        <ProjectReference Include="..\..\Tools\XSharp.Tools.csproj" />
+    </ItemGroup>
+
+</Project>

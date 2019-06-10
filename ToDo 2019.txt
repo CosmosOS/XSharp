@@ -1,0 +1,40 @@
+* ARM (Kudzu + Christopher)
+  -XSharp.Asm.x86/ARM and XSharp.Asm base
+* Assembler bin/nasm base (Kudzu)
+  -Merge Assemblers in
+* .xsproj (Kudzu)
+  -Use .json if allowed
+  -replication of xsc args - then args can override if specified wtih .xsproj to xsc
+
+* Colorizer (Charles)
+  -TS for now - we have bigger fish to fry
+
+* Get Each .asm emitting same as Gen1 (Kudzu + Charles)
+  -Swap out G1 for G2 in Cosmos.
+  -Eliminate G1
+
+* F5 build and run (Qujak?)
+  -Build files
+  -Share code from Cosmos, move into XSharp.Tools
+
+* DebugStub (Kudzu)
+  -Share with IL2CPU and Cosmos
+
+* Promotion (Kudzu)
+  -Demos
+  -Docs
+    -Tutorials
+  -Videos
+  -Unis
+
+==================
+Future
+
+* LSP RPC server
+
+* Future Colorizer notes
+  -based on existing parser so changes are reflected without copying or translation
+  -.xs files in VS Code editor
+  -https://microsoft.github.io/language-server-protocol/overview
+  -https://github.com/OmniSharp/csharp-language-server-protocol
+  -https://www.reddit.com/r/vscode/comments/ajturo/the_reason_i_dont_use_vs_code_ruby_syntax/
