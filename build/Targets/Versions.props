@@ -5,7 +5,7 @@
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-preview.1</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftNETTestSdkVersion>16.1.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
-        <MicrosoftVisualStudioPackageLanguageService150Version>"16.1.28917.181</MicrosoftVisualStudioPackageLanguageService150Version>
+        <MicrosoftVisualStudioPackageLanguageService150Version>16.1.28917.181</MicrosoftVisualStudioPackageLanguageService150Version>
         <MicrosoftVisualStudioProjectSystemVersion>16.0.374-pre</MicrosoftVisualStudioProjectSystemVersion>
         <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.27</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
         <MicrosoftVisualStudioShellFrameworkVersion>16.0.28729</MicrosoftVisualStudioShellFrameworkVersion>
