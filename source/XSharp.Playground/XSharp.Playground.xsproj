@@ -1,13 +1,5 @@
-﻿<Project ToolsVersion="Current">
- <Import Project="..\XSharp.Sdk\sdk\Sdk.props" />
-  <PropertyGroup Label="Globals">
-	<ProjectGuid>b2646df5-b718-4547-8dc0-79f1a240af58</ProjectGuid>
-  </PropertyGroup>
+﻿<Project Sdk="XSharp.Sdk" ToolsVersion="Current">
   <PropertyGroup>
 	<OutputType>Bootable</OutputType>
   </PropertyGroup>
-  <PropertyGroup>
-	<XSharpDesignTimeTargetsPath>$(LocalAppData)\Microsoft\VisualStudio\16.0_72f4f999Exp\Extensions\Cosmos\X# Project System\1.0\$MSBuild\XSharp\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
-  </PropertyGroup>
-  <Import Project="..\XSharp.Sdk\sdk\Sdk.targets" />
 </Project>
