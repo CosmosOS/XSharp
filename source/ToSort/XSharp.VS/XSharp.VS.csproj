@@ -16,11 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\XSharp\XSharp.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.VSSDK.BuildTools" Version="16.1.3128" />
+      <ProjectReference Include="..\..\XSharp\XSharp\XSharp.csproj" />
     </ItemGroup>
 
 </Project>

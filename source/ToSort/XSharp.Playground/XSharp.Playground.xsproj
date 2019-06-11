@@ -1,5 +1,15 @@
-﻿<Project Sdk="XSharp.Sdk" ToolsVersion="Current">
-  <PropertyGroup>
-	<OutputType>Bootable</OutputType>
-  </PropertyGroup>
+﻿﻿<Project>
+
+    <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.props" />
+
+    <PropertyGroup>
+        <OutputType>Bootable</OutputType>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <XSharpDesignTimeTargetsPath>..\XSharp.ProjectSystem\BuildSystem\XSharp.DesignTime.targets</XSharpDesignTimeTargetsPath>
+    </PropertyGroup>
+
+    <Import Project="..\XSharp.Sdk\obj\Debug\package\Sdk\Sdk.targets" />
+
 </Project>

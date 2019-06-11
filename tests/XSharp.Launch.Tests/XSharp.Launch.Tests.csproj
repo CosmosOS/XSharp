@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\source\XSharp.Launch\XSharp.Launch.csproj" />
+        <ProjectReference Include="..\..\source\ToSort\XSharp.Launch\XSharp.Launch.csproj" />
     </ItemGroup>
 
 </Project>
