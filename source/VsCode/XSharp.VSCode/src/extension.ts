@@ -18,7 +18,7 @@ let compileOnSave: boolean;
 let compileOutputPath: string;
 
 export function activate(context: vscode.ExtensionContext) {
-    //compilerPath = context.asAbsolutePath("compiler/xsc.exe");
+    compilerPath = context.asAbsolutePath("../../XSharp/XSC/bin/Debug/net472/xsc.exe");
 
     storagePath = context.storagePath != undefined ? context.storagePath : context.extensionPath;
 
@@ -27,13 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let languageCompileFile = vscode.commands.registerTextEditorCommand("xsharp.compileFile", function (textEditor) {
         if (vscode.languages.match("xsharp", textEditor.document)) {
-            let unsaved: boolean = false;
-
-            if (textEditor.document.isDirty) {
-                unsaved = true;
-            }
-
-            compileDocument(textEditor.document, true);
+            compileDocument(textEditor.document, textEditor.document.isDirty);
         }
     });
 
@@ -234,7 +228,11 @@ function compileDocument(document: vscode.TextDocument, unsaved: boolean = false
 
     if (unsaved) {
         if (!fs.existsSync(storagePath)) {
-            fs.mkdir(storagePath);
+            fs.mkdir(storagePath, function(err){
+                if(err != null){
+                    vscode.window.showInformationMessage(err.message);
+                }   
+            });
         }
 
         let i: number = 1;
@@ -250,12 +248,20 @@ function compileDocument(document: vscode.TextDocument, unsaved: boolean = false
     }
 
     try {
-        cp.exec(compilerPath + " -inputFile '" + inputPath + "' -outputFile '" + path.join(compileOutputPath, path.basename(inputPath).replace(".xs", ".asm")) + "'");
+        cp.exec(compilerPath + " -inputFile " + inputPath + " -Gen2 -WaitOnError", (err, _stdout, _stderr) => {
+            if(err != null) {
+                vscode.window.showInformationMessage("Compile Failed: " + err.message);
+            }   
+        });
+    }
+    catch (err){
+        vscode.window.showErrorMessage("Compile Failed: " + err);
     }
     finally {
         if (unsaved) {
             fs.unlink(inputPath);
         }
+        vscode.window.setStatusBarMessage("Compile Succeeded", 2000);
     }
 }
 
