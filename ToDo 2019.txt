@@ -1,5 +1,6 @@
 * ARM (Kudzu + Christopher)
   -XSharp.Asm.x86/ARM and XSharp.Asm base
+  XSharp.x86.Assemblers ^^^
 * Assembler bin/nasm base (Kudzu)
   -Merge Assemblers in
 * .xsproj (Kudzu)
