@@ -21,7 +21,7 @@
         },
 
         {
-            "name": "X# (472) Playground",
+            "name": "X# (471) Playground",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
@@ -34,6 +34,19 @@
             "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
             "console": "internalConsole"
+        },
+
+        {
+            "type": "extensionHost",
+            "request": "launch",
+            "name": "Launch VSCode Extension",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ]
         }
     ]
 }

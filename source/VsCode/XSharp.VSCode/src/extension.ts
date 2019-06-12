@@ -18,7 +18,7 @@ let compileOnSave: boolean;
 let compileOutputPath: string;
 
 export function activate(context: vscode.ExtensionContext) {
-    compilerPath = context.asAbsolutePath("../../XSharp/XSC/bin/Debug/net472/xsc.exe");
+    compilerPath = context.asAbsolutePath("./xsc/xsc.exe");
 
     storagePath = context.storagePath != undefined ? context.storagePath : context.extensionPath;
 

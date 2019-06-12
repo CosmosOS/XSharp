@@ -19,6 +19,31 @@
             },
             "problemMatcher": [
                 "$msCompile"
+            ],
+            "dependsOn": [
+                "Build Extension"
+            ]
+        },
+        {
+            "label": "Copy xsc.exe",
+            "type": "shell",
+            "command": "xcopy",
+            "args": [
+                ".\\source\\XSharp\\XSC\\bin\\Debug\\net472\\",
+                ".\\source\\VsCode\\XSharp.VSCode\\xsc",
+                "/Y"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Build Extension",
+            "type": "typescript",
+            "tsconfig": "source/VsCode/XSharp.VSCode/tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "dependsOn": [
+                "Copy xsc.exe"
             ]
         }
     ]
