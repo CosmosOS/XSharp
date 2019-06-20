@@ -20,7 +20,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj" />
-        <ProjectReference Include="..\XSharp.Compiler\XSharp.Compiler.csproj" Pack="True" PackagePath="tools\xsc\" />
+        <ProjectReference Include="..\..\XSharp\XSC\XSC.csproj" Pack="True" PackagePath="tools\xsc\" />
     </ItemGroup>
 
 </Project>
