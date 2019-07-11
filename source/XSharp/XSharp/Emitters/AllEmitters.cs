@@ -159,7 +159,14 @@ namespace XSharp.Emitters
         [Emitter(typeof(FunctionKeyword), typeof(Identifier), typeof(OpOpenBrace))]
         protected void FunctionDefinitionStart(string aFunctionKeyword, string aFunctionName, string opOpenBraces)
         {
+            if (!string.IsNullOrWhiteSpace(Compiler.CurrentFunction))
+            {
+                throw new Exception("Found a function/interrupt handler definition embedded inside another function/interrupt handler.");
+            }
+
             Compiler.CurrentFunction = aFunctionName;
+            Compiler.Blocks.Reset();
+
             Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aFunctionName}:");
         }
 
@@ -167,6 +174,32 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpCloseBrace))]
         protected void BlockEnd(string opCloseBrace)
         {
+            if (Compiler.Blocks.Count == 0)
+            {
+                // End function
+            }
+            else
+            {
+                var xBlock = Compiler.Blocks.Current();
+                var xToken1 = xBlock.StartTokens[0];
+                if (xToken1.Matches("repeat"))
+                {
+                    // End repeat
+                }
+                else if (xToken1.Matches("while"))
+                {
+                    // End while
+                }
+                else if (xToken1.Matches("if"))
+                {
+                    // End if
+                }
+                else
+                {
+                    throw new Exception("Unknown block starter.");
+                }
+                Compiler.Blocks.End();
+            }
         }
 
         [Emitter(typeof(GotoKeyword), typeof(Identifier))]
