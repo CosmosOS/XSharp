@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{68A6F609-E61D-4B95-B063-DBB124F0F0AC}") = "XSharp.Playground", "source\XSharp.Playground\XSharp.Playground.xsproj", "{B2646DF5-B718-4547-8DC0-79F1A240AF58}"
+Project("{68A6F609-E61D-4B95-B063-DBB124F0F0AC}") = "XSharp.Playground", "source\ToSort\XSharp.Playground\XSharp.Playground.xsproj", "{B2646DF5-B718-4547-8DC0-79F1A240AF58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
