@@ -60,6 +60,17 @@ namespace XSharp.Tests
         }
 
         [Test]
+        public void Parse_Constant_Definition_Keyword_And_Identifier_And_Value()
+        {
+            const string xConstantLine = "const Tracing_Off = 0";
+            const int xExpectedTokenCount = 4;
+
+            var xCodePoints = mTokenMap.Parse(xConstantLine);
+
+            Assert.AreEqual(xExpectedTokenCount, xCodePoints.Count);
+        }
+
+        [Test]
         public void Parse_Comment()
         {
             const string xCommentLine = "// Location where INT3 has been injected.";
