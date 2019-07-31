@@ -177,6 +177,7 @@ namespace XSharp.Emitters
             if (Compiler.Blocks.Count == 0)
             {
                 // End function
+                Compiler.CurrentFunction = "";
             }
             else
             {
