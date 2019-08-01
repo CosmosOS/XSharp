@@ -102,6 +102,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new Emitters.Assignments(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Math(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.ShiftRotate(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 
