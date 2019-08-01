@@ -35,7 +35,7 @@ namespace XSharp
         /// Gets the current function.
         /// </summary>
         public string CurrentFunction { get; set; }
-        
+
         public Compiler(TextWriter aOut)
         {
             Out = aOut;
@@ -51,6 +51,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new Emitters.Assignments(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.Math(this, mNASM));
+            mTokenMap.AddEmitter(new Emitters.ShiftRotate(this, mNASM));
             mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
         }
 
