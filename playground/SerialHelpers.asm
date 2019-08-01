@@ -1,6 +1,5 @@
 ; namespace DebugStub
 
-; Helper functions which make it easier to use serial stuff
 
 ; function ComReadEAX {
 DebugStub_ComReadEAX:
@@ -8,13 +7,10 @@ DebugStub_ComReadEAX:
 		; ComReadAL()
 		Call DebugStub_ComReadAL
 		; EAX ~> 8
+		Ror EAX, 0x8
 	; }
 ; }
 
-; Input: EDI
-; Output: [EDI]
-; Modified: AL, DX, EDI (+1)
-; Reads a byte into [EDI] and does EDI + 1
 ; function ComRead8  {
 DebugStub_ComRead8:
     ; ComReadAL()
@@ -39,9 +35,6 @@ DebugStub_ComRead32:
 	; }
 ; }
 
-; Input: AL
-; Output: None
-; Modifies: EDX
 ; function ComWriteAL {
 DebugStub_ComWriteAL:
 	; +ESI
@@ -52,8 +45,6 @@ DebugStub_ComWriteAL:
 	Mov ESI, ESP
     ; ComWrite8()
     Call DebugStub_ComWrite8
-    ; Is a local var, cant use Return(4). X// issues the return.
-    ; This also allows the function to preserve EAX.
     ; -EAX
     Pop EAX
 	; -ESI
@@ -61,33 +52,23 @@ DebugStub_ComWriteAL:
 ; }
 ; function ComWriteAX {
 DebugStub_ComWriteAX:
-    ; Input: AX
-    ; Output: None
-    ; Modifies: EDX, ESI
     ; +EAX
     Push EAX
     ; ESI = ESP
     Mov ESI, ESP
     ; ComWrite16()
     Call DebugStub_ComWrite16
-    ; Is a local var, cant use Return(4). X// issues the return.
-    ; This also allow the function to preserve EAX.
     ; -EAX
     Pop EAX
 ; }
 ; function ComWriteEAX {
 DebugStub_ComWriteEAX:
-    ; Input: EAX
-    ; Output: None
-    ; Modifies: EDX, ESI
     ; +EAX
     Push EAX
     ; ESI = ESP
     Mov ESI, ESP
     ; ComWrite32()
     Call DebugStub_ComWrite32
-    ; Is a local var, cant use Return(4). X// issues the return.
-    ; This also allow the function to preserve EAX.
     ; -EAX
     Pop EAX
 ; }

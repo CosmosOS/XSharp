@@ -38,6 +38,10 @@
         PushAD, // Push all
         Rem,    // Remainder
         Ret,    // Return
+        Rol,    // Rotate Left
+        Ror,    // Rotate Right
+        Shl,     // Logical Shift Left
+        Shr,     // Logical Shift Right
         Sub,    // Subtract
         Test,   // Test - logical compare
     }

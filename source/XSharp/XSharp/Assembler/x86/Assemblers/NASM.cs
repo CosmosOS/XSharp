@@ -112,6 +112,14 @@ namespace XSharp.x86.Assemblers
 
             Add(OpCode.Ret);
 
+            Add(OpCode.Rol, "{0}, 0x{1:X}", typeof(Reg32), typeof(i08u));
+
+            Add(OpCode.Ror, "{0}, 0x{1:X}", typeof(Reg32), typeof(i08u));
+
+            Add(OpCode.Shl, "{0}, 0x{1:X}", typeof(Reg32), typeof(i08u));
+
+            Add(OpCode.Shr, "{0}, 0x{1:X}", typeof(Reg32), typeof(i08u));
+
             Add(OpCode.Sub, "{0}, {1}", typeof(Reg08), typeof(Reg08));
             Add(OpCode.Sub, "{0}, {1}", typeof(Reg16), typeof(Reg16));
             Add(OpCode.Sub, "{0}, {1}", typeof(Reg32), typeof(Reg32));
