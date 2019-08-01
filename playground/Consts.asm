@@ -8,7 +8,6 @@ DebugStub_Const_Tracing_Off equ 0
 ; const Tracing_On = 1
 DebugStub_Const_Tracing_On equ 1
 
-; Current status of OS Debug Stub
 ; const Status_Run = 0
 DebugStub_Const_Status_Run equ 0
 ; const Status_Break = 1
@@ -55,9 +54,6 @@ DebugStub_Const_Vs2Ds_SendRegisters equ 13
 DebugStub_Const_Vs2Ds_SendFrame equ 14
 ; const Vs2Ds_SendStack = 15
 DebugStub_Const_Vs2Ds_SendStack equ 15
-; Set an assembly level break point
-; Only one can be active at a time. BreakOnAddress can have multiple.
-; User must call continue after.
 ; const Vs2Ds_SetAsmBreak = 16
 DebugStub_Const_Vs2Ds_SetAsmBreak equ 16
 ; const Vs2Ds_Ping = 17
