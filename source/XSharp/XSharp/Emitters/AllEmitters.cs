@@ -139,16 +139,6 @@ namespace XSharp.Emitters
         {
         }
 
-        [Emitter(typeof(Reg), typeof(OpShift), typeof(Int08u))]
-        protected void BitwiseShift(Register aRegister, string aBitwiseShift, object aNumberBits)
-        {
-        }
-
-        [Emitter(typeof(Reg), typeof(OpRotate), typeof(Int08u))]
-        protected void RotateRegister(Register aRegister, object aOpRotate, object aNumBits)
-        {
-        }
-
         // interrupt iNmae123 {
         [Emitter(typeof(Interrupt), typeof(Identifier), typeof(OpOpenBrace))]
         protected void InterruptDefinitionStart(string interruptKeyword, string functionName, string opOpenBraces)
