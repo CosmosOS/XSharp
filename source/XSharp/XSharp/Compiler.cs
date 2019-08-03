@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using XSharp.x86.Assemblers;
@@ -18,7 +19,7 @@ namespace XSharp
         private string _currentNamespace;
 
         /// <summary>
-        /// Gets the current namespace.
+        /// The current namespace.
         /// </summary>
         public string CurrentNamespace
         {
@@ -32,9 +33,71 @@ namespace XSharp
         }
 
         /// <summary>
-        /// Gets the current function.
+        /// The current function.
         /// </summary>
         public string CurrentFunction { get; set; }
+
+        /// <summary>
+        /// The current label.
+        /// </summary>
+        public string CurrentLabel { get; set; }
+
+
+        /// <summary>
+        /// The set of blocks for the currently assembled function.
+        /// Each time we begin assembling a new function this blocks collection is reset to an empty state.
+        /// </summary>
+        public BlockList Blocks { get; } = new BlockList();
+        public class BlockList : List<Block>
+        {
+            protected int mCurrentLabelID = 0;
+
+            public void Reset()
+            {
+                mCurrentLabelID = 0;
+                Clear();
+            }
+
+            public void Start(BlockType aType)
+            {
+                mCurrentLabelID++;
+
+                var xBlock = new Block
+                {
+                    LabelID = mCurrentLabelID,
+                    Type = aType
+                };
+                Add(xBlock);
+            }
+
+            public void End()
+            {
+                RemoveAt(Count - 1);
+            }
+
+            public Block Current()
+            {
+                if (!this.Any())
+                {
+                    return null;
+                }
+
+                return this[Count - 1];
+            }
+        }
+        public class Block
+        {
+            public BlockType Type { get; set; }
+            public int LabelID { get; set; }
+        }
+        public enum BlockType
+        {
+            None,
+            If,
+            Label,
+            Repeat,
+            While
+        }
 
         public Compiler(TextWriter aOut)
         {

@@ -29,11 +29,14 @@ namespace XSharp.Emitters
         {
         }
 
+        // if = {
         [Emitter(typeof(If), typeof(Compare), typeof(OpOpenBrace))]
         protected void IfConditionBlockStart(string aOpIf, object[] aCompareData, object aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.If);
         }
 
+        // if = goto lLabel123
         [Emitter(typeof(If), typeof(Compare), typeof(GotoKeyword), typeof(Identifier))]
         protected void IfConditionGoto(string aOpIf, object[] aCompareData, string aGotoKeyword, string aLabel)
         {
@@ -45,11 +48,14 @@ namespace XSharp.Emitters
         {
         }
 
+        // if AL = #Vs2Ds_Noop {
         [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(OpOpenBrace))]
         protected void IfConditionBlockStart(string aOpIf, string aSize, object[] aCompareData, object aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.If);
         }
 
+        // if AL = goto lLabel123
         [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(GotoKeyword), typeof(Identifier))]
         protected void IfConditionGoto(string aOpIf, string aSize, object[] aCompareData, string aGotoKeyword, string aLabel)
         {
@@ -64,6 +70,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(If), typeof(OpPureComparators), typeof(OpOpenBrace))]
         protected void IfConditionPureBlockStart(string aOpIf, string aOpPureComparators, string aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.If);
         }
 
         [Emitter(typeof(If), typeof(OpPureComparators), typeof(GotoKeyword), typeof(Identifier))]
@@ -74,21 +81,25 @@ namespace XSharp.Emitters
         [Emitter(typeof(While), typeof(Compare), typeof(OpOpenBrace))]
         protected void WhileConditionBlockStart(string aOpWhile, object[] aCompareData, object aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.While);
         }
 
         [Emitter(typeof(While), typeof(Size), typeof(CompareWithMem), typeof(OpOpenBrace))]
         protected void WhileConditionWithMemoryBlockStart(string aOpWhile, string aSize, object[] aCompareData, object aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.While);
         }
 
         [Emitter(typeof(While), typeof(OpPureComparators), typeof(OpOpenBrace))]
         protected void WhileConditionPureBlockStart(string aOpWhile, string aOpPureComparators, string aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.If);
         }
 
         [Emitter(typeof(Repeat), typeof(Int32u), typeof(Times), typeof(OpOpenBrace))]
         protected void RepeatBlockStart(string aOpRepeat, UInt32 loops, string aOpTimes, string aOpOpenBrace)
         {
+            Compiler.Blocks.Start(Compiler.BlockType.Repeat);
         }
 
         // const i = 0
@@ -141,15 +152,31 @@ namespace XSharp.Emitters
 
         // interrupt iNmae123 {
         [Emitter(typeof(Interrupt), typeof(Identifier), typeof(OpOpenBrace))]
-        protected void InterruptDefinitionStart(string interruptKeyword, string functionName, string opOpenBraces)
+        protected void InterruptDefinitionStart(string aInterruptKeyword, string aFunctionName, string aOpOpenBrace)
         {
+            if (!string.IsNullOrWhiteSpace(Compiler.CurrentFunction))
+            {
+                throw new Exception("Found an interrupt handler embedded inside another interrupt handlers.");
+            }
+
+            Compiler.CurrentFunction = aFunctionName;
+            Compiler.Blocks.Reset();
+
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aFunctionName}:");
         }
 
         // function fName123 {
         [Emitter(typeof(FunctionKeyword), typeof(Identifier), typeof(OpOpenBrace))]
-        protected void FunctionDefinitionStart(string aFunctionKeyword, string aFunctionName, string opOpenBraces)
+        protected void FunctionDefinitionStart(string aFunctionKeyword, string aFunctionName, string aOpOpenBrace)
         {
+            if (!string.IsNullOrWhiteSpace(Compiler.CurrentFunction))
+            {
+                throw new Exception("Found a function definition embedded inside another function.");
+            }
+
             Compiler.CurrentFunction = aFunctionName;
+            Compiler.Blocks.Reset();
+
             Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aFunctionName}:");
         }
 
@@ -157,6 +184,26 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpCloseBrace))]
         protected void BlockEnd(string opCloseBrace)
         {
+            var xBlock = Compiler.Blocks.Current();
+            if (xBlock != null)
+            {
+                switch (xBlock.Type)
+                {
+                    case Compiler.BlockType.If:
+                    case Compiler.BlockType.While:
+                    case Compiler.BlockType.Repeat:
+                        string xEndLabel = $"{Compiler.CurrentNamespace}_{Compiler.CurrentFunction}_Block{xBlock.LabelID}_End:";
+                        Compiler.WriteLine(xEndLabel);
+                        Compiler.Blocks.End();
+                        break;
+                }
+            }
+            else
+            {
+                //No current block. Must be a function.
+                Compiler.CurrentFunction = "";
+                Compiler.Blocks.Clear();
+            }
         }
 
         [Emitter(typeof(GotoKeyword), typeof(Identifier))]
@@ -172,11 +219,20 @@ namespace XSharp.Emitters
             Compiler.WriteLine($"Call {Compiler.CurrentNamespace}_{aFunctionName}");
         }
 
-        // Label
+        // lName123:
         [Emitter(typeof(Identifier), typeof(OpColon))]
-        protected void LabelDefinition(string aLabelName, string aOpColon)
+        protected void LabelDefinitionStart(string aLabelName, string aOpColon)
         {
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aLabelName}:");
+            Compiler.CurrentLabel = aLabelName;
+
+            // var xBlock = Compiler.Blocks.Current();
+            // if (xBlock != null && xBlock.Type == Compiler.BlockType.Label)
+            // {
+            //     Compiler.Blocks.End();
+            // }
+
+            // Compiler.Blocks.Start(Compiler.BlockType.Label);
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{Compiler.CurrentFunction}_{aLabelName}:");
         }
     }
 }

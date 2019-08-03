@@ -1,151 +1,79 @@
-; namespace DebugStub
 
-; function ProcessCommand {
 DebugStub_ProcessCommand:
-    ; ComReadAL()
     Call DebugStub_ComReadAL
-    ; +EAX
     Push EAX
 
-	; if AL = #Vs2Ds_Noop return
 
-	; EAX = 0
 	Mov EAX, 0x0
-    ; ComReadAL()
     Call DebugStub_ComReadAL
-    ; .CommandID = EAX
     Mov DWORD [DebugStub_CommandID], EAX
 
-    ; EAX = [ESP]
     Mov EAX, DWORD [ESP]
 
-	; if AL = #Vs2Ds_TraceOff {
-		; TraceOff()
 		Call DebugStub_TraceOff
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_TraceOn {
-		; TraceOn()
+	DebugStub_ProcessCommand_Block1_End:
 		Call DebugStub_TraceOn
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_Break {
-		; AckCommand()
+	DebugStub_ProcessCommand_Block2_End:
 		Call DebugStub_AckCommand
-		; Break()
 		Call DebugStub_Break
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_BreakOnAddress {
-		; BreakOnAddress()
+	DebugStub_ProcessCommand_Block3_End:
 		Call DebugStub_BreakOnAddress
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SendMethodContext {
-		; SendMethodContext()
+	DebugStub_ProcessCommand_Block4_End:
 		Call DebugStub_SendMethodContext
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SendMemory {
-		; SendMemory()
+	DebugStub_ProcessCommand_Block5_End:
 		Call DebugStub_SendMemory
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SendRegisters {
-		; SendRegisters()
+	DebugStub_ProcessCommand_Block6_End:
 		Call DebugStub_SendRegisters
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SendFrame {
-		; SendFrame()
+	DebugStub_ProcessCommand_Block7_End:
 		Call DebugStub_SendFrame
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SendStack {
-		; SendStack()
+	DebugStub_ProcessCommand_Block8_End:
 		Call DebugStub_SendStack
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_Ping {
-		; Ping()
+	DebugStub_ProcessCommand_Block9_End:
 		Call DebugStub_Ping
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_SetINT3 {
-		; SetINT3()
+	DebugStub_ProcessCommand_Block10_End:
 		Call DebugStub_SetINT3
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
-	; if AL = #Vs2Ds_ClearINT3 {
-		; ClearINT3()
+	DebugStub_ProcessCommand_Block11_End:
 		Call DebugStub_ClearINT3
-		; AckCommand()
 		Call DebugStub_AckCommand
-		; return
 		Ret 
-	; }
+	DebugStub_ProcessCommand_Block12_End:
 
 
-; Exit:
-DebugStub_Exit:
-    ; -EAX
+DebugStub_ProcessCommand_Exit:
     Pop EAX
-; }
 
-; function AckCommand {
 DebugStub_AckCommand:
 
-	; AL = #Ds2Vs_CmdCompleted
 	Mov AL, DebugStub_Const_Ds2Vs_CmdCompleted
-    ; ComWriteAL()
     Call DebugStub_ComWriteAL
     
-    ; EAX = .CommandID
     Mov EAX, DWORD [DebugStub_CommandID]
-    ; ComWriteAL()
     Call DebugStub_ComWriteAL
-; }
 
-; function ProcessCommandBatch {
 DebugStub_ProcessCommandBatch:
-; Begin:
-DebugStub_Begin:
-    ; ProcessCommand()
+DebugStub_ProcessCommandBatch_Begin:
     Call DebugStub_ProcessCommand
 
-	; if AL != 8 goto Begin
 
-    ; AckCommand()
     Call DebugStub_AckCommand
-; }
