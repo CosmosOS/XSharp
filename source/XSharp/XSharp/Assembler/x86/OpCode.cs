@@ -28,6 +28,7 @@
         Div,    // Divide
         In,     // In Oprator
         Inc,    // Increment
+        Jmp,    // Jump
         Mov,    // Move
         Mul,    // Multiply
         NOP,    // No op

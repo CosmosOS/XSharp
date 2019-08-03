@@ -19,7 +19,7 @@ namespace XSharp
         private string _currentNamespace;
 
         /// <summary>
-        /// Gets the current namespace.
+        /// The current namespace.
         /// </summary>
         public string CurrentNamespace
         {
@@ -33,14 +33,21 @@ namespace XSharp
         }
 
         /// <summary>
-        /// Gets the current function.
+        /// The current function.
         /// </summary>
         public string CurrentFunction { get; set; }
 
-        /// <summary>The set of blocks for the currently assembled function. Each time we begin
-        /// assembling a new function this blocks collection is reset to an empty state.</summary>
-        public static BlockList Blocks = new BlockList();
+        /// <summary>
+        /// The current label.
+        /// </summary>
+        public string CurrentLabel { get; set; }
 
+
+        /// <summary>
+        /// The set of blocks for the currently assembled function.
+        /// Each time we begin assembling a new function this blocks collection is reset to an empty state.
+        /// </summary>
+        public BlockList Blocks { get; } = new BlockList();
         public class BlockList : List<Block>
         {
             protected int mCurrentLabelID = 0;
@@ -48,43 +55,48 @@ namespace XSharp
             public void Reset()
             {
                 mCurrentLabelID = 0;
+                Clear();
             }
 
-            public Block Current()
+            public void Start(BlockType aType)
             {
-                return base[Count - 1];
-            }
-
-            public void Start(TokenList aTokens, bool aIsCollector)
-            {
-                var xBlock = new Block();
                 mCurrentLabelID++;
-                xBlock.LabelID = mCurrentLabelID;
-                xBlock.StartTokens = aTokens;
 
-                // Last because we use Current() above
+                var xBlock = new Block
+                {
+                    LabelID = mCurrentLabelID,
+                    Type = aType
+                };
                 Add(xBlock);
-                xBlock.ParentAssembler = Assembler.Assembler.CurrentInstance;
-                new Assembler.Assembler();
             }
 
             public void End()
             {
-                Assembler.Assembler.ClearCurrentInstance();
                 RemoveAt(Count - 1);
+            }
+
+            public Block Current()
+            {
+                if (!this.Any())
+                {
+                    return null;
+                }
+
+                return this[Count - 1];
             }
         }
         public class Block
         {
-            public TokenList StartTokens;
-            public int LabelID;
-
-            public Assembler.Assembler ParentAssembler;
-
-            public void AddContentsToParentAssembler()
-            {
-                ParentAssembler.Instructions.AddRange(Assembler.Assembler.CurrentInstance.Instructions);
-            }
+            public BlockType Type { get; set; }
+            public int LabelID { get; set; }
+        }
+        public enum BlockType
+        {
+            None,
+            If,
+            Label,
+            Repeat,
+            While
         }
 
         public Compiler(TextWriter aOut)
