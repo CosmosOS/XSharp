@@ -209,6 +209,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(GotoKeyword), typeof(Identifier))]
         protected void Goto(string aGotoKeyword, string aLabelName)
         {
+            Asm.Emit(OpCode.Jmp, $"{Compiler.CurrentNamespace}_{Compiler.CurrentFunction}_{aLabelName}");
         }
 
         // Important! All that start with AlphaNum MUST be last to allow fall through to prevent early claims over keywords.
