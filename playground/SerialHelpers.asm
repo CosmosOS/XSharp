@@ -12,6 +12,8 @@ DebugStub_ComReadEAX:
 	; }
 	DebugStub_ComReadEAX_Block1_End:
 ; }
+DebugStub_ComReadEAX_Exit:
+Ret 
 
 ; Input: EDI
 ; Output: [EDI]
@@ -26,6 +28,8 @@ DebugStub_ComRead8:
     ; EDI += 1
     Add EDI, 0x1
 ; }
+DebugStub_ComRead8_Exit:
+Ret 
 ; function ComRead16 {
 DebugStub_ComRead16:
 	; repeat 2 times {
@@ -34,6 +38,8 @@ DebugStub_ComRead16:
 	; }
 	DebugStub_ComRead16_Block1_End:
 ; }
+DebugStub_ComRead16_Exit:
+Ret 
 ; function ComRead32 {
 DebugStub_ComRead32:
 	; repeat 4 times {
@@ -42,6 +48,8 @@ DebugStub_ComRead32:
 	; }
 	DebugStub_ComRead32_Block1_End:
 ; }
+DebugStub_ComRead32_Exit:
+Ret 
 
 ; Input: AL
 ; Output: None
@@ -63,6 +71,8 @@ DebugStub_ComWriteAL:
 	; -ESI
 	Pop ESI
 ; }
+DebugStub_ComWriteAL_Exit:
+Ret 
 ; function ComWriteAX {
 DebugStub_ComWriteAX:
     ; Input: AX
@@ -79,6 +89,8 @@ DebugStub_ComWriteAX:
     ; -EAX
     Pop EAX
 ; }
+DebugStub_ComWriteAX_Exit:
+Ret 
 ; function ComWriteEAX {
 DebugStub_ComWriteEAX:
     ; Input: EAX
@@ -95,6 +107,8 @@ DebugStub_ComWriteEAX:
     ; -EAX
     Pop EAX
 ; }
+DebugStub_ComWriteEAX_Exit:
+Ret 
 
 ; function ComWrite16 {
 DebugStub_ComWrite16:
@@ -103,6 +117,8 @@ DebugStub_ComWrite16:
 	; ComWrite8()
 	Call DebugStub_ComWrite8
 ; }
+DebugStub_ComWrite16_Exit:
+Ret 
 ; function ComWrite32 {
 DebugStub_ComWrite32:
 	; ComWrite8()
@@ -114,6 +130,8 @@ DebugStub_ComWrite32:
 	; ComWrite8()
 	Call DebugStub_ComWrite8
 ; }
+DebugStub_ComWrite32_Exit:
+Ret 
 ; function ComWriteX {
 DebugStub_ComWriteX:
 ; More:
@@ -124,3 +142,5 @@ DebugStub_ComWriteX_More:
 	Dec ECX
 	; if !0 goto More
 ; }
+DebugStub_ComWriteX_Exit:
+Ret 

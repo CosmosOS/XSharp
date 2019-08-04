@@ -172,6 +172,8 @@ DebugStub_AckCommand:
     ; ComWriteAL()
     Call DebugStub_ComWriteAL
 ; }
+DebugStub_AckCommand_Exit:
+Ret 
 
 ; function ProcessCommandBatch {
 DebugStub_ProcessCommandBatch:
@@ -188,3 +190,5 @@ DebugStub_ProcessCommandBatch_Begin:
     ; AckCommand()
     Call DebugStub_AckCommand
 ; }
+DebugStub_ProcessCommandBatch_Exit:
+Ret 

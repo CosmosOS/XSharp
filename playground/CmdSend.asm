@@ -25,6 +25,8 @@ DebugStub_SendRegisters:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendRegisters_Exit:
+Ret 
 
 ; function SendFrame {
 DebugStub_SendFrame:
@@ -48,6 +50,8 @@ DebugStub_SendFrame:
     ; ComWriteX()
     Call DebugStub_ComWriteX
 ; }
+DebugStub_SendFrame_Exit:
+Ret 
 
 ; AL contains channel
 ; BL contains command
@@ -91,6 +95,8 @@ DebugStub_SendCommandOnChannel:
     ; }
     DebugStub_SendCommandOnChannel_Block1_End:
 ; }
+DebugStub_SendCommandOnChannel_Exit:
+Ret 
 
 ; function SendStack {
 DebugStub_SendStack:
@@ -119,6 +125,8 @@ DebugStub_SendStack:
     ; }
     DebugStub_SendStack_Block1_End:
 ; }
+DebugStub_SendStack_Exit:
+Ret 
 
 ; sends a stack value
 ; Serial Params:
@@ -228,6 +236,8 @@ DebugStub_SendTrace:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendTrace_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -286,6 +296,8 @@ DebugStub_SendText_Finalize:
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendText_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -315,6 +327,8 @@ Mov EBP, ESP
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendSimpleNumber_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -346,6 +360,8 @@ Mov EBP, ESP
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendKernelPanic_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -380,6 +396,8 @@ DebugStub_SendSimpleLongNumber:
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendSimpleLongNumber_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -410,6 +428,8 @@ DebugStub_SendComplexNumber:
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendComplexNumber_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -444,6 +464,8 @@ DebugStub_SendComplexLongNumber:
   ; -EBP
   Pop EBP
 ; }
+DebugStub_SendComplexLongNumber_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -462,6 +484,8 @@ DebugStub_SendPtr:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendPtr_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -480,6 +504,8 @@ DebugStub_SendStackCorruptionOccurred:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendStackCorruptionOccurred_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -498,6 +524,8 @@ DebugStub_SendStackOverflowOccurred:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendStackOverflowOccurred_Exit:
+Ret 
 
 ; Input: None
 ; Output: None
@@ -518,6 +546,8 @@ DebugStub_SendInterruptOccurred:
 	; ComWriteEAX()
 	Call DebugStub_ComWriteEAX
 ; }
+DebugStub_SendInterruptOccurred_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -536,6 +566,8 @@ DebugStub_SendNullReferenceOccurred:
     ; ComWrite32()
     Call DebugStub_ComWrite32
 ; }
+DebugStub_SendNullReferenceOccurred_Exit:
+Ret 
 
 ; Input: Stack
 ; Output: None
@@ -575,6 +607,8 @@ DebugStub_SendMessageBox_WriteChar:
     ; goto WriteChar
     Jmp DebugStub_SendMessageBox_WriteChar
 ; }
+DebugStub_SendMessageBox_Exit:
+Ret 
 
 ; function SendCoreDump {
 DebugStub_SendCoreDump:
@@ -637,3 +671,5 @@ DebugStub_SendCoreDump:
     ; }
     DebugStub_SendCoreDump_Block2_End:
 ; }
+DebugStub_SendCoreDump_Exit:
+Ret 

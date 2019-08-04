@@ -37,6 +37,8 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Inc, "{0}", typeof(Reg16));
             Add(OpCode.Inc, "{0}", typeof(Reg32));
 
+            Add(OpCode.IRet);
+
             Add(OpCode.Jmp, "{0}", typeof(Identifier));
 
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(Reg08));

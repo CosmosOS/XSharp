@@ -28,6 +28,7 @@
         Div,    // Divide
         In,     // In Oprator
         Inc,    // Increment
+        IRet,   // Interrupt return
         Jmp,    // Jump
         Mov,    // Move
         Mul,    // Multiply

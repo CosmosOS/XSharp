@@ -8,6 +8,8 @@ DebugStub_Ping:
     ; ComWriteAL()
     Call DebugStub_ComWriteAL
 ; }
+DebugStub_Ping_Exit:
+Ret 
 
 ; function TraceOn {
 DebugStub_TraceOn:
@@ -15,6 +17,8 @@ DebugStub_TraceOn:
     ; .TraceMode = 1
     Mov DWORD [DebugStub_TraceMode], 0x1
 ; }
+DebugStub_TraceOn_Exit:
+Ret 
 
 ; function TraceOff {
 DebugStub_TraceOff:
@@ -22,3 +26,5 @@ DebugStub_TraceOff:
     ; .TraceMode = 0
     Mov DWORD [DebugStub_TraceMode], 0x0
 ; }
+DebugStub_TraceOff_Exit:
+Ret 

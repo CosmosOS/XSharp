@@ -355,6 +355,8 @@ DebugStub_Executing_CheckForCmd:
 	; }
 	DebugStub_Executing_Block11_End:
 ; }
+DebugStub_Executing_Exit:
+Ret 
 
 ; function Break {
 DebugStub_Break:
@@ -448,4 +450,6 @@ DebugStub_Break_Done:
     ; .DebugStatus = #Status_Run
     Mov [DebugStub_DebugStatus], DebugStub_Const_Status_Run
 ; }
+DebugStub_Break_Exit:
+Ret 
 

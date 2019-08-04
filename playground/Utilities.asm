@@ -28,3 +28,5 @@ DebugStub_CheckStack:
     ; }
     DebugStub_CheckStack_Block1_End:
 ; }
+DebugStub_CheckStack_Exit:
+Ret 

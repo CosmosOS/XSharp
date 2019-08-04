@@ -38,27 +38,38 @@ namespace XSharp
         public string CurrentFunction { get; set; }
 
         /// <summary>
+        /// The type of the current function.
+        /// </summary>
+        public BlockType CurrentFunctionType { get; set; }
+
+        /// <summary>
         /// The current label.
         /// </summary>
         public string CurrentLabel { get; set; }
 
+        /// <summary>
+        /// Did we find an explicit 'Exit:' label?
+        /// </summary>
+        public bool FunctionExitLabelFound { get; set; }
 
         /// <summary>
         /// The set of blocks for the currently assembled function.
         /// Each time we begin assembling a new function this blocks collection is reset to an empty state.
         /// </summary>
         public BlockList Blocks { get; } = new BlockList();
-        public class BlockList : List<Block>
+        public class BlockList
         {
+            private List<Block> mBlocks = new List<Block>();
+
             protected int mCurrentLabelID = 0;
 
             public void Reset()
             {
                 mCurrentLabelID = 0;
-                Clear();
+                mBlocks.Clear();
             }
 
-            public void Start(BlockType aType)
+            public void StartBlock(BlockType aType)
             {
                 mCurrentLabelID++;
 
@@ -67,22 +78,22 @@ namespace XSharp
                     LabelID = mCurrentLabelID,
                     Type = aType
                 };
-                Add(xBlock);
+                mBlocks.Add(xBlock);
             }
 
-            public void End()
+            public void EndBlock()
             {
-                RemoveAt(Count - 1);
+                mBlocks.RemoveAt(mBlocks.Count - 1);
             }
 
             public Block Current()
             {
-                if (!this.Any())
+                if (!mBlocks.Any())
                 {
                     return null;
                 }
 
-                return this[Count - 1];
+                return mBlocks[mBlocks.Count - 1];
             }
         }
         public class Block
@@ -93,7 +104,9 @@ namespace XSharp
         public enum BlockType
         {
             None,
+            Function,
             If,
+            Interrupt,
             Label,
             Repeat,
             While

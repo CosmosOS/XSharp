@@ -102,6 +102,8 @@ DebugStub_InitSerial:
 	; WriteRegister()
 	Call DebugStub_WriteRegister
 ; }
+DebugStub_InitSerial_Exit:
+Ret 
 
 ; Modifies: AL, DX
 ; function ComReadAL {
@@ -121,6 +123,8 @@ DebugStub_ComReadAL_Wait:
   ; ReadRegister()
   Call DebugStub_ReadRegister
 ; }
+DebugStub_ComReadAL_Exit:
+Ret 
 
 ; function ComWrite8 {
 DebugStub_ComWrite8:
@@ -164,6 +168,8 @@ DebugStub_ComWrite8_Wait:
 	; ESI++
 	Inc ESI
 ; }
+DebugStub_ComWrite8_Exit:
+Ret 
 
 ; //! %endif
 %endif

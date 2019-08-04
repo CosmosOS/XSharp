@@ -86,3 +86,5 @@ sti
 ; Temp disabled, see comment on LockOrExit above
 ; Unlock
 ; }
+DebugStub_TracerEntry_Exit:
+IRet 
