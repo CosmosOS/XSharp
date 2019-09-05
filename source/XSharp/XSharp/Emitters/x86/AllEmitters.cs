@@ -4,7 +4,7 @@ using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     // Emitters does the actual translation from X# (via Spruce) to x86 (via Assemblers)
     public class AllEmitters : Emitters

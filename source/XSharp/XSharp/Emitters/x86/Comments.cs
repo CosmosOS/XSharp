@@ -2,7 +2,7 @@
 using Spruce.Tokens;
 using XSharp.Tokens;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// Class that processes comments and literals for X#.

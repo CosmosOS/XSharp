@@ -3,7 +3,7 @@ using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// IN and OUT functions from assembly <br/>

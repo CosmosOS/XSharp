@@ -8,7 +8,7 @@ using Reg08 = XSharp.Tokens.Reg08;
 using Reg16 = XSharp.Tokens.Reg16;
 using Reg32 = XSharp.Tokens.Reg32;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// The class that provides arithmetic for different types.

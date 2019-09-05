@@ -2,7 +2,7 @@
 using XSharp.Tokens;
 using XSharp.x86;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// TEST: Logical compare

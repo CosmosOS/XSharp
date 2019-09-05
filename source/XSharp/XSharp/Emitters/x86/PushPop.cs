@@ -5,7 +5,7 @@ using XSharp.x86;
 using XSharp.x86.Params;
 using Reg = XSharp.Tokens.Reg;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// Push and Pop values

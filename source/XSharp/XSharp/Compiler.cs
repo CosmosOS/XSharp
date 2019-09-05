@@ -118,17 +118,17 @@ namespace XSharp
             mNASM = new NASM(aOut);
 
             mTokenMap = new Spruce.Tokens.Root();
-            mTokenMap.AddEmitter(new Emitters.Namespace(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Comments(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Ports(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.ZeroParamOps(this, mNASM)); // This should be above push/pop
-            mTokenMap.AddEmitter(new Emitters.IncrementDecrement(this, mNASM)); // This should be above + operator
-            mTokenMap.AddEmitter(new Emitters.PushPop(this, mNASM)); // This should be above + operator
-            mTokenMap.AddEmitter(new Emitters.Assignments(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Test(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Math(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.ShiftRotate(this, mNASM));
-            mTokenMap.AddEmitter(new Emitters.AllEmitters(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Namespace(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Comments(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Ports(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.ZeroParamOps(this, mNASM)); // This should be above push/pop
+            mTokenMap.AddEmitter(new x86.Emitters.IncrementDecrement(this, mNASM)); // This should be above + operator
+            mTokenMap.AddEmitter(new x86.Emitters.PushPop(this, mNASM)); // This should be above + operator
+            mTokenMap.AddEmitter(new x86.Emitters.Assignments(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Test(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Math(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.ShiftRotate(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.AllEmitters(this, mNASM));
         }
 
         public void WriteLine(string aText = "")

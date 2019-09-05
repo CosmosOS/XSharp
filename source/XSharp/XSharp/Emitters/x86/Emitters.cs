@@ -1,4 +1,4 @@
-﻿namespace XSharp.Emitters
+﻿namespace XSharp.x86.Emitters
 {
     public abstract class Emitters
     {
