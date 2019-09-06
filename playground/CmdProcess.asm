@@ -15,6 +15,8 @@ DebugStub_ProcessCommand:
     ; Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     ; Noop also does not send ACK.
 	; if AL = #Vs2Ds_Noop return
+	Cmp AL, DebugStub_Vs2Ds_Noop
+	Je DebugStub_ProcessCommand_Exit
 
     ; Read Command ID
 	; EAX = 0
@@ -29,6 +31,8 @@ DebugStub_ProcessCommand:
     Mov EAX, DWORD [ESP]
 
 	; if AL = #Vs2Ds_TraceOff {
+	Cmp AL, DebugStub_Vs2Ds_TraceOff
+	Jne DebugStub_ProcessCommand_Block1_End
 		; TraceOff()
 		Call DebugStub_TraceOff
 		; AckCommand()
@@ -38,6 +42,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block1_End:
 	; if AL = #Vs2Ds_TraceOn {
+	Cmp AL, DebugStub_Vs2Ds_TraceOn
+	Jne DebugStub_ProcessCommand_Block2_End
 		; TraceOn()
 		Call DebugStub_TraceOn
 		; AckCommand()
@@ -47,6 +53,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block2_End:
 	; if AL = #Vs2Ds_Break {
+	Cmp AL, DebugStub_Vs2Ds_Break
+	Jne DebugStub_ProcessCommand_Block3_End
 		; Ack command for a break must be done first
 		; Otherwise we Break then ProcessCommands and get stuck because we don't send this Ack until execution continues
 		; AckCommand()
@@ -58,6 +66,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block3_End:
 	; if AL = #Vs2Ds_BreakOnAddress {
+	Cmp AL, DebugStub_Vs2Ds_BreakOnAddress
+	Jne DebugStub_ProcessCommand_Block4_End
 		; BreakOnAddress()
 		Call DebugStub_BreakOnAddress
 		; AckCommand()
@@ -67,6 +77,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block4_End:
 	; if AL = #Vs2Ds_SendMethodContext {
+	Cmp AL, DebugStub_Vs2Ds_SendMethodContext
+	Jne DebugStub_ProcessCommand_Block5_End
 		; SendMethodContext()
 		Call DebugStub_SendMethodContext
 		; AckCommand()
@@ -76,6 +88,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block5_End:
 	; if AL = #Vs2Ds_SendMemory {
+	Cmp AL, DebugStub_Vs2Ds_SendMemory
+	Jne DebugStub_ProcessCommand_Block6_End
 		; SendMemory()
 		Call DebugStub_SendMemory
 		; AckCommand()
@@ -85,6 +99,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block6_End:
 	; if AL = #Vs2Ds_SendRegisters {
+	Cmp AL, DebugStub_Vs2Ds_SendRegisters
+	Jne DebugStub_ProcessCommand_Block7_End
 		; SendRegisters()
 		Call DebugStub_SendRegisters
 		; AckCommand()
@@ -94,6 +110,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block7_End:
 	; if AL = #Vs2Ds_SendFrame {
+	Cmp AL, DebugStub_Vs2Ds_SendFrame
+	Jne DebugStub_ProcessCommand_Block8_End
 		; SendFrame()
 		Call DebugStub_SendFrame
 		; AckCommand()
@@ -103,6 +121,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block8_End:
 	; if AL = #Vs2Ds_SendStack {
+	Cmp AL, DebugStub_Vs2Ds_SendStack
+	Jne DebugStub_ProcessCommand_Block9_End
 		; SendStack()
 		Call DebugStub_SendStack
 		; AckCommand()
@@ -112,6 +132,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block9_End:
 	; if AL = #Vs2Ds_Ping {
+	Cmp AL, DebugStub_Vs2Ds_Ping
+	Jne DebugStub_ProcessCommand_Block10_End
 		; Ping()
 		Call DebugStub_Ping
 		; AckCommand()
@@ -121,6 +143,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block10_End:
 	; if AL = #Vs2Ds_SetINT3 {
+	Cmp AL, DebugStub_Vs2Ds_SetINT3
+	Jne DebugStub_ProcessCommand_Block11_End
 		; SetINT3()
 		Call DebugStub_SetINT3
 		; AckCommand()
@@ -130,6 +154,8 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block11_End:
 	; if AL = #Vs2Ds_ClearINT3 {
+	Cmp AL, DebugStub_Vs2Ds_ClearINT3
+	Jne DebugStub_ProcessCommand_Block12_End
 		; ClearINT3()
 		Call DebugStub_ClearINT3
 		; AckCommand()

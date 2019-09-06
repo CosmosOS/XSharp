@@ -10,7 +10,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// Push and Pop values
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class PushPop : Emitters
     {
         public PushPop(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)
@@ -36,7 +36,9 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(OpPlus), typeof(Variable))]
         protected void PushVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Push, value.AddPrefix($"{Compiler.CurrentNamespace}_"));
+            // TODO: Do this better? Use Compiler.GetFullName() so things are consistent.
+            value.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Push, value);
         }
 
         [Emitter(typeof(OpPlus), typeof(VariableAddress))]
@@ -64,7 +66,9 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(OpMinus), typeof(Variable))]
         protected void PopVar(string aOpPlus, Address value)
         {
-            Asm.Emit(OpCode.Pop, value.AddPrefix($"{Compiler.CurrentNamespace}_"));
+            // TODO: Do this better? Use Compiler.GetFullName() so things are consistent.
+            value.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Pop, value);
         }
 
         [Emitter(typeof(OpMinus), typeof(VariableAddress))]

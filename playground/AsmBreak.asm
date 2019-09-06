@@ -63,6 +63,8 @@ DebugStub_ClearAsmBreak:
   Mov EDI, DWORD [DebugStub_AsmBreakEIP]
   ; If 0, we don't need to clear an older one.
   ; if EDI = 0 return
+  Cmp EDI, 0x0
+  Je DebugStub_ClearAsmBreak_Exit
     
 	; Clear old break point and set back to original opcode / partial opcode
   ; AL = .AsmOrigByte

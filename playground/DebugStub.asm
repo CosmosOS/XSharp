@@ -65,6 +65,8 @@ DebugStub_BreakOnAddress:
   Add EBX, EAX
 
 	; if ECX = 0 {
+	Cmp ECX, 0x0
+	Jne DebugStub_BreakOnAddress_Block1_End
 		; This is a BP removal
 
 		; EDI = [EBX]
@@ -125,6 +127,8 @@ DebugStub_BreakOnAddress_FindBPLoop:
 	Mov EAX, DWORD [EBX]
 	; If it isn't 0 there must be a BP at this address
 	; if EAX != 0 {
+	Cmp EAX, 0x0
+	Je DebugStub_BreakOnAddress_Block2_End
 
 		; BP found
 		; Add 1 to the Id because the old searching loop (see Executing()) started at 256 so i guess we should allow for that.
@@ -139,6 +143,8 @@ DebugStub_BreakOnAddress_FindBPLoop:
 	DebugStub_BreakOnAddress_Block2_End:
 	; Has our count reached 0? If so, exit the loop as no BPs found...
 	; if ECX = 0 {
+	Cmp ECX, 0x0
+	Jne DebugStub_BreakOnAddress_Block3_End
 		; goto FindBPLoopExit
 		Jmp DebugStub_BreakOnAddress_FindBPLoopExit
 	; }
@@ -215,6 +221,8 @@ DebugStub_Executing:
 	 MOV EAX, DR6
 	 ; EAX & $4000
 	 ; if EAX = $4000 {
+	 Cmp EAX, 0x4000
+	 Jne DebugStub_Executing_Block1_End
 	   ; This was INT1
 
 	   ; Reset the debug register
@@ -238,6 +246,8 @@ DebugStub_Executing:
     Mov EAX, DWORD [DebugStub_CallerEIP]
     ; AsmBreakEIP is 0 when disabled, but EIP can never be 0 so we dont need a separate check.
 	; if EAX = .AsmBreakEIP {
+	Cmp EAX, [DebugStub_AsmBreakEIP]
+	Jne DebugStub_Executing_Block2_End
 		; DoAsmBreak()
 		Call DebugStub_DoAsmBreak
   		; goto Normal
@@ -256,6 +266,8 @@ DebugStub_Executing:
     ; EAX = .MaxBPId
     Mov EAX, DWORD [DebugStub_MaxBPId]
 	; if EAX = 0 {
+	Cmp EAX, 0x0
+	Jne DebugStub_Executing_Block3_End
 		; goto SkipBPScan
 		Jmp DebugStub_Executing_SkipBPScan
 	; }
@@ -285,6 +297,8 @@ DebugStub_Executing_SkipBPScan:
 	; F11 - Must check first
 	; If F11, stop on next C# line that executes.
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Into {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Into
+    Jne DebugStub_Executing_Block5_End
 		; Break()
 		Call DebugStub_Break
 		; goto Normal
@@ -298,9 +312,13 @@ DebugStub_Executing_SkipBPScan:
 
 	; F10
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Over {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Over
+    Jne DebugStub_Executing_Block6_End
 		; If EAX = .BreakEBP then we are in same method.
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX >= .BreakEBP {
+		Cmp EAX, [DebugStub_BreakEBP]
+		Jl DebugStub_Executing_Block7_End
 			; Break()
 			Call DebugStub_Break
 		; }
@@ -312,8 +330,12 @@ DebugStub_Executing_SkipBPScan:
 
 	; Shift-F11
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Out {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Out
+    Jne DebugStub_Executing_Block8_End
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX > .BreakEBP {
+		Cmp EAX, [DebugStub_BreakEBP]
+		Jle DebugStub_Executing_Block9_End
 			; Break()
 			Call DebugStub_Break
 		; }
@@ -329,6 +351,8 @@ DebugStub_Executing_Normal:
     ; Tracing isnt really used any more, was used by the old stand alone debugger. Might be upgraded
     ; and resused in the future.
 	; if dword .TraceMode = #Tracing_On {
+	Cmp DWORD [DebugStub_TraceMode], DebugStub_Tracing_On
+	Jne DebugStub_Executing_Block10_End
 		; SendTrace()
 		Call DebugStub_SendTrace
 	; }
@@ -387,6 +411,8 @@ DebugStub_Break_WaitCmd:
 
 	; If Asm step into, we need to continue execution
 	; if AL = #Vs2Ds_AsmStepInto {
+	Cmp AL, DebugStub_Vs2Ds_AsmStepInto
+	Jne DebugStub_Break_Block1_End
 		; SetINT1_TrapFLAG()
 		Call DebugStub_SetINT1_TrapFLAG
 		; goto Done
@@ -395,6 +421,8 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block1_End:
 
     ; if AL = #Vs2Ds_SetAsmBreak {
+    Cmp AL, DebugStub_Vs2Ds_SetAsmBreak
+    Jne DebugStub_Break_Block2_End
         ; SetAsmBreak()
         Call DebugStub_SetAsmBreak
 	    ; AckCommand()
@@ -405,6 +433,8 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block2_End:
 
     ; if AL = #Vs2Ds_StepInto {
+    Cmp AL, DebugStub_Vs2Ds_StepInto
+    Jne DebugStub_Break_Block3_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Into
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
 		; Not used, but set for consistency
@@ -416,6 +446,8 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block3_End:
 
     ; if AL = #Vs2Ds_StepOver {
+    Cmp AL, DebugStub_Vs2Ds_StepOver
+    Jne DebugStub_Break_Block4_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Over
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
         ; EAX = .CallerEBP
@@ -428,6 +460,8 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block4_End:
 
     ; if AL = #Vs2Ds_StepOut {
+    Cmp AL, DebugStub_Vs2Ds_StepOut
+    Jne DebugStub_Break_Block5_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Out
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out
         ; EAX = .CallerEBP

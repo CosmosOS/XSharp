@@ -23,6 +23,9 @@ namespace XSharp.Tests
             mTokenMap.AddEmitter(new x86.Emitters.PushPop(mCompiler, mNASM)); // This should be above + operator
             mTokenMap.AddEmitter(new x86.Emitters.Assignments(mCompiler, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.Test(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Math(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.ShiftRotate(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Branching(mCompiler, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.AllEmitters(mCompiler, mNASM));
         }
 

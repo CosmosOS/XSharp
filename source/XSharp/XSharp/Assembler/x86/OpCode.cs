@@ -24,12 +24,19 @@
     public enum OpCode
     {
         Add,    // Add
+        Cmp,    // Compare
         Dec,    // Decrement
         Div,    // Divide
         In,     // In Oprator
         Inc,    // Increment
         IRet,   // Interrupt return
+        Je,     // Jump if equal
+        Jg,     // Jump if greater than
+        Jge,    // Jump if greater than or equal
+        Jl,     // Jump if less than
+        Jle,    // Jump if less than or equal
         Jmp,    // Jump
+        Jne,    // Jump if not equal
         Mov,    // Move
         Mul,    // Multiply
         NOP,    // No op

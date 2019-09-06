@@ -79,7 +79,7 @@ namespace XSharp.x86.Params
             {
                 throw new Exception("Prefix can only be added to a string type.");
             }
-            AddressOf = prefix + AddressOf;
+            AddressOf = $"{prefix}_{AddressOf}";
             return this;
         }
     }

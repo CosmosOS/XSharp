@@ -22,6 +22,34 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
 
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg08), typeof(Identifier));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg16), typeof(Identifier));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg32), typeof(Identifier));
+            Add(OpCode.Cmp, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Cmp, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Cmp, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg32), typeof(RegisterAddress));
+            Add(OpCode.Cmp, "{0}, {1}", typeof(Reg32), typeof(MemoryAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg08), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg16), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg32), typeof(Size), typeof(RegisterAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg08), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg16), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Cmp, "{0}, {1} {2}", typeof(Reg32), typeof(Size), typeof(MemoryAddress));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg08));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg16));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Reg32));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(RegisterAddress), typeof(Identifier));
+            Add(OpCode.Cmp, "{0} {1}, 0x{2:X}", typeof(Size), typeof(RegisterAddress), typeof(i32u));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg08));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg16));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg32));
+            Add(OpCode.Cmp, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Identifier));
+            Add(OpCode.Cmp, "{0} {1}, 0x{2:X}", typeof(Size), typeof(MemoryAddress), typeof(i32u));
+
             Add(OpCode.Dec, "{0}", typeof(Reg08));
             Add(OpCode.Dec, "{0}", typeof(Reg16));
             Add(OpCode.Dec, "{0}", typeof(Reg32));
@@ -39,7 +67,19 @@ namespace XSharp.x86.Assemblers
 
             Add(OpCode.IRet);
 
+            Add(OpCode.Je, "{0}", typeof(Identifier));
+
+            Add(OpCode.Jg, "{0}", typeof(Identifier));
+
+            Add(OpCode.Jge, "{0}", typeof(Identifier));
+
+            Add(OpCode.Jl, "{0}", typeof(Identifier));
+
+            Add(OpCode.Jle, "{0}", typeof(Identifier));
+
             Add(OpCode.Jmp, "{0}", typeof(Identifier));
+
+            Add(OpCode.Jne, "{0}", typeof(Identifier));
 
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(Reg08));
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(Reg16));

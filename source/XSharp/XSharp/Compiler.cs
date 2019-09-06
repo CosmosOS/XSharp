@@ -38,6 +38,21 @@ namespace XSharp
         public string CurrentFunction { get; set; }
 
         /// <summary>
+        /// The current function exit label.
+        /// </summary>
+        public string CurrentFunctionExitLabel
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(CurrentFunction))
+                {
+                    throw new Exception("Current Function not available.");
+                }
+                return $"{CurrentNamespace}_{CurrentFunction}_Exit";
+            }
+        }
+
+        /// <summary>
         /// The type of the current function.
         /// </summary>
         public BlockType CurrentFunctionType { get; set; }
@@ -52,16 +67,32 @@ namespace XSharp
         /// </summary>
         public bool FunctionExitLabelFound { get; set; }
 
+        public string GetFullName(string aName, bool isLabel = false)
+        {
+            if (!string.IsNullOrWhiteSpace(CurrentFunction) && isLabel)
+            {
+                return $"{CurrentNamespace}_{CurrentFunction}_{aName}";
+            }
+            return $"{CurrentNamespace}_{aName}";
+        }
+
         /// <summary>
         /// The set of blocks for the currently assembled function.
         /// Each time we begin assembling a new function this blocks collection is reset to an empty state.
         /// </summary>
-        public BlockList Blocks { get; } = new BlockList();
+        public BlockList Blocks { get; }
         public class BlockList
         {
             private List<Block> mBlocks = new List<Block>();
 
+            private Compiler mCompiler;
+
             protected int mCurrentLabelID = 0;
+
+            public BlockList(Compiler aCompiler)
+            {
+                mCompiler = aCompiler;
+            }
 
             public void Reset()
             {
@@ -83,8 +114,11 @@ namespace XSharp
 
             public void EndBlock()
             {
+                mCompiler.WriteLine($"{EndBlockLabel}:");
                 mBlocks.RemoveAt(mBlocks.Count - 1);
             }
+
+            public string EndBlockLabel => $"{mCompiler.CurrentNamespace}_{mCompiler.CurrentFunction}_Block{Current().LabelID}_End";
 
             public Block Current()
             {
@@ -114,6 +148,8 @@ namespace XSharp
 
         public Compiler(TextWriter aOut)
         {
+            Blocks = new BlockList(this);
+
             Out = aOut;
             mNASM = new NASM(aOut);
 
@@ -128,6 +164,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new x86.Emitters.Test(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.Math(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.ShiftRotate(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Branching(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.AllEmitters(this, mNASM));
         }
 

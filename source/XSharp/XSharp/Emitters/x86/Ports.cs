@@ -11,7 +11,7 @@ namespace XSharp.x86.Emitters
     /// See Chapter 13, Input/Output, in the IA-32 Intel Architecture Software Developer's Manual, Volume 1,
     /// for more information on accessing I/O ports in the I/O address space.
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Ports : Emitters
     {
         public Ports(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

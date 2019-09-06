@@ -223,6 +223,8 @@ DebugStub_SendTrace:
     ; If we are running, its a tracepoint, not a breakpoint.
     ; In future, maybe separate these into 2 methods
     ; if dword .DebugStatus = #Status_Run {
+    Cmp DWORD [DebugStub_DebugStatus], DebugStub_Status_Run
+    Jne DebugStub_SendTrace_Block1_End
         ; AL = #Ds2Vs_TracePoint
         Mov AL, DebugStub_Const_Ds2Vs_TracePoint
     ; }
@@ -596,6 +598,8 @@ DebugStub_SendMessageBox:
 ; WriteChar:
 DebugStub_SendMessageBox_WriteChar:
     ; if ECX = 0 return
+    Cmp ECX, 0x0
+    Je DebugStub_SendMessageBox_Exit
     ; ComWrite8()
     Call DebugStub_ComWrite8
     ; ECX--

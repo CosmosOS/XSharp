@@ -8,7 +8,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// Class that performs increment and decrement assmebly operations
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class IncrementDecrement : Emitters
     {
         public IncrementDecrement(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

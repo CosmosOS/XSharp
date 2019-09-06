@@ -7,7 +7,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// TEST: Logical compare
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Test : Emitters
     {
         public Test(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

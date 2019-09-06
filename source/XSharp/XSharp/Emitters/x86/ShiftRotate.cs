@@ -8,7 +8,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// Class that performs shift and rotate assmebly operations
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class ShiftRotate : Emitters
     {
         public ShiftRotate(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

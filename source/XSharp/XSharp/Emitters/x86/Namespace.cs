@@ -7,7 +7,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// Namespaces for X# files. All files must start with a namespace.
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Namespace : Emitters
     {
         public Namespace(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

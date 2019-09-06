@@ -62,6 +62,8 @@ Mov EBX, EAX
 MOV EAX, DR6
 ; EAX & $4000
 ; if EAX != $4000 {
+Cmp EAX, 0x4000
+Je DebugStub_TracerEntry_Block1_End
 	; EBX--
 	Dec EBX
 ; }

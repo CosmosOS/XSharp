@@ -13,7 +13,7 @@ namespace XSharp.x86.Emitters
     /// <summary>
     /// The class that provides arithmetic for different types.
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Math : Emitters
     {
         public Math(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)
@@ -89,26 +89,28 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(Reg), typeof(OpMath), typeof(Const))]
         protected void RegMathConst(Register aReg, string aOpMath, string aVal)
         {
+            string xConstName = Compiler.GetFullName($"Const_{aVal}");
+
             switch (aOpMath)
             {
                 case "+=":
-                    Asm.Emit(OpCode.Add, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+                    Asm.Emit(OpCode.Add, aReg, xConstName);
                     break;
 
                 case "-=":
-                    Asm.Emit(OpCode.Sub, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+                    Asm.Emit(OpCode.Sub, aReg, xConstName);
                     break;
 
                 case "*=":
-                    Asm.Emit(OpCode.Mul, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+                    Asm.Emit(OpCode.Mul, aReg, xConstName);
                     break;
 
                 case "/=":
-                    Asm.Emit(OpCode.Div, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+                    Asm.Emit(OpCode.Div, aReg, xConstName);
                     break;
 
                 case "%=":
-                    Asm.Emit(OpCode.Rem, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+                    Asm.Emit(OpCode.Rem, aReg, xConstName);
                     break;
 
                 default:
@@ -120,26 +122,29 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(Reg), typeof(OpMath), typeof(Variable))]
         protected void RegMathVar(Register aReg, string aOpMath, Address aVal)
         {
+            // TODO: Do this better? Use Compiler.GetFullName() so things are consistent.
+            aVal.AddPrefix(Compiler.CurrentNamespace);
+
             switch (aOpMath)
             {
                 case "+=":
-                    Asm.Emit(OpCode.Add, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+                    Asm.Emit(OpCode.Add, aReg, aReg.RegSize, aVal);
                     break;
 
                 case "-=":
-                    Asm.Emit(OpCode.Sub, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+                    Asm.Emit(OpCode.Sub, aReg, aReg.RegSize, aVal);
                     break;
 
                 case "*=":
-                    Asm.Emit(OpCode.Mul, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+                    Asm.Emit(OpCode.Mul, aReg, aReg.RegSize, aVal);
                     break;
 
                 case "/=":
-                    Asm.Emit(OpCode.Div, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+                    Asm.Emit(OpCode.Div, aReg, aReg.RegSize, aVal);
                     break;
 
                 case "%=":
-                    Asm.Emit(OpCode.Rem, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+                    Asm.Emit(OpCode.Rem, aReg, aReg.RegSize, aVal);
                     break;
 
                 default:
@@ -151,26 +156,28 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(Reg), typeof(OpMath), typeof(VariableAddress))]
         protected void RegMathVarAddress(Register aReg, string aOpMath, string aVal)
         {
+            string xVariableName = Compiler.GetFullName(aVal);
+
             switch (aOpMath)
             {
                 case "+=":
-                    Asm.Emit(OpCode.Add, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+                    Asm.Emit(OpCode.Add, aReg, xVariableName);
                     break;
 
                 case "-=":
-                    Asm.Emit(OpCode.Sub, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+                    Asm.Emit(OpCode.Sub, aReg, xVariableName);
                     break;
 
                 case "*=":
-                    Asm.Emit(OpCode.Mul, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+                    Asm.Emit(OpCode.Mul, aReg, xVariableName);
                     break;
 
                 case "/=":
-                    Asm.Emit(OpCode.Div, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+                    Asm.Emit(OpCode.Div, aReg, xVariableName);
                     break;
 
                 case "%=":
-                    Asm.Emit(OpCode.Rem, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+                    Asm.Emit(OpCode.Rem, aReg, xVariableName);
                     break;
 
                 default:
