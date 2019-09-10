@@ -1,8 +1,14 @@
 using System;
-using System.Linq;
 using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
+using XSharp.x86.Params;
+using Identifier = XSharp.Tokens.Identifier;
+using Reg = XSharp.Tokens.Reg;
+using Reg08 = XSharp.Tokens.Reg08;
+using Reg16 = XSharp.Tokens.Reg16;
+using Reg32 = XSharp.Tokens.Reg32;
+using Size = XSharp.Tokens.Size;
 
 namespace XSharp.x86.Emitters
 {
@@ -16,47 +22,158 @@ namespace XSharp.x86.Emitters
         {
         }
 
-        // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(If), typeof(Compare), typeof(Return))]
-        protected void IfConditionReturn(string aOpIf, object[] aCompareData, object aOpReturn)
+        #region if return
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Reg), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(Return))]
+        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(Return))]
+        protected void IfRegisterConditionRegisterReturn(string aOpIf, Register aRegister, string aOpCompare, object aValue, object aOpReturn)
         {
-            var xJumpOpCode = GetJumpOpCode(aCompareData[1].ToString());
-            aCompareData[0] = GetFullNameOrAddPrefix(aCompareData[0]);
-            aCompareData[2] = GetFullNameOrAddPrefix(aCompareData[2]);
-
-            Asm.Emit(OpCode.Cmp, aCompareData[0], aCompareData[2]);
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
             Asm.Emit(xJumpOpCode, Compiler.CurrentFunctionExitLabel);
         }
 
-        // if = {
-        [Emitter(typeof(If), typeof(Compare), typeof(OpOpenBrace))]
-        protected void IfConditionBlockStart(string aOpIf, object[] aCompareData, object aOpOpenBrace)
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Const), typeof(Return))]
+        protected void IfRegisterConditionConstReturn(string aOpIf, Register aRegister, string aOpCompare, string aValue, object aOpReturn)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName($"Const_{aValue}");
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            Asm.Emit(xJumpOpCode, Compiler.CurrentFunctionExitLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Variable), typeof(Return))]
+        protected void IfRegisterConditionVariableReturn(string aOpIf, Register aRegister, string aOpCompare, Address aValue, object aOpReturn)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            aValue.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
+            Asm.Emit(xJumpOpCode, Compiler.CurrentFunctionExitLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Size), typeof(Reg), typeof(OpCompare), typeof(Variable), typeof(Return))]
+        protected void IfSizeRegisterConditionVariableReturn(string aOpIf, string aSize, Register aRegister, string aOpCompare, Address aValue, object aOpReturn)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            aValue.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Cmp, aSize, aRegister, aValue);
+            Asm.Emit(xJumpOpCode, Compiler.CurrentFunctionExitLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(VariableAddress), typeof(Return))]
+        protected void IfRegisterConditionVariableAddressReturn(string aOpIf, Register aRegister, string aOpCompare, string aValue, object aOpReturn)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName(aValue);
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            Asm.Emit(xJumpOpCode, Compiler.CurrentFunctionExitLabel);
+        }
+        #endregion
+
+        #region if {
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Reg), typeof(OpOpenBrace))]
+        protected void IfRegisterConditionRegister(string aOpIf, Register aLeftRegister, string aOpCompare, Register aRightRegister, object aOpOpenBrace)
         {
             Compiler.Blocks.StartBlock(Compiler.BlockType.If);
-
-            var xJumpOpCode = GetOppositeJumpOpCode(aCompareData[1].ToString());
-            aCompareData[0] = GetFullNameOrAddPrefix(aCompareData[0]);
-            aCompareData[2] = GetFullNameOrAddPrefix(aCompareData[2]);
-
-            Asm.Emit(OpCode.Cmp, aCompareData[0], aCompareData[2]);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            Asm.Emit(OpCode.Cmp, aLeftRegister, aRightRegister);
             Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
         }
 
-        // if = goto lLabel123
-        [Emitter(typeof(If), typeof(Compare), typeof(GotoKeyword), typeof(Identifier))]
-        protected void IfConditionGoto(string aOpIf, object[] aCompareData, string aGotoKeyword, string aLabel)
+        [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(OpOpenBrace))]
+        [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(OpOpenBrace))]
+        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(OpOpenBrace))]
+        protected void IfRegisterConditionConst(string aOpIf, Register aRegister, string aOpCompare, object aValue, object aOpOpenBrace)
         {
-            aCompareData[0] = GetFullNameOrAddPrefix(aCompareData[0]);
-            aCompareData[2] = GetFullNameOrAddPrefix(aCompareData[2]);
+            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
+            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
         }
 
-        // if AL = #Vs2Ds_Noop return
-        [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(Return))]
-        protected void IfConditionReturn(string aOpIf, string aSize, object[] aCompareData, object aOpReturn)
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Const), typeof(OpOpenBrace))]
+        protected void IfRegisterConditionConst(string aOpIf, Register aRegister, string aOpCompare, string aValue, object aOpOpenBrace)
         {
-            aCompareData[0] = GetFullNameOrAddPrefix(aCompareData[0]);
-            aCompareData[2] = GetFullNameOrAddPrefix(aCompareData[2]);
+            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName($"Const_{aValue}");
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
         }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Variable), typeof(OpOpenBrace))]
+        protected void IfRegisterConditionVariable(string aOpIf, Register aRegister, string aOpCompare, Address aValue, object aOpOpenBrace)
+        {
+            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            aValue.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
+            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(VariableAddress), typeof(OpOpenBrace))]
+        protected void IfRegisterConditionVariableAddress(string aOpIf, Register aRegister, string aOpCompare, string aValue, object aOpOpenBrace)
+        {
+            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName(aValue);
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
+        }
+        #endregion
+
+        #region if goto
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Reg), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfRegisterConditionRegisterGoto(string aOpIf, Register aLeftRegister, string aOpCompare, Register aRightRegister, string aGotoKeyword, string aLabel)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            Asm.Emit(OpCode.Cmp, aLeftRegister, aRightRegister);
+            string xLabel = Compiler.GetFullName(aLabel, true);
+            Asm.Emit(xJumpOpCode, xLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg08), typeof(OpCompare), typeof(Int08u), typeof(GotoKeyword), typeof(Identifier))]
+        [Emitter(typeof(If), typeof(Reg16), typeof(OpCompare), typeof(Int16u), typeof(GotoKeyword), typeof(Identifier))]
+        [Emitter(typeof(If), typeof(Reg32), typeof(OpCompare), typeof(Int32u), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfRegisterConditionIntGoto(string aOpIf, Register aRegister, string aOpCompare, object aValue, string aGotoKeyword, string aLabel)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
+            string xLabel = Compiler.GetFullName(aLabel, true);
+            Asm.Emit(xJumpOpCode, xLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Const), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfRegisterConditionConstGoto(string aOpIf, Register aRegister, string aOpCompare, string aValue, string aGotoKeyword, string aLabel)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName($"Const_{aValue}");
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            string xLabel = Compiler.GetFullName(aLabel, true);
+            Asm.Emit(xJumpOpCode, xLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(Variable), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfRegisterConditionVariable(string aOpIf, Register aRegister, string aOpCompare, Address aValue, string aGotoKeyword, string aLabel)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            aValue.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Cmp, aRegister, aValue);
+            string xLabel = Compiler.GetFullName(aLabel, true);
+            Asm.Emit(xJumpOpCode, xLabel);
+        }
+
+        [Emitter(typeof(If), typeof(Reg), typeof(OpCompare), typeof(VariableAddress), typeof(GotoKeyword), typeof(Identifier))]
+        protected void IfRegisterConditionVariableAddressGoto(string aOpIf, Register aRegister, string aOpCompare, string aValue, string aGotoKeyword, string aLabel)
+        {
+            var xJumpOpCode = GetJumpOpCode(aOpCompare);
+            string xValue = Compiler.GetFullName(aValue);
+            Asm.Emit(OpCode.Cmp, aRegister, xValue);
+            string xLabel = Compiler.GetFullName(aLabel, true);
+            Asm.Emit(xJumpOpCode, xLabel);
+        }
+        #endregion
 
         // if AL = #Vs2Ds_Noop {
         [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(OpOpenBrace))]

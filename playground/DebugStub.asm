@@ -408,10 +408,12 @@ DebugStub_Break_WaitCmd:
     ; Now check for commands that are only valid in break state or commands that require special handling while in break state.
 
     ; if AL = #Vs2Ds_Continue goto Done
+    Cmp AL, DebugStub_Const_Vs2Ds_Continue
+    Je DebugStub_Break_Done
 
 	; If Asm step into, we need to continue execution
 	; if AL = #Vs2Ds_AsmStepInto {
-	Cmp AL, DebugStub_Vs2Ds_AsmStepInto
+	Cmp AL, DebugStub_Const_Vs2Ds_AsmStepInto
 	Jne DebugStub_Break_Block1_End
 		; SetINT1_TrapFLAG()
 		Call DebugStub_SetINT1_TrapFLAG
@@ -421,7 +423,7 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block1_End:
 
     ; if AL = #Vs2Ds_SetAsmBreak {
-    Cmp AL, DebugStub_Vs2Ds_SetAsmBreak
+    Cmp AL, DebugStub_Const_Vs2Ds_SetAsmBreak
     Jne DebugStub_Break_Block2_End
         ; SetAsmBreak()
         Call DebugStub_SetAsmBreak
@@ -433,7 +435,7 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block2_End:
 
     ; if AL = #Vs2Ds_StepInto {
-    Cmp AL, DebugStub_Vs2Ds_StepInto
+    Cmp AL, DebugStub_Const_Vs2Ds_StepInto
     Jne DebugStub_Break_Block3_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Into
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
@@ -446,7 +448,7 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block3_End:
 
     ; if AL = #Vs2Ds_StepOver {
-    Cmp AL, DebugStub_Vs2Ds_StepOver
+    Cmp AL, DebugStub_Const_Vs2Ds_StepOver
     Jne DebugStub_Break_Block4_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Over
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
@@ -460,7 +462,7 @@ DebugStub_Break_WaitCmd:
 	DebugStub_Break_Block4_End:
 
     ; if AL = #Vs2Ds_StepOut {
-    Cmp AL, DebugStub_Vs2Ds_StepOut
+    Cmp AL, DebugStub_Const_Vs2Ds_StepOut
     Jne DebugStub_Break_Block5_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Out
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out

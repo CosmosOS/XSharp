@@ -274,6 +274,8 @@ Mov EBP, ESP
 ; WriteChar:
 DebugStub_SendText_WriteChar:
     ; if ECX = 0 goto Finalize
+    Cmp ECX, 0x0
+    Je DebugStub_SendText_Finalize
     ; ComWrite8()
     Call DebugStub_ComWrite8
     ; ECX--

@@ -15,7 +15,7 @@ DebugStub_ProcessCommand:
     ; Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     ; Noop also does not send ACK.
 	; if AL = #Vs2Ds_Noop return
-	Cmp AL, DebugStub_Vs2Ds_Noop
+	Cmp AL, DebugStub_Const_Vs2Ds_Noop
 	Je DebugStub_ProcessCommand_Exit
 
     ; Read Command ID
@@ -31,7 +31,7 @@ DebugStub_ProcessCommand:
     Mov EAX, DWORD [ESP]
 
 	; if AL = #Vs2Ds_TraceOff {
-	Cmp AL, DebugStub_Vs2Ds_TraceOff
+	Cmp AL, DebugStub_Const_Vs2Ds_TraceOff
 	Jne DebugStub_ProcessCommand_Block1_End
 		; TraceOff()
 		Call DebugStub_TraceOff
@@ -42,7 +42,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block1_End:
 	; if AL = #Vs2Ds_TraceOn {
-	Cmp AL, DebugStub_Vs2Ds_TraceOn
+	Cmp AL, DebugStub_Const_Vs2Ds_TraceOn
 	Jne DebugStub_ProcessCommand_Block2_End
 		; TraceOn()
 		Call DebugStub_TraceOn
@@ -53,7 +53,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block2_End:
 	; if AL = #Vs2Ds_Break {
-	Cmp AL, DebugStub_Vs2Ds_Break
+	Cmp AL, DebugStub_Const_Vs2Ds_Break
 	Jne DebugStub_ProcessCommand_Block3_End
 		; Ack command for a break must be done first
 		; Otherwise we Break then ProcessCommands and get stuck because we don't send this Ack until execution continues
@@ -66,7 +66,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block3_End:
 	; if AL = #Vs2Ds_BreakOnAddress {
-	Cmp AL, DebugStub_Vs2Ds_BreakOnAddress
+	Cmp AL, DebugStub_Const_Vs2Ds_BreakOnAddress
 	Jne DebugStub_ProcessCommand_Block4_End
 		; BreakOnAddress()
 		Call DebugStub_BreakOnAddress
@@ -77,7 +77,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block4_End:
 	; if AL = #Vs2Ds_SendMethodContext {
-	Cmp AL, DebugStub_Vs2Ds_SendMethodContext
+	Cmp AL, DebugStub_Const_Vs2Ds_SendMethodContext
 	Jne DebugStub_ProcessCommand_Block5_End
 		; SendMethodContext()
 		Call DebugStub_SendMethodContext
@@ -88,7 +88,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block5_End:
 	; if AL = #Vs2Ds_SendMemory {
-	Cmp AL, DebugStub_Vs2Ds_SendMemory
+	Cmp AL, DebugStub_Const_Vs2Ds_SendMemory
 	Jne DebugStub_ProcessCommand_Block6_End
 		; SendMemory()
 		Call DebugStub_SendMemory
@@ -99,7 +99,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block6_End:
 	; if AL = #Vs2Ds_SendRegisters {
-	Cmp AL, DebugStub_Vs2Ds_SendRegisters
+	Cmp AL, DebugStub_Const_Vs2Ds_SendRegisters
 	Jne DebugStub_ProcessCommand_Block7_End
 		; SendRegisters()
 		Call DebugStub_SendRegisters
@@ -110,7 +110,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block7_End:
 	; if AL = #Vs2Ds_SendFrame {
-	Cmp AL, DebugStub_Vs2Ds_SendFrame
+	Cmp AL, DebugStub_Const_Vs2Ds_SendFrame
 	Jne DebugStub_ProcessCommand_Block8_End
 		; SendFrame()
 		Call DebugStub_SendFrame
@@ -121,7 +121,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block8_End:
 	; if AL = #Vs2Ds_SendStack {
-	Cmp AL, DebugStub_Vs2Ds_SendStack
+	Cmp AL, DebugStub_Const_Vs2Ds_SendStack
 	Jne DebugStub_ProcessCommand_Block9_End
 		; SendStack()
 		Call DebugStub_SendStack
@@ -132,7 +132,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block9_End:
 	; if AL = #Vs2Ds_Ping {
-	Cmp AL, DebugStub_Vs2Ds_Ping
+	Cmp AL, DebugStub_Const_Vs2Ds_Ping
 	Jne DebugStub_ProcessCommand_Block10_End
 		; Ping()
 		Call DebugStub_Ping
@@ -143,7 +143,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block10_End:
 	; if AL = #Vs2Ds_SetINT3 {
-	Cmp AL, DebugStub_Vs2Ds_SetINT3
+	Cmp AL, DebugStub_Const_Vs2Ds_SetINT3
 	Jne DebugStub_ProcessCommand_Block11_End
 		; SetINT3()
 		Call DebugStub_SetINT3
@@ -154,7 +154,7 @@ DebugStub_ProcessCommand:
 	; }
 	DebugStub_ProcessCommand_Block11_End:
 	; if AL = #Vs2Ds_ClearINT3 {
-	Cmp AL, DebugStub_Vs2Ds_ClearINT3
+	Cmp AL, DebugStub_Const_Vs2Ds_ClearINT3
 	Jne DebugStub_ProcessCommand_Block12_End
 		; ClearINT3()
 		Call DebugStub_ClearINT3
@@ -212,6 +212,8 @@ DebugStub_ProcessCommandBatch_Begin:
     ; Loop and wait
 	; Vs2Ds.BatchEnd
 	; if AL != 8 goto Begin
+	Cmp AL, 0x8
+	Jne DebugStub_ProcessCommandBatch_Begin
 
     ; AckCommand()
     Call DebugStub_AckCommand
