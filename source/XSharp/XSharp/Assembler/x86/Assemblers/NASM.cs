@@ -69,13 +69,13 @@ namespace XSharp.x86.Assemblers
 
             Add(OpCode.Je, "{0}", typeof(Identifier));
 
-            Add(OpCode.Jg, "{0}", typeof(Identifier));
+            Add(OpCode.Ja, "{0}", typeof(Identifier));
 
-            Add(OpCode.Jge, "{0}", typeof(Identifier));
+            Add(OpCode.Jae, "{0}", typeof(Identifier));
 
-            Add(OpCode.Jl, "{0}", typeof(Identifier));
+            Add(OpCode.Jb, "{0}", typeof(Identifier));
 
-            Add(OpCode.Jle, "{0}", typeof(Identifier));
+            Add(OpCode.Jbe, "{0}", typeof(Identifier));
 
             Add(OpCode.Jmp, "{0}", typeof(Identifier));
 

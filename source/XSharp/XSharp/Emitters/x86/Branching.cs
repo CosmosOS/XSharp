@@ -121,6 +121,17 @@ namespace XSharp.x86.Emitters
             Asm.Emit(OpCode.Cmp, aRegister, xValue);
             Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
         }
+
+        [Emitter(typeof(If), typeof(Size), typeof(Variable), typeof(OpCompare), typeof(Const), typeof(OpOpenBrace))]
+        protected void IfSizeAdressConditionConst(string aOpIf, string aSize, Address aAdress, string aOpCompare, string aConstant, object aOpOpenBrace)
+        {
+            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
+            var xJumpOpCode = GetOppositeJumpOpCode(aOpCompare);
+            aAdress.AddPrefix(Compiler.CurrentNamespace);
+            string xConstant = Compiler.GetFullName($"Const_{aConstant}");
+            Asm.Emit(OpCode.Cmp, aSize, aAdress, xConstant);
+            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
+        }
         #endregion
 
         #region if goto
@@ -175,20 +186,6 @@ namespace XSharp.x86.Emitters
         }
         #endregion
 
-        // if AL = #Vs2Ds_Noop {
-        [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(OpOpenBrace))]
-        protected void IfConditionBlockStart(string aOpIf, string aSize, object[] aCompareData, object aOpOpenBrace)
-        {
-            Compiler.Blocks.StartBlock(Compiler.BlockType.If);
-
-            var xJumpOpCode = GetOppositeJumpOpCode(aCompareData[1].ToString());
-            aCompareData[0] = GetFullNameOrAddPrefix(aCompareData[0]);
-            aCompareData[2] = GetFullNameOrAddPrefix(aCompareData[2]);
-
-            Asm.Emit(OpCode.Cmp, aSize, aCompareData[0], aCompareData[2]);
-            Asm.Emit(xJumpOpCode, Compiler.Blocks.EndBlockLabel);
-        }
-
         // if AL = goto lLabel123
         [Emitter(typeof(If), typeof(Size), typeof(CompareVar), typeof(GotoKeyword), typeof(Identifier))]
         protected void IfConditionGoto(string aOpIf, string aSize, object[] aCompareData, string aGotoKeyword, string aLabel)
@@ -219,13 +216,13 @@ namespace XSharp.x86.Emitters
             switch (aCompare)
             {
                 case "<":
-                    return OpCode.Jl;
+                    return OpCode.Jb;
                 case "<=":
-                    return OpCode.Jle;
+                    return OpCode.Jbe;
                 case ">":
-                    return OpCode.Jg;
+                    return OpCode.Ja;
                 case ">=":
-                    return OpCode.Jge;
+                    return OpCode.Jae;
                 case "=":
                     return OpCode.Je;
                 case "!=":
@@ -240,13 +237,13 @@ namespace XSharp.x86.Emitters
             switch (aCompare)
             {
                 case "<":
-                    return OpCode.Jge;
+                    return OpCode.Jae;
                 case "<=":
-                    return OpCode.Jg;
+                    return OpCode.Ja;
                 case ">":
-                    return OpCode.Jle;
+                    return OpCode.Jbe;
                 case ">=":
-                    return OpCode.Jl;
+                    return OpCode.Jb;
                 case "=":
                     return OpCode.Jne;
                 case "!=":

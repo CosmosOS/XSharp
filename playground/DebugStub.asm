@@ -297,7 +297,7 @@ DebugStub_Executing_SkipBPScan:
 	; F11 - Must check first
 	; If F11, stop on next C# line that executes.
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Into {
-    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Into
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
     Jne DebugStub_Executing_Block5_End
 		; Break()
 		Call DebugStub_Break
@@ -312,13 +312,13 @@ DebugStub_Executing_SkipBPScan:
 
 	; F10
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Over {
-    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Over
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
     Jne DebugStub_Executing_Block6_End
 		; If EAX = .BreakEBP then we are in same method.
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX >= .BreakEBP {
 		Cmp EAX, [DebugStub_BreakEBP]
-		Jl DebugStub_Executing_Block7_End
+		Jb DebugStub_Executing_Block7_End
 			; Break()
 			Call DebugStub_Break
 		; }
@@ -330,12 +330,12 @@ DebugStub_Executing_SkipBPScan:
 
 	; Shift-F11
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Out {
-    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_StepTrigger_Out
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out
     Jne DebugStub_Executing_Block8_End
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX > .BreakEBP {
 		Cmp EAX, [DebugStub_BreakEBP]
-		Jle DebugStub_Executing_Block9_End
+		Jbe DebugStub_Executing_Block9_End
 			; Break()
 			Call DebugStub_Break
 		; }
@@ -351,7 +351,7 @@ DebugStub_Executing_Normal:
     ; Tracing isnt really used any more, was used by the old stand alone debugger. Might be upgraded
     ; and resused in the future.
 	; if dword .TraceMode = #Tracing_On {
-	Cmp DWORD [DebugStub_TraceMode], DebugStub_Tracing_On
+	Cmp DWORD [DebugStub_TraceMode], DebugStub_Const_Tracing_On
 	Jne DebugStub_Executing_Block10_End
 		; SendTrace()
 		Call DebugStub_SendTrace

@@ -31,10 +31,10 @@
         Inc,    // Increment
         IRet,   // Interrupt return
         Je,     // Jump if equal
-        Jg,     // Jump if greater than
-        Jge,    // Jump if greater than or equal
-        Jl,     // Jump if less than
-        Jle,    // Jump if less than or equal
+        Ja,     // Jump if above
+        Jae,    // Jump if above or equal
+        Jb,     // Jump if below
+        Jbe,    // Jump if below or equal
         Jmp,    // Jump
         Jne,    // Jump if not equal
         Mov,    // Move

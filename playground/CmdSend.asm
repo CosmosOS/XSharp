@@ -223,7 +223,7 @@ DebugStub_SendTrace:
     ; If we are running, its a tracepoint, not a breakpoint.
     ; In future, maybe separate these into 2 methods
     ; if dword .DebugStatus = #Status_Run {
-    Cmp DWORD [DebugStub_DebugStatus], DebugStub_Status_Run
+    Cmp DWORD [DebugStub_DebugStatus], DebugStub_Const_Status_Run
     Jne DebugStub_SendTrace_Block1_End
         ; AL = #Ds2Vs_TracePoint
         Mov AL, DebugStub_Const_Ds2Vs_TracePoint
