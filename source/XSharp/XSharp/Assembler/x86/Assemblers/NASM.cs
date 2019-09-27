@@ -102,6 +102,7 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg08));
             Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg16));
             Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Reg32));
+            Add(OpCode.Mov, "{0} {1}, {2}", typeof(Size), typeof(MemoryAddress), typeof(Identifier));
             Add(OpCode.Mov, "{0}, {1}", typeof(MemoryAddress), typeof(Identifier));
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg08), typeof(Identifier));
             Add(OpCode.Mov, "{0}, {1}", typeof(Reg16), typeof(Identifier));

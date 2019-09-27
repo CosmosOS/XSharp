@@ -161,8 +161,7 @@ namespace XSharp.x86.Emitters
                     switch (Compiler.CurrentFunctionType)
                     {
                         case Compiler.BlockType.Function:
-                            // TODO
-                            // Asm.Emit(OpCode.Mov, "dword", new Address("INTS_LastKnownAddress"), xExitLabel);
+                            Asm.Emit(OpCode.Mov, "dword", new x86.Params.Address("INTS_LastKnownAddress"), Compiler.CurrentFunctionExitLabel);
                             Asm.Emit(OpCode.Ret);
                             break;
                         case Compiler.BlockType.Interrupt:
