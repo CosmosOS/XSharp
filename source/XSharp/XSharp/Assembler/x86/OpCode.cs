@@ -24,6 +24,7 @@
     public enum OpCode
     {
         Add,    // Add
+        And,    // And
         Cmp,    // Compare
         Dec,    // Decrement
         Div,    // Divide
@@ -40,6 +41,8 @@
         Mov,    // Move
         Mul,    // Multiply
         NOP,    // No op
+        Not,    // Not
+        Or,     // Or
         Out,    // Out
         Pop,    // Pop
         PopAD,  // Pop all
