@@ -77,26 +77,6 @@ namespace XSharp.x86.Emitters
         {
         }
 
-        [Emitter(typeof(Reg), typeof(OpBitwise), typeof(Const))]
-        [Emitter(typeof(Reg), typeof(OpBitwise), typeof(Variable))]
-        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Reg08))]
-        [Emitter(typeof(Reg08), typeof(OpBitwise), typeof(Int08u))]
-        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Reg16))]
-        [Emitter(typeof(Reg16), typeof(OpBitwise), typeof(Int16u))]
-        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Reg32))]
-        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(Int32u))]
-        [Emitter(typeof(Reg32), typeof(OpBitwise), typeof(VariableAddress))]
-        protected void BitwiseArithmetic(Register aRegister, string aOpBitwise, object aValue)
-        {
-        }
-
-        [Emitter(typeof(Reg08), typeof(OpEquals), typeof(OpTilde), typeof(Reg08))]
-        [Emitter(typeof(Reg16), typeof(OpEquals), typeof(OpTilde), typeof(Reg16))]
-        [Emitter(typeof(Reg32), typeof(OpEquals), typeof(OpTilde), typeof(Reg32))]
-        protected void BitwiseNot(Register aRegister, string aOpEquals, string aOpTilde, Register aSourceRegister)
-        {
-        }
-
         // interrupt iNmae123 {
         [Emitter(typeof(Interrupt), typeof(Identifier), typeof(OpOpenBrace))]
         protected void InterruptDefinitionStart(string aInterruptKeyword, string aFunctionName, string aOpOpenBrace)

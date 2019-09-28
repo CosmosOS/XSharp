@@ -165,6 +165,7 @@ namespace XSharp
             mTokenMap.AddEmitter(new x86.Emitters.Math(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.ShiftRotate(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.Branching(this, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.BitwiseEmitters(this, mNASM));
             mTokenMap.AddEmitter(new x86.Emitters.AllEmitters(this, mNASM));
         }
 

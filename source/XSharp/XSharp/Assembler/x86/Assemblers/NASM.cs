@@ -22,6 +22,13 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
             Add(OpCode.Add, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
 
+            Add(OpCode.And, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.And, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.And, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.And, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.And, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.And, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
+
             Add(OpCode.Cmp, "{0}, {1}", typeof(Reg08), typeof(Reg08));
             Add(OpCode.Cmp, "{0}, {1}", typeof(Reg16), typeof(Reg16));
             Add(OpCode.Cmp, "{0}, {1}", typeof(Reg32), typeof(Reg32));
@@ -116,6 +123,13 @@ namespace XSharp.x86.Assemblers
             Add(OpCode.Mul, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
 
             Add(OpCode.NOP);
+
+            Add(OpCode.Or, "{0}, {1}", typeof(Reg08), typeof(Reg08));
+            Add(OpCode.Or, "{0}, {1}", typeof(Reg16), typeof(Reg16));
+            Add(OpCode.Or, "{0}, {1}", typeof(Reg32), typeof(Reg32));
+            Add(OpCode.Or, "{0}, 0x{1:X}", typeof(Reg08), typeof(i08u));
+            Add(OpCode.Or, "{0}, 0x{1:X}", typeof(Reg16), typeof(i16u));
+            Add(OpCode.Or, "{0}, 0x{1:X}", typeof(Reg32), typeof(i32u));
 
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg08));
             Add(OpCode.Out, "{0}, {1}", typeof(Reg16), typeof(Reg16));
