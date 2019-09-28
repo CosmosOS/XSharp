@@ -138,17 +138,19 @@ namespace XSharp.x86.Emitters
                 {
                     // Need to emit an 'Exit:' label.
                     Compiler.WriteLine($"{Compiler.CurrentFunctionExitLabel}:");
-                    switch (Compiler.CurrentFunctionType)
-                    {
-                        case Compiler.BlockType.Function:
-                            Asm.Emit(OpCode.Mov, "dword", new x86.Params.Address("INTS_LastKnownAddress"), Compiler.CurrentFunctionExitLabel);
-                            Asm.Emit(OpCode.Ret);
-                            break;
-                        case Compiler.BlockType.Interrupt:
-                            Asm.Emit(OpCode.IRet);
-                            break;
-                    }
                 }
+                Asm.Emit(OpCode.Mov, "dword", new x86.Params.Address("INTS_LastKnownAddress"), Compiler.CurrentFunctionExitLabel);
+
+                switch (Compiler.CurrentFunctionType)
+                {
+                    case Compiler.BlockType.Function:
+                        Asm.Emit(OpCode.Ret);
+                        break;
+                    case Compiler.BlockType.Interrupt:
+                        Asm.Emit(OpCode.IRet);
+                        break;
+                }
+
                 Compiler.CurrentFunction = "";
                 Compiler.CurrentFunctionType = Compiler.BlockType.None;
                 Compiler.Blocks.Reset();
