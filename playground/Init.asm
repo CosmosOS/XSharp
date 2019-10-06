@@ -20,6 +20,7 @@ DebugStub_Init:
     Call DebugStub_Cls
 ; }
 DebugStub_Init_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Init_Exit
 Ret 
 
 ; function WaitForSignature {
@@ -37,6 +38,7 @@ DebugStub_WaitForSignature:
 	DebugStub_WaitForSignature_Block1_End:
 ; }
 DebugStub_WaitForSignature_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_WaitForSignature_Exit
 Ret 
 
 ; QEMU (and possibly others) send some garbage across the serial line first.
@@ -90,6 +92,7 @@ DebugStub_WaitForDbgHandshake:
 	Call DebugStub_Hook_OnHandshakeCompleted
 ; }
 DebugStub_WaitForDbgHandshake_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_WaitForDbgHandshake_Exit
 Ret 
 
 ; //! %ifndef Exclude_Dummy_Hooks
@@ -98,6 +101,7 @@ Ret
 DebugStub_Hook_OnHandshakeCompleted:
 ; }
 DebugStub_Hook_OnHandshakeCompleted_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Hook_OnHandshakeCompleted_Exit
 Ret 
 ; //! %endif
 %endif

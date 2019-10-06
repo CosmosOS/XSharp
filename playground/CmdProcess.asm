@@ -38,7 +38,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block1_End:
 	; if AL = #Vs2Ds_TraceOn {
@@ -49,7 +49,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block2_End:
 	; if AL = #Vs2Ds_Break {
@@ -62,7 +62,7 @@ DebugStub_ProcessCommand:
 		; Break()
 		Call DebugStub_Break
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block3_End:
 	; if AL = #Vs2Ds_BreakOnAddress {
@@ -73,7 +73,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block4_End:
 	; if AL = #Vs2Ds_SendMethodContext {
@@ -84,7 +84,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block5_End:
 	; if AL = #Vs2Ds_SendMemory {
@@ -95,7 +95,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block6_End:
 	; if AL = #Vs2Ds_SendRegisters {
@@ -106,7 +106,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block7_End:
 	; if AL = #Vs2Ds_SendFrame {
@@ -117,7 +117,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block8_End:
 	; if AL = #Vs2Ds_SendStack {
@@ -128,7 +128,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block9_End:
 	; if AL = #Vs2Ds_Ping {
@@ -139,7 +139,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block10_End:
 	; if AL = #Vs2Ds_SetINT3 {
@@ -150,7 +150,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block11_End:
 	; if AL = #Vs2Ds_ClearINT3 {
@@ -161,7 +161,7 @@ DebugStub_ProcessCommand:
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
 	DebugStub_ProcessCommand_Block12_End:
 
@@ -173,6 +173,8 @@ DebugStub_ProcessCommand_Exit:
     ; -EAX
     Pop EAX
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ProcessCommand_Exit
+Ret 
 
 ; function AckCommand {
 DebugStub_AckCommand:
@@ -199,6 +201,7 @@ DebugStub_AckCommand:
     Call DebugStub_ComWriteAL
 ; }
 DebugStub_AckCommand_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_AckCommand_Exit
 Ret 
 
 ; function ProcessCommandBatch {
@@ -219,4 +222,5 @@ DebugStub_ProcessCommandBatch_Begin:
     Call DebugStub_AckCommand
 ; }
 DebugStub_ProcessCommandBatch_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ProcessCommandBatch_Exit
 Ret 

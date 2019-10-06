@@ -26,6 +26,7 @@ DebugStub_DoAsmBreak:
   Call DebugStub_Break
 ; }
 DebugStub_DoAsmBreak_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_DoAsmBreak_Exit
 Ret 
 
 ; function SetAsmBreak {
@@ -55,6 +56,7 @@ DebugStub_SetAsmBreak:
   Mov BYTE [EDI], AL
 ; }
 DebugStub_SetAsmBreak_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SetAsmBreak_Exit
 Ret 
 
 ; function ClearAsmBreak {
@@ -76,6 +78,7 @@ DebugStub_ClearAsmBreak:
   Mov DWORD [DebugStub_AsmBreakEIP], 0x0
 ; }
 DebugStub_ClearAsmBreak_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ClearAsmBreak_Exit
 Ret 
 
 ; function SetINT1_TrapFLAG {
@@ -99,6 +102,7 @@ DebugStub_SetINT1_TrapFLAG:
 	; EAX = [EBP]
 	Mov EAX, DWORD [EBP]
 	; EAX | $0100
+	Or EAX, 0x100
 	; [EBP] = EAX
 	Mov DWORD [EBP], EAX
 
@@ -111,6 +115,7 @@ DebugStub_SetINT1_TrapFLAG:
 	Pop EBP
 ; }
 DebugStub_SetINT1_TrapFLAG_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SetINT1_TrapFLAG_Exit
 Ret 
 
 ; function ResetINT1_TrapFLAG {
@@ -132,6 +137,7 @@ DebugStub_ResetINT1_TrapFLAG:
 	; EAX = [EBP]
 	Mov EAX, DWORD [EBP]
 	; EAX & $FEFF
+	And EAX, 0xFEFF
 	; [EBP] = EAX
 	Mov DWORD [EBP], EAX
 	
@@ -142,4 +148,5 @@ DebugStub_ResetINT1_TrapFLAG:
 	Pop EBP
 ; }
 DebugStub_ResetINT1_TrapFLAG_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ResetINT1_TrapFLAG_Exit
 Ret 

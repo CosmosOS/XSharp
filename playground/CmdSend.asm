@@ -26,6 +26,7 @@ DebugStub_SendRegisters:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendRegisters_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendRegisters_Exit
 Ret 
 
 ; function SendFrame {
@@ -51,6 +52,7 @@ DebugStub_SendFrame:
     Call DebugStub_ComWriteX
 ; }
 DebugStub_SendFrame_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendFrame_Exit
 Ret 
 
 ; AL contains channel
@@ -96,6 +98,7 @@ DebugStub_SendCommandOnChannel:
     DebugStub_SendCommandOnChannel_Block1_End:
 ; }
 DebugStub_SendCommandOnChannel_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendCommandOnChannel_Exit
 Ret 
 
 ; function SendStack {
@@ -126,6 +129,7 @@ DebugStub_SendStack:
     DebugStub_SendStack_Block1_End:
 ; }
 DebugStub_SendStack_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendStack_Exit
 Ret 
 
 ; sends a stack value
@@ -172,6 +176,8 @@ DebugStub_SendMethodContext_Exit:
     ; -All
     PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendMethodContext_Exit
+Ret 
 
 ; none
 ; saveregs
@@ -214,6 +220,8 @@ DebugStub_SendMemory_Exit:
     ; -All
     PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendMemory_Exit
+Ret 
 
 ; Modifies: EAX, ESI
 ; function SendTrace {
@@ -239,6 +247,7 @@ DebugStub_SendTrace:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendTrace_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendTrace_Exit
 Ret 
 
 ; Input: Stack
@@ -301,6 +310,7 @@ DebugStub_SendText_Finalize:
   Pop EBP
 ; }
 DebugStub_SendText_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendText_Exit
 Ret 
 
 ; Input: Stack
@@ -332,6 +342,7 @@ Mov EBP, ESP
   Pop EBP
 ; }
 DebugStub_SendSimpleNumber_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendSimpleNumber_Exit
 Ret 
 
 ; Input: Stack
@@ -365,6 +376,7 @@ Mov EBP, ESP
   Pop EBP
 ; }
 DebugStub_SendKernelPanic_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendKernelPanic_Exit
 Ret 
 
 ; Input: Stack
@@ -401,6 +413,7 @@ DebugStub_SendSimpleLongNumber:
   Pop EBP
 ; }
 DebugStub_SendSimpleLongNumber_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendSimpleLongNumber_Exit
 Ret 
 
 ; Input: Stack
@@ -433,6 +446,7 @@ DebugStub_SendComplexNumber:
   Pop EBP
 ; }
 DebugStub_SendComplexNumber_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendComplexNumber_Exit
 Ret 
 
 ; Input: Stack
@@ -469,6 +483,7 @@ DebugStub_SendComplexLongNumber:
   Pop EBP
 ; }
 DebugStub_SendComplexLongNumber_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendComplexLongNumber_Exit
 Ret 
 
 ; Input: Stack
@@ -489,6 +504,7 @@ DebugStub_SendPtr:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendPtr_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendPtr_Exit
 Ret 
 
 ; Input: Stack
@@ -509,6 +525,7 @@ DebugStub_SendStackCorruptionOccurred:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendStackCorruptionOccurred_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendStackCorruptionOccurred_Exit
 Ret 
 
 ; Input: Stack
@@ -529,6 +546,7 @@ DebugStub_SendStackOverflowOccurred:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendStackOverflowOccurred_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendStackOverflowOccurred_Exit
 Ret 
 
 ; Input: None
@@ -551,6 +569,7 @@ DebugStub_SendInterruptOccurred:
 	Call DebugStub_ComWriteEAX
 ; }
 DebugStub_SendInterruptOccurred_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendInterruptOccurred_Exit
 Ret 
 
 ; Input: Stack
@@ -571,6 +590,7 @@ DebugStub_SendNullReferenceOccurred:
     Call DebugStub_ComWrite32
 ; }
 DebugStub_SendNullReferenceOccurred_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendNullReferenceOccurred_Exit
 Ret 
 
 ; Input: Stack
@@ -614,6 +634,7 @@ DebugStub_SendMessageBox_WriteChar:
     Jmp DebugStub_SendMessageBox_WriteChar
 ; }
 DebugStub_SendMessageBox_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendMessageBox_Exit
 Ret 
 
 ; function SendCoreDump {
@@ -678,4 +699,5 @@ DebugStub_SendCoreDump:
     DebugStub_SendCoreDump_Block2_End:
 ; }
 DebugStub_SendCoreDump_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SendCoreDump_Exit
 Ret 

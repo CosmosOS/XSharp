@@ -61,6 +61,7 @@ Mov EBX, EAX
 ; //! MOV EAX, DR6
 MOV EAX, DR6
 ; EAX & $4000
+And EAX, 0x4000
 ; if EAX != $4000 {
 Cmp EAX, 0x4000
 Je DebugStub_TracerEntry_Block1_End
@@ -89,4 +90,5 @@ sti
 ; Unlock
 ; }
 DebugStub_TracerEntry_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_TracerEntry_Exit
 IRet 

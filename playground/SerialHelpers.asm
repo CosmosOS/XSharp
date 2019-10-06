@@ -13,6 +13,7 @@ DebugStub_ComReadEAX:
 	DebugStub_ComReadEAX_Block1_End:
 ; }
 DebugStub_ComReadEAX_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComReadEAX_Exit
 Ret 
 
 ; Input: EDI
@@ -29,6 +30,7 @@ DebugStub_ComRead8:
     Add EDI, 0x1
 ; }
 DebugStub_ComRead8_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComRead8_Exit
 Ret 
 ; function ComRead16 {
 DebugStub_ComRead16:
@@ -39,6 +41,7 @@ DebugStub_ComRead16:
 	DebugStub_ComRead16_Block1_End:
 ; }
 DebugStub_ComRead16_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComRead16_Exit
 Ret 
 ; function ComRead32 {
 DebugStub_ComRead32:
@@ -49,6 +52,7 @@ DebugStub_ComRead32:
 	DebugStub_ComRead32_Block1_End:
 ; }
 DebugStub_ComRead32_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComRead32_Exit
 Ret 
 
 ; Input: AL
@@ -72,6 +76,7 @@ DebugStub_ComWriteAL:
 	Pop ESI
 ; }
 DebugStub_ComWriteAL_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWriteAL_Exit
 Ret 
 ; function ComWriteAX {
 DebugStub_ComWriteAX:
@@ -90,6 +95,7 @@ DebugStub_ComWriteAX:
     Pop EAX
 ; }
 DebugStub_ComWriteAX_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWriteAX_Exit
 Ret 
 ; function ComWriteEAX {
 DebugStub_ComWriteEAX:
@@ -108,6 +114,7 @@ DebugStub_ComWriteEAX:
     Pop EAX
 ; }
 DebugStub_ComWriteEAX_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWriteEAX_Exit
 Ret 
 
 ; function ComWrite16 {
@@ -118,6 +125,7 @@ DebugStub_ComWrite16:
 	Call DebugStub_ComWrite8
 ; }
 DebugStub_ComWrite16_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWrite16_Exit
 Ret 
 ; function ComWrite32 {
 DebugStub_ComWrite32:
@@ -131,6 +139,7 @@ DebugStub_ComWrite32:
 	Call DebugStub_ComWrite8
 ; }
 DebugStub_ComWrite32_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWrite32_Exit
 Ret 
 ; function ComWriteX {
 DebugStub_ComWriteX:
@@ -143,4 +152,5 @@ DebugStub_ComWriteX_More:
 	; if !0 goto More
 ; }
 DebugStub_ComWriteX_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWriteX_Exit
 Ret 

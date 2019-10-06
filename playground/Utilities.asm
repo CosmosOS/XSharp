@@ -31,4 +31,5 @@ DebugStub_CheckStack:
     DebugStub_CheckStack_Block1_End:
 ; }
 DebugStub_CheckStack_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_CheckStack_Exit
 Ret 

@@ -166,6 +166,8 @@ DebugStub_BreakOnAddress_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_BreakOnAddress_Exit
+Ret 
 
 ; function SetINT3 {
 DebugStub_SetINT3:
@@ -188,6 +190,8 @@ DebugStub_SetINT3_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SetINT3_Exit
+Ret 
 ; function ClearINT3 {
 DebugStub_ClearINT3:
 	; +All
@@ -209,6 +213,8 @@ DebugStub_ClearINT3_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ClearINT3_Exit
+Ret 
 
 ; function Executing {
 DebugStub_Executing:
@@ -220,6 +226,7 @@ DebugStub_Executing:
 	 ; //! MOV EAX, DR6
 	 MOV EAX, DR6
 	 ; EAX & $4000
+	 And EAX, 0x4000
 	 ; if EAX = $4000 {
 	 Cmp EAX, 0x4000
 	 Jne DebugStub_Executing_Block1_End
@@ -227,6 +234,7 @@ DebugStub_Executing:
 
 	   ; Reset the debug register
 	   ; EAX & $BFFF
+	   And EAX, 0xBFFF
 	   ; //! MOV DR6, EAX
 	   MOV DR6, EAX
 
@@ -380,6 +388,7 @@ DebugStub_Executing_CheckForCmd:
 	DebugStub_Executing_Block11_End:
 ; }
 DebugStub_Executing_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Executing_Exit
 Ret 
 
 ; function Break {
@@ -487,5 +496,6 @@ DebugStub_Break_Done:
     Mov [DebugStub_DebugStatus], DebugStub_Const_Status_Run
 ; }
 DebugStub_Break_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Break_Exit
 Ret 
 

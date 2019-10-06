@@ -103,6 +103,7 @@ DebugStub_InitSerial:
 	Call DebugStub_WriteRegister
 ; }
 DebugStub_InitSerial_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_InitSerial_Exit
 Ret 
 
 ; Modifies: AL, DX
@@ -124,6 +125,7 @@ DebugStub_ComReadAL_Wait:
   Call DebugStub_ReadRegister
 ; }
 DebugStub_ComReadAL_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComReadAL_Exit
 Ret 
 
 ; function ComWrite8 {
@@ -169,6 +171,7 @@ DebugStub_ComWrite8_Wait:
 	Inc ESI
 ; }
 DebugStub_ComWrite8_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWrite8_Exit
 Ret 
 
 ; //! %endif

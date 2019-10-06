@@ -31,6 +31,7 @@ DebugStub_Cls:
 	DebugStub_Cls_Block1_End:
 ; }
 DebugStub_Cls_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Cls_Exit
 Ret 
 
 ; function DisplayWaitMsg {
@@ -58,6 +59,7 @@ DebugStub_DisplayWaitMsg:
 	DebugStub_DisplayWaitMsg_Block1_End:
 ; }
 DebugStub_DisplayWaitMsg_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_DisplayWaitMsg_Exit
 Ret 
 
 ; //! %endif
