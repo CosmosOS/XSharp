@@ -132,7 +132,7 @@ namespace XSharp.Tests
         public void Parse_Conditional()
         {
             const string xConditionalLine = "if AL = #Vs2Ds_Noop return";
-            const int xExpectedTokenCount = 3;
+            const int xExpectedTokenCount = 5;
 
             var xCodePoints = mTokenMap.Parse(xConditionalLine);
 

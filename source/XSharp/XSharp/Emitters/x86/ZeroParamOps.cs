@@ -20,7 +20,7 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(PopAll))]
         protected void ZeroParamOp(OpCode aOpCode)
         {
-            if (aOpCode == OpCode.Ret && Compiler.Blocks.Current().Type == Compiler.BlockType.If)
+            if (aOpCode == OpCode.Ret && Compiler.Blocks.Current()?.Type == Compiler.BlockType.If)
             {
                 Asm.Emit(OpCode.Jmp, Compiler.CurrentFunctionExitLabel);
                 return;

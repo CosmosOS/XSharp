@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP2_0
+﻿#if NETCOREAPP2_1
 using System.Runtime.InteropServices;
 #endif
 
@@ -10,7 +10,7 @@ namespace XSharp.Launch
         {
             get
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #elif NET472
                 return true;
@@ -22,7 +22,7 @@ namespace XSharp.Launch
         {
             get
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 return RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 #elif NET472
                 return false;
@@ -34,7 +34,7 @@ namespace XSharp.Launch
         {
             get
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 return RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 #elif NET472
                 return false;

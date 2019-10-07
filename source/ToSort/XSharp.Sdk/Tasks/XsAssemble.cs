@@ -43,7 +43,7 @@ namespace XSharp.Build.Tasks
             }
             set
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 mAssembler = Enum.Parse<AssemblerEnum>(value, true);
 #else
                 mAssembler = (AssemblerEnum)Enum.Parse(typeof(AssemblerEnum), value, true);
@@ -60,7 +60,7 @@ namespace XSharp.Build.Tasks
             }
             set
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 mOutputFormat = Enum.Parse<OutputFormatEnum>(value, true);
 #else
                 mOutputFormat = (OutputFormatEnum)Enum.Parse(typeof(OutputFormatEnum), value, true);
