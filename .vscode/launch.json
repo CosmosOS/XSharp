@@ -5,34 +5,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "XSharp Compiler (netcoreapp2.0)",
+            "name": "X# Playground",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
-            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
+            "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
             "args": [
-                "..\\..\\playground\\",
-                "-Plugin:Cosmos.XSC",
-                "-Gen2",
-                "-WaitOnError"
+                "..\\..\\..\\playground\\",
+                //"-Plugin:Cosmos.XSC",
+                "-Gen2", "-WaitOnError", "-CPU:x86"
             ],
-            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
+
         {
-            "name": "XSharp Compiler (net472)",
+            "name": "X# (472) Playground",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "dotnet-build",
-            "program": "${workspaceFolder}\\source\\XSharp.Compiler\\bin\\Debug\\net471\\xsc.dll",
+            "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\net472\\xsc.dll",
             "args": [
-                "..\\..\\playground\\",
-                "-Plugin:Cosmos.XSC",
-                "-Gen2",
-                "-WaitOnError"
+                "..\\..\\..\\playground\\",
+                //"-Plugin:Cosmos.XSC",
+                "-Gen2", "-WaitOnError", "-CPU:x86"
             ],
-            "cwd": "${workspaceFolder}\\source\\XSharp.Compiler",
+            "cwd": "${workspaceFolder}\\source\\XSharp\\XSC",
             "stopAtEntry": false,
             "console": "internalConsole"
         }

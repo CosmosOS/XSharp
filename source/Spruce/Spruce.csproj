@@ -1,4 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<!--
+Independent parser used by external projects.
+
+Kept in XSharp repo to avoid making a 4th repo.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
   
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
