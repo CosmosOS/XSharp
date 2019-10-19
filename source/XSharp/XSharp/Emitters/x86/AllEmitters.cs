@@ -49,18 +49,19 @@ namespace XSharp.x86.Emitters
         }
 
         // const i = 0
-        // const i = 0
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName} equ {aConstValue}");
+            string xConstName = Compiler.GetFullName($"Const_{aConstName}");
+            Compiler.WriteLine($"{xConstName} equ {aConstValue}");
         }
 
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, string aConstValue)
         {
+            string xConstName = Compiler.GetFullName($"Const_{aConstName}");
             byte[] chars = Encoding.ASCII.GetBytes(aConstValue);
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName}:");
+            Compiler.WriteLine($"{xConstName}:");
             Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
         }
 
@@ -74,28 +75,31 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, uint aVariableValue)
         {
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd {aVariableValue}");
+            string xVariableName = Compiler.GetFullName(aVariableName);
+            Compiler.WriteLine($"{xVariableName} dd {aVariableValue}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, string aStringLiteral)
         {
+            string xVariableName = Compiler.GetFullName(aVariableName);
             byte[] chars = Encoding.ASCII.GetBytes(aStringLiteral);
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName}:");
+            Compiler.WriteLine($"{xVariableName}:");
             Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName)
         {
-            string xVariableName = Compiler.GetFullName(aVariableName);
+            string xVariableName = Compiler.GetFullName(aVariableName);            
             Compiler.WriteLine($"{xVariableName} dd 0");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
         {
-            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd 0");
+            string xVariableName = Compiler.GetFullName(aVariableName);
+            Compiler.WriteLine($"{xVariableName} dd 0");
         }
 
         // interrupt iNmae123 {
