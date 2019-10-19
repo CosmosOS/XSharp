@@ -12,8 +12,8 @@ namespace XSharp
         protected readonly NASM mNASM;
         protected string Indent = "";
         public int LineNo { get; private set; }
-        public bool EmitUserComments = true;
-        public bool EmitSourceCode = true;
+        public bool EmitUserComments = false;
+        public bool EmitSourceCode = false;
 
         private string _currentNamespace;
 

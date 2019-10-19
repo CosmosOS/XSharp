@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
@@ -93,19 +94,38 @@ namespace XSharp.Emitters
 
         // const i = 0
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
             Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName} equ {aConstValue}");
         }
 
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, string aConstValue)
+        {
+            byte[] chars = Encoding.ASCII.GetBytes(aConstValue);
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_Const_{aConstName}:");
+            Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
+        }
+
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
         {
+        }
+
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
+        protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, uint aVariableValue)
+        {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd {aVariableValue}");
+        }
+
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, string aStringLiteral)
+        {
+            byte[] chars = Encoding.ASCII.GetBytes(aStringLiteral);
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName}:");
+            Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
@@ -117,6 +137,7 @@ namespace XSharp.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
         {
+            Compiler.WriteLine($"{Compiler.CurrentNamespace}_{aVariableName} dd 0");
         }
 
         [Emitter(typeof(Reg), typeof(OpBitwise), typeof(Const))]
