@@ -70,6 +70,7 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
         {
+            throw new NotImplementedException();
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
@@ -91,7 +92,7 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName)
         {
-            string xVariableName = Compiler.GetFullName(aVariableName);            
+            string xVariableName = Compiler.GetFullName(aVariableName);
             Compiler.WriteLine($"{xVariableName} dd 0");
         }
 
