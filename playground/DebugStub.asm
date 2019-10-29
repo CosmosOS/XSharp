@@ -37,33 +37,36 @@ DebugStub_CommandID dd 0
 DebugStub_BreakOnAddress:
 	; +All
 	PushAD 
-    ; BP Address
-    ; ComReadEAX()
-    Call DebugStub_ComReadEAX
-    ; ECX = EAX
-    Mov ECX, EAX
+  ; BP Address
+  ; ComReadEAX()
+  Call DebugStub_ComReadEAX
+  ; ECX = EAX
+  Mov ECX, EAX
 
-    ; BP ID Number
-    ; BP ID Number is sent after BP Address, because
-    ; reading BP address uses AL (EAX).
-    ; EAX = 0
-    Mov EAX, 0x0
-    ; ComReadAL()
-    Call DebugStub_ComReadAL
+  ; BP ID Number
+  ; BP ID Number is sent after BP Address, because
+  ; reading BP address uses AL (EAX).
+  ; EAX = 0
+  Mov EAX, 0x0
+  ; ComReadAL()
+  Call DebugStub_ComReadAL
 
-    ; Push EAX so we preserve it for later
+  ; Push EAX so we preserve it for later
 	; +EAX
 	Push EAX
 
 	; Calculate location in table
-    ; Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
+  ; Mov [EBX + EAX * 4], ECX would be better, but our X# doesn't handle this yet
 	; EBX = @.DebugBPs
 	Mov EBX, DebugStub_DebugBPs
-    ; EAX << 2
-    ; EBX += EAX
-    Add EBX, EAX
+  ; EAX << 2
+  Shl EAX, 0x2
+  ; EBX += EAX
+  Add EBX, EAX
 
 	; if ECX = 0 {
+	Cmp ECX, 0x0
+	Jne DebugStub_BreakOnAddress_Block1_End
 		; This is a BP removal
 
 		; EDI = [EBX]
@@ -74,7 +77,9 @@ DebugStub_BreakOnAddress:
 		Mov BYTE [EDI], AL
 
 		; goto DontSetBP
+		Jmp DebugStub_BreakOnAddress_DontSetBP
 	; }
+	DebugStub_BreakOnAddress_Block1_End:
 
     ; [EBX] = ECX
     Mov DWORD [EBX], ECX
@@ -86,7 +91,7 @@ DebugStub_BreakOnAddress:
 	Mov BYTE [EDI], AL
 
 ; DontSetBP:
-DebugStub_DontSetBP:
+DebugStub_BreakOnAddress_DontSetBP:
 
 	; Restore EAX - the BP Id
 	; -EAX
@@ -101,7 +106,7 @@ DebugStub_DontSetBP:
 	Mov ECX, 0x100
 	; Scan backwards to find the highest BP Id
 ; FindBPLoop:
-DebugStub_FindBPLoop:
+DebugStub_BreakOnAddress_FindBPLoop:
 	; ECX--
 	Dec ECX
 
@@ -112,6 +117,7 @@ DebugStub_FindBPLoop:
 	Mov EAX, ECX
 	; 4 bytes per Id
 	; EAX << 2
+	Shl EAX, 0x2
 	; EBX += EAX
 	Add EBX, EAX
 
@@ -121,6 +127,8 @@ DebugStub_FindBPLoop:
 	Mov EAX, DWORD [EBX]
 	; If it isn't 0 there must be a BP at this address
 	; if EAX != 0 {
+	Cmp EAX, 0x0
+	Je DebugStub_BreakOnAddress_Block2_End
 
 		; BP found
 		; Add 1 to the Id because the old searching loop (see Executing()) started at 256 so i guess we should allow for that.
@@ -130,27 +138,36 @@ DebugStub_FindBPLoop:
 		; .MaxBPId = ECX
 		Mov DWORD [DebugStub_MaxBPId], ECX
 		; goto Continue
+		Jmp DebugStub_BreakOnAddress_Continue
 	; }
+	DebugStub_BreakOnAddress_Block2_End:
 	; Has our count reached 0? If so, exit the loop as no BPs found...
 	; if ECX = 0 {
+	Cmp ECX, 0x0
+	Jne DebugStub_BreakOnAddress_Block3_End
 		; goto FindBPLoopExit
+		Jmp DebugStub_BreakOnAddress_FindBPLoopExit
 	; }
+	DebugStub_BreakOnAddress_Block3_End:
 	; goto FindBPLoop
+	Jmp DebugStub_BreakOnAddress_FindBPLoop
 
 ; FindBPLoopExit:
-DebugStub_FindBPLoopExit:
+DebugStub_BreakOnAddress_FindBPLoopExit:
 	; No BPs found
 	; 0 indicates no BPs - see comment above
 	; .MaxBPId = 0
 	Mov DWORD [DebugStub_MaxBPId], 0x0
 
 ; Continue:
-DebugStub_Continue:
+DebugStub_BreakOnAddress_Continue:
 ; Exit:
-DebugStub_Exit:
+DebugStub_BreakOnAddress_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_BreakOnAddress_Exit
+Ret 
 
 ; function SetINT3 {
 DebugStub_SetINT3:
@@ -169,10 +186,12 @@ DebugStub_SetINT3:
 	Mov BYTE [EDI], AL
 
 ; Exit:
-DebugStub_Exit:
+DebugStub_SetINT3_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_SetINT3_Exit
+Ret 
 ; function ClearINT3 {
 DebugStub_ClearINT3:
 	; +All
@@ -190,10 +209,12 @@ DebugStub_ClearINT3:
 	Mov BYTE [EDI], AL
 
 ; Exit:
-DebugStub_Exit:
+DebugStub_ClearINT3_Exit:
 	; -All
 	PopAD 
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ClearINT3_Exit
+Ret 
 
 ; function Executing {
 DebugStub_Executing:
@@ -205,11 +226,15 @@ DebugStub_Executing:
 	 ; //! MOV EAX, DR6
 	 MOV EAX, DR6
 	 ; EAX & $4000
+	 And EAX, 0x4000
 	 ; if EAX = $4000 {
+	 Cmp EAX, 0x4000
+	 Jne DebugStub_Executing_Block1_End
 	   ; This was INT1
 
 	   ; Reset the debug register
 	   ; EAX & $BFFF
+	   And EAX, 0xBFFF
 	   ; //! MOV DR6, EAX
 	   MOV DR6, EAX
 
@@ -219,7 +244,9 @@ DebugStub_Executing:
 	   ; Break()
 	   Call DebugStub_Break
 	   ; goto Normal
+	   Jmp DebugStub_Executing_Normal
 	 ; }
+	 DebugStub_Executing_Block1_End:
 
     ; CheckForAsmBreak must come before CheckForBreakpoint. They could exist for the same EIP.
 	; Check for asm break
@@ -227,10 +254,14 @@ DebugStub_Executing:
     Mov EAX, DWORD [DebugStub_CallerEIP]
     ; AsmBreakEIP is 0 when disabled, but EIP can never be 0 so we dont need a separate check.
 	; if EAX = .AsmBreakEIP {
+	Cmp EAX, [DebugStub_AsmBreakEIP]
+	Jne DebugStub_Executing_Block2_End
 		; DoAsmBreak()
 		Call DebugStub_DoAsmBreak
   		; goto Normal
+  		Jmp DebugStub_Executing_Normal
 	; }
+	DebugStub_Executing_Block2_End:
 
 	; Check for breakpoint
     ; Look for a possible matching BP
@@ -243,8 +274,12 @@ DebugStub_Executing:
     ; EAX = .MaxBPId
     Mov EAX, DWORD [DebugStub_MaxBPId]
 	; if EAX = 0 {
+	Cmp EAX, 0x0
+	Jne DebugStub_Executing_Block3_End
 		; goto SkipBPScan
+		Jmp DebugStub_Executing_SkipBPScan
 	; }
+	DebugStub_Executing_Block3_End:
 
 	; Only search backwards from the maximum BP Id - no point searching for before that
 	; EAX = .CallerEIP
@@ -259,19 +294,25 @@ DebugStub_Executing:
 		; Break()
 		Call DebugStub_Break
 		; goto Normal
+		Jmp DebugStub_Executing_Normal
 	; }
+	DebugStub_Executing_Block4_End:
 ; SkipBPScan:
-DebugStub_SkipBPScan:
+DebugStub_Executing_SkipBPScan:
 
     ; Only one of the following can be active at a time (F10, F11, ShiftF11)
 
 	; F11 - Must check first
 	; If F11, stop on next C# line that executes.
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Into {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
+    Jne DebugStub_Executing_Block5_End
 		; Break()
 		Call DebugStub_Break
 		; goto Normal
+		Jmp DebugStub_Executing_Normal
 	; }
+	DebugStub_Executing_Block5_End:
 
 	; .CallerEBP is the stack on method entry.
 	; EAX = .CallerEBP
@@ -279,39 +320,56 @@ DebugStub_SkipBPScan:
 
 	; F10
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Over {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
+    Jne DebugStub_Executing_Block6_End
 		; If EAX = .BreakEBP then we are in same method.
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX >= .BreakEBP {
+		Cmp EAX, [DebugStub_BreakEBP]
+		Jb DebugStub_Executing_Block7_End
 			; Break()
 			Call DebugStub_Break
 		; }
+		DebugStub_Executing_Block7_End:
 		; goto Normal
+		Jmp DebugStub_Executing_Normal
 	; }
+	DebugStub_Executing_Block6_End:
 
 	; Shift-F11
     ; if dword .DebugBreakOnNextTrace = #StepTrigger_Out {
+    Cmp DWORD [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out
+    Jne DebugStub_Executing_Block8_End
 		; If EAX > .BreakEBP then our method has returned and we are in the caller.
 		; if EAX > .BreakEBP {
+		Cmp EAX, [DebugStub_BreakEBP]
+		Jbe DebugStub_Executing_Block9_End
 			; Break()
 			Call DebugStub_Break
 		; }
+		DebugStub_Executing_Block9_End:
 		; goto Normal
+		Jmp DebugStub_Executing_Normal
 	; }
+	DebugStub_Executing_Block8_End:
 
 ; Normal:
-DebugStub_Normal:
+DebugStub_Executing_Normal:
     ; If tracing is on, send a trace message.
     ; Tracing isnt really used any more, was used by the old stand alone debugger. Might be upgraded
     ; and resused in the future.
 	; if dword .TraceMode = #Tracing_On {
+	Cmp DWORD [DebugStub_TraceMode], DebugStub_Const_Tracing_On
+	Jne DebugStub_Executing_Block10_End
 		; SendTrace()
 		Call DebugStub_SendTrace
 	; }
+	DebugStub_Executing_Block10_End:
 
     ; Is there a new incoming command? We dont want to wait for one
     ; if there isn't one already here. This is a non blocking check.
 ; CheckForCmd:
-DebugStub_CheckForCmd:
+DebugStub_Executing_CheckForCmd:
 	  ; DX = 5
 	  Mov DX, 0x5
     ; ReadRegister()
@@ -325,8 +383,13 @@ DebugStub_CheckForCmd:
 		Call DebugStub_ProcessCommand
 		; See if there are more commands waiting
 		; goto CheckForCmd
+		Jmp DebugStub_Executing_CheckForCmd
 	; }
+	DebugStub_Executing_Block11_End:
 ; }
+DebugStub_Executing_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Executing_Exit
+Ret 
 
 ; function Break {
 DebugStub_Break:
@@ -346,7 +409,7 @@ DebugStub_Break:
 
     ; Wait for a command
 ; WaitCmd:
-DebugStub_WaitCmd:
+DebugStub_Break_WaitCmd:
     ; Check for common commands first
     ; ProcessCommand()
     Call DebugStub_ProcessCommand
@@ -354,32 +417,48 @@ DebugStub_WaitCmd:
     ; Now check for commands that are only valid in break state or commands that require special handling while in break state.
 
     ; if AL = #Vs2Ds_Continue goto Done
+    Cmp AL, DebugStub_Const_Vs2Ds_Continue
+    Je DebugStub_Break_Done
 
 	; If Asm step into, we need to continue execution
 	; if AL = #Vs2Ds_AsmStepInto {
+	Cmp AL, DebugStub_Const_Vs2Ds_AsmStepInto
+	Jne DebugStub_Break_Block1_End
 		; SetINT1_TrapFLAG()
 		Call DebugStub_SetINT1_TrapFLAG
 		; goto Done
+		Jmp DebugStub_Break_Done
 	; }
+	DebugStub_Break_Block1_End:
 
     ; if AL = #Vs2Ds_SetAsmBreak {
+    Cmp AL, DebugStub_Const_Vs2Ds_SetAsmBreak
+    Jne DebugStub_Break_Block2_End
         ; SetAsmBreak()
         Call DebugStub_SetAsmBreak
 	    ; AckCommand()
 	    Call DebugStub_AckCommand
 	    ; goto WaitCmd
+	    Jmp DebugStub_Break_WaitCmd
 	; }
+	DebugStub_Break_Block2_End:
 
     ; if AL = #Vs2Ds_StepInto {
+    Cmp AL, DebugStub_Const_Vs2Ds_StepInto
+    Jne DebugStub_Break_Block3_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Into
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Into
 		; Not used, but set for consistency
         ; .BreakEBP = EAX
         Mov DWORD [DebugStub_BreakEBP], EAX
 	    ; goto Done
+	    Jmp DebugStub_Break_Done
 	; }
+	DebugStub_Break_Block3_End:
 
     ; if AL = #Vs2Ds_StepOver {
+    Cmp AL, DebugStub_Const_Vs2Ds_StepOver
+    Jne DebugStub_Break_Block4_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Over
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Over
         ; EAX = .CallerEBP
@@ -387,9 +466,13 @@ DebugStub_WaitCmd:
         ; .BreakEBP = EAX
         Mov DWORD [DebugStub_BreakEBP], EAX
 	    ; goto Done
+	    Jmp DebugStub_Break_Done
 	; }
+	DebugStub_Break_Block4_End:
 
     ; if AL = #Vs2Ds_StepOut {
+    Cmp AL, DebugStub_Const_Vs2Ds_StepOut
+    Jne DebugStub_Break_Block5_End
         ; .DebugBreakOnNextTrace = #StepTrigger_Out
         Mov [DebugStub_DebugBreakOnNextTrace], DebugStub_Const_StepTrigger_Out
         ; EAX = .CallerEBP
@@ -397,16 +480,22 @@ DebugStub_WaitCmd:
         ; .BreakEBP = EAX
         Mov DWORD [DebugStub_BreakEBP], EAX
 	    ; goto Done
+	    Jmp DebugStub_Break_Done
 	; }
+	DebugStub_Break_Block5_End:
 
     ; Loop around and wait for another command
     ; goto WaitCmd
+    Jmp DebugStub_Break_WaitCmd
 
 ; Done:
-DebugStub_Done:
+DebugStub_Break_Done:
     ; AckCommand()
     Call DebugStub_AckCommand
     ; .DebugStatus = #Status_Run
     Mov [DebugStub_DebugStatus], DebugStub_Const_Status_Run
 ; }
+DebugStub_Break_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Break_Exit
+Ret 
 

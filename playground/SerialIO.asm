@@ -30,6 +30,9 @@ DebugStub_WriteRegister:
   ; -EDX
   Pop EDX
 ; }
+DebugStub_WriteRegister_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_WriteRegister_Exit
+Ret 
 
 ; reads from a UART register
 ; uses:
@@ -47,6 +50,9 @@ DebugStub_ReadRegister:
   ; -EDX
   Pop EDX
 ; }
+DebugStub_ReadRegister_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ReadRegister_Exit
+Ret 
 
 ; //! %endif
 %endif

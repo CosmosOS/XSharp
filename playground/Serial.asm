@@ -102,6 +102,9 @@ DebugStub_InitSerial:
 	; WriteRegister()
 	Call DebugStub_WriteRegister
 ; }
+DebugStub_InitSerial_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_InitSerial_Exit
+Ret 
 
 ; Modifies: AL, DX
 ; function ComReadAL {
@@ -109,7 +112,7 @@ DebugStub_ComReadAL:
 	; DX = 5
 	Mov DX, 0x5
 ; Wait:
-DebugStub_Wait:
+DebugStub_ComReadAL_Wait:
     ; ReadRegister()
     Call DebugStub_ReadRegister
     ; AL test $01
@@ -121,6 +124,9 @@ DebugStub_Wait:
   ; ReadRegister()
   Call DebugStub_ReadRegister
 ; }
+DebugStub_ComReadAL_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComReadAL_Exit
+Ret 
 
 ; function ComWrite8 {
 DebugStub_ComWrite8:
@@ -144,7 +150,7 @@ DebugStub_ComWrite8:
 	; Wait for serial port to be ready
 	; Bit 5 (0x20) test for Transmit Holding Register to be empty.
 ; Wait:
-DebugStub_Wait:
+DebugStub_ComWrite8_Wait:
     ; ReadRegister()
     Call DebugStub_ReadRegister
 	  ; AL test $20
@@ -164,6 +170,9 @@ DebugStub_Wait:
 	; ESI++
 	Inc ESI
 ; }
+DebugStub_ComWrite8_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ComWrite8_Exit
+Ret 
 
 ; //! %endif
 %endif

@@ -17,6 +17,7 @@
 ; namespace DebugStub
 
 ; Interrupt TracerEntry {
+DebugStub_TracerEntry:
 ; This code is temporarily disabled as IRQs are not enabled right now.
 ; LockOrExit
 
@@ -60,10 +61,14 @@ Mov EBX, EAX
 ; //! MOV EAX, DR6
 MOV EAX, DR6
 ; EAX & $4000
+And EAX, 0x4000
 ; if EAX != $4000 {
+Cmp EAX, 0x4000
+Je DebugStub_TracerEntry_Block1_End
 	; EBX--
 	Dec EBX
 ; }
+DebugStub_TracerEntry_Block1_End:
 ; EAX = EBX
 Mov EAX, EBX
 
@@ -84,3 +89,6 @@ sti
 ; Temp disabled, see comment on LockOrExit above
 ; Unlock
 ; }
+DebugStub_TracerEntry_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_TracerEntry_Exit
+IRet 

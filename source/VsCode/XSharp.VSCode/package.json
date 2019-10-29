@@ -55,8 +55,12 @@
         "languages": [
             {
                 "id": "xsharp",
-                "aliases": ["X#"],
-                "extensions": [".xs"],
+                "aliases": [
+                    "X#"
+                ],
+                "extensions": [
+                    ".xs"
+                ],
                 "configuration": "xsharp/language-configuration.json"
             }
         ]
@@ -68,10 +72,10 @@
         "test": "node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.4.2",
-        "vscode": "^1.1.4",
-        "mocha": "^3.5.0",
+        "@types/mocha": "^2.2.41",
         "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.41"
+        "mocha": "^6.2.1",
+        "typescript": "^2.4.2",
+        "vscode": "^1.1.4"
     }
 }

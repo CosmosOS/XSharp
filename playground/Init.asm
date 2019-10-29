@@ -19,6 +19,9 @@ DebugStub_Init:
     ; Cls()
     Call DebugStub_Cls
 ; }
+DebugStub_Init_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Init_Exit
+Ret 
 
 ; function WaitForSignature {
 DebugStub_WaitForSignature:
@@ -30,8 +33,13 @@ DebugStub_WaitForSignature:
 		; BL = AL
 		Mov BL, AL
 		; EBX ~> 8
+		Ror EBX, 0x8
 	; }
+	DebugStub_WaitForSignature_Block1_End:
 ; }
+DebugStub_WaitForSignature_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_WaitForSignature_Exit
+Ret 
 
 ; QEMU (and possibly others) send some garbage across the serial line first.
 ; Actually they send the garbage inbound, but garbage could be inbound as well so we
@@ -83,11 +91,17 @@ DebugStub_WaitForDbgHandshake:
 	; Hook_OnHandshakeCompleted()
 	Call DebugStub_Hook_OnHandshakeCompleted
 ; }
+DebugStub_WaitForDbgHandshake_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_WaitForDbgHandshake_Exit
+Ret 
 
 ; //! %ifndef Exclude_Dummy_Hooks
 %ifndef Exclude_Dummy_Hooks
 ; function Hook_OnHandshakeCompleted {
 DebugStub_Hook_OnHandshakeCompleted:
 ; }
+DebugStub_Hook_OnHandshakeCompleted_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_Hook_OnHandshakeCompleted_Exit
+Ret 
 ; //! %endif
 %endif

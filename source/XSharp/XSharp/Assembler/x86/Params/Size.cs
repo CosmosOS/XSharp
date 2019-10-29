@@ -2,7 +2,7 @@
 {
     public class Size : List
     {
-        public Size() : base(new[] { "word", "dword", "byte" })
+        public Size() : base(new[] { "byte", "word", "dword" })
         {
         }
     }

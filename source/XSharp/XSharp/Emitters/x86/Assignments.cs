@@ -8,12 +8,12 @@ using Reg08 = XSharp.Tokens.Reg08;
 using Reg16 = XSharp.Tokens.Reg16;
 using Reg32 = XSharp.Tokens.Reg32;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// The class that provides assignments for different types.
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Assignments : Emitters
     {
         public Assignments(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)
@@ -46,7 +46,8 @@ namespace XSharp.Emitters
         [Emitter(typeof(OpOpenBracket), typeof(Reg), typeof(OpCloseBracket), typeof(OpEquals), typeof(Variable))]
         protected void VariableAssignToMemory(string aOpOpenBracket, Register aTargetRegisterRoot, string aOpCloseBracket, string aOpEquals, Address source)
         {
-            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source.AddPrefix($"{Compiler.CurrentNamespace}_"));
+            source.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Mov, "dword", new Address(aTargetRegisterRoot), source);
         }
 
         // [EAX] = 0x10
@@ -70,21 +71,25 @@ namespace XSharp.Emitters
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(Const))]
         protected void RegAssignConst(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_Const_{aVal}");
+            string xValue = Compiler.GetFullName($"Const_{aVal}");
+            Asm.Emit(OpCode.Mov, aReg, xValue);
         }
 
         // EAX = .Varname
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(Variable))]
         protected void RegAssignVar(Register aReg, string aEquals, Address aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal.AddPrefix($"{Compiler.CurrentNamespace}_"));
+            // TODO: Do this better? Use Compiler.GetFullName() so things are consistent.
+            aVal.AddPrefix(Compiler.CurrentNamespace);
+            Asm.Emit(OpCode.Mov, aReg, aReg.RegSize, aVal);
         }
 
         // AL = @.varname
         [Emitter(typeof(Reg), typeof(OpEquals), typeof(VariableAddress))]
         protected void RegAssignVarAddress(Register aReg, string aEquals, string aVal)
         {
-            Asm.Emit(OpCode.Mov, aReg, $"{Compiler.CurrentNamespace}_{aVal}");
+            string xValue = Compiler.GetFullName(aVal);
+            Asm.Emit(OpCode.Mov, aReg, xValue);
         }
 
         // ESI = [EBP-1] => mov ESI, dword [EBP - 1]
@@ -117,23 +122,26 @@ namespace XSharp.Emitters
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Const))]
         protected void VariableAssignment(Address aVariableName, string aOpEquals, object aValue)
         {
+            // TODO: Do this better? Use Compiler.GetFullName() so things are consistent.
+            aVariableName.AddPrefix(Compiler.CurrentNamespace);
+
             string size;
             switch (aValue)
             {
                 case uint _:
                     size = "dword";
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName, aValue);
                     break;
 
                 case Register aValueReg:
                     size = aValueReg.RegSize;
-                    Asm.Emit(OpCode.Mov, size, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
+                    Asm.Emit(OpCode.Mov, size, aVariableName, aValue);
                     break;
 
                 case string _:
                     //TODO: verify this
-                    aValue = $"{Compiler.CurrentNamespace}_Const_{aValue}";
-                    Asm.Emit(OpCode.Mov, aVariableName.AddPrefix($"{Compiler.CurrentNamespace}_"), aValue);
+                    aValue = Compiler.GetFullName($"Const_{aValue}");
+                    Asm.Emit(OpCode.Mov, aVariableName, aValue);
                     break;
             }
         }

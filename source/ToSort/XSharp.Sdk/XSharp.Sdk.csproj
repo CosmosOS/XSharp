@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.0;net472</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.1;net472</TargetFrameworks>
         <AssemblyName>XSharp.Build.Tasks</AssemblyName>
         <PackageId>XSharp.Sdk</PackageId>
         <PackageDescription>SDK for X# projects.</PackageDescription>
@@ -21,7 +21,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\XSharp.Launch\XSharp.Launch.csproj" />
-         <ProjectReference Include="..\..\XSharp\XSC\XSC.csproj" Pack="True" PackagePath="tools\xsc\" />
+        <ProjectReference Include="..\..\XSharp\XSC\XSC.csproj" Pack="True" PackagePath="tools\xsc\" />
     </ItemGroup>
 
 </Project>

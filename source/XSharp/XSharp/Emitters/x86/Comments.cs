@@ -2,12 +2,12 @@
 using Spruce.Tokens;
 using XSharp.Tokens;
 
-namespace XSharp.Emitters
+namespace XSharp.x86.Emitters
 {
     /// <summary>
     /// Class that processes comments and literals for X#.
     /// </summary>
-    /// <seealso cref="XSharp.Emitters.Emitters" />
+    /// <seealso cref="XSharp.x86.Emitters.Emitters" />
     public class Comments : Emitters
     {
         public Comments(Compiler aCompiler, x86.Assemblers.Assembler aAsm) : base(aCompiler, aAsm)

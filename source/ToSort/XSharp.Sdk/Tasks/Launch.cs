@@ -30,7 +30,7 @@ namespace XSharp.Build.Tasks
             }
             set
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 mLaunchType = Enum.Parse<LaunchTypeEnum>(value, true);
 #else
                 mLaunchType = (LaunchTypeEnum)Enum.Parse(typeof(LaunchTypeEnum), value, true);
