@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
@@ -49,20 +50,43 @@ namespace XSharp.x86.Emitters
 
         // const i = 0
         [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
         protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, object aConstValue)
         {
             string xConstName = Compiler.GetFullName($"Const_{aConstName}");
             Compiler.WriteLine($"{xConstName} equ {aConstValue}");
         }
 
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
-        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        [Emitter(typeof(ConstKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        protected void ConstDefinition(string aConstKeyword, string aConstName, string oOpEquals, string aConstValue)
+        {
+            string xConstName = Compiler.GetFullName($"Const_{aConstName}");
+            byte[] chars = Encoding.ASCII.GetBytes(aConstValue);
+            Compiler.WriteLine($"{xConstName}:");
+            Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
+        }
+
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Const))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Variable))]
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(VariableAddress))]
         protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, object aVariableValue)
         {
+            throw new NotImplementedException();
+        }
+
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(Int32u))]
+        protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, uint aVariableValue)
+        {
+            string xVariableName = Compiler.GetFullName(aVariableName);
+            Compiler.WriteLine($"{xVariableName} dd {aVariableValue}");
+        }
+
+        [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(OpEquals), typeof(StringLiteral))]
+        protected void VariableDefinition(string aVarKeyword, string aVariableName, string oOpEquals, string aStringLiteral)
+        {
+            string xVariableName = Compiler.GetFullName(aVariableName);
+            byte[] chars = Encoding.ASCII.GetBytes(aStringLiteral);
+            Compiler.WriteLine($"{xVariableName}:");
+            Compiler.WriteLine($"\t\tdb {string.Join(", ", chars)}");
         }
 
         [Emitter(typeof(VarKeyword), typeof(Identifier))]
@@ -75,6 +99,8 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(VarKeyword), typeof(Identifier), typeof(Size), typeof(OpOpenBracket), typeof(Int32u), typeof(OpCloseBracket))]
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
         {
+            string xVariableName = Compiler.GetFullName(aVariableName);
+            Compiler.WriteLine($"{xVariableName} dd 0");
         }
 
         // interrupt iNmae123 {
