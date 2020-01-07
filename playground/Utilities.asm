@@ -14,6 +14,8 @@ DebugStub_CheckStack:
     Add EBX, EAX
 
     ; if EBX != ESP {
+    Cmp EBX, ESP
+    Je DebugStub_CheckStack_Block1_End
         ; stack corruption.
         ; EAX = [ESP]
         Mov EAX, DWORD [ESP]
@@ -22,7 +24,12 @@ DebugStub_CheckStack:
         ; SendStackCorruptionOccurred()
         Call DebugStub_SendStackCorruptionOccurred
       ; halt:
-      DebugStub_halt:
+      DebugStub_CheckStack_halt:
         ; goto halt
+        Jmp DebugStub_CheckStack_halt
     ; }
+    DebugStub_CheckStack_Block1_End:
 ; }
+DebugStub_CheckStack_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_CheckStack_Exit
+Ret 

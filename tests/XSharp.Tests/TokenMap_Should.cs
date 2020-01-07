@@ -15,15 +15,18 @@ namespace XSharp.Tests
             mCompiler = new Compiler(TextWriter.Null);
             mNASM = new NASM(TextWriter.Null);
             mTokenMap = new Spruce.Tokens.Root();
-            mTokenMap.AddEmitter(new Emitters.Namespace(mCompiler, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Comments(mCompiler, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Ports(mCompiler, mNASM));
-            mTokenMap.AddEmitter(new Emitters.ZeroParamOps(mCompiler, mNASM)); // This should be above push/pop
-            mTokenMap.AddEmitter(new Emitters.IncrementDecrement(mCompiler, mNASM)); // This should be above + operator
-            mTokenMap.AddEmitter(new Emitters.PushPop(mCompiler, mNASM)); // This should be above + operator
-            mTokenMap.AddEmitter(new Emitters.Assignments(mCompiler, mNASM));
-            mTokenMap.AddEmitter(new Emitters.Test(mCompiler, mNASM));
-            mTokenMap.AddEmitter(new Emitters.AllEmitters(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Namespace(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Comments(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Ports(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.ZeroParamOps(mCompiler, mNASM)); // This should be above push/pop
+            mTokenMap.AddEmitter(new x86.Emitters.IncrementDecrement(mCompiler, mNASM)); // This should be above + operator
+            mTokenMap.AddEmitter(new x86.Emitters.PushPop(mCompiler, mNASM)); // This should be above + operator
+            mTokenMap.AddEmitter(new x86.Emitters.Assignments(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Test(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Math(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.ShiftRotate(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.Branching(mCompiler, mNASM));
+            mTokenMap.AddEmitter(new x86.Emitters.AllEmitters(mCompiler, mNASM));
         }
 
         [Test]
@@ -55,6 +58,17 @@ namespace XSharp.Tests
             const int xExpectedTokenCount = 2;
 
             var xCodePoints = mTokenMap.Parse(xVariableLine);
+
+            Assert.AreEqual(xExpectedTokenCount, xCodePoints.Count);
+        }
+
+        [Test]
+        public void Parse_Constant_Definition_Keyword_And_Identifier_And_Value()
+        {
+            const string xConstantLine = "const Tracing_Off = 0";
+            const int xExpectedTokenCount = 4;
+
+            var xCodePoints = mTokenMap.Parse(xConstantLine);
 
             Assert.AreEqual(xExpectedTokenCount, xCodePoints.Count);
         }
@@ -118,7 +132,7 @@ namespace XSharp.Tests
         public void Parse_Conditional()
         {
             const string xConditionalLine = "if AL = #Vs2Ds_Noop return";
-            const int xExpectedTokenCount = 3;
+            const int xExpectedTokenCount = 5;
 
             var xCodePoints = mTokenMap.Parse(xConditionalLine);
 

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.1;net472</TargetFrameworks>
+        <PackageDescription>X# bootable launch hosts.
+$(XSharpDescription)</PackageDescription>
+        <IsPackable>False</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Hosts\Bochs\Bochs.bxrc" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.nvram" />
+        <EmbeddedResource Include="Hosts\VMware\VMware.vmx" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DiscUtils.Containers" Version="0.13.0-alpha" />
+        <PackageReference Include="DiscUtils.FileSystems" Version="0.13.0-alpha" />
+        <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="System.IO.Ports" Version="4.4.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+        <PackageReference Include="System.Management.Automation" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+        <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
+    </ItemGroup>
+
+</Project>

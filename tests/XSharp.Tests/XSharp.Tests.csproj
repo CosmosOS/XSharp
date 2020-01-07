@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\source\XSharp\XSharp.csproj" />
+        <ProjectReference Include="..\..\source\XSharp\XSharp\XSharp.csproj" />
     </ItemGroup>
 
 </Project>

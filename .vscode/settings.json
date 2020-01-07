@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    ".vs": true,
+    "*.sln": true,
+    "**/bin": true,
+    "**/obj": true,
+    "packages": true
+  },
+  "csharpfixformat.style.spaces.beforeParenthesis": false
+}

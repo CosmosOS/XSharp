@@ -2,10 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "dotnet-build",
             "type": "shell",
-            "command": "dotnet build",
-            "args": ["${workspaceFolder}\\source\\XSharp.Compiler\\XSharp.Compiler.csproj"],
+            // Ask msbuild to generate full paths for file names.
+            // https://stackoverflow.com/questions/49826816/vscode-unable-to-open-file-cs-file-not-found
+            "command": "dotnet build /property:GenerateFullPaths=true",
+            "options": {
+                "cwd": "${workspaceFolder}\\source\\XSharp\\XSC\\"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -13,7 +17,9 @@
             "presentation": {
                 "reveal": "silent"
             },
-            "problemMatcher": "$msCompile"
+            "problemMatcher": [
+                "$msCompile"
+            ]
         }
     ]
 }

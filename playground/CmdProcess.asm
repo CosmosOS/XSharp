@@ -15,6 +15,8 @@ DebugStub_ProcessCommand:
     ; Noop has no data at all (see notes in client DebugConnector), so skip Command ID
     ; Noop also does not send ACK.
 	; if AL = #Vs2Ds_Noop return
+	Cmp AL, DebugStub_Const_Vs2Ds_Noop
+	Je DebugStub_ProcessCommand_Exit
 
     ; Read Command ID
 	; EAX = 0
@@ -29,22 +31,30 @@ DebugStub_ProcessCommand:
     Mov EAX, DWORD [ESP]
 
 	; if AL = #Vs2Ds_TraceOff {
+	Cmp AL, DebugStub_Const_Vs2Ds_TraceOff
+	Jne DebugStub_ProcessCommand_Block1_End
 		; TraceOff()
 		Call DebugStub_TraceOff
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block1_End:
 	; if AL = #Vs2Ds_TraceOn {
+	Cmp AL, DebugStub_Const_Vs2Ds_TraceOn
+	Jne DebugStub_ProcessCommand_Block2_End
 		; TraceOn()
 		Call DebugStub_TraceOn
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block2_End:
 	; if AL = #Vs2Ds_Break {
+	Cmp AL, DebugStub_Const_Vs2Ds_Break
+	Jne DebugStub_ProcessCommand_Block3_End
 		; Ack command for a break must be done first
 		; Otherwise we Break then ProcessCommands and get stuck because we don't send this Ack until execution continues
 		; AckCommand()
@@ -52,89 +62,119 @@ DebugStub_ProcessCommand:
 		; Break()
 		Call DebugStub_Break
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block3_End:
 	; if AL = #Vs2Ds_BreakOnAddress {
+	Cmp AL, DebugStub_Const_Vs2Ds_BreakOnAddress
+	Jne DebugStub_ProcessCommand_Block4_End
 		; BreakOnAddress()
 		Call DebugStub_BreakOnAddress
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block4_End:
 	; if AL = #Vs2Ds_SendMethodContext {
+	Cmp AL, DebugStub_Const_Vs2Ds_SendMethodContext
+	Jne DebugStub_ProcessCommand_Block5_End
 		; SendMethodContext()
 		Call DebugStub_SendMethodContext
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block5_End:
 	; if AL = #Vs2Ds_SendMemory {
+	Cmp AL, DebugStub_Const_Vs2Ds_SendMemory
+	Jne DebugStub_ProcessCommand_Block6_End
 		; SendMemory()
 		Call DebugStub_SendMemory
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block6_End:
 	; if AL = #Vs2Ds_SendRegisters {
+	Cmp AL, DebugStub_Const_Vs2Ds_SendRegisters
+	Jne DebugStub_ProcessCommand_Block7_End
 		; SendRegisters()
 		Call DebugStub_SendRegisters
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block7_End:
 	; if AL = #Vs2Ds_SendFrame {
+	Cmp AL, DebugStub_Const_Vs2Ds_SendFrame
+	Jne DebugStub_ProcessCommand_Block8_End
 		; SendFrame()
 		Call DebugStub_SendFrame
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block8_End:
 	; if AL = #Vs2Ds_SendStack {
+	Cmp AL, DebugStub_Const_Vs2Ds_SendStack
+	Jne DebugStub_ProcessCommand_Block9_End
 		; SendStack()
 		Call DebugStub_SendStack
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block9_End:
 	; if AL = #Vs2Ds_Ping {
+	Cmp AL, DebugStub_Const_Vs2Ds_Ping
+	Jne DebugStub_ProcessCommand_Block10_End
 		; Ping()
 		Call DebugStub_Ping
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block10_End:
 	; if AL = #Vs2Ds_SetINT3 {
+	Cmp AL, DebugStub_Const_Vs2Ds_SetINT3
+	Jne DebugStub_ProcessCommand_Block11_End
 		; SetINT3()
 		Call DebugStub_SetINT3
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block11_End:
 	; if AL = #Vs2Ds_ClearINT3 {
+	Cmp AL, DebugStub_Const_Vs2Ds_ClearINT3
+	Jne DebugStub_ProcessCommand_Block12_End
 		; ClearINT3()
 		Call DebugStub_ClearINT3
 		; AckCommand()
 		Call DebugStub_AckCommand
 		; return
-		Ret 
+		Jmp DebugStub_ProcessCommand_Exit
 	; }
+	DebugStub_ProcessCommand_Block12_End:
 
 
 ; Exit:
-DebugStub_Exit:
+DebugStub_ProcessCommand_Exit:
     ; Restore AL for callers who check the command and do
     ; further processing, or for commands not handled by this function.
     ; -EAX
     Pop EAX
 ; }
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ProcessCommand_Exit
+Ret 
 
 ; function AckCommand {
 DebugStub_AckCommand:
@@ -160,11 +200,14 @@ DebugStub_AckCommand:
     ; ComWriteAL()
     Call DebugStub_ComWriteAL
 ; }
+DebugStub_AckCommand_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_AckCommand_Exit
+Ret 
 
 ; function ProcessCommandBatch {
 DebugStub_ProcessCommandBatch:
 ; Begin:
-DebugStub_Begin:
+DebugStub_ProcessCommandBatch_Begin:
     ; ProcessCommand()
     Call DebugStub_ProcessCommand
 
@@ -172,7 +215,12 @@ DebugStub_Begin:
     ; Loop and wait
 	; Vs2Ds.BatchEnd
 	; if AL != 8 goto Begin
+	Cmp AL, 0x8
+	Jne DebugStub_ProcessCommandBatch_Begin
 
     ; AckCommand()
     Call DebugStub_AckCommand
 ; }
+DebugStub_ProcessCommandBatch_Exit:
+Mov DWORD [INTS_LastKnownAddress], DebugStub_ProcessCommandBatch_Exit
+Ret 
