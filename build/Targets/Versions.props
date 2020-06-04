@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <MicrosoftBuildVersion>16.0.461</MicrosoftBuildVersion>
-        <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0-preview.1</MicrosoftNETFrameworkReferenceAssembliesVersion>
+        <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftNETTestSdkVersion>16.1.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
         <MicrosoftVisualStudioPackageLanguageService150Version>16.0.28729</MicrosoftVisualStudioPackageLanguageService150Version>
