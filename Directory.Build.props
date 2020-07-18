@@ -7,6 +7,7 @@
 
     <PropertyGroup>
         <LangVersion>Latest</LangVersion>
+        <NoWarn>CS1572;CS1573;CS1574;CS1591;$(NoWarn)</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup>
