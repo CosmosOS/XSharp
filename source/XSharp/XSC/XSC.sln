@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSC", "XSC.csproj", "{723819C3-55A3-46FB-8BEF-1F7233D99DE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp", "..\XSharp\XSharp.csproj", "{1D306452-01D6-44CE-9EB4-A817A65F71D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Tools", "..\..\Tools\XSharp.Tools.csproj", "{04FC896D-28CA-43C6-B527-1600D95409D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{723819C3-55A3-46FB-8BEF-1F7233D99DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723819C3-55A3-46FB-8BEF-1F7233D99DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723819C3-55A3-46FB-8BEF-1F7233D99DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723819C3-55A3-46FB-8BEF-1F7233D99DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D306452-01D6-44CE-9EB4-A817A65F71D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D306452-01D6-44CE-9EB4-A817A65F71D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D306452-01D6-44CE-9EB4-A817A65F71D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D306452-01D6-44CE-9EB4-A817A65F71D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FC896D-28CA-43C6-B527-1600D95409D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FC896D-28CA-43C6-B527-1600D95409D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FC896D-28CA-43C6-B527-1600D95409D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FC896D-28CA-43C6-B527-1600D95409D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F59205D-0943-4A4E-A41C-81FAA19015CA}
+	EndGlobalSection
+EndGlobal
