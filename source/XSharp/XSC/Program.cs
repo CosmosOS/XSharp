@@ -21,6 +21,10 @@ namespace XSharp.CommandLine
 
         private static void Main(string[] aArgs)
         {
+            for (int i = 0; i < aArgs.Length; i++)
+            {
+                Console.WriteLine(aArgs[i]);
+            }
             try
             {
                 _Args.Parse(aArgs);
@@ -181,8 +185,8 @@ namespace XSharp.CommandLine
             {
                 using (var xIn = File.OpenText(xFile))
                 {
-                    if (!_Append) _OutputPath = Path.ChangeExtension(xFile, ".asm");
-
+                    if (!_Append && _OutputPath is null)
+                        _OutputPath = Path.ChangeExtension(xFile, ".asm");
                     using (var xOut = File.CreateText(_OutputPath))
                     {
                         Console.WriteLine($"Processing file: {xFile}");
