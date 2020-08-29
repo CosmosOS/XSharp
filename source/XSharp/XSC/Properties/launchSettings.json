@@ -2,7 +2,7 @@
   "profiles": {
     "XSharp.XSC": {
       "commandName": "Project",
-      "commandLineArgs": "..\\..\\playground\\ -Plugin:Cosmos.XSC -Gen2 -WaitOnError"
+      "commandLineArgs": "..\\..\\..\\..\\..\\..\\playground\\ -Gen2 -WaitOnError -CPU:X86"
     },
     "Xsharp.XSC Gen1": {
       "commandName": "Project",
