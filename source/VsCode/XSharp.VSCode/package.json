@@ -37,6 +37,11 @@
                     "type": "string",
                     "default": "",
                     "description": "Path to the xsc.exe used for compilation."
+                },
+                "xsharp.nasmPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to nasm used for compiling to bin."
                 }
             }
         },
@@ -48,6 +53,10 @@
             {
                 "command": "xsharp.compileAllFiles",
                 "title": "X#: Compile All X# Files"
+            },
+            {
+                "command": "xsharp.createBin",
+                "title": "X#: Converts all compiled asm files into a bin"
             }
         ],
         "grammars": [
