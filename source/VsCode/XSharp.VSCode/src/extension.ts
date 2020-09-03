@@ -6,16 +6,21 @@ import * as cp from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Platform, Operator, Operators, Register } from './language';
+import { BuildTaskProvider } from './buildTaskProvider';
+import { Console } from 'console';
 
 let currentPlatform: Platform = Platform.x86;
 let functions: Map<vscode.Uri, XSharpFunction[]> = new Map<vscode.Uri, XSharpFunction[]>();
 let compilerPath: string;
+
+let taskProvider: vscode.Disposable;
 
 let storagePath: string;
 
 // settings
 let compileOnSave: boolean;
 let compileOutputPath: string;
+let nasmPath: string;
 
 export function activate(context: vscode.ExtensionContext) {
     //compilerPath = context.asAbsolutePath("compiler/xsc.exe");
@@ -24,8 +29,52 @@ export function activate(context: vscode.ExtensionContext) {
 
     compileOnSave = vscode.workspace.getConfiguration("xsharp").get<boolean>("compileOnSave");
     compileOutputPath = vscode.workspace.getConfiguration("xsharp").get<string>("compileOutputPath");
+    compilerPath = vscode.workspace.getConfiguration("xsharp").get<string>("compilerPath");
+    nasmPath = vscode.workspace.getConfiguration("xsharp").get<string>("nasmPath");
+    checkCompilerPathSet();
+
+    taskProvider = vscode.tasks.registerTaskProvider("process", new BuildTaskProvider(""));
+
+    let compileAsmToBin = vscode.commands.registerCommand("xsharp.createBin", function (){
+        if(compileOutputPath == ""){
+            vscode.window.showErrorMessage("Output path for compiler must be set!");
+            return;
+        }
+        if(fs.readdirSync(compileOutputPath).length == 0){
+            vscode.window.showErrorMessage("No files found in " + compileOutputPath + " to convert to bin");
+            return;
+        }
+        if(nasmPath == ""){
+            vscode.window.showErrorMessage("Nasm Path must be set!");
+            return;
+        }
+        let files : string[] = [];
+        fs.readdirSync(compileOutputPath).forEach(file => {
+            if(path.extname(file) == ".asm"){
+                files.push(path.join(compileOutputPath, file));
+                console.log("Adding " + path.join(compileOutputPath, file) + " to files to convert");
+            }
+        });
+        let command = "\"" + nasmPath + "\" -f bin -o " + compileOutputPath + "output.bin ";
+        files.forEach(f => command +=  "\"" + f + "\" ");
+        console.log("Executing command: " + command);
+        cp.exec(command, (error, stdout, stderr) => {
+            if(error != null){
+                console.log("Error: " + error.message);
+                vscode.window.showErrorMessage("Error while running nasm: " + error.message);
+            }
+            console.log("stdout: " + stdout)
+        });
+        vscode.window.showInformationMessage("Succesfully created output.bin file!");
+    });
 
     let languageCompileFile = vscode.commands.registerTextEditorCommand("xsharp.compileFile", function (textEditor) {
+        checkCompilerPathSet();
+        if(compileOutputPath == ""){
+            compileOutputPath = path.join(path.dirname(textEditor.document.fileName), "/bin/");
+            vscode.workspace.getConfiguration("xsharp").update("compileOutputPath", compileOutputPath);
+        }
+        console.log("Triggered compile single file");
         if (vscode.languages.match("xsharp", textEditor.document)) {
             let unsaved: boolean = false;
 
@@ -34,10 +83,15 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             compileDocument(textEditor.document, true);
+            vscode.window.showInformationMessage("Compiled current file");
         }
     });
 
     let languageCompileAllFiles = vscode.commands.registerTextEditorCommand("xsharp.compileAllFiles", function (textEditor) {
+        checkCompilerPathSet();
+        if(compileOutputPath == ""){
+            compileOutputPath = path.join(path.dirname(textEditor.document.fileName), "/bin/")
+        }
         let visibleDocumentsUri: vscode.Uri[] = new Array<vscode.Uri>();
 
         vscode.window.visibleTextEditors.forEach(function (textEditor) {
@@ -61,6 +115,8 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             });
         });
+
+        vscode.window.showInformationMessage("Compiled all files in current directory");
     });
 
     if (vscode.workspace.rootPath != undefined) {
@@ -73,7 +129,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     let languageOnActiveTextEditorChanged = vscode.window.onDidChangeActiveTextEditor(function (e) {
-        if (vscode.languages.match("xsharp", e.document)) {
+        if (e != undefined && vscode.languages.match("xsharp", e.document)) {
             //updateCurrentPlatform(e);
         }
     });
@@ -190,7 +246,18 @@ export function activate(context: vscode.ExtensionContext) {
     //context.subscriptions.push(languageOnTypeFormattingEditProvider);
 }
 
-export function deactivate() {
+async function checkCompilerPathSet() {
+    compilerPath = vscode.workspace.getConfiguration("xsharp").get("compilerPath");
+    while (compilerPath == "") {
+        compilerPath = await vscode.window.showInputBox({prompt:"Path to compiler", ignoreFocusOut: true});
+    }
+    vscode.workspace.getConfiguration("xsharp").update("compilerPath", compilerPath);
+}
+
+export function deactivate() : void{ 
+    if (taskProvider) {
+        taskProvider.dispose();
+    }
 }
 
 function updateCurrentPlatform(e: vscode.TextEditor) {
@@ -231,10 +298,9 @@ function parseFunctions(document: vscode.TextDocument) {
 
 function compileDocument(document: vscode.TextDocument, unsaved: boolean = false) {
     let inputPath: string;
-
     if (unsaved) {
         if (!fs.existsSync(storagePath)) {
-            fs.mkdir(storagePath);
+            fs.mkdirSync(storagePath);
         }
 
         let i: number = 1;
@@ -249,12 +315,28 @@ function compileDocument(document: vscode.TextDocument, unsaved: boolean = false
         inputPath = document.uri.fsPath;
     }
 
+    if (!fs.existsSync(compileOutputPath)) {
+        fs.mkdirSync(compileOutputPath);
+    }
+
+    let passed : boolean = false;
     try {
-        cp.exec(compilerPath + " -inputFile '" + inputPath + "' -outputFile '" + path.join(compileOutputPath, path.basename(inputPath).replace(".xs", ".asm")) + "'");
+        var command = compilerPath + " " + inputPath + " -Out:" + path.join(compileOutputPath, path.basename(document.fileName).replace(".xs", ".asm")) + " -Gen2 -CPU:X86";
+        cp.exec(command, (error, stdout, sterr) => {
+            if(error != null){
+                console.log("error: " + error.name + error.message)
+                vscode.window.showErrorMessage("Error while compiling: " + error.message);
+            } else{
+                passed = true;
+            }
+        });
+    }
+    catch (e){
+        console.log("error:" + e);
     }
     finally {
-        if (unsaved) {
-            fs.unlink(inputPath);
+        if (unsaved && passed) {
+            fs.unlinkSync(inputPath);
         }
     }
 }

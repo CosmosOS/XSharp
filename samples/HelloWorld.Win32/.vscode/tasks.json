@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "process",
+			"problemMatcher": [],
+			"label": "XSharp Build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"command": "${command:xsharp.compileAllFiles}"
+		}
+	]
+}
