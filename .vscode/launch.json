@@ -11,7 +11,7 @@
             "preLaunchTask": "dotnet-build",
             "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\netcoreapp2.1\\xsc.dll",
             "args": [
-                "..\\..\\..\\..\\..\\..\\playground\\",
+                "..\\..\\..\\playground\\",
                 //"-Plugin:Cosmos.XSC",
                 "-Gen2", "-WaitOnError", "-CPU:x86"
             ],
@@ -27,7 +27,7 @@
             "preLaunchTask": "dotnet-build",
             "program": "${workspaceFolder}\\source\\XSharp\\XSC\\bin\\Debug\\net472\\xsc.dll",
             "args": [
-                "..\\..\\..\\..\\..\\..\\playground\\",
+                "..\\..\\..\\playground\\",
                 //"-Plugin:Cosmos.XSC",
                 "-Gen2", "-WaitOnError", "-CPU:x86"
             ],

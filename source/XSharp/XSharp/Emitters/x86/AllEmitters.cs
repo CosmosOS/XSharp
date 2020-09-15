@@ -3,6 +3,7 @@ using System.Text;
 using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
+using System.Linq;
 using XSharp.x86;
 
 namespace XSharp.x86.Emitters
@@ -22,14 +23,14 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(OpInclude), typeof(All))]
         protected void IncludeStatement(object aOp, string aText)
         {
-            var possibleIncludes = Compiler.IncludeProviders.Select(provider => provider.Invoke(aText)).Where(toInclude => toInclude != null).ToList();
+            var possibleIncludes = Compiler.SourceProviders.Select(provider => provider.Invoke(aText)).Where(toInclude => toInclude != null).ToList();
             if(possibleIncludes.Count == 0)
             {
-                throw new Exception($"Invalid include statement: Nothing to include found for {aText}");
+                throw new Exception($"Invalid include statement: No source provider found for {aText}");
             }
             else if(possibleIncludes.Count != 1)
             {
-                throw new Exception($"Invalid include statement: Multiple things to include found for {aText}");
+                throw new Exception($"Invalid include statement: Multiple source providers found for {aText}");
             }
             else
             {

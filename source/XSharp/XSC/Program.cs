@@ -72,7 +72,7 @@ namespace XSharp.CommandLine
                     string xVal = xArg.Value;
                     if (!Path.IsPathRooted(xVal))
                     {
-                        xVal = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xVal);
+                        xVal = Path.Combine(Directory.GetCurrentDirectory(), xVal);
                     }
 
                     if (Directory.Exists(xVal))
@@ -197,7 +197,7 @@ namespace XSharp.CommandLine
                         try
                         {
                             xCompiler = new Compiler(xOut);
-                            xCompiler.IncludeProviders.Add(aValue =>
+                            xCompiler.SourceProviders.Add(aValue =>
                             {
                                 try
                                 {

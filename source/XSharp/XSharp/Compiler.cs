@@ -16,7 +16,7 @@ namespace XSharp
         public bool EmitUserComments = true;
         public bool EmitSourceCode = true;
 
-        public List<Func<string, TextReader>> IncludeProviders = new List<Func<string, TextReader>>();
+        public List<Func<string, TextReader>> SourceProviders = new List<Func<string, TextReader>>();
 
         private string _currentNamespace;
 
