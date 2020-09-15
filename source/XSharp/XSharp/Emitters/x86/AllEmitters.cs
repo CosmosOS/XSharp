@@ -19,6 +19,24 @@ namespace XSharp.x86.Emitters
 
         // ===============================================================
 
+        [Emitter(typeof(OpInclude), typeof(All))]
+        protected void IncludeStatement(object aOp, string aText)
+        {
+            var possibleIncludes = Compiler.IncludeProviders.Select(provider => provider.Invoke(aText)).Where(toInclude => toInclude != null).ToList();
+            if(possibleIncludes.Count == 0)
+            {
+                throw new Exception($"Invalid include statement: Nothing to include found for {aText}");
+            }
+            else if(possibleIncludes.Count != 1)
+            {
+                throw new Exception($"Invalid include statement: Multiple things to include found for {aText}");
+            }
+            else
+            {
+                Compiler.Emit(possibleIncludes[0]);
+            }
+        }
+
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Variable))]
         protected void VariableAssignment(object aVariableName, string aOpEquals, object aValue)
         {
