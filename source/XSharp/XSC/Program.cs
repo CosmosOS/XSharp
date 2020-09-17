@@ -72,7 +72,7 @@ namespace XSharp.CommandLine
                     string xVal = xArg.Value;
                     if (!Path.IsPathRooted(xVal))
                     {
-                        xVal = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xVal);
+                        xVal = Path.Combine(Directory.GetCurrentDirectory(), xVal);
                     }
 
                     if (Directory.Exists(xVal))
@@ -186,15 +186,36 @@ namespace XSharp.CommandLine
                 using (var xIn = File.OpenText(xFile))
                 {
                     if (!_Append && _OutputPath is null)
+                    {
                         _OutputPath = Path.ChangeExtension(xFile, ".asm");
+                    }
                     using (var xOut = File.CreateText(_OutputPath))
                     {
-                        Console.WriteLine($"Processing file: {xFile}");
+                        Console.WriteLine($"Processing file: {xFile} Output Path: {_OutputPath}");
 
                         Compiler xCompiler;
                         try
                         {
                             xCompiler = new Compiler(xOut);
+                            xCompiler.SourceProviders.Add(aValue =>
+                            {
+                                try
+                                {
+                                    if (Path.IsPathRooted(aValue))
+                                    {
+                                        return File.OpenText(aValue);
+                                    }
+                                    else
+                                    {
+                                        return File.OpenText(Path.Combine(Path.GetDirectoryName(xFile), aValue));
+                                    }
+
+                                }
+                                catch (ArgumentException)
+                                {
+                                    return null;
+                                }
+                            });
                         }
                         catch (Exception ex)
                         {
@@ -220,6 +241,8 @@ namespace XSharp.CommandLine
                         }
                     }
                 }
+
+                _OutputPath = null; // Must be set to null, so the next path is calculated
             }
         }
     }
