@@ -1,14 +1,16 @@
-﻿<Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
         <XscToolPath>$(MSBuildThisFileDirectory)xsc\win\</XscToolPath>
         <XscToolExe>xsc.exe</XscToolExe>
+        <XscTaskPath>$(MSBuildThisFileDirectory)..\..\win\</XscTaskPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
         <XscToolPath>$(MSBuildThisFileDirectory)xsc\netcoreapp\</XscToolPath>
         <XscToolExe Condition="'$(OS)' != 'Windows_NT'">RunXsc</XscToolExe>
         <XscToolExe Condition="'$(OS)' == 'Windows_NT'">RunXsc.cmd</XscToolExe>
+        <XscTaskPath>$(MSBuildThisFileDirectory)..\..\win\</XscTaskPath>
     </PropertyGroup>
 
     <Target Name="MakeCompilerScriptsExecutable"
@@ -19,14 +21,17 @@
 
     </Target>
 
-    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" AssemblyFile="XSharp.Compiler.Tasks.dll" />
+    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" AssemblyFile="$(XscTaskPath)XSharp.Compiler.Tasks.dll" />
 
     <Target Name="CoreCompile"
             Inputs="@(Compile)"
             Outputs="$(AssemblyFile)">
 
-        <Xsc InputFiles="@(Compile)"
-             OutputFile="$(AssemblyFile)"
+        <!-- Create the obj directory if it does not exist -->
+        <MakeDir Directories="$(MSBuildProjectDirectory)\$(IntermediateOutputPath)" />
+
+        <Xsc InputFiles="@(Compile->'$(MSBuildProjectDirectory)\%(Identity)')"
+             OutputFile="$(MSBuildProjectDirectory)\$(IntermediateOutputPath)"
              Append="True"
              ToolPath="$(XscToolPath)"
              ToolExe="$(XscToolExe)" />

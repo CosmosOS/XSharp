@@ -31,6 +31,10 @@
         public bool GUIDebug { get; set; }
         public bool HideIPS { get; set; }
         public bool NoKeyRepeat { get; set; }
-        public bool Timeout { get; set; }
+
+        public override string ToString()
+        {
+            return $"{(GUIDebug ? "gui_debug " : "")}{(HideIPS ? "hideIPS " : "")}{(NoKeyRepeat ? "nokeyrepeat" : "")}";
+        }
     }
 }

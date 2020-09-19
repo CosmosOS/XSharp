@@ -1,9 +1,15 @@
-﻿<Project Sdk="XSharp.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
-        <OutputType>Application</OutputType>
-        <AssemblerOutputFormat>Win32</AssemblerOutputFormat>
-        <AssemblerOutputExt>.obj</AssemblerOutputExt>
+        <OutputType>Bootable</OutputType>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="XSharp.Sdk" />
+    </ItemGroup>
+
+    <Import Project="$(NuGetPackageRoot)XSharp.Sdk.0.1.0-localbuild/build/XSharp.Sdk.targets" />
+    <Import Project="$(NuGetPackageRoot)XSharp.Sdk.0.1.0-localbuild/build/XSharp.Sdk.props" />
 
 </Project>

@@ -69,6 +69,8 @@ namespace XSharp.Compiler.Tasks
             xBuilder.AppendFileNamesIfNotNull(InputFiles, " ");
 
             xBuilder.AppendSwitch("-Gen2");
+            xBuilder.AppendSwitch("-WaitOnError");
+            xBuilder.AppendSwitch("-CPU:x86");
 
             if (Append)
             {

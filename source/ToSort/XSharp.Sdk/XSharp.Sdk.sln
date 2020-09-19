@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Sdk", "XSharp.Sdk.csproj", "{0BC26716-3EE7-459C-80B0-AB6ADAC008BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSC", "..\..\XSharp\XSC\XSC.csproj", "{5C3E9275-A2FE-415F-8DC9-FF90BD129633}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSharp.Launch", "..\XSharp.Launch\XSharp.Launch.csproj", "{0A67EBB6-9C4E-4420-9CE6-DE1CD7262B3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BC26716-3EE7-459C-80B0-AB6ADAC008BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC26716-3EE7-459C-80B0-AB6ADAC008BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC26716-3EE7-459C-80B0-AB6ADAC008BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC26716-3EE7-459C-80B0-AB6ADAC008BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C3E9275-A2FE-415F-8DC9-FF90BD129633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3E9275-A2FE-415F-8DC9-FF90BD129633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3E9275-A2FE-415F-8DC9-FF90BD129633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3E9275-A2FE-415F-8DC9-FF90BD129633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A67EBB6-9C4E-4420-9CE6-DE1CD7262B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A67EBB6-9C4E-4420-9CE6-DE1CD7262B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A67EBB6-9C4E-4420-9CE6-DE1CD7262B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A67EBB6-9C4E-4420-9CE6-DE1CD7262B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F4B69DF-5D91-4600-B844-902B3E5D0F13}
+	EndGlobalSection
+EndGlobal

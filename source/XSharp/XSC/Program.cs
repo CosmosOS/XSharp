@@ -106,6 +106,11 @@ namespace XSharp.CommandLine
                     }
                 }
 
+                if(_XsFiles.Count == 0)
+                {
+                    throw new Exception("No xs files to compiler were found");
+                }
+
                 if (_Args["Gen2"] != null)
                 {
                     RunGen2();
@@ -180,13 +185,20 @@ namespace XSharp.CommandLine
 
         private static void RunGen2()
         {
+            var BaseDirectory = _OutputPath;
             if (_CPU != "X86") throw new Exception("ARM is in progress and not supported yet.");
             foreach (var xFile in _XsFiles)
             {
                 using (var xIn = File.OpenText(xFile))
                 {
                     if (!_Append && _OutputPath is null)
+                    {
                         _OutputPath = Path.ChangeExtension(xFile, ".asm");
+                    }
+                    else if(_Append){
+                        _OutputPath = Path.Combine(BaseDirectory, Path.GetFileName(xFile));
+                        _OutputPath = Path.ChangeExtension(_OutputPath, ".asm");
+                    }
                     using (var xOut = File.CreateText(_OutputPath))
                     {
                         Console.WriteLine($"Processing file: {xFile}");
