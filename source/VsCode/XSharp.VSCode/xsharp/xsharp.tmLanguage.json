@@ -43,6 +43,10 @@
                 {
                     "name": "meta.preprocessor",
                     "match": "\\/! (.+)"
+                },
+                {
+                    "name": "support.other",
+                    "match": "include (.+)"
                 }
             ]
         },
