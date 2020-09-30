@@ -11,6 +11,7 @@
 ; mComPortAddresses = 0x3F8, 0x2F8, 0x3E8, 0x2E8;
 ; Currently hardcoded to COM1.
 ; var ComAddr = $03F8
+DebugStub_ComAddr dd 1016
 
 ; writes to a UART register
 ; uses:
