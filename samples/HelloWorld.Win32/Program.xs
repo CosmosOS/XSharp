@@ -2,29 +2,29 @@
 
 Main:
     AH = 14
-    AL = 72
+    AL = H
     //! int 0x10
-    AL = 101
+    AL = e
     //! int 0x10
-    AL = 108
+    AL = l
     //! int 0x10
-    AL = 108
+    AL = l
     //! int 0x10
-    AL = 111
-    //! int 0x10
-    AL = 32
-    //! int 0x10
-    AL = 102
-    //! int 0x10
-    AL = 114
-    //! int 0x10
-    AL = 111
-    //! int 0x10
-    AL = 109
+    AL = o
     //! int 0x10
     AL = 32
     //! int 0x10
-    AL = 88
+    AL = f
+    //! int 0x10
+    AL = r
+    //! int 0x10
+    AL = o
+    //! int 0x10
+    AL = m
+    //! int 0x10
+    AL = 32
+    //! int 0x10
+    AL = X
     //! int 0x10
     AL = 35
     //! int 0x10
