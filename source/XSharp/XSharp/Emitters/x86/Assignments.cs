@@ -1,4 +1,5 @@
-﻿using Spruce.Attribs;
+﻿using System.Text;
+using Spruce.Attribs;
 using Spruce.Tokens;
 using XSharp.Tokens;
 using XSharp.x86;
@@ -65,6 +66,14 @@ namespace XSharp.x86.Emitters
         protected void RegAssignNum(Register aDestReg, string aEquals, object aVal)
         {
             Asm.Emit(OpCode.Mov, aDestReg, aVal);
+        }
+
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(Alpha))]
+        protected void RegAssignAlpha(Register aReg, string aEquals, string aVal)
+        {
+            // This will only ever be a single character
+            byte[] chars = Encoding.ASCII.GetBytes(aVal);
+            Asm.Emit(OpCode.Mov, aReg, chars[0]);
         }
 
         // AX = #Test
