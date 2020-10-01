@@ -24,4 +24,4 @@ jobs:
       run: dotnet msbuild XSharp.sln -target:Build -maxcpucount -verbosity:normal
 
     - name: Test
-      run: dotnet test XSharp.sln --filter "FullyQualifiedName!~XSharp.Launch" --no-restore --verbosity normal
+      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-restore --verbosity normal
