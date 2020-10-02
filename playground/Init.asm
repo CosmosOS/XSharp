@@ -1,6 +1,7 @@
 ; namespace DebugStub
 
 ; var DebugBPs dword[256]
+DebugStub_DebugBPs dd 0
 ; var MaxBPId
 DebugStub_MaxBPId dd 0
 

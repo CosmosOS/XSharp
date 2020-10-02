@@ -1,6 +1,8 @@
 ; namespace DebugStub
 
 ; var DebugWaitMsg = 'Waiting for debugger connection...'
+DebugStub_DebugWaitMsg:
+		db 87, 97, 105, 116, 105, 110, 103, 32, 102, 111, 114, 32, 100, 101, 98, 117, 103, 103, 101, 114, 32, 99, 111, 110, 110, 101, 99, 116, 105, 111, 110, 46, 46, 46
 
 ; //! %ifndef Exclude_Memory_Based_Console
 %ifndef Exclude_Memory_Based_Console
