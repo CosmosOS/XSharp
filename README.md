@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7i6422fyriiab61a/branch/master?svg=true)](https://ci.appveyor.com/project/CosmosOS/xsharp/branch/master)
 
-![Build and Publish Packages](https://github.com/CosmosOS/XSharp/workflows/Build%20and%20Publish/badge.svg)
+[![Build and Publish Packages](https://github.com/CosmosOS/XSharp/workflows/Build%20and%20Publish/badge.svg)](https://github.com/CosmosOS/XSharp/actions?query=workflow%3A%22Build+and+Publish%22)
 
 X# is a HLA (High Level Assembler) for X86/X64 assembly. In the future other flavors for ARM and other processors are planned.
 
