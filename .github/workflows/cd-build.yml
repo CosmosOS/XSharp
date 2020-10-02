@@ -44,6 +44,6 @@ jobs:
 
     - name: Nuget
       run: |
-        dotnet nuget add source https://nuget.pkg.github.com/CosmosOS/index.json -n github -u CosmosOS -p GH_TOKEN [--store-password-in-clear-text]
-        dotnet nuget push *.nupkg --source "github"
+        dotnet nuget add source "https://nuget.pkg.github.com/CosmosOS/index.json" --name github --username CosmosOS --password GH_TOKEN
+        dotnet nuget push **/*.nupkg --source github
         
