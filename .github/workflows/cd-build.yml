@@ -16,17 +16,14 @@ jobs:
       with:
         dotnet-version: 2.1.615
 
-    - name: Restore
-      run: dotnet msbuild XSharp.sln -target:Restore -maxcpucount -verbosity:normal
-
     - name: Build
-      run: dotnet msbuild XSharp.sln -target:Build -maxcpucount -verbosity:normal
+      run: dotnet msbuild XSharp.sln -target:"Restore;Build" -maxcpucount -verbosity:normal
 
     - name: Test
       run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-restore --verbosity normal
 
     - name: Pack
-      run: dotnet msbuild XSharp.sln -target:Pack -maxcpucount -verbosity:normal
+      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount -verbosity:normal
       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2.2.0
@@ -43,7 +40,5 @@ jobs:
     - uses: actions/download-artifact@v2.0.5
 
     - name: Nuget
-      run: |
-        dotnet nuget add source "https://nuget.pkg.github.com/CosmosOS/index.json" --name github --username CosmosOS --password GH_TOKEN
-        dotnet nuget push **/*.nupkg --source github
+      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/CosmosOS/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}"
         
