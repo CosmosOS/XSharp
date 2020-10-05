@@ -8,26 +8,25 @@ if not exist "%ProgramFiles(x86)%" (
   set "ProgramFiles(x86)=%ProgramFiles%"
 )
 
-set INNO_REG_KEY="HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Inno Setup 6_is1"
-set INNO_REG_VALUE="InstallLocation"
-for /f "usebackq skip=2 tokens=1-2*" %%A in (`(REG QUERY %INNO_REG_KEY% /v %INNO_REG_VALUE% /reg:32^) 2^>nul`) DO (
-    set InnoSetupInstallDir=%%C
-)
+if /I "%1"=="/uninstall" goto:uninstall
 
+:install
 echo Building X#
 dotnet msbuild XSharp.sln -target:"Restore;Build;Pack" -maxcpucount -verbosity:normal
 
-echo Building Installer
-set "InnoSetupCompiler=%InnoSetupInstallDir%\ISCC.exe"
-if not exist "%InnoSetupCompiler%" (
-    echo Inno Setup not found.
-    pause
-    goto:eof
-)
-"%InnoSetupCompiler%" ./Setup/XSharp.iss
+echo Installing Nuget Feed
+dotnet nuget remove source --name "X# Local Package Feed"
+dotnet nuget add source "./artifacts/Debug/nupkg" --name "X# Local Package Feed"
 
-echo Executing Installer
-set InstallerExe=".\setup\output\XSharpUserKit-0.1.0-localbuild.exe"
-if exist "%InstallerExe%" (
-    %InstallerExe%
-)
+echo Installing VS Code Extension
+REM code uninstall
+REM code install
+
+goto:eof
+
+:uninstall
+echo Removing Nuget Feed
+dotnet nuget remove source --name "X# Local Package Feed"
+
+echo Removing VS Code Extension
+REM code uninstall
