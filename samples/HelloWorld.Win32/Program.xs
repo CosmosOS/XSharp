@@ -2,31 +2,31 @@
 
 Main:
     AH = 14
-    AL = 72
+    AL = 'H'
     //! int 0x10
-    AL = 101
+    AL = 'e'
     //! int 0x10
-    AL = 108
+    AL = 'l'
     //! int 0x10
-    AL = 108
+    AL = 'l'
     //! int 0x10
-    AL = 111
+    AL = 'o'
     //! int 0x10
-    AL = 32
+    AL = ' '
     //! int 0x10
-    AL = 102
+    AL = 'f'
     //! int 0x10
-    AL = 114
+    AL = 'r'
     //! int 0x10
-    AL = 111
+    AL = 'o'
     //! int 0x10
-    AL = 109
+    AL = 'm'
     //! int 0x10
-    AL = 32
+    AL = ' '
     //! int 0x10
-    AL = 88
+    AL = 'X'
     //! int 0x10
-    AL = 35
+    AL = '#'
     //! int 0x10
 Finished:
     goto Finished
