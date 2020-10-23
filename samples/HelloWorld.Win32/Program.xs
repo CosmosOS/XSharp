@@ -2,31 +2,31 @@
 
 Main:
     AH = 14
-    AL = H
+    AL = 'H'
     //! int 0x10
-    AL = e
+    AL = 'e'
     //! int 0x10
-    AL = l
+    AL = 'l'
     //! int 0x10
-    AL = l
+    AL = 'l'
     //! int 0x10
-    AL = o
+    AL = 'o'
     //! int 0x10
-    AL = 32
+    AL = ' '
     //! int 0x10
-    AL = f
+    AL = 'f'
     //! int 0x10
-    AL = r
+    AL = 'r'
     //! int 0x10
-    AL = o
+    AL = 'o'
     //! int 0x10
-    AL = m
+    AL = 'm'
     //! int 0x10
-    AL = 32
+    AL = ' '
     //! int 0x10
-    AL = X
+    AL = 'X'
     //! int 0x10
-    AL = 35
+    AL = '#'
     //! int 0x10
 Finished:
     goto Finished
