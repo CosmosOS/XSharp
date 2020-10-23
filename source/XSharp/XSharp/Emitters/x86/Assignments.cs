@@ -68,8 +68,8 @@ namespace XSharp.x86.Emitters
             Asm.Emit(OpCode.Mov, aDestReg, aVal);
         }
 
-        [Emitter(typeof(Reg), typeof(OpEquals), typeof(Alpha))]
-        protected void RegAssignAlpha(Register aReg, string aEquals, string aVal)
+        [Emitter(typeof(Reg), typeof(OpEquals), typeof(CharacterLiteral))]
+        protected void RegAssignStringListeral(Register aReg, string aEquals, string aVal)
         {
             // This will only ever be a single character
             byte[] chars = Encoding.ASCII.GetBytes(aVal);
