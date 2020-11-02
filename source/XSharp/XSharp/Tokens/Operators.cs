@@ -9,13 +9,20 @@ namespace XSharp.Tokens
         {
         }
     }
-
     public class OpLiteral : StringList
     {
         public OpLiteral() : base(@"//!")
         {
         }
     }
+
+    public class OpInclude : StringList
+    {
+        public OpInclude() : base("include")
+        {
+        }
+    }
+
 
     public class OpCompare : StringList
     {

@@ -1,5 +1,8 @@
 ; namespace DebugStub
 
+; include Test.xs
+; namespace DebugStub
+
 ; .v1 = 1
 Mov DWORD [DebugStub_v1], 0x1
 ; .v1 = AL
@@ -63,3 +66,6 @@ int 0x10
 Mov AL, 0x23
 ; //! int 0x10
 int 0x10
+
+; .v = 4
+Mov DWORD [DebugStub_v], 0x4
