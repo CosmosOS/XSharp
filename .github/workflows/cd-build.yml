@@ -1,0 +1,44 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.615
+
+    - name: Build
+      run: dotnet msbuild XSharp.sln -target:"Restore;Build" -maxcpucount -verbosity:normal
+
+    - name: Test
+      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-restore --verbosity normal
+
+    - name: Pack
+      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount -verbosity:normal
+      
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        path: |
+          artifacts\Debug\nupkg\*.nupkg
+          artifacts\Debug\VSIX\*.vsix
+
+  publish:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+    - uses: actions/download-artifact@v2.0.5
+
+    - name: Nuget
+      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/CosmosOS/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}"
+        

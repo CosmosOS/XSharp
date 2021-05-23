@@ -7,11 +7,6 @@
     "Xsharp.XSC Gen1": {
       "commandName": "Project",
       "commandLineArgs": "..\\..\\playground\\Test.xs -Plugin:Cosmos.XSC -WaitOnError"
-    },
-    "Debug": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Users\\Jasper\\Desktop\\RandomProgrammieren\\COSMOS\\XSharp\\source\\XSharp\\XSC\\bin\\Debug\\net472\\xsc.exe",
-      "commandLineArgs": " 'c:\\Users\\Jasper\\AppData\\Roaming\\Code\\User\\workspaceStorage\\03bda89dcec5ef2852c06b52d2eb0cc0\\Cosmos.xsharp\\temp_2.xs' -Out:'c:\\Users\\Jasper\\Desktop\\RandomProgrammieren\\COSMOS\\XSharp\\samples\\HelloWorld.Win32\\bin\\Program.asm' -Gen2 -CPU:X86 -WaitOnError"
     }
   }
 }

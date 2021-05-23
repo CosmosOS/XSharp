@@ -41,6 +41,7 @@ namespace XSharp.x86.Emitters
         [Emitter(typeof(Variable), typeof(OpEquals), typeof(Variable))]
         protected void VariableAssignment(object aVariableName, string aOpEquals, object aValue)
         {
+            throw new NotImplementedException();
         }
 
         [Emitter(typeof(While), typeof(Compare), typeof(OpOpenBrace))]

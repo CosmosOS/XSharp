@@ -1,4 +1,4 @@
-﻿<Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
         <XSharpCoreTargetsPath Condition="'$(XSharpCoreTargetsPath)' == ''">$(MSBuildThisFileDirectory)..\tools\xsc\tools\XSharp.Core.targets</XSharpCoreTargetsPath>
