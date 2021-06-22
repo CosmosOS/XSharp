@@ -42,16 +42,22 @@ jobs:
       run: dotnet msbuild XSharp.sln -target:"Restore;Build" -maxcpucount -verbosity:normal
 
     - name: Test
-      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-build --verbosity normal
+      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj -maxcpucount --no-build --verbosity normal
 
     - name: Pack
-      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount -verbosity:normal
-    - name: Upload Artifacts
+      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount --include-symbols -verbosity:normal
+
+    - name: Upload Nupkg Artifacts
       uses: actions/upload-artifact@v2.2.0
       with:
-        path: |
-          artifacts\Debug\nupkg\*.nupkg
-          artifacts\Debug\VSIX\*.vsix
+        name: nupkg
+        path: artifacts\Debug\nupkg\*.nupkg
+
+    - name: Upload Vsix Artifacts
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: vsix
+        path: artifacts\Debug\VSIX\*.vsix
 
   publish:
     runs-on: windows-latest
