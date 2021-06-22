@@ -45,7 +45,7 @@ jobs:
       run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-build --verbosity normal
 
     - name: Pack
-      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount --no-build -verbosity:normal
+      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount -verbosity:normal
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2.2.0
       with:
