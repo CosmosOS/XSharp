@@ -35,17 +35,14 @@ jobs:
         echo "VERSIONSUFFIX=$versionSuffix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
       shell: pwsh
 
-    - name: Restore
-      run: dotnet msbuild XSharp.sln -target:Restore -maxcpucount -verbosity:normal
-
     - name: Build
-      run: dotnet msbuild XSharp.sln -target:"Restore;Build" -maxcpucount -verbosity:normal
+      run: dotnet build XSharp.sln
 
     - name: Test
-      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj -maxcpucount --no-build --verbosity normal
+      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-build
 
     - name: Pack
-      run: dotnet msbuild XSharp.sln -target:"Pack" -maxcpucount --include-symbols -verbosity:normal
+      run: dotnet pack XSharp.sln --include-symbols
 
     - name: Upload Nupkg Artifacts
       uses: actions/upload-artifact@v2.2.0
