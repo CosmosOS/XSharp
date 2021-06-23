@@ -1,11 +1,12 @@
 <Project>
 
     <PropertyGroup>
-        <PackageVersion Condition="'$(PackageVersionSuffix)' != ''">$(PackageVersion)$(PackageVersionSuffix)</PackageVersion>
         <AppendXSharpDescriptionToPackageDescription Condition="'$(AppendXSharpDescriptionToPackageDescription)' == ''">True</AppendXSharpDescriptionToPackageDescription>
-        <PackageDescription Condition="'$(PackageDescription)' != '' AND '$(AppendXSharpDescriptionToPackageDescription)' == 'True'">$(PackageDescription)
+        <PackageDescription Condition="'$(PackageDescription)' != '' AND '$(AppendXSharpDescriptionToPackageDescription)' == 'True'">
+            $(PackageDescription)
 
-$(XSharpDescription)</PackageDescription>
+            $(XSharpDescription)
+        </PackageDescription>
         <PackageDescription Condition="'$(PackageDescription)' == ''">$(XSharpDescription)</PackageDescription>
     </PropertyGroup>
 

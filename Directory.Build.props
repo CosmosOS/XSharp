@@ -16,14 +16,14 @@
             For example, if the value of this property is '100', the version will be x.y.z-localbuild100.
             The property is empty by default as it's not really easy to generate a unique number per local build.
         -->
-        <PackageVersionLocalBuildSuffix></PackageVersionLocalBuildSuffix>
+        <VersionLocalBuildSuffix></VersionLocalBuildSuffix>
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageVersion>0.1.0</PackageVersion>
-        <PackageVersionSuffix Condition="'$(APPVEYOR)' == 'True'">-build$(APPVEYOR_BUILD_NUMBER)+$(APPVEYOR_REPO_COMMIT.Substring(0, 7))</PackageVersionSuffix>
-        <PackageVersionSuffix Condition="'$(PackageVersionSuffix)' == ''">-localbuild$(PackageVersionLocalBuildSuffix)</PackageVersionSuffix>
-        <PackageVersionSuffix Condition="'$(APPVEYOR_REPO_TAG)' == 'True'"></PackageVersionSuffix>
+        <VersionPrefix Condition="'$(VersionPrefix)' == ''">0.1.0</VersionPrefix>
+        <VersionSuffix Condition="'$(APPVEYOR)' == 'True'">build$(APPVEYOR_BUILD_NUMBER)+$(APPVEYOR_REPO_COMMIT.Substring(0, 7))</VersionSuffix>
+        <VersionSuffix Condition="'$(APPVEYOR_REPO_TAG)' == 'True'"></VersionSuffix>
+        <VersionSuffix Condition="'$(CI)' == ''">localbuild$(VersionLocalBuildSuffix)</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup>
