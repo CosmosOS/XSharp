@@ -54,7 +54,7 @@
 
     <ItemGroup>
         <PackageReference Include="DiscUtils.Iso9660" Version="0.13.0-alpha" />
-        <PackageReference Include="Microsoft.Build" />
+        <PackageReference Include="Microsoft.Build" Version="16.7.0" />
         <PackageReference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" PrivateAssets="All" />
         <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.SDK" />
