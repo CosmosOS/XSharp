@@ -19,7 +19,6 @@ nuget:
 build_script:
   - cmd: |
       msbuild XSharp.sln /t:Restore;Build;Pack /maxcpucount /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-      appveyor PushArtifact 'artifacts\Debug\nupkg\*.nupkg'
 
 test: off
 
