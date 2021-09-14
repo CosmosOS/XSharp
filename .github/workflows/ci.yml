@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - published
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.615
+
+    - name: Set Build Version
+      run: |
+        $versionDate = Get-Date -Format "yyyy.MM.dd"
+        $versionPrefix = "$($versionDate).$($Env:GITHUB_RUN_NUMBER)"
+        $versionSuffix = ""
+        If ($Env:GITHUB_EVENT_NAME -eq "push")
+        {
+            $versionSuffix = "pre"
+        }
+        Write-Host "Version $($versionPrefix) $($versionSuffix)"
+        echo "VERSIONPREFIX=$versionPrefix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+        echo "VERSIONSUFFIX=$versionSuffix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+      shell: pwsh
+
+    - name: Build
+      run: dotnet build XSharp.sln
+
+    - name: Test
+      run: dotnet test tests/XSharp.Tests/XSharp.Tests.csproj --no-build
+
+    - name: Pack
+      run: dotnet pack XSharp.sln --include-symbols
+
+    - name: Upload Nupkg Artifacts
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: nupkg
+        path: artifacts\Debug\nupkg\*.nupkg
+
+    - name: Upload Vsix Artifacts
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: vsix
+        path: artifacts\Debug\VSIX\*.vsix
+
+  publish:
+    runs-on: windows-latest
+    needs: build
+    if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+
+    steps:
+    - uses: actions/download-artifact@v2.0.5
+
+    - name: Nuget
+      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/CosmosOS/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
