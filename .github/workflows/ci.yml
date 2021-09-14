@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.1.615
+        dotnet-version: '5.0.x'
 
     - name: Set Build Version
       run: |
