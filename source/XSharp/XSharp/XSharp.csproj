@@ -4,6 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>True</IsPackable>
         <NoWarn>CA1716;CA1801;CA1822;$(NoWarn)</NoWarn>
+        <Version>1.0.0</Version>
+        <Platforms>AnyCPU;x86</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
