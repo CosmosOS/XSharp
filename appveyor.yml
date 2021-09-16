@@ -12,8 +12,6 @@ build:
   publish_nuget: true
 
 nuget:
-  account_feed: true
-  project_feed: false
   disable_publish_on_pr: true
 
 build_script:
