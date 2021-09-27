@@ -10,6 +10,8 @@ Kept in XSharp repo to avoid making a 4th repo.
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>True</IsPackable>
         <Platforms>AnyCPU;x86</Platforms>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+        <FileVersion>10.0.0.0</FileVersion>
     </PropertyGroup>
 
 </Project>
