@@ -1,19 +1,12 @@
 <Project>
 
     <PropertyGroup>
-        <MicrosoftBuildVersion>16.7.0</MicrosoftBuildVersion>
+        <MicrosoftBuildVersion>17.0.0</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftNETTestSdkVersion>16.1.0</MicrosoftNETTestSdkVersion>
-        <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
-        <MicrosoftVisualStudioPackageLanguageService150Version>16.0.28729</MicrosoftVisualStudioPackageLanguageService150Version>
-        <MicrosoftVisualStudioProjectSystemVersion>16.0.374-pre</MicrosoftVisualStudioProjectSystemVersion>
-        <MicrosoftVisualStudioSdkEmbedInteropTypesVersion>15.0.34</MicrosoftVisualStudioSdkEmbedInteropTypesVersion>
-        <MicrosoftVisualStudioShellFrameworkVersion>16.0.28729</MicrosoftVisualStudioShellFrameworkVersion>
-        <MicrosoftVisualStudioShell150Version>16.0.28729</MicrosoftVisualStudioShell150Version>
-        <MicrosoftVisualStudioShellInterop100Version>10.0.30320</MicrosoftVisualStudioShellInterop100Version>
-        <MicrosoftVisualStudioShellInterop110Version>11.0.61031</MicrosoftVisualStudioShellInterop110Version>
-        <MicrosoftVisualStudioThreadingVersion>16.0.102</MicrosoftVisualStudioThreadingVersion>
-        <MicrosoftVSSDKBuildToolsVersion>16.7.3069</MicrosoftVSSDKBuildToolsVersion>
+        <MicrosoftVisualStudioSdkVersion>17.0.31902.203</MicrosoftVisualStudioSdkVersion>
+        <MicrosoftVisualStudioProjectSystemVersion>17.0.1313-pre</MicrosoftVisualStudioProjectSystemVersion>
+        <MicrosoftVSSDKBuildToolsVersion>17.0.5232</MicrosoftVSSDKBuildToolsVersion>
         <NUnitVersion>3.11.0</NUnitVersion>
         <NUnit3TestAdapterVersion>3.13.0</NUnit3TestAdapterVersion>
     </PropertyGroup>
