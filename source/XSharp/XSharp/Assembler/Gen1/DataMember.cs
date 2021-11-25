@@ -20,6 +20,7 @@ namespace XSharp.Assembler
         public string RawAsm = null;
         private string Size;
         private string StringValue;
+        private string Type;
 
         // Hack for not to emit raw data. See RawAsm
         public DataMember()
@@ -34,7 +35,14 @@ namespace XSharp.Assembler
             var xBytes2 = new byte[xBytes.Length + 1];
             xBytes.CopyTo(xBytes2, 0);
             xBytes2[xBytes2.Length - 1] = 0;
-            RawDefaultValue = xBytes2;
+            RawDefaultValue = xBytes2; StringValue = aValue;
+        }
+
+        public DataMember(string aName, string aValue, string aType, bool literal)
+        {
+            Name = aName;
+            Type = aType;
+            StringValue = aValue;
         }
 
         public DataMember(string aName, string size, string aValue)
@@ -258,11 +266,22 @@ namespace XSharp.Assembler
 
             if (StringValue != null)
             {
-                aOutput.Write(Name);
-                aOutput.Write(" ");
-                aOutput.Write(Size);
-                aOutput.Write(" ");
-                aOutput.Write(StringValue);
+                if (Type != null)
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(Type);
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);   
+                }
+                else
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(Size);
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);
+                }
                 return;
             }
 
