@@ -56,25 +56,16 @@ namespace XSharp.Assembler
             RawDefaultValue = aDefaultValue;
         }
 
-        public DataMember(string aName, short[] aDefaultValue)
+        public DataMember(string aName, params short[] aDefaultValue)
         {
             Name = aName;
-            RawDefaultValue = new byte[aDefaultValue.Length * 2];
-            for (int i = 0; i < aDefaultValue.Length; i++)
-            {
-                Array.Copy(BitConverter.GetBytes(aDefaultValue[i]), 0, RawDefaultValue, i * 2, 2);
-            }
+            UntypedDefaultValue = aDefaultValue.Cast<object>().ToArray();
         }
 
         public DataMember(string aName, params ushort[] aDefaultValue)
         {
             Name = aName;
-            RawDefaultValue = new byte[aDefaultValue.Length * 2];
-            for (int i = 0; i < aDefaultValue.Length; i++)
-            {
-                Array.Copy(BitConverter.GetBytes(aDefaultValue[i]), 0, RawDefaultValue, i * 2, 2);
-            }
-            //UntypedDefaultValue = aDefaultValue;
+            UntypedDefaultValue = aDefaultValue.Cast<object>().ToArray();
         }
 
         public DataMember(string aName, params uint[] aDefaultValue)
@@ -229,6 +220,14 @@ namespace XSharp.Assembler
                 if (UntypedDefaultValue[0] is long || UntypedDefaultValue[0] is ulong || UntypedDefaultValue[0] is double)
                 {
                     aOutput.Write(" dq ");
+                }
+                else if (UntypedDefaultValue[0] is short || UntypedDefaultValue[0] is ushort)
+                {
+                    aOutput.Write(" dw ");
+                }
+                else if (UntypedDefaultValue[0] is char || UntypedDefaultValue[0] is byte)
+                {
+                    aOutput.Write(" db ");
                 }
                 else
                 {
