@@ -20,7 +20,7 @@ namespace XSharp.Assembler
         public string RawAsm = null;
         private string Size;
         private string StringValue;
-        private string Type;
+        private Type Type;
 
         // Hack for not to emit raw data. See RawAsm
         public DataMember()
@@ -28,17 +28,25 @@ namespace XSharp.Assembler
             Name = "Dummy";
         }
 
-        public DataMember(string aName, string aValue)
+        public DataMember(string aName, string aValue, bool noConvert = false)
         {
-            Name = aName;
-            var xBytes = Encoding.ASCII.GetBytes(aValue);
-            var xBytes2 = new byte[xBytes.Length + 1];
-            xBytes.CopyTo(xBytes2, 0);
-            xBytes2[xBytes2.Length - 1] = 0;
-            RawDefaultValue = xBytes2; StringValue = aValue;
+            if (noConvert)
+            {
+                Name = aName;
+                StringValue = aValue;
+            }
+            else
+            {
+                Name = aName;
+                var xBytes = Encoding.ASCII.GetBytes(aValue);
+                var xBytes2 = new byte[xBytes.Length + 1];
+                xBytes.CopyTo(xBytes2, 0);
+                xBytes2[xBytes2.Length - 1] = 0;
+                RawDefaultValue = xBytes2; StringValue = aValue;
+            } 
         }
 
-        public DataMember(string aName, string aValue, string aType, bool literal)
+        public DataMember(string aName, string aValue, Type aType)
         {
             Name = aName;
             Type = aType;
@@ -225,22 +233,7 @@ namespace XSharp.Assembler
                 }
                 aOutput.Write(Name);
 
-                if (UntypedDefaultValue[0] is long || UntypedDefaultValue[0] is ulong || UntypedDefaultValue[0] is double)
-                {
-                    aOutput.Write(" dq ");
-                }
-                else if (UntypedDefaultValue[0] is short || UntypedDefaultValue[0] is ushort)
-                {
-                    aOutput.Write(" dw ");
-                }
-                else if (UntypedDefaultValue[0] is char || UntypedDefaultValue[0] is byte)
-                {
-                    aOutput.Write(" db ");
-                }
-                else
-                {
-                    aOutput.Write(" dd ");
-                }
+                aOutput.Write(" " + GetStringFromType(UntypedDefaultValue[0].GetType()) + " ");
 
                 Func<object, string> xGetTextForItem = delegate(object aItem)
                                                        {
@@ -270,11 +263,11 @@ namespace XSharp.Assembler
                 {
                     aOutput.Write(Name);
                     aOutput.Write(" ");
-                    aOutput.Write(Type);
+                    aOutput.Write(GetStringFromType(Type));
                     aOutput.Write(" ");
                     aOutput.Write(StringValue);   
                 }
-                else
+                else if (Size != null)
                 {
                     aOutput.Write(Name);
                     aOutput.Write(" ");
@@ -282,10 +275,36 @@ namespace XSharp.Assembler
                     aOutput.Write(" ");
                     aOutput.Write(StringValue);
                 }
+                else
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);
+                }
                 return;
             }
 
             throw new Exception("Situation unsupported!");
+        }
+
+        public string GetStringFromType(Type aType)
+        {
+            if (aType == typeof(long) || aType == typeof(ulong) || aType == typeof(double))
+            {
+                return "dq";
+            }
+            else if (aType == typeof(short) || aType == typeof(ushort))
+            {
+                return "dw";
+            }
+            else if (aType == typeof(char) || aType == typeof(byte))
+            {
+                return "db";
+            }
+            else
+            {
+                return "dd";
+            }
         }
 
         public int CompareTo(DataMember other)
