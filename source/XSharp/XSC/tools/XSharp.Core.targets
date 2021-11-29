@@ -21,7 +21,7 @@
 
     </Target>
 
-    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" AssemblyFile="$(XscTaskPath)XSharp.Compiler.Tasks.dll" />
+    <UsingTask TaskName="XSharp.Compiler.Tasks.Xsc" Architecture="x86" AssemblyFile="$(XscTaskPath)XSharp.Compiler.Tasks.dll" />
 
     <Target Name="CoreCompile"
             Inputs="@(Compile)"
