@@ -53,11 +53,11 @@
         <LaunchConfigurationFile Condition="'$(LaunchConfigurationFile)' == ''">$(IntermediateOutputPath)$(OutputName).bxrc</LaunchConfigurationFile>
     </PropertyGroup>
 
-    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.Ld" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" AssemblyFile="$(XSharpBuildTasksAssembly)" />
-    <UsingTask TaskName="XSharp.Build.Tasks.Launch" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.XsAssemble" Architecture="x86" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Ld" Architecture="x86" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.CreateSyslinuxConfig" Architecture="x86" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.MakeISO" Architecture="x86" AssemblyFile="$(XSharpBuildTasksAssembly)" />
+    <UsingTask TaskName="XSharp.Build.Tasks.Launch" Architecture="x86" AssemblyFile="$(XSharpBuildTasksAssembly)" />
 
     <PropertyGroup>
         <BuildDependsOn>
