@@ -20,6 +20,7 @@ namespace XSharp.Assembler
         public string RawAsm = null;
         private string Size;
         private string StringValue;
+        private Type Type;
 
         // Hack for not to emit raw data. See RawAsm
         public DataMember()
@@ -27,14 +28,29 @@ namespace XSharp.Assembler
             Name = "Dummy";
         }
 
-        public DataMember(string aName, string aValue)
+        public DataMember(string aName, string aValue, bool noConvert = false)
+        {
+            if (noConvert)
+            {
+                Name = aName;
+                StringValue = aValue;
+            }
+            else
+            {
+                Name = aName;
+                var xBytes = Encoding.ASCII.GetBytes(aValue);
+                var xBytes2 = new byte[xBytes.Length + 1];
+                xBytes.CopyTo(xBytes2, 0);
+                xBytes2[xBytes2.Length - 1] = 0;
+                RawDefaultValue = xBytes2; StringValue = aValue;
+            } 
+        }
+
+        public DataMember(string aName, string aValue, Type aType)
         {
             Name = aName;
-            var xBytes = Encoding.ASCII.GetBytes(aValue);
-            var xBytes2 = new byte[xBytes.Length + 1];
-            xBytes.CopyTo(xBytes2, 0);
-            xBytes2[xBytes2.Length - 1] = 0;
-            RawDefaultValue = xBytes2;
+            Type = aType;
+            StringValue = aValue;
         }
 
         public DataMember(string aName, string size, string aValue)
@@ -56,25 +72,16 @@ namespace XSharp.Assembler
             RawDefaultValue = aDefaultValue;
         }
 
-        public DataMember(string aName, short[] aDefaultValue)
+        public DataMember(string aName, params short[] aDefaultValue)
         {
             Name = aName;
-            RawDefaultValue = new byte[aDefaultValue.Length * 2];
-            for (int i = 0; i < aDefaultValue.Length; i++)
-            {
-                Array.Copy(BitConverter.GetBytes(aDefaultValue[i]), 0, RawDefaultValue, i * 2, 2);
-            }
+            UntypedDefaultValue = aDefaultValue.Cast<object>().ToArray();
         }
 
         public DataMember(string aName, params ushort[] aDefaultValue)
         {
             Name = aName;
-            RawDefaultValue = new byte[aDefaultValue.Length * 2];
-            for (int i = 0; i < aDefaultValue.Length; i++)
-            {
-                Array.Copy(BitConverter.GetBytes(aDefaultValue[i]), 0, RawDefaultValue, i * 2, 2);
-            }
-            //UntypedDefaultValue = aDefaultValue;
+            UntypedDefaultValue = aDefaultValue.Cast<object>().ToArray();
         }
 
         public DataMember(string aName, params uint[] aDefaultValue)
@@ -226,14 +233,7 @@ namespace XSharp.Assembler
                 }
                 aOutput.Write(Name);
 
-                if (UntypedDefaultValue[0] is long || UntypedDefaultValue[0] is ulong || UntypedDefaultValue[0] is double)
-                {
-                    aOutput.Write(" dq ");
-                }
-                else
-                {
-                    aOutput.Write(" dd ");
-                }
+                aOutput.Write(" " + GetStringFromType(UntypedDefaultValue[0].GetType()) + " ");
 
                 Func<object, string> xGetTextForItem = delegate(object aItem)
                                                        {
@@ -259,15 +259,52 @@ namespace XSharp.Assembler
 
             if (StringValue != null)
             {
-                aOutput.Write(Name);
-                aOutput.Write(" ");
-                aOutput.Write(Size);
-                aOutput.Write(" ");
-                aOutput.Write(StringValue);
+                if (Type != null)
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(GetStringFromType(Type));
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);   
+                }
+                else if (Size != null)
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(Size);
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);
+                }
+                else
+                {
+                    aOutput.Write(Name);
+                    aOutput.Write(" ");
+                    aOutput.Write(StringValue);
+                }
                 return;
             }
 
             throw new Exception("Situation unsupported!");
+        }
+
+        public string GetStringFromType(Type aType)
+        {
+            if (aType == typeof(long) || aType == typeof(ulong) || aType == typeof(double))
+            {
+                return "dq";
+            }
+            else if (aType == typeof(short) || aType == typeof(ushort))
+            {
+                return "dw";
+            }
+            else if (aType == typeof(char) || aType == typeof(byte))
+            {
+                return "db";
+            }
+            else
+            {
+                return "dd";
+            }
         }
 
         public int CompareTo(DataMember other)
