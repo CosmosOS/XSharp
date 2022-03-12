@@ -77,6 +77,16 @@ namespace XSharp
                 new FloatRound();
             }
 
+            public static void FloatCosine()
+            {
+                new FloatCosine();
+            }
+
+            public static void FloatSine()
+            {
+                new FloatSine();
+            }
+
             public static void FloatAdd(XSRegisters.Register32 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
             {
                 if (size == null)
