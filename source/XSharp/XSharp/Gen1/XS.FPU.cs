@@ -87,6 +87,16 @@ namespace XSharp
                 new FloatSine();
             }
 
+            public static void FloatTan()
+            {
+                new FloatTan();
+            }
+
+            public static void FloatPop()
+            {
+                new FloatPop();
+            }
+
             public static void FloatAdd(XSRegisters.Register32 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
             {
                 if (size == null)
