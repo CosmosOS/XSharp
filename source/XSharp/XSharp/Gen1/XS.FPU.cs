@@ -44,35 +44,6 @@ namespace XSharp
                 };
             }
 
-            public static void FloatStoreAndPop(XSRegisters.RegisterFPU register, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
-            {
-                if (displacement != null)
-                {
-                    isIndirect = true;
-                    if (displacement == 0)
-                    {
-                        displacement = null;
-                    }
-                }
-
-                if (size == null)
-                {
-                    if (isIndirect)
-                    {
-                        throw new InvalidOperationException("No size specified!");
-                    }
-                    size = register.Size;
-                }
-
-                new FloatStoreAndPop
-                {
-                    DestinationReg = register.RegEnum,
-                    DestinationIsIndirect = isIndirect,
-                    DestinationDisplacement = displacement,
-                    Size = (byte)size
-                };
-            }
-
             public static void FloatStoreAndPop(XSRegisters.RegisterFPU register)
             {
                 new FloatStoreAndPop
