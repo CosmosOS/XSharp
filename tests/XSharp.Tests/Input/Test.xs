@@ -1,5 +1,5 @@
-﻿// namespace DebugStub
-
+﻿namespace DebugStub
+var DebugBPs dword[256]
 // Temp Test Area
     //! nop
     AH = 0
