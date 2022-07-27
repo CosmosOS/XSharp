@@ -120,7 +120,7 @@ namespace XSharp.x86.Emitters
         protected void VariableArrayDefinition(string aVarKeyword, string aVariableName, string aSize, string aOpOpenBracket, object aNumberOfItems, string aOpCloseBracket)
         {
             string xVariableName = Compiler.GetFullName(aVariableName);
-            Compiler.WriteLine($"{xVariableName} dd 0");
+            Compiler.WriteLine($"{xVariableName} TIMES {aNumberOfItems} dd 0");
         }
 
         // interrupt iNmae123 {
