@@ -1,5 +1,6 @@
 ; namespace DebugStub
-
+; var DebugBPs dword[256]
+DebugStub_DebugBPs TIMES 256 dd 0
 ; Temp Test Area
     ; //! nop
     nop
