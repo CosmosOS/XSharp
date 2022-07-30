@@ -18,7 +18,7 @@ namespace XSharp.Assembler
         public bool IsGlobal { get; set; }
         protected object[] UntypedDefaultValue;
         public string RawAsm = null;
-        private string Size;
+        private string Size = "db";
         private string StringValue;
         private Type Type;
 
@@ -70,6 +70,13 @@ namespace XSharp.Assembler
         {
             Name = aName;
             RawDefaultValue = aDefaultValue;
+        }
+
+        public DataMember(string aName, string size, byte[] aDefaultValue)
+        {
+            Name = aName;
+            RawDefaultValue = aDefaultValue;
+            Size = size;
         }
 
         public DataMember(string aName, params short[] aDefaultValue)
@@ -219,7 +226,7 @@ namespace XSharp.Assembler
 
                     aOutput.Write("\t  TIMES ");
                     aOutput.Write(RawDefaultValue.Length);
-                    aOutput.Write(" db ");
+                    aOutput.Write($" {Size} ");
                     aOutput.Write(RawDefaultValue[0]);
                 }
                 return;
