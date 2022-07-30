@@ -134,7 +134,14 @@ namespace XSharp.Assembler
             string xTempResult = aName;
             foreach (char c in IllegalIdentifierChars)
             {
-                xTempResult = xTempResult.Replace(c, '_');
+                if(c == '*') //  we need to replace * with a diffferent symbol otherwise we get collisions with Type** and Type[] resulting in the same string
+                {
+                    xTempResult = xTempResult.Replace(c, '#');
+                }
+                else
+                {
+                    xTempResult = xTempResult.Replace(c, '_');
+                }
             }
             return xTempResult;
         }
