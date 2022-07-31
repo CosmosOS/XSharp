@@ -688,7 +688,16 @@ namespace XSharp
 
         public static void DataMember(string name, uint elementCount, string size, string value)
         {
-            Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, value));
+            if(elementCount == 1)
+            {
+                Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, value));
+            }
+            else
+            {
+                var array = new byte[elementCount];
+                array[0] = byte.Parse(value);
+                Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, array));
+            }
         }
 
         public static void RotateRight(Register register, uint bitCount)

@@ -72,6 +72,13 @@ namespace XSharp.Assembler
             RawDefaultValue = aDefaultValue;
         }
 
+        public DataMember(string aName, string size, byte[] aDefaultValue)
+        {
+            Name = aName;
+            RawDefaultValue = aDefaultValue;
+            Size = size;
+        }
+
         public DataMember(string aName, params short[] aDefaultValue)
         {
             Name = aName;
@@ -226,7 +233,7 @@ namespace XSharp.Assembler
 
                     aOutput.Write("\t  TIMES ");
                     aOutput.Write(RawDefaultValue.Length);
-                    aOutput.Write(" db ");
+                    aOutput.Write($" {Size ?? "db"} ");
                     aOutput.Write(RawDefaultValue[0]);
                 }
                 return;
