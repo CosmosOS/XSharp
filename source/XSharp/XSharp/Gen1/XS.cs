@@ -696,7 +696,7 @@ namespace XSharp
             {
                 var array = new byte[elementCount];
                 array[0] = byte.Parse(value);
-                Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, array));
+                Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, array));
             }
         }
 

@@ -18,7 +18,7 @@ namespace XSharp.Assembler
         public bool IsGlobal { get; set; }
         protected object[] UntypedDefaultValue;
         public string RawAsm = null;
-        private string Size = "db";
+        private string Size;
         private string StringValue;
         private Type Type;
 
@@ -233,7 +233,7 @@ namespace XSharp.Assembler
 
                     aOutput.Write("\t  TIMES ");
                     aOutput.Write(RawDefaultValue.Length);
-                    aOutput.Write($" {Size} ");
+                    aOutput.Write($" {Size ?? "db"} ");
                     aOutput.Write(RawDefaultValue[0]);
                 }
                 return;
