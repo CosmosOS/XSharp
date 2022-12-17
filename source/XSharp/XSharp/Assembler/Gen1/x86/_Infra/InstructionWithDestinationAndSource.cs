@@ -98,7 +98,7 @@ namespace XSharp.Assembler.x86
                 aOutput.Write(destination);
                 string source = this.GetSourceAsString();
                 if (!(SourceEmpty && source.Equals(""))){
-                    aOutput.Write(", ");
+                    aOutput.Write(aAssembler.Separator);
                     aOutput.Write(source);
                  }
             }

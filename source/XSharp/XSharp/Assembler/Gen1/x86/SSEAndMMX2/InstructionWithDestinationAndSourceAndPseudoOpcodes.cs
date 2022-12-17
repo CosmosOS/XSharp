@@ -12,9 +12,9 @@
             aOutput.Write(mMnemonic);
             aOutput.Write(" ");
             aOutput.Write(this.GetDestinationAsString());
-            aOutput.Write(", ");
+            aOutput.Write(aAssembler.Separator);
             aOutput.Write(this.GetSourceAsString());
-            aOutput.Write(", ");
+            aOutput.Write(aAssembler.Separator);
             aOutput.Write(this.pseudoOpcode);
         }
     }

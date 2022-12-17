@@ -40,7 +40,7 @@
             }
             aOutput.Write(" ");
             aOutput.Write("ST0");
-            aOutput.Write(", ");
+            aOutput.Write(aAssembler.Separator);
             aOutput.Write(this.GetSourceAsString());
         }
     }

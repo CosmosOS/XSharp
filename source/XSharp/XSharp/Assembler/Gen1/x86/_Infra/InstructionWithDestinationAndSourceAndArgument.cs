@@ -92,12 +92,12 @@ namespace XSharp.Assembler.x86
                 aOutput.Write(destination);
                 string source = this.GetSourceAsString();
                 if (!(SourceEmpty && source.Equals(""))){
-                    aOutput.Write(", ");
+                    aOutput.Write(aAssembler.Separator);
                     aOutput.Write(source);
 					string argument = this.GetArgumentAsString();
 					if (!(ArgumentEmpty && argument.Equals("")))
 					{
-						aOutput.Write(", ");
+						aOutput.Write(aAssembler.Separator);
 						aOutput.Write(argument);
 					}
                  }
