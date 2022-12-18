@@ -43,7 +43,7 @@ namespace XSharp.Assembler
                 xBytes.CopyTo(xBytes2, 0);
                 xBytes2[xBytes2.Length - 1] = 0;
                 RawDefaultValue = xBytes2; StringValue = aValue;
-            } 
+            }
         }
 
         public DataMember(string aName, string aValue, Type aType)
@@ -170,14 +170,22 @@ namespace XSharp.Assembler
                 {
                     if (IsGlobal)
                     {
-                        aOutput.Write("\tglobal ");
+                        if (aAssembler.Format)
+                        {
+                            aOutput.Write('\t');
+                        }
+                        aOutput.Write("global ");
                         aOutput.WriteLine(Name);
 
                         if (AdditionalNames != null && AdditionalNames.Count() > 0)
                         {
                             foreach (var xName in AdditionalNames)
                             {
-                                aOutput.Write("\tglobal");
+                                if (aAssembler.Format)
+                                {
+                                    aOutput.Write('\t');
+                                }
+                                aOutput.Write("global");
                                 aOutput.WriteLine(xName);
                             }
                         }
@@ -189,15 +197,23 @@ namespace XSharp.Assembler
                     {
                         foreach(var xName in AdditionalNames)
                         {
-                            aOutput.WriteLine("\t" + xName + ":");
+                            if (aAssembler.Format)
+                            {
+                                aOutput.Write('\t');
+                            }
+                            aOutput.WriteLine(xName + ":");
                         }
                     }
 
-                    aOutput.Write("\t  db ");
+                    if (aAssembler.Format)
+                    {
+                        aOutput.Write("\t  ");
+                    }
+                    aOutput.Write("db ");
                     for (int i = 0; i < (RawDefaultValue.Length - 1); i++)
                     {
                         aOutput.Write(RawDefaultValue[i]);
-                        aOutput.Write(", ");
+                        aOutput.Write(aAssembler.Separator);
                     }
                     aOutput.Write(RawDefaultValue.Last());
                 }
@@ -212,7 +228,11 @@ namespace XSharp.Assembler
                         {
                             foreach (var xName in AdditionalNames)
                             {
-                                aOutput.Write("\tglobal");
+                                if (aAssembler.Format)
+                                {
+                                    aOutput.Write('\t');
+                                }
+                                aOutput.Write("global");
                                 aOutput.WriteLine(xName);
                             }
                         }
@@ -223,7 +243,11 @@ namespace XSharp.Assembler
                         aOutput.WriteLine(Name + ":");
                         foreach (var xName in AdditionalNames)
                         {
-                            aOutput.WriteLine("\t" + xName + ":");
+                            if (aAssembler.Format)
+                            {
+                                aOutput.Write('\t');
+                            }
+                            aOutput.WriteLine(xName + ":");
                         }
                     }
                     else
@@ -231,7 +255,11 @@ namespace XSharp.Assembler
                         aOutput.Write(Name + ":");
                     }
 
-                    aOutput.Write("\t  TIMES ");
+                    if (aAssembler.Format)
+                    {
+                        aOutput.Write("\t  ");
+                    }
+                    aOutput.Write("TIMES ");
                     aOutput.Write(RawDefaultValue.Length);
                     aOutput.Write($" {Size ?? "db"} ");
                     aOutput.Write(RawDefaultValue[0]);
@@ -260,12 +288,12 @@ namespace XSharp.Assembler
                                                            {
                                                                return xElementRef.Name;
                                                            }
-                                                           return xElementRef.Name + " + " + xElementRef.Offset;
+                                                           return xElementRef.Name + aAssembler.AddSymbol + xElementRef.Offset;
                                                        };
                 for (int i = 0; i < (UntypedDefaultValue.Length - 1); i++)
                 {
                     aOutput.Write(xGetTextForItem(UntypedDefaultValue[i]));
-                    aOutput.Write(", ");
+                    aOutput.Write(aAssembler.Separator);
                 }
                 aOutput.Write(xGetTextForItem(UntypedDefaultValue.Last()));
                 return;
@@ -279,7 +307,7 @@ namespace XSharp.Assembler
                     aOutput.Write(" ");
                     aOutput.Write(GetStringFromType(Type));
                     aOutput.Write(" ");
-                    aOutput.Write(StringValue);   
+                    aOutput.Write(StringValue);
                 }
                 else if (Size != null)
                 {

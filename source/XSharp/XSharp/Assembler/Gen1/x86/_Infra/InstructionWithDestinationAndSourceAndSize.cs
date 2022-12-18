@@ -6,7 +6,7 @@ namespace XSharp.Assembler.x86
         IInstructionWithSize
     {
         // todo: do all instructions with two operands have a size?
-        //todo should validate Instructions or use a constructor and no set properties. 
+        //todo should validate Instructions or use a constructor and no set properties.
         protected byte mSize;
 
         public InstructionWithDestinationAndSourceAndSize()
@@ -82,7 +82,7 @@ namespace XSharp.Assembler.x86
 
                 aOutput.Write(" ");
                 aOutput.Write(this.GetDestinationAsString());
-                aOutput.Write(", ");
+                aOutput.Write(aAssembler.Separator);
 
                 if (SourceIsIndirect)
                 {

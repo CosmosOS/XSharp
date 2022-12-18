@@ -14,9 +14,19 @@ namespace XSharp.Assembler
       mInstances.Push(this);
     }
 
-    public Assembler(bool addWhitespaceWhileFlushing) : this()
+    public Assembler(bool aFormat = false) : this()
     {
-      mAddWhitespaceWhileFlushing = addWhitespaceWhileFlushing;
+      Format = aFormat;
+      if (aFormat)
+      {
+          Separator = ", ";
+          AddSymbol = " + ";
+      }
+      else
+      {
+          Separator = ",";
+          AddSymbol = "+";
+      }
     }
 
     private static readonly Stack<Assembler> mInstances = new Stack<Assembler>();
@@ -217,7 +227,7 @@ namespace XSharp.Assembler
       aOutput.WriteLine();
       foreach (DataMember xMember in mDataMembers)
       {
-        if (mAddWhitespaceWhileFlushing)
+        if (Format)
         {
           aOutput.Write("\t");
         }
@@ -238,7 +248,7 @@ namespace XSharp.Assembler
       {
         var xOp = mInstructions[i];
         string prefix = null;
-        if (mAddWhitespaceWhileFlushing)
+        if (Format)
         {
           prefix = "\t\t\t";
         }
@@ -246,7 +256,7 @@ namespace XSharp.Assembler
         {
           var xLabel = (Label) xOp;
           aOutput.WriteLine();
-          if (mAddWhitespaceWhileFlushing)
+          if (Format)
           {
             prefix = "\t\t";
           }
@@ -265,7 +275,11 @@ namespace XSharp.Assembler
       aOutput.Flush();
     }
 
-    private bool mAddWhitespaceWhileFlushing = true;
+    public bool Format { get; }
+
+    public string Separator { get; }
+
+    public string AddSymbol { get; }
 
     protected virtual void BeforeFlushText(TextWriter aOutput)
     {

@@ -13,6 +13,8 @@ namespace XSharp
     [SuppressMessage("Usage", "CA1806:Do not ignore method results")]
     public static partial class XS
     {
+        public static bool AllowComments = true;
+
         public static void Label(string labelName)
         {
             new Label(labelName);
@@ -653,7 +655,10 @@ namespace XSharp
 
         public static void Comment(string comment)
         {
-            new Comment(comment);
+            if (AllowComments)
+            {
+                new Comment(comment);
+            }
         }
 
         public static void Call(string target)
