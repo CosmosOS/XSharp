@@ -12,6 +12,9 @@ namespace XSharp.Assembler
     {
       mCurrentInstance = this;
       mInstances.Push(this);
+
+      Separator = ",";
+      AddSymbol = "+";
     }
 
     public Assembler(bool aFormat = false) : this()
