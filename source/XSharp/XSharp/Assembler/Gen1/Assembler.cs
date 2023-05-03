@@ -36,8 +36,8 @@ namespace XSharp.Assembler
 
     public bool EmitAsmLabels { get; set; }
 
-    protected UInt16 mGdCode;
-    protected UInt16 mGdData;
+    protected ushort mGdCode;
+    protected ushort mGdData;
 
     // Contains info on the current stack structure. What type are on the stack, etc
     //public readonly StackContents Stack = new StackContents();
