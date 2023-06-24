@@ -21,6 +21,7 @@ namespace XSharp.Assembler
         private string Size;
         private string StringValue;
         private Type Type;
+        private bool isIncBin;
 
         // Hack for not to emit raw data. See RawAsm
         public DataMember()
@@ -28,8 +29,10 @@ namespace XSharp.Assembler
             Name = "Dummy";
         }
 
-        public DataMember(string aName, string aValue, bool noConvert = false)
+        public DataMember(string aName, string aValue, bool noConvert = false, bool isIncBin = false)
         {
+            this.isIncBin = isIncBin;
+
             if (noConvert)
             {
                 Name = aName;
@@ -151,6 +154,13 @@ namespace XSharp.Assembler
             if (RawAsm != null)
             {
                 aOutput.WriteLine(RawAsm);
+                return;
+            }
+
+            if(isIncBin) {
+                aOutput.Write(Name);
+                aOutput.WriteLine(":");
+                aOutput.WriteLine("incbin \"" + StringValue + "\"");
                 return;
             }
 
