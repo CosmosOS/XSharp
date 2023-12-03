@@ -686,6 +686,10 @@ namespace XSharp
             Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
         }
 
+        public static void DataMember(string name, string value, bool isIncBin) {
+            Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value, true, isIncBin));
+        }
+
         public static void DataMemberBytes(string name, byte[] value)
         {
             Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
