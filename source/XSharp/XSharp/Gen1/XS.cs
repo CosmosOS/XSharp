@@ -1179,7 +1179,7 @@ namespace XSharp
             // This instruction is NOT supported in long mode
             if (Architecture == "x86")
             {
-                new Pushad();
+                new Popad();
             }
             else
             {
