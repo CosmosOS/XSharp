@@ -78,6 +78,13 @@ namespace XSharp
             }
         }
 
+        public class Register64 : Register
+        {
+            public Register64(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.Long64)
+            {
+            }
+        }
+
         public class RegisterFPU : Register
         {
             public RegisterFPU(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.FPU)
@@ -123,6 +130,24 @@ namespace XSharp
         public static readonly Register32 ESP = new Register32(nameof(ESP), RegistersEnum.ESP);
         public static readonly Register32 ESI = new Register32(nameof(ESI), RegistersEnum.ESI);
         public static readonly Register32 EDI = new Register32(nameof(EDI), RegistersEnum.EDI);
+
+        public static readonly Register64 RAX = new Register64(nameof(RAX), RegistersEnum.RAX);
+        public static readonly Register64 RBX = new Register64(nameof(RBX), RegistersEnum.RBX);
+        public static readonly Register64 RCX = new Register64(nameof(RCX), RegistersEnum.RCX);
+        public static readonly Register64 RDX = new Register64(nameof(RDX), RegistersEnum.RDX);
+        public static readonly Register64 RSI = new Register64(nameof(RSI), RegistersEnum.RSI);
+        public static readonly Register64 RDI = new Register64(nameof(RDI), RegistersEnum.RDI);
+        public static readonly Register64 RSP = new Register64(nameof(RSP), RegistersEnum.RSP);
+        public static readonly Register64 RBP = new Register64(nameof(RBP), RegistersEnum.RBP);
+        public static readonly Register64 R8 = new Register64(nameof(R8), RegistersEnum.R8);
+        public static readonly Register64 R9 = new Register64(nameof(R9), RegistersEnum.R9);
+        public static readonly Register64 R10 = new Register64(nameof(R10), RegistersEnum.R10);
+        public static readonly Register64 R11 = new Register64(nameof(R11), RegistersEnum.R11);
+        public static readonly Register64 R12 = new Register64(nameof(R12), RegistersEnum.R12);
+        public static readonly Register64 R13 = new Register64(nameof(R13), RegistersEnum.R13);
+        public static readonly Register64 R14 = new Register64(nameof(R14), RegistersEnum.R14);
+        public static readonly Register64 R15 = new Register64(nameof(R15), RegistersEnum.R15);
+        public static readonly Register64 RIP = new Register64(nameof(RIP), RegistersEnum.RIP);
 
         // Segment registers
         public static readonly RegisterSegment CS = new RegisterSegment(nameof(CS), RegistersEnum.CS);

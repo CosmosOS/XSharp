@@ -58,6 +58,25 @@ namespace XSharp.Assembler.x86
         ST6,
         ST7,
         EIP,
+
+        // 64 bit
+        RAX,
+        RBX,
+        RCX,
+        RDX,
+        RSI,
+        RDI,
+        RSP,
+        RBP,
+        R8,
+        R9,
+        R10,
+        R11,
+        R12,
+        R13,
+        R14,
+        R15,
+        RIP,
     }
     public static class Registers {
         /// <summary>
@@ -146,6 +165,24 @@ namespace XSharp.Assembler.x86
             mRegToName.Add(RegistersEnum.ST6, "ST6");
             mRegToName.Add(RegistersEnum.ST7, "ST7");
             mRegToName.Add(RegistersEnum.EIP, "EIP");
+            mRegToName.Add(RegistersEnum.RAX, "RAX");
+            mRegToName.Add(RegistersEnum.RBX, "RBX");
+            mRegToName.Add(RegistersEnum.RCX, "RCX");
+            mRegToName.Add(RegistersEnum.RDX, "RDX");
+            mRegToName.Add(RegistersEnum.RSI, "RSI");
+            mRegToName.Add(RegistersEnum.RDI, "RDI");
+            mRegToName.Add(RegistersEnum.RSP, "RSP");
+            mRegToName.Add(RegistersEnum.RBP, "RBP");
+            mRegToName.Add(RegistersEnum.R8, "R8");
+            mRegToName.Add(RegistersEnum.R9, "R9");
+            mRegToName.Add(RegistersEnum.R10, "R10");
+            mRegToName.Add(RegistersEnum.R11, "R11");
+            mRegToName.Add(RegistersEnum.R12, "R12");
+            mRegToName.Add(RegistersEnum.R13, "R13");
+            mRegToName.Add(RegistersEnum.R14, "R14");
+            mRegToName.Add(RegistersEnum.R15, "R15");
+            mRegToName.Add(RegistersEnum.RIP, "RIP");
+
             mNameToReg.Add("EIP", RegistersEnum.EIP);
             mNameToReg.Add("EAX", RegistersEnum.EAX);
             mNameToReg.Add("AX",  RegistersEnum.AX);

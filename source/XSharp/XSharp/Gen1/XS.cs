@@ -14,6 +14,7 @@ namespace XSharp
     public static partial class XS
     {
         public static bool AllowComments = true;
+        public static string Architecture = "x86";
 
         public static void Label(string labelName)
         {
@@ -686,7 +687,8 @@ namespace XSharp
             Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value));
         }
 
-        public static void DataMember(string name, string value, bool isIncBin) {
+        public static void DataMember(string name, string value, bool isIncBin)
+        {
             Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, value, true, isIncBin));
         }
 
@@ -697,7 +699,7 @@ namespace XSharp
 
         public static void DataMember(string name, uint elementCount, string size, string value)
         {
-            if(elementCount == 1)
+            if (elementCount == 1)
             {
                 Assembler.Assembler.CurrentInstance.DataMembers.Add(new DataMember(name, size, value));
             }
@@ -1174,12 +1176,40 @@ namespace XSharp
 
         public static void PopAllRegisters()
         {
-            new Popad();
+            // This instruction is NOT supported in long mode
+            if (Architecture == "x86")
+            {
+                new Pushad();
+            }
+            else
+            {
+                Pop(RDI);
+                Pop(RSI);
+                Pop(RBP);
+                Pop(RBX);
+                Pop(RDX);
+                Pop(RCX);
+                Pop(RAX);
+            }
         }
 
         public static void PushAllRegisters()
         {
-            new Pushad();
+            // This instruction is NOT supported in long mode
+            if (Architecture == "x86")
+            {
+                new Pushad();
+            }
+            else
+            {
+                Push(RAX, size: RegisterSize.Long64);
+                Push(RCX, size: RegisterSize.Long64);
+                Push(RDX, size: RegisterSize.Long64);
+                Push(RBX, size: RegisterSize.Long64);
+                Push(RBP, size: RegisterSize.Long64);
+                Push(RSI, size: RegisterSize.Long64);
+                Push(RDI, size: RegisterSize.Long64);
+            }
         }
 
         public static void EnableInterrupts()
