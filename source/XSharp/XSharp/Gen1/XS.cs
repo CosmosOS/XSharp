@@ -74,7 +74,7 @@ namespace XSharp
             };
         }
 
-        private static void Do<T>(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        private static void Do<T>(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
             where T : InstructionWithDestinationAndSourceAndSize, new()
         {
             if (destinationDisplacement != null)
@@ -110,7 +110,7 @@ namespace XSharp
             };
         }
 
-        private static void Do<T>(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        private static void Do<T>(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
             where T : InstructionWithDestinationAndSourceAndSize, new()
         {
             if (destinationDisplacement != null)
@@ -287,7 +287,7 @@ namespace XSharp
 
         #region InstructionWithDestinationAndSize
 
-        private static void Do<T>(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        private static void Do<T>(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
             where T : InstructionWithDestinationAndSize, new()
         {
             if (displacement != null)
@@ -298,10 +298,7 @@ namespace XSharp
                     displacement = null;
                 }
             }
-            if (size == null)
-            {
-                size = RegisterSize.Long64;
-            }
+
             new T
             {
                 DestinationValue = destinationValue,
@@ -339,7 +336,7 @@ namespace XSharp
             };
         }
 
-        private static void Do<T>(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        private static void Do<T>(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
             where T : InstructionWithDestinationAndSize, new()
         {
             if (displacement != null)
@@ -581,12 +578,12 @@ namespace XSharp
             Do<Mov>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Set(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Set(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Mov>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Set(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Set(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Mov>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -620,12 +617,12 @@ namespace XSharp
             Do<Lea>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Lea(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Lea(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Lea>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Lea(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Lea(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Lea>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -744,7 +741,7 @@ namespace XSharp
             Do<ShiftLeft>(destination, bitCount);
         }
 
-        public static void ShiftLeft(Register destination, Register8 bitCount, bool destinationIsIndirect = false, RegisterSize? size = null)
+        public static void ShiftLeft(Register destination, Register8 bitCount, bool destinationIsIndirect = false, RegisterSize size = RegisterSize.Int32)
         {
             if (bitCount != CL)
             {
@@ -774,7 +771,7 @@ namespace XSharp
             Do<ShiftLeftArithmetic>(destination, bitCount);
         }
 
-        public static void ShiftLeftArithmetic(Register destination, Register8 bitCount, bool destinationIsIndirect = false, RegisterSize? size = null)
+        public static void ShiftLeftArithmetic(Register destination, Register8 bitCount, bool destinationIsIndirect = false, RegisterSize size = RegisterSize.Int32)
         {
             if (bitCount != CL)
             {
@@ -799,17 +796,17 @@ namespace XSharp
             };
         }
 
-        public static void Push(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Push(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Push>(destinationValue, isIndirect, displacement, size);
         }
 
-        public static void Push(Register register, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Push(Register register, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Push>(register, isIndirect, displacement, size);
         }
 
-        public static void Push(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Push(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Push>(label, isIndirect, displacement, size);
         }
@@ -874,7 +871,7 @@ namespace XSharp
             Do<SubWithCarry>(register, valueToAdd, destinationDisplacement: destinationDisplacement, destinationIsIndirect: destinationIsIndirect);
         }
 
-        public static void And(Register register, uint value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void And(Register register, uint value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<And>(register, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size: size);
         }
@@ -889,12 +886,12 @@ namespace XSharp
             Do<Xor>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Xor(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Xor(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Xor>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Xor(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Xor(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Xor>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -931,12 +928,12 @@ namespace XSharp
             Do<Compare>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Compare(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Compare(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Compare>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Compare(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Compare(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Compare>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -999,7 +996,7 @@ namespace XSharp
             };
         }
 
-        public static void Divide(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Divide(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Divide>(destinationValue, isIndirect, displacement, size);
         }
@@ -1009,12 +1006,12 @@ namespace XSharp
             Do<Divide>(register, isIndirect, displacement, size);
         }
 
-        public static void Divide(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Divide(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Divide>(label, isIndirect, displacement, size);
         }
 
-        public static void IntegerDivide(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void IntegerDivide(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<IDivide>(destinationValue, isIndirect, displacement, size);
         }
@@ -1024,27 +1021,27 @@ namespace XSharp
             Do<IDivide>(register, isIndirect, displacement, size);
         }
 
-        public static void IntegerDivide(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void IntegerDivide(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<IDivide>(label, isIndirect, displacement, size);
         }
 
-        public static void Multiply(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Multiply(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Multiply>(destinationValue, isIndirect, displacement, size);
         }
 
-        public static void Multiply(Register register, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Multiply(Register register, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Multiply>(register, isIndirect, displacement, size);
         }
 
-        public static void Multiply(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Multiply(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Multiply>(label, isIndirect, displacement, size);
         }
 
-        public static void Negate(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Negate(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Neg>(destinationValue, isIndirect, displacement, size);
         }
@@ -1054,12 +1051,12 @@ namespace XSharp
             Do<Neg>(register, isIndirect, displacement, size);
         }
 
-        public static void Negate(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Negate(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Neg>(label, isIndirect, displacement, size);
         }
 
-        public static void Not(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Not(uint destinationValue, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Not>(destinationValue, isIndirect, displacement, size);
         }
@@ -1069,7 +1066,7 @@ namespace XSharp
             Do<Not>(register, isIndirect, displacement, size);
         }
 
-        public static void Not(string label, bool isIndirect = false, int? displacement = null, RegisterSize? size = null)
+        public static void Not(string label, bool isIndirect = false, int? displacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Not>(label, isIndirect, displacement, size);
         }
@@ -1079,12 +1076,12 @@ namespace XSharp
             Do<AddWithCarry>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void AddWithCarry(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void AddWithCarry(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<AddWithCarry>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void AddWithCarry(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void AddWithCarry(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<AddWithCarry>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -1109,12 +1106,12 @@ namespace XSharp
             Do<Or>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Or(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Or(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Or>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void Or(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void Or(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<Or>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
@@ -1272,12 +1269,12 @@ namespace XSharp
             Do<RotateThroughCarryRight>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void RotateThroughCarryRight(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void RotateThroughCarryRight(string destination, UInt32 value, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<RotateThroughCarryRight>(destination, value, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
 
-        public static void RotateThroughCarryRight(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize? size = null)
+        public static void RotateThroughCarryRight(string destination, string source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null, RegisterSize size = RegisterSize.Int32)
         {
             Do<RotateThroughCarryRight>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement, size);
         }
