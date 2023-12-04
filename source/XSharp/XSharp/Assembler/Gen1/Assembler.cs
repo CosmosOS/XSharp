@@ -173,7 +173,7 @@ namespace XSharp.Assembler
     }
 
     // Allows to emit footers to the code and datamember sections
-    protected virtual void OnBeforeFlush(TextWriter output)
+    protected virtual void OnBeforeFlush()
     {
 
     }
@@ -188,20 +188,20 @@ namespace XSharp.Assembler
 
     private bool mFlushInitializationDone = false;
 
-    protected void BeforeFlush(TextWriter output)
+    protected void BeforeFlush()
     {
       if (mFlushInitializationDone)
       {
         return;
       }
       mFlushInitializationDone = true;
-      OnBeforeFlush(output);
+      OnBeforeFlush();
       //MergeAllElements();
     }
 
     public virtual void FlushText(TextWriter aOutput)
     {
-      BeforeFlush(aOutput);
+      BeforeFlush();
       BeforeFlushText(aOutput);
       // Write out data declarations
       aOutput.WriteLine();
