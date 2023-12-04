@@ -97,18 +97,18 @@ namespace XSharp {
 
       Registers32 = new Dictionary<string, XSRegisters.Register>()
       {
-        {"EAX", XSRegisters.EAX},
-        {"EBX", XSRegisters.EBX},
-        {"ECX", XSRegisters.ECX},
-        {"EDX", XSRegisters.EDX},
+        {"EAX", XSRegisters.RAX},
+        {"EBX", XSRegisters.RBX},
+        {"ECX", XSRegisters.RCX},
+        {"EDX", XSRegisters.RDX},
       };
 
       RegistersIdx = new Dictionary<string, XSRegisters.Register>()
       {
-        {"ESI", XSRegisters.ESI},
-        {"EDI", XSRegisters.EDI},
-        {"ESP", XSRegisters.ESP},
-        {"EBP", XSRegisters.EBP},
+        {"ESI", XSRegisters.RSI},
+        {"EDI", XSRegisters.RDI},
+        {"ESP", XSRegisters.RSP},
+        {"EBP", XSRegisters.RBP},
       };
 
       var xRegisters = new Dictionary<string, XSRegisters.Register>();

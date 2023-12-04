@@ -5,6 +5,7 @@
         <IsPackable>True</IsPackable>
         <NoWarn>CA1716;CA1801;CA1822;$(NoWarn)</NoWarn>
         <Platforms>AnyCPU;x86</Platforms>
+        <Version>10.0.0</Version>
     </PropertyGroup>
 
     <ItemGroup>

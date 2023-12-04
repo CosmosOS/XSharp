@@ -7,6 +7,9 @@ namespace XSharp.Assembler.x86
         public override void WriteText( XSharp.Assembler.Assembler aAssembler, System.IO.TextWriter aOutput )
         {
             switch (Size) {
+                case 64:
+                    aOutput.Write("cqo");
+                    return;
                 case 32:
                     aOutput.Write("cdq");
                     return;

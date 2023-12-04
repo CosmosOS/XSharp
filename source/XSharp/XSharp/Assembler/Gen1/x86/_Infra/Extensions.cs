@@ -15,7 +15,14 @@ namespace XSharp.Assembler.x86
             }
             if (aThis.DestinationRef != null)
             {
-                xDest = aThis.DestinationRef.ToString();
+                if (aThis.DestinationIsIndirect)
+                {
+                    xDest = "rel " + aThis.DestinationRef.ToString();
+                }
+                else
+                {
+                    xDest = aThis.DestinationRef.ToString();
+                }
             }
             else
             {
@@ -58,7 +65,7 @@ namespace XSharp.Assembler.x86
                 }
                 if (aThis.DestinationRef != null && !aThis.DestinationIsIndirect)
                 {
-                    aThis2.Size = 32;
+                    aThis2.Size = 64;
                     return;
                 }
             }

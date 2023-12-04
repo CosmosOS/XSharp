@@ -10,6 +10,7 @@ namespace XSharp.x86
             public static readonly string[] Reg08 = "AH,AL,BH,BL,CH,CL,DH,DL".Split(',');
             public static readonly string[] Reg16 = "AX,BX,CX,DX".Split(',');
             public static readonly string[] Reg32 = "EAX,EBX,ECX,EDX,ESP,EBP,ESI,EDI".Split(',');
+            public static readonly string[] Reg64 = "RAX,RBX,RCX,RDX,RSP,RBP,RSI,RDI".Split(',');
         }
 
         // These statics are not used much now but will be used even with NASM
@@ -53,7 +54,12 @@ namespace XSharp.x86
             Name = aName.ToUpper();
 
             //TODO Add special registers and leave IsGenPurpose = false
-            if (Names.Reg32.Contains(Name))
+            if (Names.Reg64.Contains(Name))
+            {
+                IsGenPurpose = true;
+                Size = 64;
+            }
+            else if (Names.Reg32.Contains(Name))
             {
                 IsGenPurpose = true;
                 Size = 32;

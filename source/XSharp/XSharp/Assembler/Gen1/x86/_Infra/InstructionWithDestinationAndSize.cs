@@ -23,6 +23,7 @@
 {
             aOutput.Write(mMnemonic);
             aOutput.Write(" ");
+            if (DestinationIsIndirect)
             aOutput.Write(SizeToString(Size));
             if (!DestinationEmpty)
             {

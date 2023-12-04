@@ -56,7 +56,7 @@ namespace XSharp.Assembler.x86
                 }
                 if ((SourceRef != null && !SourceIsIndirect) || (DestinationRef != null && !DestinationIsIndirect))
                 {
-                    Size = 32;
+                    Size = 64;
                     return;
                 }
             }
@@ -67,8 +67,7 @@ namespace XSharp.Assembler.x86
         {
             if (Size == 0)
             {
-                Size = 32;
-                //Console.WriteLine("ERRROR no size set for Instruction - set to 4 InstructionWithDestinationAndSourceAndSize") ;
+                Size = 64;
             }
             aOutput.Write(mMnemonic);
 

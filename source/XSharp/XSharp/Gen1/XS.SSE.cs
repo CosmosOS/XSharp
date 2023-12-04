@@ -17,19 +17,19 @@ namespace XSharp
 
          // CR4[bit 9]=1, CR4[bit 10]=1, CR0[bit 2]=0, CR0[bit 1]=1
 
-         XS.Set(EAX, CR4);
-         XS.Or(EAX, 0x100);
-         XS.Set(CR4, EAX);
-         XS.Set(EAX, CR4);
-         XS.Or(EAX, 0x200);
-         XS.Set(CR4, EAX);
-         XS.Set(EAX, CR0);
-         XS.And(EAX, 0xfffffffd);
-         XS.Set(CR0, EAX);
-         XS.Set(EAX, CR0);
+         XS.Set(RAX, CR4);
+         XS.Or(RAX, 0x100);
+         XS.Set(CR4, RAX);
+         XS.Set(RAX, CR4);
+         XS.Or(RAX, 0x200);
+         XS.Set(CR4, RAX);
+         XS.Set(RAX, CR0);
+         XS.And(RAX, 0xfffffffd);
+         XS.Set(CR0, RAX);
+         XS.Set(RAX, CR0);
 
-         XS.And(EAX, 1);
-         XS.Set(CR0, EAX);
+         XS.And(RAX, 1);
+         XS.Set(CR0, RAX);
          XS.Comment("END - SSE Init");
      }
 
@@ -63,7 +63,7 @@ namespace XSharp
           };
       }
 
-      public static void ConvertSI2SS(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      public static void ConvertSI2SS(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false)
       {
         new ConvertSI2SS()
         {
@@ -78,7 +78,7 @@ namespace XSharp
         DoDestinationSource<MoveSS>(destination, source);
       }
 
-      public static void MoveSS(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      public static void MoveSS(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false)
       {
         new MoveSS()
         {
@@ -88,7 +88,7 @@ namespace XSharp
         };
       }
 
-      public static void MoveSS(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false)
+      public static void MoveSS(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false)
       {
         new MoveSS()
         {
@@ -103,42 +103,42 @@ namespace XSharp
           DoDestinationSource<MoveSS>(destination, sourceLabel, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveUPS(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveUPS(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
         DoDestinationSource<MoveUPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveDQA(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveDQA(RegisterXMM destination, Register64 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
          DoDestinationSource<MoveDQA>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveDQA(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveDQA(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
                 DoDestinationSource<MoveDQA>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveDQU(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveDQU(RegisterXMM destination, Register64 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
         DoDestinationSource<MoveDQU>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveDQU(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveDQU(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
           DoDestinationSource<MoveDQU>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveAPS(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveAPS(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
           DoDestinationSource<MoveAPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void MoveAPS(RegisterXMM destination, Register32 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
+      public static void MoveAPS(RegisterXMM destination, Register64 source, bool destinationIsIndirect = false, int? destinationDisplacement = null, bool sourceIsIndirect = false, int? sourceDisplacement = null)
       {
           DoDestinationSource<MoveAPS>(destination, source, destinationIsIndirect, destinationDisplacement, sourceIsIndirect, sourceDisplacement);
       }
 
-      public static void ConvertSS2SIAndTruncate(Register32 destination, RegisterXMM source)
+      public static void ConvertSS2SIAndTruncate(Register64 destination, RegisterXMM source)
       {
         new ConvertSS2SIAndTruncate
         {
@@ -165,7 +165,7 @@ namespace XSharp
         };
       }
 
-      public static void FXSave(Register32 destination, bool isIndirect)
+      public static void FXSave(Register64 destination, bool isIndirect)
       {
         new FXSave
         {
@@ -174,7 +174,7 @@ namespace XSharp
         };
       }
 
-      public static void FXRestore(Register32 destination, bool isIndirect)
+      public static void FXRestore(Register64 destination, bool isIndirect)
       {
         new FXStore()
         {

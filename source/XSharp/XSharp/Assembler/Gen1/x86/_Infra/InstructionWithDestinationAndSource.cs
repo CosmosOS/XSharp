@@ -36,6 +36,8 @@ namespace XSharp.Assembler.x86
             set;
         }
 
+        public bool SourceRequiresSize { get; set; }
+
         public int? SourceDisplacement {
             get;
             set;
@@ -53,7 +55,8 @@ namespace XSharp.Assembler.x86
             //    throw new Exception("[Scale*index+base] style addressing not supported at the moment");
             //}
             if (SourceRef != null) {
-                xDest = SourceRef.ToString();
+                SourceIsIndirect = true;
+                xDest = " rel "+SourceRef.ToString();
             } else {
                 if (SourceReg != null) {
                     xDest = Registers.GetRegisterName(SourceReg.Value);
@@ -65,9 +68,16 @@ namespace XSharp.Assembler.x86
             if (SourceDisplacement != null && SourceDisplacement != 0) {
               xDest += (SourceDisplacement < 0 ? " - " : " + ") + Math.Abs(SourceDisplacement.Value);
             }
-            if (SourceIsIndirect) {
-                return "[" + xDest + "]";
-            } else {
+            if (SourceIsIndirect && SourceRequiresSize)
+            {
+                return SizeToString(64) + " [" + xDest + "]";
+            }
+            else if (SourceIsIndirect)
+            {
+                return " [" + xDest + "]"; ;
+            }
+            else
+            {
                 return xDest;
             }
         }
