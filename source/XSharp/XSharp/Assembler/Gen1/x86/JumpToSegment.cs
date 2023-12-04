@@ -14,6 +14,10 @@ namespace XSharp.Assembler.x86
             set;
         }
 
+        public JumpToSegment()
+        {
+            ;
+        }
         public override void WriteText( XSharp.Assembler.Assembler aAssembler, System.IO.TextWriter aOutput )
         {
                 if (DestinationRef != null) {

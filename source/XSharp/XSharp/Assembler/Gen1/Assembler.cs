@@ -173,7 +173,7 @@ namespace XSharp.Assembler
     }
 
     // Allows to emit footers to the code and datamember sections
-    protected virtual void OnBeforeFlush()
+    protected virtual void OnBeforeFlush(TextWriter output)
     {
 
     }
@@ -188,43 +188,20 @@ namespace XSharp.Assembler
 
     private bool mFlushInitializationDone = false;
 
-    protected void BeforeFlush()
+    protected void BeforeFlush(TextWriter output)
     {
       if (mFlushInitializationDone)
       {
         return;
       }
       mFlushInitializationDone = true;
-      OnBeforeFlush();
+      OnBeforeFlush(output);
       //MergeAllElements();
-    }
-
-    public virtual void FlushBinary(Stream aOutput, ulong aBaseAddress)
-    {
-      BeforeFlush();
-      var xMax = AllAssemblerElementCount;
-      var xCurrentAddresss = aBaseAddress;
-      for (int i = 0; i < xMax; i++)
-      {
-        GetAssemblerElement(i).UpdateAddress(this, ref xCurrentAddresss);
-      }
-      aOutput.SetLength(aOutput.Length + (long) (xCurrentAddresss - aBaseAddress));
-      for (int i = 0; i < xMax; i++)
-      {
-        var xItem = GetAssemblerElement(i);
-        if (!xItem.IsComplete(this))
-        {
-          throw new Exception("Incomplete element encountered.");
-        }
-        //var xBuff = xItem.GetData(this);
-        //aOutput.Write(xBuff, 0, xBuff.Length);
-        xItem.WriteData(this, aOutput);
-      }
     }
 
     public virtual void FlushText(TextWriter aOutput)
     {
-      BeforeFlush();
+      BeforeFlush(aOutput);
       BeforeFlushText(aOutput);
       // Write out data declarations
       aOutput.WriteLine();

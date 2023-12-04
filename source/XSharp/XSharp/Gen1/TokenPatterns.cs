@@ -216,7 +216,7 @@ namespace XSharp
         XS.InterruptReturn();
       } else {
         // TODO: this shouldn't be here
-        XS.Set("INTs_LastKnownAddress", GetNamespace() + "_" + mFuncName + "_Exit", destinationIsIndirect: true, size: XSRegisters.RegisterSize.Int32);
+        XS.Set("INTs_LastKnownAddress", GetNamespace() + "_" + mFuncName + "_Exit", destinationIsIndirect: true, size: XSRegisters.RegisterSize.Long64);
         XS.Return();
       }
       mFuncName = null;

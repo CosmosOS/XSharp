@@ -324,7 +324,8 @@ namespace XSharp.Assembler.x86
 
         public static byte GetSize(RegistersEnum aRegister) {
             if (Is128Bit(aRegister)) { return 128; }
-			if (Is80Bit(aRegister)) { return 80; }
+            if (Is64Bit(aRegister)) { return 64; }
+            if (Is80Bit(aRegister)) { return 80; }
             if (Is32Bit(aRegister)) { return 32; }
             if (Is16Bit(aRegister)) { return 16; }
             if (Is8Bit(aRegister)) { return 8; }
@@ -367,6 +368,12 @@ namespace XSharp.Assembler.x86
         public static bool IsSegment(RegistersEnum aRegister)
         {
             return aRegister == RegistersEnum.CS || aRegister == RegistersEnum.DS || aRegister == RegistersEnum.ES || aRegister == RegistersEnum.FS || aRegister == RegistersEnum.GS || aRegister == RegistersEnum.SS;
+        }
+
+        public static bool Is64Bit(RegistersEnum aRegister)
+        {
+            return aRegister == RegistersEnum.RAX || aRegister == RegistersEnum.RBX || aRegister == RegistersEnum.RCX || aRegister == RegistersEnum.RDX || aRegister == RegistersEnum.RSP || aRegister == RegistersEnum.RBP || aRegister == RegistersEnum.RSI || aRegister == RegistersEnum.RDI || aRegister == RegistersEnum.CR0 || aRegister == RegistersEnum.CR1 || aRegister == RegistersEnum.CR2 || aRegister == RegistersEnum.CR3 || aRegister == RegistersEnum.CR4
+              || aRegister == RegistersEnum.RIP || aRegister == RegistersEnum.R9 || aRegister == RegistersEnum.R10 || aRegister == RegistersEnum.R11 || aRegister == RegistersEnum.R12 || aRegister == RegistersEnum.R13 || aRegister == RegistersEnum.R14 || aRegister == RegistersEnum.R15;
         }
 
         public static bool Is32Bit(RegistersEnum aRegister)

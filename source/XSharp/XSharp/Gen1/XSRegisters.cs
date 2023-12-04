@@ -73,7 +73,7 @@ namespace XSharp
 
         public class Register32 : Register
         {
-            public Register32(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.Int32)
+            public Register32(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.FPU)
             {
             }
         }
@@ -110,35 +110,35 @@ namespace XSharp
         public static readonly Register8 AH = new Register8(nameof(AH), RegistersEnum.AH);
         public static readonly Register16 AX = new Register16(nameof(AX), RegistersEnum.AX);
         public static readonly Register32 EAX = new Register32(nameof(EAX), RegistersEnum.EAX);
+        public static readonly Register64 RAX = new Register64(nameof(RAX), RegistersEnum.RAX);
 
         public static readonly Register8 BL = new Register8(nameof(BL), RegistersEnum.BL);
         public static readonly Register8 BH = new Register8(nameof(BH), RegistersEnum.BH);
         public static readonly Register16 BX = new Register16(nameof(BX), RegistersEnum.BX);
-        public static readonly Register32 EBX = new Register32(nameof(EBX), RegistersEnum.EBX);
+        public static readonly Register64 RBX = new Register64(nameof(RBX), RegistersEnum.RBX);
 
         public static readonly Register8 CL = new Register8(nameof(CL), RegistersEnum.CL);
         public static readonly Register8 CH = new Register8(nameof(CH), RegistersEnum.CH);
         public static readonly Register16 CX = new Register16(nameof(CX), RegistersEnum.CX);
-        public static readonly Register32 ECX = new Register32(nameof(ECX), RegistersEnum.ECX);
+        public static readonly Register64 RCX = new Register64(nameof(RCX), RegistersEnum.RCX);
 
         public static readonly Register8 DL = new Register8(nameof(DL), RegistersEnum.DL);
         public static readonly Register8 DH = new Register8(nameof(DH), RegistersEnum.DH);
         public static readonly Register16 DX = new Register16(nameof(DX), RegistersEnum.DX);
-        public static readonly Register32 EDX = new Register32(nameof(EDX), RegistersEnum.EDX);
-
-        public static readonly Register32 EBP = new Register32(nameof(EBP), RegistersEnum.EBP);
-        public static readonly Register32 ESP = new Register32(nameof(ESP), RegistersEnum.ESP);
-        public static readonly Register32 ESI = new Register32(nameof(ESI), RegistersEnum.ESI);
-        public static readonly Register32 EDI = new Register32(nameof(EDI), RegistersEnum.EDI);
-
-        public static readonly Register64 RAX = new Register64(nameof(RAX), RegistersEnum.RAX);
-        public static readonly Register64 RBX = new Register64(nameof(RBX), RegistersEnum.RBX);
-        public static readonly Register64 RCX = new Register64(nameof(RCX), RegistersEnum.RCX);
         public static readonly Register64 RDX = new Register64(nameof(RDX), RegistersEnum.RDX);
+
+        public static readonly Register64 RBP = new Register64(nameof(RBP), RegistersEnum.RBP);
+        public static readonly Register64 RSP = new Register64(nameof(RSP), RegistersEnum.RSP);
         public static readonly Register64 RSI = new Register64(nameof(RSI), RegistersEnum.RSI);
         public static readonly Register64 RDI = new Register64(nameof(RDI), RegistersEnum.RDI);
-        public static readonly Register64 RSP = new Register64(nameof(RSP), RegistersEnum.RSP);
-        public static readonly Register64 RBP = new Register64(nameof(RBP), RegistersEnum.RBP);
+
+        //
+
+
+
+
+
+
         public static readonly Register64 R8 = new Register64(nameof(R8), RegistersEnum.R8);
         public static readonly Register64 R9 = new Register64(nameof(R9), RegistersEnum.R9);
         public static readonly Register64 R10 = new Register64(nameof(R10), RegistersEnum.R10);
@@ -176,10 +176,10 @@ namespace XSharp
         public static readonly RegisterXMM XMM7 = new RegisterXMM(nameof(XMM7), RegistersEnum.XMM7);
 
         // Control Registers
-        public static readonly Register32 CR0 = new Register32(nameof(CR0), RegistersEnum.CR0);
-        public static readonly Register32 CR1 = new Register32(nameof(CR1), RegistersEnum.CR1);
-        public static readonly Register32 CR2 = new Register32(nameof(CR2), RegistersEnum.CR2);
-        public static readonly Register32 CR3 = new Register32(nameof(CR3), RegistersEnum.CR3);
-        public static readonly Register32 CR4 = new Register32(nameof(CR4), RegistersEnum.CR4);
+        public static readonly Register64 CR0 = new Register64(nameof(CR0), RegistersEnum.CR0);
+        public static readonly Register64 CR1 = new Register64(nameof(CR1), RegistersEnum.CR1);
+        public static readonly Register64 CR2 = new Register64(nameof(CR2), RegistersEnum.CR2);
+        public static readonly Register64 CR3 = new Register64(nameof(CR3), RegistersEnum.CR3);
+        public static readonly Register64 CR4 = new Register64(nameof(CR4), RegistersEnum.CR4);
     }
 }
