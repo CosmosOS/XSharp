@@ -222,6 +222,7 @@ namespace XSharp.Assembler
         aOutput.WriteLine();
       }
       aOutput.WriteLine();
+      aOutput.WriteLine("section .text");
 
       // Write out code
       for (int i = 0; i < mInstructions.Count; i++)
