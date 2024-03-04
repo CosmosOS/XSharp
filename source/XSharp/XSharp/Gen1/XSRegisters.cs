@@ -13,6 +13,7 @@ namespace XSharp
             Short16 = 16,
             Int32 = 32,
             Long64 = 64,
+            MM = 64,
             FPU = 128,
             XMM = 128
         }
@@ -85,6 +86,13 @@ namespace XSharp
             }
         }
 
+        public class RegisterMM : Register
+        {
+            public RegisterMM(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.MM)
+            {
+            }
+        }
+
         public class RegisterXMM : Register
         {
             public RegisterXMM(string name, RegistersEnum regEnum) : base(name, regEnum, RegisterSize.XMM)
@@ -141,14 +149,23 @@ namespace XSharp
         public static readonly RegisterFPU ST6 = new RegisterFPU(nameof(ST6), RegistersEnum.ST6);
         public static readonly RegisterFPU ST7 = new RegisterFPU(nameof(ST7), RegistersEnum.ST7);
 
-        public static readonly RegisterXMM XMM0 = new RegisterXMM(nameof(XMM0), RegistersEnum.XMM0);
-        public static readonly RegisterXMM XMM1 = new RegisterXMM(nameof(XMM1), RegistersEnum.XMM1);
-        public static readonly RegisterXMM XMM2 = new RegisterXMM(nameof(XMM2), RegistersEnum.XMM2);
-        public static readonly RegisterXMM XMM3 = new RegisterXMM(nameof(XMM3), RegistersEnum.XMM3);
-        public static readonly RegisterXMM XMM4 = new RegisterXMM(nameof(XMM4), RegistersEnum.XMM4);
-        public static readonly RegisterXMM XMM5 = new RegisterXMM(nameof(XMM5), RegistersEnum.XMM5);
-        public static readonly RegisterXMM XMM6 = new RegisterXMM(nameof(XMM6), RegistersEnum.XMM6);
-        public static readonly RegisterXMM XMM7 = new RegisterXMM(nameof(XMM7), RegistersEnum.XMM7);
+        public static readonly RegisterXMM MM0 = new RegisterXMM(nameof(MM0), RegistersEnum.MM0);
+        public static readonly RegisterXMM MM1 = new RegisterXMM(nameof(MM1), RegistersEnum.MM1);
+        public static readonly RegisterXMM MM2 = new RegisterXMM(nameof(MM2), RegistersEnum.MM2);
+        public static readonly RegisterXMM MM3 = new RegisterXMM(nameof(MM3), RegistersEnum.MM3);
+        public static readonly RegisterXMM MM4 = new RegisterXMM(nameof(MM4), RegistersEnum.MM4);
+        public static readonly RegisterXMM MM5 = new RegisterXMM(nameof(MM5), RegistersEnum.MM5);
+        public static readonly RegisterXMM MM6 = new RegisterXMM(nameof(MM6), RegistersEnum.MM6);
+        public static readonly RegisterXMM MM7 = new RegisterXMM(nameof(MM7), RegistersEnum.MM7);
+
+        public static readonly RegisterMM XMM0 = new RegisterMM(nameof(XMM0), RegistersEnum.XMM0);
+        public static readonly RegisterMM XMM1 = new RegisterMM(nameof(XMM1), RegistersEnum.XMM1);
+        public static readonly RegisterMM XMM2 = new RegisterMM(nameof(XMM2), RegistersEnum.XMM2);
+        public static readonly RegisterMM XMM3 = new RegisterMM(nameof(XMM3), RegistersEnum.XMM3);
+        public static readonly RegisterMM XMM4 = new RegisterMM(nameof(XMM4), RegistersEnum.XMM4);
+        public static readonly RegisterMM XMM5 = new RegisterMM(nameof(XMM5), RegistersEnum.XMM5);
+        public static readonly RegisterMM XMM6 = new RegisterMM(nameof(XMM6), RegistersEnum.XMM6);
+        public static readonly RegisterMM XMM7 = new RegisterMM(nameof(XMM7), RegistersEnum.XMM7);
 
         // Control Registers
         public static readonly Register32 CR0 = new Register32(nameof(CR0), RegistersEnum.CR0);
