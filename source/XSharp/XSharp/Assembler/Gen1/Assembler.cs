@@ -199,29 +199,6 @@ namespace XSharp.Assembler
       //MergeAllElements();
     }
 
-    public virtual void FlushBinary(Stream aOutput, ulong aBaseAddress)
-    {
-      BeforeFlush();
-      var xMax = AllAssemblerElementCount;
-      var xCurrentAddresss = aBaseAddress;
-      for (int i = 0; i < xMax; i++)
-      {
-        GetAssemblerElement(i).UpdateAddress(this, ref xCurrentAddresss);
-      }
-      aOutput.SetLength(aOutput.Length + (long) (xCurrentAddresss - aBaseAddress));
-      for (int i = 0; i < xMax; i++)
-      {
-        var xItem = GetAssemblerElement(i);
-        if (!xItem.IsComplete(this))
-        {
-          throw new Exception("Incomplete element encountered.");
-        }
-        //var xBuff = xItem.GetData(this);
-        //aOutput.Write(xBuff, 0, xBuff.Length);
-        xItem.WriteData(this, aOutput);
-      }
-    }
-
     public virtual void FlushText(TextWriter aOutput)
     {
       BeforeFlush();
@@ -245,6 +222,7 @@ namespace XSharp.Assembler
         aOutput.WriteLine();
       }
       aOutput.WriteLine();
+      aOutput.WriteLine("section .text");
 
       // Write out code
       for (int i = 0; i < mInstructions.Count; i++)

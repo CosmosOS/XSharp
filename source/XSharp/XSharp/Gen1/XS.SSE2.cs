@@ -43,7 +43,7 @@ namespace XSharp
         };
       }
 
-      public static void ConvertSD2SIAndTruncate(Register32 destination, RegisterXMM source)
+      public static void ConvertSD2SIAndTruncate(Register64 destination, RegisterXMM source)
       {
         new ConvertSD2SIAndTruncate
         {
@@ -52,7 +52,7 @@ namespace XSharp
         };
       }
 
-      public static void ConvertSS2SD(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      public static void ConvertSS2SD(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false)
       {
         new ConvertSS2SD()
         {
@@ -62,7 +62,7 @@ namespace XSharp
         };
       }
 
-      public static void ConvertSD2SS(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      public static void ConvertSD2SS(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false)
       {
         new ConvertSD2SS()
         {
@@ -72,15 +72,15 @@ namespace XSharp
         };
       }
 
-      public static void ConvertSI2SD(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false, int? sourceDisplacement = null, bool destinationIsIndirect = false, int? destinationDisplacement = null)
+      public static void ConvertSI2SD(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false, int? sourceDisplacement = null, bool destinationIsIndirect = false, int? destinationDisplacement = null)
       {
         new ConvertSI2SD()
         {
           DestinationReg = destination,
-          DestinationIsIndirect = destinationIsIndirect,
+          DestinationIsIndirect = false, //must be indirect in long mode
           DestinationDisplacement = destinationDisplacement,
           SourceReg = source,
-          SourceIsIndirect = sourceIsIndirect,
+          SourceIsIndirect = true,
           SourceDisplacement = sourceDisplacement
         };
       }
@@ -90,7 +90,7 @@ namespace XSharp
         DoDestinationSource<MoveSD>(destination, source);
       }
 
-      public static void MoveSD(RegisterXMM destination, Register32 source, bool sourceIsIndirect = false)
+      public static void MoveSD(RegisterXMM destination, Register64 source, bool sourceIsIndirect = false)
       {
         new MoveSD()
         {
@@ -100,7 +100,7 @@ namespace XSharp
         };
       }
 
-      public static void MoveSD(Register32 destination, RegisterXMM source, bool destinationIsIndirect = false)
+      public static void MoveSD(Register64 destination, RegisterXMM source, bool destinationIsIndirect = false)
       {
         new MoveSD()
         {

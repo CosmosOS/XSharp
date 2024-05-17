@@ -15,7 +15,7 @@ namespace XSharp
                 };
             }
 
-            public static void FloatStoreAndPop(XSRegisters.Register32 register, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
+            public static void FloatStoreAndPop(XSRegisters.Register64 register, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
             {
                 if (displacement != null)
                 {
@@ -52,7 +52,7 @@ namespace XSharp
                 };
             }
 
-            public static void FloatLoad(XSRegisters.Register32 register, bool destinationIsIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
+            public static void FloatLoad(XSRegisters.Register64 register, bool destinationIsIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
             {
                 Do<FloatLoad>(register, isIndirect: destinationIsIndirect, displacement: displacement, size: size);
             }
@@ -97,7 +97,7 @@ namespace XSharp
                 new FloatPop();
             }
 
-            public static void FloatAdd(XSRegisters.Register32 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
+            public static void FloatAdd(XSRegisters.Register64 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
             {
                 if (size == null)
                 {
@@ -116,7 +116,7 @@ namespace XSharp
                 };
             }
 
-            public static void IntLoad(XSRegisters.Register32 destination, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
+            public static void IntLoad(XSRegisters.Register64 destination, bool isIndirect = false, int? displacement = null, XSRegisters.RegisterSize? size = null)
             {
                 if (size == null)
                 {
@@ -140,7 +140,7 @@ namespace XSharp
                 };
             }
 
-            public static void IntStoreWithTruncate(XSRegisters.Register32 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
+            public static void IntStoreWithTruncate(XSRegisters.Register64 destination, bool isIndirect = false, XSRegisters.RegisterSize? size = null)
             {
                 if (size == null)
                 {

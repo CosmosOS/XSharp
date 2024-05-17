@@ -4,7 +4,7 @@
     public class Push : InstructionWithDestinationAndSize {
 
         public Push():base("push") {
-            Size = 32;
+            Size = 64;
         }
     }
 }
