@@ -11,7 +11,7 @@ X# is integrated into Visual Studio and we are working on support for Visual Stu
 X# creates NASM style assembly ready to assemble with [NASM](http://www.nasm.us/).
 
 # More Info
-Please refer to our website (http://www.x-sharp.net)
+Please refer to our documentation (https://cosmosos.github.io/index.html)
 
 # Status
 Currently X# is used by the [C# Open Source Managed Operating System (COSMOS)](http://www.goCosmos.org) and parts of it are bound to Cosmos. We are in the process of and nearly finished separating out X# to allow it to operate as a stand alone project to allow users to make their own custom creations using X#.
