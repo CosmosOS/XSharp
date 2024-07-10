@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <MicrosoftBuildVersion>16.7.0</MicrosoftBuildVersion>
+        <MicrosoftBuildVersion>17.7.2</MicrosoftBuildVersion>
         <MicrosoftNETFrameworkReferenceAssembliesVersion>1.0.0</MicrosoftNETFrameworkReferenceAssembliesVersion>
         <MicrosoftNETTestSdkVersion>16.1.0</MicrosoftNETTestSdkVersion>
         <MicrosoftVisualStudioImagingInterop140DesignTimeVersion>14.3.26930</MicrosoftVisualStudioImagingInterop140DesignTimeVersion>
